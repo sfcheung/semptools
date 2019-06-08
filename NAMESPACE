@@ -2,5 +2,6 @@
 
 export(is_dv_residvar)
 export(mark_sig)
+export(set_curve)
 export(setlabels)
 importFrom(rlang,.data)
