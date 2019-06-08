@@ -4,6 +4,9 @@
 #'
 #'@details Set labels based on p-value
 #'
+#'  This function is deprecated. Modifying the lavaan object is not a reliable 
+#'  way to edit the qgraph. The latest workflow is to edit the qgrpah directly.
+#'
 #'@return
 #' A lavaan output based on lavaan_out, with labels formatted based on p-values.
 #' 
@@ -17,6 +20,7 @@
 #'
 #'
 #'@examples
+#'\dontrun{
 #'mod <- 
 #'  'x1 ~~ x2
 #'   x3 ~  x1 + x2
@@ -61,7 +65,6 @@
 #' standardized = TRUE)[, c("lhs", "op", "rhs", "label", "std.all", "pvalue")]
 #'
 #'
-#'\dontrun{
 #'semPlot::semPaths(setlabels(fit_pa, alpha = .05), 
 #'        whatLabels="name", nCharNodes = 0, nCharEdges = 0)  
 # semPlot::semPaths(setlabels(fit_cfa, alpha = .05), 
@@ -72,6 +75,7 @@
 #' @export
 
 setlabels <- function(lavaan_out, alpha = .05, standardized = FALSE, digits = 2) {
+    .Deprecated("mark_sig")
     pvalues <- lavaan::parameterEstimates(lavaan_out)$pvalue
     if (standardized) {
         ests <- lavaan::parameterEstimates(lavaan_out, standardized = TRUE)$std.all
