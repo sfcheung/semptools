@@ -26,8 +26,12 @@ Set labels based on p-value
 }
 \details{
 Set labels based on p-value
+
+ This function is deprecated. Modifying the lavaan object is not a reliable 
+ way to edit the qgraph. The latest workflow is to edit the qgrpah directly.
 }
 \examples{
+\dontrun{
 mod <- 
  'x1 ~~ x2
   x3 ~  x1 + x2
@@ -72,7 +76,6 @@ lavaan::parameterEstimates(out2_sem,
 standardized = TRUE)[, c("lhs", "op", "rhs", "label", "std.all", "pvalue")]
 
 
-\dontrun{
 semPlot::semPaths(setlabels(fit_pa, alpha = .05), 
        whatLabels="name", nCharNodes = 0, nCharEdges = 0)  
        whatLabels="name", nCharNodes = 0, nCharEdges = 0)  
