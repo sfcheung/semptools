@@ -31,9 +31,13 @@
 #'  '
 #'fit_pa <- lavaan::sem(mod_pa, pa_example)
 #'lavaan::parameterEstimates(fit_pa)[, c("lhs", "op", "rhs", "est", "pvalue")]
+#'m <- matrix(c("x1",   NA,   NA,
+#'                NA, "x3", "x4",
+#'              "x2",   NA,   NA), byrow = TRUE, 3, 3)
 #'p_pa <- semPlot::semPaths(fit_pa, whatLabels="est",
 #'            style = "ram", 
-#'            nCharNodes = 0, nCharEdges = 0) 
+#'            nCharNodes = 0, nCharEdges = 0,
+#'            layout = m) 
 #'p_pa2 <- mark_sig(p_pa, fit_pa)
 #'plot(p_pa2)
 #'
