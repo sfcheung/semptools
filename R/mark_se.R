@@ -30,7 +30,7 @@
 #'   '
 #' fit_pa <- lavaan::sem(mod_pa, pa_example)
 #' lavaan::parameterEstimates(fit_pa)[ , c("lhs", "op", "rhs", 
-#'                                         "est", "pvalue")]
+#'                                         "est", "pvalue", "se")]
 #' m <- matrix(c("x1",   NA,   NA,
 #'               NA, "x3", "x4",
 #'               "x2",   NA,   NA), byrow = TRUE, 3, 3)
@@ -51,7 +51,7 @@
 #'   '
 #' fit_cfa <- lavaan::sem(mod_cfa, cfa_example)
 #' lavaan::parameterEstimates(fit_cfa)[ , c("lhs", "op", "rhs", 
-#'                                          "est", "pvalue")]
+#'                                          "est", "pvalue", "se")]
 #' p_cfa <- semPlot::semPaths(fit_cfa, whatLabels = "est",
 #'                            style = "ram",
 #'                            nCharNodes = 0, nCharEdges = 0)
@@ -68,7 +68,7 @@
 #'  '
 #' fit_sem <- lavaan::sem(mod_sem, sem_example)
 #' lavaan::parameterEstimates(fit_sem)[ , c("lhs", "op", "rhs", 
-#'                                          "est", "pvalue")]
+#'                                          "est", "pvalue", "se")]
 #' p_sem <- semPlot::semPaths(fit_sem, whatLabels = "est",
 #'                            style = "ram",
 #'                            nCharNodes = 0, nCharEdges = 0)
