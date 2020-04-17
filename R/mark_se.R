@@ -10,7 +10,8 @@
 #' 
 #'  Currently supports only plots based on lavaan output.
 #' 
-#'  This function is a variant of the \code{\link{mark_sig}} function. 
+#'  This function is a variant of, and can be combined with,  the
+#'  \code{\link{mark_sig}} function.
 #' 
 #' @return
 #'  A qgrpah based on the original one, with standard error estimates appended.
@@ -21,6 +22,9 @@
 #' @param object The object used by semPaths to generate the plot. Use the same
 #'   argument name used in \code{\link[semPlot]{semPaths}} to make the meaning
 #'   of this argument obvious.
+#' @param sep A character string to separate the coefficient and the standard
+#'   error (in parentheses). Default to " " (one space). Use \code{"\n"} to enforce a
+#'   line break.
 #' 
 #' @examples
 #' mod_pa <- 
@@ -55,7 +59,8 @@
 #' p_cfa <- semPlot::semPaths(fit_cfa, whatLabels = "est",
 #'                            style = "ram",
 #'                            nCharNodes = 0, nCharEdges = 0)
-#' p_cfa2 <- mark_se(p_cfa, fit_cfa)
+#' # Place standard errors on a new line                           
+#' p_cfa2 <- mark_se(p_cfa, fit_cfa, sep = "\n")
 #' plot(p_cfa2)
 #' 
 #' mod_sem <-
@@ -72,14 +77,16 @@
 #' p_sem <- semPlot::semPaths(fit_sem, whatLabels = "est",
 #'                            style = "ram",
 #'                            nCharNodes = 0, nCharEdges = 0)
-#' p_sem2 <- mark_se(p_sem, fit_sem)
-#' plot(p_sem2)
+#' # Mark significance, and then add standard errors
+#' p_sem2 <- mark_sig(p_sem, fit_sem)
+#' p_sem3 <- mark_se(p_sem2, fit_sem, sep = "\n")
+#' plot(p_sem3)
 #' 
 #' }
 #' @importFrom rlang .data
 #' @export
 
-mark_se <- function(semPaths_plot, object) {
+mark_se <- function(semPaths_plot, object, sep = " ") {
   ests <- lavaan::parameterEstimates(object, se = TRUE, ci = FALSE, 
                                      zstat = FALSE, pvalue = FALSE)
   Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
@@ -104,8 +111,8 @@ mark_se <- function(semPaths_plot, object) {
   edge_ses <- dplyr::mutate(edge_ses, 
                             se = pmax(.data$se, .data$se_rev, na.rm = TRUE))
   labels_old <- semPaths_plot$graphAttributes$Edges$labels
-  labels_new <- paste0(labels_old, 
-                       " (", formatC(edge_ses$se, 2L, format = "f"), ")")
+  labels_new <- paste0(labels_old, sep, 
+                       "(", formatC(edge_ses$se, 2L, format = "f"), ")")
   semPaths_plot$graphAttributes$Edges$labels <- labels_new
   semPaths_plot
 }
