@@ -4,7 +4,9 @@
 \name{pa_example}
 \alias{pa_example}
 \title{Sample dataset pa_example}
-\format{An object of class \code{data.frame} with 100 rows and 4 columns.}
+\format{
+An object of class \code{data.frame} with 100 rows and 4 columns.
+}
 \usage{
 pa_example
 }
