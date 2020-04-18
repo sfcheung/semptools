@@ -4,7 +4,9 @@
 \name{cfa_example}
 \alias{cfa_example}
 \title{Sample dataset pa_example}
-\format{An object of class \code{data.frame} with 200 rows and 14 columns.}
+\format{
+An object of class \code{data.frame} with 200 rows and 14 columns.
+}
 \usage{
 cfa_example
 }
