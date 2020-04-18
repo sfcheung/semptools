@@ -4,7 +4,9 @@
 \name{sem_example}
 \alias{sem_example}
 \title{Sample dataset sem_example}
-\format{An object of class \code{data.frame} with 200 rows and 14 columns.}
+\format{
+An object of class \code{data.frame} with 200 rows and 14 columns.
+}
 \usage{
 sem_example
 }

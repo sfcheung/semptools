@@ -23,5 +23,8 @@ Imports:
     rlang,
     qgraph
 Suggests: 
-    testthat (>= 2.1.0)
-RoxygenNote: 6.1.1
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown
+RoxygenNote: 7.1.0
+VignetteBuilder: knitr
