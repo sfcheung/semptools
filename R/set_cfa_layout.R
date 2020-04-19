@@ -137,16 +137,25 @@ set_cfa_layout <- function(semPaths_plot,
         rotate_resid_list <- lapply(factor_order, 
               function(x) list(node = x, rotate = 90))
         semPaths_plot <- rotate_resid(semPaths_plot, rotate_resid_list)
+        rotate_resid_list_indicator <- lapply(indicator_order, 
+              function(x) list(node = x, rotate = -90))
+        semPaths_plot <- rotate_resid(semPaths_plot, rotate_resid_list_indicator)
       } else if (point_to == "up") {
         semPaths_plot$layout <- new_layout %*% matrix(c(-1,  0,  0, -1), 2, 2)
         rotate_resid_list <- lapply(factor_order, 
               function(x) list(node = x, rotate = 180))
         semPaths_plot <- rotate_resid(semPaths_plot, rotate_resid_list)
+        rotate_resid_list_indicator <- lapply(indicator_order, 
+              function(x) list(node = x, rotate =   0))
+        semPaths_plot <- rotate_resid(semPaths_plot, rotate_resid_list_indicator)
       } else if (point_to == "right") {
         semPaths_plot$layout <- new_layout %*% matrix(c( 0, -1,  1,  0), 2, 2)
         rotate_resid_list <- lapply(factor_order, 
               function(x) list(node = x, rotate = -90))
         semPaths_plot <- rotate_resid(semPaths_plot, rotate_resid_list)
+        rotate_resid_list_indicator <- lapply(indicator_order, 
+              function(x) list(node = x, rotate =  90))
+        semPaths_plot <- rotate_resid(semPaths_plot, rotate_resid_list_indicator)
       }
     
     # Fix the factor covariance
