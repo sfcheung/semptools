@@ -310,6 +310,7 @@ indicator_spread <- list(list(node = "f1", spread =    2),
 loading_position <- list(list(node = "f2", position = .6),
                          list(node = "f3", position = .8),
                          list(node = "f4", position = .8))
+library(magrittr)
 p2 <- set_sem_layout(p, 
                      indicator_order = indicator_order,
                      indicator_factor = indicator_factor,
