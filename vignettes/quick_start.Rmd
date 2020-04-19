@@ -1,6 +1,6 @@
 ---
 title: "A quick start guide on using semptools"
-author: "Shu Fai Cheung & Mark Ho Chio Lai"
+author: "Shu Fai Cheung & Mark Hok Chio Lai"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -75,10 +75,10 @@ plot(p_pa2)
 
 The first argument, `semPaths_plot`, is the output from `semPaths::semPlot`. 
 The second argument, `object`, is the `lavaan` output used to generate the plot. This 
-output is needed to extrat the *p*-values.
+output is needed to extract the *p*-values.
 
-The default labels follow the common convention: "*" for *p* less than .05, 
-"**" for *p* less than .01, and "***" for p less than .001. This can be 
+The default labels follow the common convention: "\*" for *p* less than .05, 
+"\*\*" for *p* less than .01, and "\*\*\*" for p less than .001. This can be 
 changed by the argument `alpha` (this must be named as the it is not the 
 second argument). E.g.: 
 
@@ -127,11 +127,11 @@ plot(p_pa2)
 
 The first argument, `semPaths_plot`, is the output from `semPaths::semPlot`. 
 The second argument, `object`, is the `lavaan` output used to generate the 
-plot. This output is needed to extrat the standard errors.
+plot. This output is needed to extra the standard errors.
 
 By default, the standard errors are enclosed by parentheses and appended to 
 the parameter estimates, separated by one space. The argument `sep` can be 
-used to use another separator. For example, if `\n` is used, the standard 
+used to use another separator. For example, if `"\n"` is used, the standard 
 errors will be displayed below the corresponding parameter estimates.
 
 ```{r}
@@ -175,11 +175,11 @@ Suppose we want to rotate the residuals of some variables to improve readability
 
 - For `x4`, we want to place the residual to the top-left corner.
 
-- For `x2`, we want to place the residula to the left.
+- For `x2`, we want to place the residual to the left.
 
 We first need to decide the angle of placement, in degrees.
 
-Top is 0 degreee. Clockwise position is positive, and counterclockwise 
+Top is 0 degree. Clockwise position is positive, and counterclockwise 
 position is negative.
 
 Therefore, top-right is 45, top-left is -45, and left is -90.
@@ -280,7 +280,7 @@ p_pa2 <- set_curve(p_pa, my_curve_list)
 plot(p_pa2)
 ```
 
-# Set the positions of parameters of selected arrows: set_edge_label_position
+# Set the positions of parameters of selected arrows: `set_edge_label_position`
 
 
 Let us consider a simple path analysis model:
@@ -313,17 +313,17 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 
 Suppose we want to move the parameter estimates this way:
 
- - For the `x4 ~ x1` path, move the parameter estiamtes closer to `x4`.
+ - For the `x4 ~ x1` path, move the parameter estimates closer to `x4`.
 
- - For the `x3 ~ x1` path, move the parameter estiamtes closer to `x1`.
+ - For the `x3 ~ x1` path, move the parameter estimates closer to `x1`.
 
- - For the `x3 ~ x2` path, move the parameter estiamtes closer to `x2`.
+ - For the `x3 ~ x2` path, move the parameter estimates closer to `x2`.
  
 We create a `list` of `lists`. In each sublist, there are three elements: `
 from` denotes the left hand side of the arrow, `to` denotes the right hand 
 side of the arrow, and `new_position` denote the new position of the parameter
  estimate. The mid point of the arrow is .50. Increasing this number moves the
- parameter estimate closer to the right hand side variable. Decresing this 
+ parameter estimate closer to the right hand side variable. Decreasing this 
 number moves the parameter to the left hand side variable. The `from` and `to
 ` will be based on the `lavaan` parameter tables, which can be found by `
 lavaan::parameterEstimates`:
@@ -349,6 +349,7 @@ my_position_list <- list(list(from = "x1", to = "x3", new_position =  .25),
                          list(from = "x2", to = "x3", new_position =  .25),
                          list(from = "x1", to = "x4", new_position =  .75))
 p_pa2 <- set_edge_label_position(p_pa, my_position_list)
+plot(p_pa2)
 ```
 
 # Using pipe-operator
@@ -376,7 +377,7 @@ We will do this:
 
 - Add standard errors
 
-- Move the paramter estiamte of the `x4 ~ x1` path closer to `x4`.
+- Move the parameter estimate of the `x4 ~ x1` path closer to `x4`.
 
 ```{r}
 library(semPlot)
