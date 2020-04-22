@@ -39,4 +39,4 @@ We also write the functions in a way that users do not need to know the technica
 
 # Status
 
-This package is still in alpha. There will be bugs, and there are many limitations. Comments and suggestions are welcomed.
+This package is still in alpha. There will be bugs, and there are limitations. Comments and suggestions are welcomed.
