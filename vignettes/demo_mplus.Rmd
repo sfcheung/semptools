@@ -4,9 +4,9 @@ author: "Shu Fai Cheung & Mark Hok Chio Lai"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{quick_start_cfa}
+  %\VignetteIndexEntry{demo_mplus}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
 ---
 
 ```{r, include = FALSE}
