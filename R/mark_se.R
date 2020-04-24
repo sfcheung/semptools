@@ -8,7 +8,7 @@
 #'   Require the original object used in the \code{\link[semPlot]{semPaths}}
 #'   call.
 #' 
-#'  Currently supports only plots based on lavaan output.
+#'  Currently supports only plots based on \code{\link[lavaan]{lavaan}} output.
 #' 
 #'  This function is a variant of, and can be combined with,  the
 #'  \code{\link{mark_sig}} function.
@@ -21,7 +21,8 @@
 #'   other semptools functions.
 #' @param object The object used by semPaths to generate the plot. Use the same
 #'   argument name used in \code{\link[semPlot]{semPaths}} to make the meaning
-#'   of this argument obvious.
+#'   of this argument obvious. Currently only object of class
+#'   \linkS4class{lavaan} is supported.
 #' @param sep A character string to separate the coefficient and the standard
 #'   error (in parentheses). Default to " " (one space). Use \code{"\n"} to enforce a
 #'   line break.
