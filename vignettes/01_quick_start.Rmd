@@ -64,7 +64,7 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 
 We know from the `lavaan` output that some paths are significant and some are
 not. In some disciplines, asterisks are conventionally added indicate this.
-However, `sempPaths` does not do this. We can use `mark_sig` to add asterisks
+However, `sempPaths` does not do this. We can use `mark_sig()` to add asterisks
 based on the p-values of the free parameters.
   
 ```{r}
@@ -117,7 +117,7 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
            layout = m)
 ```
 
-We can use `mark_se` to add the standard errors for the parameter estimates:
+We can use `mark_se()` to add the standard errors for the parameter estimates:
 
 ```{r}
 library(semptools)
@@ -184,13 +184,9 @@ position is negative.
 
 Therefore, top-right is 45, top-left is -45, and left is -90.
 
-We create a `list` of `lists`. In each sublist, there are two elements: `node
-` denotes that variable (`node`) name, and `rotate` is the degree of the 
-position.
+We create a `list` of `lists`. In each sublist, there are two elements: `node` denotes that variable (`node`) name, and `rotate` is the degree of the position.
 
-We then use `rotate_resid` to post-process the `semPaths` output. The first 
-argument, `semPaths_plot`, is the `semPaths` output. The second argument, `
-rotate_resid_list`, is the list to specify how the residuals should be rotated.
+We then use `rotate_resid()` to post-process the `semPaths` output. The first argument, `semPaths_plot`, is the `semPaths` output. The second argument, `rotate_resid_list`, is the list to specify how the residuals should be rotated.
 
 
 ```{r}
@@ -258,7 +254,7 @@ It is not easy to decide what the value should be used. Trial and error is
 needed for complicated model. The `curve` attributes of the corresponding arrows
 of the `qgraph` object will be updated.
  
-We then use `set_curve` to post-process the `semPaths` output. The first 
+We then use `set_curve()` to post-process the `semPaths` output. The first 
 argument, `semPaths_plot`, is the `semPaths` output. The second argument, `
 curve_list`, is the list to specify the new curvature of the selected arrows.
 
@@ -338,9 +334,9 @@ We can see that the arrow from `x1` to `x4` has `x1` on the left
  necessary. However, for double-headed arrows, we need to check the `lavaan` 
  table to see which variable is on the left and which is on the right.
 
-We then use `set_edge_label_position` to post-process the `semPaths` output. 
+We then use `set_edge_label_position()` to post-process the `semPaths` output. 
 The first argument, `semPaths_plot`, is the `semPaths` output. The second 
-argument, ` position_list`, is the list to specify the new position of the 
+argument, `position_list`, is the list to specify the new position of the 
 selected arrows. 
 
 ```{r}
@@ -409,10 +405,10 @@ plot(p_pa2)
 
 Note that the package `magrittr` needed to be loaded first.
 
-For most of the functions, the necessary argument beside the ` semPaths` 
+For most of the functions, the necessary argument beside the `semPaths` 
 object, if any, if the second element. Therefore, they can be included as 
 unnamed arguments. For the third and other optional arguments, such as `sep` 
-for `mark_se`, it is better to name them.
+for `mark_se()`, it is better to name them.
 
 
 # Limitations
