@@ -80,6 +80,9 @@
 
 mark_sig <- function(semPaths_plot, object, 
                       alphas = c("*" = .05, "**" = .01, "***" = .001)) {
+    if (object@Data@ngroups > 1) {
+      rlang::abort("Multiple-group models are not currently supported.")
+    }
     alphas_sorted <- sort(alphas, decreasing = FALSE)
     ests <- lavaan::parameterEstimates(object)
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names

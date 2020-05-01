@@ -88,6 +88,9 @@
 #' @export
 
 mark_se <- function(semPaths_plot, object, sep = " ") {
+  if (object@Data@ngroups > 1) {
+    rlang::abort("Multiple-group models are not currently supported.")
+  }
   ests <- lavaan::parameterEstimates(object, se = TRUE, ci = FALSE, 
                                      zstat = FALSE, pvalue = FALSE)
   Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
