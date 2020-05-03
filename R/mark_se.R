@@ -28,6 +28,8 @@
 #' @param sep A character string to separate the coefficient and the standard
 #'   error (in parentheses). Default to " " (one space). Use \code{"\n"} to
 #'   enforce a line break.
+#' @param digits Integer indicating number of decimal places for the appended
+#'   standard errors. Default is 2L.
 #' @param ests A data.frame from the \code{\link[lavaan]{parameterEstimates}}
 #'   function. Only used when \code{object} is not specified.
 #' 
@@ -90,7 +92,7 @@
 #' }
 #' @importFrom rlang .data
 #' @export
-mark_se <- function(semPaths_plot, object, sep = " ", 
+mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L, 
                     ests = NULL) {
   if (is.null(ests)) {
     ests <- lavaan::parameterEstimates(object, se = TRUE, ci = FALSE, 
@@ -109,6 +111,9 @@ mark_se <- function(semPaths_plot, object, sep = " ",
                          "number of groups in model fit object."))
     }
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
+    if (!is.null(names(Nodes_names))) {
+      Nodes_names <- names(Nodes_names)
+    }
     Edgelist <- data.frame(
       from_names = Nodes_names[semPaths_plot$Edgelist$from], 
       to_names   = Nodes_names[semPaths_plot$Edgelist$to], 
@@ -131,7 +136,7 @@ mark_se <- function(semPaths_plot, object, sep = " ",
                               se = pmax(.data$se, .data$se_rev, na.rm = TRUE))
     labels_old <- semPaths_plot$graphAttributes$Edges$labels
     labels_new <- paste0(labels_old, sep, 
-                         "(", formatC(edge_ses$se, 2L, format = "f"), ")")
+                         "(", formatC(edge_ses$se, digits, format = "f"), ")")
     semPaths_plot$graphAttributes$Edges$labels <- labels_new
     semPaths_plot
   }
