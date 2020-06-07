@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
       </span>
     </div>
 
@@ -68,7 +68,14 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/sfcheung/semptools/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -84,9 +91,9 @@
       <h1 data-toc-skip>A quick start guide on using semptools</h1>
                         <h4 class="author">Shu Fai Cheung &amp; Mark Hok Chio Lai</h4>
             
-            <h4 class="date">2020-04-23</h4>
+            <h4 class="date">2020-04-25</h4>
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/sfcheung/semptools/blob/master/vignettes/quick_start.Rmd"><code>vignettes/quick_start.Rmd</code></a></small>
       <div class="hidden name"><code>quick_start.Rmd</code></div>
 
     </div>
@@ -170,7 +177,7 @@
            <span class="kw">nCharNodes</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">nCharEdges</span> <span class="kw">=</span> <span class="fl">0</span>,
            <span class="kw">layout</span> <span class="kw">=</span> <span class="no">m</span>)</pre></body></html></div>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-2-1.png" width="576" style="display: block; margin: auto;"></p>
-<p>We know from the <code>lavaan</code> output that some paths are significant and some are not. In some disciplines, asterisks are conventionally added indicate this. However, <code>sempPaths</code> does not do this. We can use <code>mark_sig</code> to add asterisks based on the p-values of the free parameters.</p>
+<p>We know from the <code>lavaan</code> output that some paths are significant and some are not. In some disciplines, asterisks are conventionally added indicate this. However, <code>sempPaths</code> does not do this. We can use <code><a href="../reference/mark_sig.html">mark_sig()</a></code> to add asterisks based on the p-values of the free parameters.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">semptools</span>)
 <span class="no">p_pa2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/mark_sig.html">mark_sig</a></span>(<span class="no">p_pa</span>, <span class="no">fit_pa</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">p_pa2</span>)</pre></body></html></div>
@@ -246,7 +253,7 @@
            <span class="kw">nCharNodes</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">nCharEdges</span> <span class="kw">=</span> <span class="fl">0</span>,
            <span class="kw">layout</span> <span class="kw">=</span> <span class="no">m</span>)</pre></body></html></div>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
-<p>We can use <code>mark_se</code> to add the standard errors for the parameter estimates:</p>
+<p>We can use <code><a href="../reference/mark_se.html">mark_se()</a></code> to add the standard errors for the parameter estimates:</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">semptools</span>)
 <span class="no">p_pa2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/mark_se.html">mark_se</a></span>(<span class="no">p_pa</span>, <span class="no">fit_pa</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">p_pa2</span>)</pre></body></html></div>
@@ -332,7 +339,7 @@
 <p>Top is 0 degree. Clockwise position is positive, and counterclockwise position is negative.</p>
 <p>Therefore, top-right is 45, top-left is -45, and left is -90.</p>
 <p>We create a <code>list</code> of <code>lists</code>. In each sublist, there are two elements: <code>node</code> denotes that variable (<code>node</code>) name, and <code>rotate</code> is the degree of the position.</p>
-<p>We then use <code>rotate_resid</code> to post-process the <code>semPaths</code> output. The first argument, <code>semPaths_plot</code>, is the <code>semPaths</code> output. The second argument, <code>rotate_resid_list</code>, is the list to specify how the residuals should be rotated.</p>
+<p>We then use <code><a href="../reference/rotate_resid.html">rotate_resid()</a></code> to post-process the <code>semPaths</code> output. The first argument, <code>semPaths_plot</code>, is the <code>semPaths</code> output. The second argument, <code>rotate_resid_list</code>, is the list to specify how the residuals should be rotated.</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">semptools</span>)
 <span class="no">my_rotate_resid_list</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">node</span> <span class="kw">=</span> <span class="st">"x3"</span>, <span class="kw">rotate</span> <span class="kw">=</span>  <span class="fl">45</span>),
                              <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">node</span> <span class="kw">=</span> <span class="st">"x4"</span>, <span class="kw">rotate</span> <span class="kw">=</span> -<span class="fl">45</span>),
@@ -426,7 +433,7 @@
 <span class="co">#&gt; 9  x2 ~~  x2 1.017 0.144 7.071  0.000    0.735    1.298</span></pre></body></html></div>
 <p>We can see that the double-headed arrow for <code>x1</code> and <code>x2</code> has <code>x1</code> on the left hand side and <code>x2</code> on the right hand side. Therefore, <code>from</code> should be set to <code>x1</code> and <code>to</code> should be set to <code>x2</code>.</p>
 <p>It is not easy to decide what the value should be used. Trial and error is needed for complicated model. The <code>curve</code> attributes of the corresponding arrows of the <code>qgraph</code> object will be updated.</p>
-<p>We then use <code>set_curve</code> to post-process the <code>semPaths</code> output. The first argument, <code>semPaths_plot</code>, is the <code>semPaths</code> output. The second argument, <code>curve_list</code>, is the list to specify the new curvature of the selected arrows.</p>
+<p>We then use <code><a href="../reference/set_curve.html">set_curve()</a></code> to post-process the <code>semPaths</code> output. The first argument, <code>semPaths_plot</code>, is the <code>semPaths</code> output. The second argument, <code>curve_list</code>, is the list to specify the new curvature of the selected arrows.</p>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">semptools</span>)
 <span class="no">my_curve_list</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">from</span> <span class="kw">=</span> <span class="st">"x1"</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="st">"x2"</span>, <span class="kw">new_curve</span> <span class="kw">=</span> -<span class="fl">1</span>),
                     <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">from</span> <span class="kw">=</span> <span class="st">"x1"</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="st">"x4"</span>, <span class="kw">new_curve</span> <span class="kw">=</span>  <span class="fl">1</span>))
@@ -524,7 +531,7 @@
 <span class="co">#&gt; 8  x1 ~~  x1 0.933 0.132 7.071  0.000    0.674    1.192</span>
 <span class="co">#&gt; 9  x2 ~~  x2 1.017 0.144 7.071  0.000    0.735    1.298</span></pre></body></html></div>
 <p>We can see that the arrow from <code>x1</code> to <code>x4</code> has <code>x1</code> on the left hand side and <code>x4</code> on the right hand side. Therefore, <code>from</code> should be set to <code>x1</code> and <code>to</code> should be set to <code>x4</code>. For single-headed arrows, this step is not necessary. However, for double-headed arrows, we need to check the <code>lavaan</code> table to see which variable is on the left and which is on the right.</p>
-<p>We then use <code>set_edge_label_position</code> to post-process the <code>semPaths</code> output. The first argument, <code>semPaths_plot</code>, is the <code>semPaths</code> output. The second argument, <code>position_list</code>, is the list to specify the new position of the selected arrows.</p>
+<p>We then use <code><a href="../reference/set_edge_label_position.html">set_edge_label_position()</a></code> to post-process the <code>semPaths</code> output. The first argument, <code>semPaths_plot</code>, is the <code>semPaths</code> output. The second argument, <code>position_list</code>, is the list to specify the new position of the selected arrows.</p>
 <div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">semptools</span>)
 <span class="no">my_position_list</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">from</span> <span class="kw">=</span> <span class="st">"x1"</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="st">"x3"</span>, <span class="kw">new_position</span> <span class="kw">=</span>  <span class="fl">.25</span>),
                          <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">from</span> <span class="kw">=</span> <span class="st">"x2"</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="st">"x3"</span>, <span class="kw">new_position</span> <span class="kw">=</span>  <span class="fl">.25</span>),
@@ -580,7 +587,7 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">p_pa2</span>)</pre></body></html></div>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-22-2.png" width="576" style="display: block; margin: auto;"></p>
 <p>Note that the package <code>magrittr</code> needed to be loaded first.</p>
-<p>For most of the functions, the necessary argument beside the <code>semPaths</code> object, if any, if the second element. Therefore, they can be included as unnamed arguments. For the third and other optional arguments, such as <code>sep</code> for <code>mark_se</code>, it is better to name them.</p>
+<p>For most of the functions, the necessary argument beside the <code>semPaths</code> object, if any, if the second element. Therefore, they can be included as unnamed arguments. For the third and other optional arguments, such as <code>sep</code> for <code><a href="../reference/mark_se.html">mark_se()</a></code>, it is better to name them.</p>
 </div>
 <div id="limitations" class="section level1">
 <h1 class="hasAnchor">

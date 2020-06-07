@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
       </span>
     </div>
 
@@ -110,7 +110,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/sfcheung/semptools/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -125,7 +130,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Mark Parameter Estimates (Edge Labels) Based on p-Value</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/sfcheung/semptools/blob/master/R/mark_sig.R'><code>R/mark_sig.R</code></a></small>
     <div class="hidden name"><code>mark_sig.Rd</code></div>
     </div>
 
@@ -150,7 +155,8 @@ ojbect modified by other semptools functions.</p></td>
     <tr>
       <th>object</th>
       <td><p>The object used by semPaths to generate the plot. Use the same argument 
-name used in semPaths to make the meaning of this argument obvious.</p></td>
+name used in semPaths to make the meaning of this argument obvious. 
+Currently only object of class lavaan is supported.</p></td>
     </tr>
     <tr>
       <th>alphas</th>
