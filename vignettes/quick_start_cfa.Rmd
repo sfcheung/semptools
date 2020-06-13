@@ -82,7 +82,7 @@ the graph:
 
 - Change the order of the factors.
 
-- Change the curvature of the interfactor covariances.
+- Change the curvature of the inter-factor covariances.
 
 - Move the loadings along the paths from factors to indicators.
 
@@ -147,9 +147,9 @@ p2 <- set_cfa_layout(p, indicator_order, indicator_factor)
 plot(p2)
 ```
 
-# Change the curvatures of the interfactor covariances
+# Change the curvatures of the inter-factor covariances
 
-The graph has the factors and indicators ordered as required. However, the interfactor
+The graph has the factors and indicators ordered as required. However, the inter-factor
 covariances are too close to the factors. To increases the curvatures of the covariances,
 we can use the argument `fcov_curve`. The default is .4. Let us increase it to 1.75.
 

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8</span>
       </span>
     </div>
 
@@ -85,13 +85,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="quick_start_cfa_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>A quick start guide on using set_cfa_layout</h1>
                         <h4 class="author">Shu Fai Cheung &amp; Mark Hok Chio Lai</h4>
             
-            <h4 class="date">2020-04-25</h4>
+            <h4 class="date">2020-06-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sfcheung/semptools/blob/master/vignettes/quick_start_cfa.Rmd"><code>vignettes/quick_start_cfa.Rmd</code></a></small>
       <div class="hidden name"><code>quick_start_cfa.Rmd</code></div>
@@ -141,11 +141,11 @@
   '</span></pre></body></html></div>
 <p>The lavaan results:</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">lavaan</span>)
-<span class="co">#&gt; This is lavaan 0.6-5</span>
+<span class="co">#&gt; This is lavaan 0.6-6</span>
 <span class="co">#&gt; lavaan is BETA software! Please report any bugs.</span>
 <span class="no">fit</span> <span class="kw">&lt;-</span> <span class="kw pkg">lavaan</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/cfa.html">cfa</a></span>(<span class="no">mod</span>, <span class="no">cfa_example</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">fit</span>)
-<span class="co">#&gt; lavaan 0.6-5 ended normally after 38 iterations</span>
+<span class="co">#&gt; lavaan 0.6-6 ended normally after 38 iterations</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   Estimator                                         ML</span>
 <span class="co">#&gt;   Optimization method                           NLMINB</span>
@@ -161,9 +161,9 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Parameter Estimates:</span>
 <span class="co">#&gt; </span>
+<span class="co">#&gt;   Standard errors                             Standard</span>
 <span class="co">#&gt;   Information                                 Expected</span>
 <span class="co">#&gt;   Information saturated (h1) model          Structured</span>
-<span class="co">#&gt;   Standard errors                             Standard</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Latent Variables:</span>
 <span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)</span>
@@ -235,7 +235,7 @@
 <ul>
 <li><p>Change the order of the indicators.</p></li>
 <li><p>Change the order of the factors.</p></li>
-<li><p>Change the curvature of the interfactor covariances.</p></li>
+<li><p>Change the curvature of the inter-factor covariances.</p></li>
 <li><p>Move the loadings along the paths from factors to indicators.</p></li>
 <li><p>Rotate the graph.</p></li>
 </ul>
@@ -296,10 +296,10 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">p2</span>)</pre></body></html></div>
 <p><img src="quick_start_cfa_files/figure-html/unnamed-chunk-8-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
-<div id="change-the-curvatures-of-the-interfactor-covariances" class="section level1">
+<div id="change-the-curvatures-of-the-inter-factor-covariances" class="section level1">
 <h1 class="hasAnchor">
-<a href="#change-the-curvatures-of-the-interfactor-covariances" class="anchor"></a>Change the curvatures of the interfactor covariances</h1>
-<p>The graph has the factors and indicators ordered as required. However, the interfactor covariances are too close to the factors. To increases the curvatures of the covariances, we can use the argument <code>fcov_curve</code>. The default is .4. Let us increase it to 1.75.</p>
+<a href="#change-the-curvatures-of-the-inter-factor-covariances" class="anchor"></a>Change the curvatures of the inter-factor covariances</h1>
+<p>The graph has the factors and indicators ordered as required. However, the inter-factor covariances are too close to the factors. To increases the curvatures of the covariances, we can use the argument <code>fcov_curve</code>. The default is .4. Let us increase it to 1.75.</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">p2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/set_cfa_layout.html">set_cfa_layout</a></span>(<span class="no">p</span>, <span class="no">indicator_order</span>, <span class="no">indicator_factor</span>, <span class="kw">fcov_curve</span> <span class="kw">=</span> <span class="fl">1.75</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">p2</span>)</pre></body></html></div>
 <p><img src="quick_start_cfa_files/figure-html/unnamed-chunk-9-1.png" width="768" style="display: block; margin: auto;"></p>
