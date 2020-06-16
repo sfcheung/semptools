@@ -2,6 +2,7 @@
 
 export(drop_nodes)
 export(is_dv_residvar)
+export(keep_nodes)
 export(layout_matrix)
 export(mark_se)
 export(mark_sig)
