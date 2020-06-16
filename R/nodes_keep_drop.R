@@ -64,7 +64,8 @@ drop_nodes <- function(object, nodes) {
     object
   }
 
-#' @rdname drop_nodes
+#'@export
+#'@rdname drop_nodes
 
 keep_nodes <- function(object, nodes) {
     if (!inherits(object, "semPlotModel")) {
