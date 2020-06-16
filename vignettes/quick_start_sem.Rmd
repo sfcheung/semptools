@@ -93,7 +93,7 @@ the graph:
 
 - Move the loadings along the paths from factors to indicators.
 
-# Specify the order of the indicators, assigne them to factors, and specify the approximate positions of the factors
+# Specify the order of the indicators, assign them to factors, and specify the approximate positions of the factors
 
 Suppose we want to do this:
 
@@ -188,7 +188,7 @@ plot(p2)
 
 # Adjust the placement of the indicators relative to their corresponding factors.
 
-The placement of the indicators are too close to the indicators and to neighbouring indicators. We can adjust the relative position in two ways.
+The placement of the indicators are too close to the indicators and to neighboring indicators. We can adjust the relative position in two ways.
 
 ## "Pushing" the indicators away from their assigned factors
 
@@ -225,7 +225,7 @@ plot(p2)
 We can use the argument `indicator_spread` to spread out the indicators of a factor,
 increasing the distance between the indicators. The argument needs a list of 
 lists. In each sublist, there should be two named elements: `node`: the name of
- a factor; `spread`: the multiplier to the distance between neighbouring 
+ a factor; `spread`: the multiplier to the distance between neighboring 
 indicators. For example:
 
 ```{r}

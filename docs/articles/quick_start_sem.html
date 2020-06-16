@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8</span>
       </span>
     </div>
 
@@ -85,13 +85,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="quick_start_sem_files/header-attrs-2.2/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>A quick start guide on using set_sem_layout</h1>
                         <h4 class="author">Shu Fai Cheung &amp; Mark Hok Chio Lai</h4>
             
-            <h4 class="date">2020-04-26</h4>
+            <h4 class="date">2020-06-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sfcheung/semptools/blob/master/vignettes/quick_start_sem.Rmd"><code>vignettes/quick_start_sem.Rmd</code></a></small>
       <div class="hidden name"><code>quick_start_sem.Rmd</code></div>
@@ -143,11 +143,11 @@
   '</span></pre></body></html></div>
 <p>The lavaan results:</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">lavaan</span>)
-<span class="co">#&gt; This is lavaan 0.6-5</span>
+<span class="co">#&gt; This is lavaan 0.6-6</span>
 <span class="co">#&gt; lavaan is BETA software! Please report any bugs.</span>
 <span class="no">fit</span> <span class="kw">&lt;-</span> <span class="kw pkg">lavaan</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html">sem</a></span>(<span class="no">mod</span>, <span class="no">cfa_example</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">fit</span>)
-<span class="co">#&gt; lavaan 0.6-5 ended normally after 39 iterations</span>
+<span class="co">#&gt; lavaan 0.6-6 ended normally after 39 iterations</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   Estimator                                         ML</span>
 <span class="co">#&gt;   Optimization method                           NLMINB</span>
@@ -163,9 +163,9 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Parameter Estimates:</span>
 <span class="co">#&gt; </span>
+<span class="co">#&gt;   Standard errors                             Standard</span>
 <span class="co">#&gt;   Information                                 Expected</span>
 <span class="co">#&gt;   Information saturated (h1) model          Structured</span>
-<span class="co">#&gt;   Standard errors                             Standard</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Latent Variables:</span>
 <span class="co">#&gt;                    Estimate  Std.Err  z-value  P(&gt;|z|)</span>
@@ -245,9 +245,9 @@
 <li><p>Move the loadings along the paths from factors to indicators.</p></li>
 </ul>
 </div>
-<div id="specify-the-order-of-the-indicators-assigne-them-to-factors-and-specify-the-approximate-positions-of-the-factors" class="section level1">
+<div id="specify-the-order-of-the-indicators-assign-them-to-factors-and-specify-the-approximate-positions-of-the-factors" class="section level1">
 <h1 class="hasAnchor">
-<a href="#specify-the-order-of-the-indicators-assigne-them-to-factors-and-specify-the-approximate-positions-of-the-factors" class="anchor"></a>Specify the order of the indicators, assigne them to factors, and specify the approximate positions of the factors</h1>
+<a href="#specify-the-order-of-the-indicators-assign-them-to-factors-and-specify-the-approximate-positions-of-the-factors" class="anchor"></a>Specify the order of the indicators, assign them to factors, and specify the approximate positions of the factors</h1>
 <p>Suppose we want to do this:</p>
 <ul>
 <li>
@@ -310,7 +310,7 @@
 <div id="adjust-the-placement-of-the-indicators-relative-to-their-corresponding-factors-" class="section level1">
 <h1 class="hasAnchor">
 <a href="#adjust-the-placement-of-the-indicators-relative-to-their-corresponding-factors-" class="anchor"></a>Adjust the placement of the indicators relative to their corresponding factors.</h1>
-<p>The placement of the indicators are too close to the indicators and to neighbouring indicators. We can adjust the relative position in two ways.</p>
+<p>The placement of the indicators are too close to the indicators and to neighboring indicators. We can adjust the relative position in two ways.</p>
 <div id="pushing-the-indicators-away-from-their-assigned-factors" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pushing-the-indicators-away-from-their-assigned-factors" class="anchor"></a>“Pushing” the indicators away from their assigned factors</h2>
@@ -332,7 +332,7 @@
 <div id="spreading-out-the-indicators" class="section level2">
 <h2 class="hasAnchor">
 <a href="#spreading-out-the-indicators" class="anchor"></a>“Spreading” out the indicators</h2>
-<p>We can use the argument <code>indicator_spread</code> to spread out the indicators of a factor, increasing the distance between the indicators. The argument needs a list of lists. In each sublist, there should be two named elements: <code>node</code>: the name of a factor; <code>spread</code>: the multiplier to the distance between neighbouring indicators. For example:</p>
+<p>We can use the argument <code>indicator_spread</code> to spread out the indicators of a factor, increasing the distance between the indicators. The argument needs a list of lists. In each sublist, there should be two named elements: <code>node</code>: the name of a factor; <code>spread</code>: the multiplier to the distance between neighboring indicators. For example:</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">indicator_spread</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">node</span> <span class="kw">=</span> <span class="st">"f1"</span>, <span class="kw">spread</span> <span class="kw">=</span>    <span class="fl">2</span>),
                          <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">node</span> <span class="kw">=</span> <span class="st">"f2"</span>, <span class="kw">spread</span> <span class="kw">=</span>  <span class="fl">1.5</span>),
                          <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">node</span> <span class="kw">=</span> <span class="st">"f4"</span>, <span class="kw">spread</span> <span class="kw">=</span>  <span class="fl">1.5</span>))</pre></body></html></div>
