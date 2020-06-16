@@ -46,7 +46,7 @@
 #'                  style = "ram",
 #'                  nCharNodes = 0, nCharEdges = 0,
 #'                  layout = m)
-#'@export
+#'@export drop_nodes
 
 drop_nodes <- function(object, nodes) {
     if (!inherits(object, "semPlotModel")) {
@@ -64,7 +64,7 @@ drop_nodes <- function(object, nodes) {
     object
   }
 
-#'@export
+#'@export keep_nodes
 #'@rdname drop_nodes
 
 keep_nodes <- function(object, nodes) {
