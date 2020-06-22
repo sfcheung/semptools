@@ -10,3 +10,14 @@ abort_nomatch <- function(nodes_names, ests_names) {
            "to change node labels.")
   )
 }
+
+check_match_labels <- function(names_in, names_graph) {
+  if (!all(names_in %in% names_graph)) {
+    rlang::abort(
+      paste0("One or more nodes in label_list: \n",
+             paste(names_in, collapse = ", "), 
+             "\ndo not match the node names in the semPaths graph: \n", 
+             paste(names_graph, collapse = ", "))
+    )
+  }
+}

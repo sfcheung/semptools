@@ -51,13 +51,16 @@
 
 change_node_label <- function(semPaths_plot, label_list = NULL) {
     if (is.null(label_list)) {
-        stop("label_list not specified.")
-      }
+        rlang::abort("label_list not specified.")
+    }
+    if (!is.list(label_list)) {
+        rlang::abort("`label_list` should be a list of named list(s).")
+    }
     if (is.null(semPaths_plot)) {
-        stop("semPaths_plot not specified.")
+        rlang::abort("semPaths_plot not specified.")
       } else {
         if (!inherits(semPaths_plot, "qgraph")) {
-            stop("semPaths_plot is not a qgraph object.")
+            rlang::abort("semPaths_plot is not a qgraph object.")
           }
       }
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
@@ -72,28 +75,30 @@ change_node_label <- function(semPaths_plot, label_list = NULL) {
 
     # TO CHECK: Which one to work on? Nodes$names or Nodes$labels?
     Nodes_in <- sapply(label_list, function(x) x$node)
-    if (!all(Nodes_in %in% Nodes_names)) {
-        stop("One or more nodes in label_list not in semPaths_plot.")
-      }
+    check_match_labels(Nodes_in, Nodes_labels)
+    check_match_labels(Nodes_in, Nodes_names)
     Nodes_labels_old <- Nodes_labels
     for (i in label_list) {
         Nodes_labels[Nodes_labels == i$nod] <- i$to
-      }
+        Nodes_names[Nodes_names == i$nod] <- i$to
+    }
     # TO CHECK: Should Nodes$names and the names of the list be updated?
+    # Also change the node names to match the behavior of semPlot::semPaths()
     
     semPaths_plot$graphAttributes$Nodes$labels <- Nodes_labels
+    semPaths_plot$graphAttributes$Nodes$names <- Nodes_names
     semPaths_plot
   }
 
 change_node_label2 <- function(semPaths_plot, label_list = NULL) {
   if (is.null(label_list)) {
-    stop("label_list not specified.")
+    rlang::abort("label_list not specified.")
   }
   if (is.null(semPaths_plot)) {
-    stop("semPaths_plot not specified.")
+    rlang::abort("semPaths_plot not specified.")
   } else {
     if (!inherits(semPaths_plot, "qgraph")) {
-      stop("semPaths_plot is not a qgraph object.")
+      rlang::abort("semPaths_plot is not a qgraph object.")
     }
   }
   Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
@@ -106,15 +111,16 @@ change_node_label2 <- function(semPaths_plot, label_list = NULL) {
     Nodes_labels <- as.list(Nodes_labels)
   }
   
-  # TO CHECK: Which one to work on? Nodes$names or Nodes$labels?
-  if (!all(names(label_list) %in% Nodes_labels)) {
-    stop("One or more nodes in label_list not in semPaths_plot.")
-  }
+  check_match_labels(names(label_list), Nodes_labels)
+  check_match_labels(names(label_list), Nodes_names)
+  
   Nodes_labels_old <- Nodes_labels
   Nodes_pos_tochange <- match(names(label_list), Nodes_labels)
   Nodes_labels[Nodes_pos_tochange] <- label_list
-  # TO CHECK: Should Nodes$names and the names of the list be updated?
+  Nodes_pos_tochange <- match(names(label_list), Nodes_names)
+  Nodes_names[Nodes_pos_tochange] <- label_list
   
   semPaths_plot$graphAttributes$Nodes$labels <- Nodes_labels
+  semPaths_plot$graphAttributes$Nodes$names <- Nodes_names
   semPaths_plot
 }
