@@ -64,8 +64,54 @@ test_that(
     expect_error(change_node_label(p_pa3, list(list("x2", "predictor 2"))))
   })
 
+test_that(
+  "SE and significance can be added after changing labels", {
+    p_pa_se <- mark_se(p_pa, fit_pa)
+    p_pa2_se <- mark_se(p_pa2, fit_pa)
+    p_pa_sig <- mark_sig(p_pa, fit_pa)
+    p_pa3_sig <- mark_sig(p_pa3, fit_pa)
+    expect_identical(p_pa_se$graphAttributes$Edges, 
+                     p_pa2_se$graphAttributes$Edges)
+    expect_identical(p_pa_sig$graphAttributes$Edges, 
+                     p_pa3_sig$graphAttributes$Edges)
+  })
 
-# TODO
+test_that(
+  "SE and significance can be added after changing labels", {
+    p_pa_se <- mark_se(p_pa, fit_pa)
+    p_pa2_se <- mark_se(p_pa2, fit_pa)
+    p_pa_sig <- mark_sig(p_pa, fit_pa)
+    p_pa3_sig <- mark_sig(p_pa3, fit_pa)
+    expect_match(all.equal(p_pa2$graphAttributes$Edges, 
+                           p_pa2_se$graphAttributes$Edges), 
+                 "string mismatches")
+    expect_match(all.equal(p_pa3$graphAttributes$Edges, 
+                           p_pa3_sig$graphAttributes$Edges), 
+                 "string mismatches")
+    expect_identical(p_pa_se$graphAttributes$Edges, 
+                     p_pa2_se$graphAttributes$Edges)
+    expect_identical(p_pa_sig$graphAttributes$Edges, 
+                     p_pa3_sig$graphAttributes$Edges)
+  })
 
-## mark_se() and mark_sig() work after change_node_label()
-
+test_that(
+  "Curve and edge label position can be changed after changing labels", {
+    my_curve_list <- list(list(from = "x1", to = "x2", new_curve = -1),
+                          list(from = "x1", to = "x4", new_curve =  1))
+    p_pa_curve <- set_curve(p_pa, curve_list = my_curve_list)
+    p_pa2_curve <- set_curve(p_pa2, curve_list = my_curve_list)
+    my_position_list <- list(list(from = "x2", to = "x3", new_position =  .25),
+                             list(from = "x1", to = "x4", new_position =  .75))
+    p_pa_pos <- set_edge_label_position(p_pa, my_position_list)
+    p_pa3_pos <- set_edge_label_position(p_pa3, my_position_list)
+    expect_match(all.equal(p_pa2$graphAttributes$Edges, 
+                           p_pa2_curve$graphAttributes$Edges), 
+                 "Component “curve”")
+    expect_match(all.equal(p_pa3$graphAttributes$Edges, 
+                           p_pa3_pos$graphAttributes$Edges), 
+                 "Component “edge.label.position”")
+    expect_identical(p_pa_curve$graphAttributes$Edges, 
+                     p_pa2_curve$graphAttributes$Edges)
+    expect_identical(p_pa_pos$graphAttributes$Edges, 
+                     p_pa3_pos$graphAttributes$Edges)
+  })
