@@ -14,7 +14,12 @@
 #'@param curve_list A list of named lists. Each named list should have three 
 #'                    named values: from, to, and new_curve. The curve attribute
 #'                    of the edge from \code{from} to \code{to} will be set to 
-#'                     \code{new_curve}.
+#'                     \code{new_curve}.  Alternatively, it can be a named 
+#'                    vector, with [`new_curve`] as the value, and the name
+#'                    of each value being the name of the curve/path as in the 
+#'                    [`lavaan`] model. For example, if the curve to be modified
+#'                    is the path from [`x1`] to [`x4`], then the name is `x4 ~ x1`,
+#'                    as appeared on the parameter table of the fit.
 #'
 #'@examples
 #'mod_pa <- 
@@ -51,6 +56,16 @@ set_curve <- function(semPaths_plot, curve_list = NULL) {
             stop("semPaths_plot is not a qgraph object.")
           }
       }
+
+    # Convert a named vector to a named list
+    if (!is.list(curve_list) && is.numeric(curve_list)) {
+        curve_list_org <- curve_list
+        curve_list <- to_list_of_lists(curve_list,
+                                       name1 = "from",
+                                       name2 = "to",
+                                       name3 = "new_curve")
+      }
+
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
     Nodes_id <- seq_len(length(Nodes_names))
     names(Nodes_id) <- Nodes_names
