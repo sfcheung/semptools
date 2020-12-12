@@ -69,6 +69,18 @@ test_that("rotate_resid: Can to_list_of_lists yield the same graph", {
   )
 })
 
+# Test whether rotate_resid can detect a vector and do the conversion.
+
+p_pa3b <- rotate_resid(p_pa, my_rotate_resid_vector)
+# plot(p_pa3b)
+# identical(p_pa2, p_pa3b)
+
+test_that("rotate_resid: Detect and convert a named vector", {
+  expect_identical(
+    p_pa2, p_pa3
+  )
+})
+
 # Test set_curve
 
 library(lavaan)
@@ -108,6 +120,18 @@ p_pa3 <- set_curve(p_pa, to_list_of_lists(my_curve_vector,
 test_that("set_curve: Can to_list_of_lists yield the same graph", {
   expect_identical(
     p_pa2, p_pa3
+  )
+})
+
+# Test whether set_curve can detect a vector and do the conversion.
+
+p_pa3b <- set_curve(p_pa, my_curve_vector)
+# plot(p_pa3b)
+# identical(p_pa2, p_pa3b)
+
+test_that("set_curve: Detect and convert a named vector", {
+  expect_identical(
+    p_pa2, p_pa3b
   )
 })
 
@@ -153,6 +177,18 @@ p_pa3 <- set_edge_label_position(p_pa, to_list_of_lists(my_position_vector,
 test_that("set_edge_label_position: Can to_list_of_lists yield the same graph", {
   expect_identical(
     p_pa2, p_pa3
+  )
+})
+
+# Test whether set_edge_label_position can detect a vector and do the conversion.
+
+p_pa3b <- set_edge_label_position(p_pa, my_position_vector)
+# plot(p_pa3b)
+# identical(p_pa2, p_pa3b)
+
+test_that("set_edge_label_position: Detect and convert a named vector", {
+  expect_identical(
+    p_pa2, p_pa3b
   )
 })
 
@@ -225,5 +261,94 @@ p4 <- set_sem_layout(p,
 test_that("indicator_push in set_sem_layout: Can to_list_of_lists yield the same graph", {
   expect_identical(
     p3, p4
+  )
+})
+
+
+# Test whether set_sem_layout can detect a vector and do the conversion.
+
+p4b <- set_sem_layout(p,
+                     indicator_order = indicator_order,
+                     indicator_factor = indicator_factor,
+                     factor_layout = factor_layout,
+                     factor_point_to = factor_point_to,
+                     indicator_push = indicator_push_vector)
+# plot(p4)
+# identical(p3, p4)
+
+test_that("set_sem_layout: Detect and convert a named vector", {
+  expect_identical(
+    p_pa2, p_pa3b
+  )
+})
+
+# Test whether set_sem_layout can detect a vector and do the conversion.
+
+p <- semPaths(fit, whatLabels="est",
+        sizeMan = 5,
+        node.width = 1,
+        edge.label.cex = .75,
+        style = "ram",
+        mar = c(5, 5, 5, 5), DoNotPlot = TRUE)
+indicator_order  <- c("x04", "x05", "x06", "x07",
+                      "x01", "x02", "x03",
+                      "x11", "x12", "x13", "x14",
+                      "x08", "x09", "x10")
+indicator_factor <- c( "f2",  "f2",  "f2",  "f2",
+                       "f1",  "f1",  "f1",
+                       "f4",  "f4",  "f4",  "f4",
+                       "f3",  "f3",  "f3")
+factor_layout <- matrix(c("f1",   NA,   NA,
+                           NA, "f3", "f4",
+                         "f2",   NA,   NA), byrow = TRUE, 3, 3)
+factor_point_to <- matrix(c("left",     NA,      NA,
+                                NA, "down",    "up",
+                            "left",     NA,      NA), byrow = TRUE, 3, 3)
+indicator_push <- list(list(node = "f3", push = 2.5),
+                       list(node = "f4", push = 2.5),
+                       list(node = "f1", push = 1.5),
+                       list(node = "f2", push = 1.5))
+indicator_spread <- list(list(node = "f1", spread =    2),
+                         list(node = "f2", spread =    2),
+                         list(node = "f4", spread =    2),
+                         list(node = "f3", spread = 1.75))
+loading_position <- list(list(node = "f2", position = .6),
+                         list(node = "f3", position = .8),
+                         list(node = "f4", position = .8))
+p2 <- set_sem_layout(p,
+                     indicator_order = indicator_order,
+                     indicator_factor = indicator_factor,
+                     factor_layout = factor_layout,
+                     factor_point_to = factor_point_to,
+                     indicator_push = indicator_push,
+                     indicator_spread = indicator_spread,
+                     loading_position = loading_position)
+
+indicator_push_vector <- c(f3 = 2.5,
+                           f4 = 2.5,
+                           f1 = 1.5,
+                           f2 = 1.5)
+indicator_spread_vector <- c(f1 = 2,
+                             f2 = 2,
+                             f4 = 2,
+                             f3 = 1.75)
+loading_position_vector <- c(f2 = .6,
+                             f3 = .8,
+                             f4 = .8)
+
+p2b <- set_sem_layout(p,
+                     indicator_order = indicator_order,
+                     indicator_factor = indicator_factor,
+                     factor_layout = factor_layout,
+                     factor_point_to = factor_point_to,
+                     indicator_push = indicator_push_vector,
+                     indicator_spread = indicator_spread_vector,
+                     loading_position = loading_position_vector)
+# plot(p2b)
+# identical(p2, p2b)
+
+test_that("set_sem_layout: Detect and convert a named vector", {
+  expect_identical(
+    p2, p2b
   )
 })
