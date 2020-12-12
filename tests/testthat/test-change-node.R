@@ -106,12 +106,28 @@ test_that(
     p_pa3_pos <- set_edge_label_position(p_pa3, my_position_list)
     expect_match(all.equal(p_pa2$graphAttributes$Edges, 
                            p_pa2_curve$graphAttributes$Edges), 
-                 "Component “curve”")
+                 "Component \"curve\": Mean absolute difference: 1")
     expect_match(all.equal(p_pa3$graphAttributes$Edges, 
                            p_pa3_pos$graphAttributes$Edges), 
-                 "Component “edge.label.position”")
+                 "Component \"edge.label.position\": Mean relative difference: 0.5")
     expect_identical(p_pa_curve$graphAttributes$Edges, 
                      p_pa2_curve$graphAttributes$Edges)
     expect_identical(p_pa_pos$graphAttributes$Edges, 
                      p_pa3_pos$graphAttributes$Edges)
+  })
+
+# Use a named list instead of a list of named list
+
+p_pa2b <- change_node_label(p_pa, list(x1 = "predictor",
+                                       x4 = expression(gamma)))
+labs_pa2b <- p_pa2b$graphAttributes$Nodes$labels
+# Run it one more time
+p_pa3b <- change_node_label(p_pa2b, list(predictor = "x1", 
+                                        x3 = "mediator"))
+labs_pa3b <- p_pa3b$graphAttributes$Nodes$labels
+
+test_that(
+  "List of named list and named list produce the same results", {
+    expect_identical(p_pa2, p_pa2b)
+    expect_identical(p_pa3, p_pa3b)
   })
