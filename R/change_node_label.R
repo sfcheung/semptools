@@ -73,15 +73,37 @@ change_node_label <- function(semPaths_plot, label_list = NULL) {
         Nodes_labels <- as.list(Nodes_labels)
       }
 
+    # Convert a named list to a list of named list
+    if (!all(sapply(label_list, is.list))) {
+        label_list_org <- label_list
+        tmpfct <- function(x, y) {
+            list(node = x, to = y)
+          }
+        label_list <- mapply(tmpfct, 
+                             names(label_list), 
+                             label_list, 
+                             SIMPLIFY = FALSE, 
+                             USE.NAMES = FALSE)
+      }
+    to_in <- sapply(label_list, function(x) x$to)
+
     # TO CHECK: Which one to work on? Nodes$names or Nodes$labels?
     Nodes_in <- sapply(label_list, function(x) x$node)
     check_match_labels(Nodes_in, Nodes_labels)
     check_match_labels(Nodes_in, Nodes_names)
+    # Nodes_labels_old <- Nodes_labels
+    # for (i in label_list) {
+    #     Nodes_labels[Nodes_labels == i$nod] <- i$to
+    #     Nodes_names[Nodes_names == i$nod] <- i$to
+    # }
+    
+    # Use Mark's approach
     Nodes_labels_old <- Nodes_labels
-    for (i in label_list) {
-        Nodes_labels[Nodes_labels == i$nod] <- i$to
-        Nodes_names[Nodes_names == i$nod] <- i$to
-    }
+    Nodes_pos_tochange <- match(Nodes_in, Nodes_labels)
+    Nodes_labels[Nodes_pos_tochange] <- to_in
+    Nodes_pos_tochange <- match(Nodes_in, Nodes_names)
+    Nodes_names[Nodes_pos_tochange] <- to_in
+
     # TO CHECK: Should Nodes$names and the names of the list be updated?
     # Also change the node names to match the behavior of semPlot::semPaths()
     
