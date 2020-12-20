@@ -116,6 +116,26 @@ test_that(
                      p_pa3_pos$graphAttributes$Edges)
   })
 
+test_that(
+  "Error arrows rotation work after changing labels", {
+    my_rotate_resid_list <- list(
+      list(node = "x3", rotate = 45),
+      list(node = "x4", rotate = -45),
+      list(node = "x2", rotate = -90)
+    )
+    p_pa_rotate <- rotate_resid(p_pa, rotate_resid_list = my_rotate_resid_list)
+    p_pa2_rotate <- rotate_resid(p_pa2, rotate_resid_list = my_rotate_resid_list)
+    expect_match(
+      all.equal(
+        p_pa2$graphAttributes$Nodes$loopRotation,
+        p_pa2_rotate$graphAttributes$Nodes$loopRotation
+      ),
+      "Mean relative difference: 1.666667"
+    )
+    expect_identical(p_pa_rotate$graphAttributes$Nodes$loopRotation, 
+                     p_pa2_rotate$graphAttributes$Nodes$loopRotation)
+  })
+
 # Use a named list instead of a list of named list
 
 p_pa2b <- change_node_label(p_pa, list(x1 = "predictor",
