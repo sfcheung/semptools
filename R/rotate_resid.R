@@ -16,7 +16,9 @@
 #'                    of \code{node} will be placed at \code{rotate}, in degree.
 #'                    The 12 o'clock position is zero degree. Positive degree 
 #'                    denotes clockwise rotation, and negative degree denotes
-#'                    anticlockwise rotation.
+#'                    anticlockwise rotation. Alternatively, it can be a named 
+#'                    vector, with [`rotate`] as the value and [`node`] as the 
+#'                    name of this value.
 #'
 #'@examples
 #'mod_pa <- 
@@ -53,6 +55,15 @@ rotate_resid <- function(semPaths_plot, rotate_resid_list = NULL) {
             stop("semPaths_plot is not a qgraph object.")
           }
       }
+
+    # Convert a named vector to a named list
+    if (!is.list(rotate_resid_list) && is.numeric(rotate_resid_list)) {
+        rotate_resid_list_org <- rotate_resid_list
+        rotate_resid_list <- to_list_of_lists(rotate_resid_list,
+                                              name1 = "node",
+                                              name2 = "rotate")
+      }
+
     Nodes_in <- sapply(rotate_resid_list, function(x) x$node)
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
     if (!all(Nodes_in %in% Nodes_names)) {
