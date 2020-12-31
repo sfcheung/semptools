@@ -136,6 +136,153 @@ test_that(
                      p_pa2_rotate$graphAttributes$Nodes$loopRotation)
   })
 
+mod <-
+  'f1 =~ x01 + x02 + x03
+   f2 =~ x04 + x05 + x06 + x07
+   f3 =~ x08 + x09 + x10
+   f4 =~ x11 + x12 + x13 + x14
+  '
+
+fit <- lavaan::cfa(mod, cfa_example)
+
+p_cfa <- semPaths(fit,
+  whatLabels = "est",
+  sizeMan = 3.25,
+  node.width = 1,
+  edge.label.cex = .75,
+  style = "ram",
+  mar = c(10, 5, 10, 5)
+)
+
+my_label_list <- list(
+  list(node = "f1", to = "Factor 1"),
+  list(node = "f2", to = "Factor 2"),
+  list(node = "f3", to = "Factor 3"),
+  list(node = "f4", to = "Factor 4"),
+  list(node = "x04", to = "Item 4")
+)
+
+p_cfa2 <- change_node_label(p_cfa, my_label_list)
+
+test_that(
+  "Quickly setting CFA layout works after changing labels",
+  {
+    indicator_order <- c(
+      "x04", "x05", "x06", "x07",
+      "x01", "x02", "x03",
+      "x11", "x12", "x13", "x14",
+      "x08", "x09", "x10"
+    )
+    indicator_factor <- c(
+      "f2", "f2", "f2", "f2",
+      "f1", "f1", "f1",
+      "f4", "f4", "f4", "f4",
+      "f3", "f3", "f3"
+    )
+    p_cfa_set <- set_cfa_layout(p_cfa, indicator_order, indicator_factor)
+    p_cfa2_set <- set_cfa_layout(p_cfa2, indicator_order, indicator_factor)
+    expect_identical(
+      all.equal(p_cfa, p_cfa_set),
+      all.equal(p_cfa2, p_cfa2_set)
+    )
+    expect_identical(
+      p_cfa_set$graphAttributes$Nodes$loopRotation,
+      p_cfa2_set$graphAttributes$Nodes$loopRotation
+    )
+    expect_identical(
+      p_cfa_set$layout,
+      p_cfa2_set$layout
+    )
+  }
+)
+
+mod <-
+ 'f1 =~ x01 + x02 + x03
+  f2 =~ x04 + x05 + x06 + x07
+  f3 =~ x08 + x09 + x10
+  f4 =~ x11 + x12 + x13 + x14
+  f3 ~  f1 + f2
+  f4 ~  f1 + f3
+ '
+fit_sem <- lavaan::sem(mod, sem_example)
+p_sem <- semPaths(fit_sem,
+  whatLabels = "est",
+  sizeMan = 5,
+  nCharNodes = 0, nCharEdges = 0,
+  edge.width = 0.8, node.width = 0.7,
+  edge.label.cex = 0.6,
+  style = "ram",
+  mar = c(10, 10, 10, 10)
+)
+p_sem2 <- change_node_label(p_sem, my_label_list)
+
+test_that(
+  "Quickly setting SEM layout works after changing labels",
+  {
+    indicator_order <- c(
+      "x04", "x05", "x06", "x07", "x01", "x02", "x03",
+      "x11", "x12", "x13", "x14", "x08", "x09", "x10"
+    )
+    indicator_factor <- c(
+      "f2", "f2", "f2", "f2", "f1", "f1", "f1",
+      "f4", "f4", "f4", "f4", "f3", "f3", "f3"
+    )
+    factor_layout <- matrix(c(
+      "f1", NA, NA,
+      NA, "f3", "f4",
+      "f2", NA, NA
+    ), byrow = TRUE, 3, 3)
+    factor_point_to <- matrix(c(
+      "left", NA, NA,
+      NA, "down", "down",
+      "left", NA, NA
+    ), byrow = TRUE, 3, 3)
+    indicator_push <- list(
+      list(node = "f3", push = 2),
+      list(node = "f4", push = 1.5)
+    )
+    indicator_spread <- list(
+      list(node = "f1", spread = 2),
+      list(node = "f2", spread = 2)
+    )
+    loading_position <- list(
+      list(node = "f1", position = .5),
+      list(node = "f2", position = .8),
+      list(node = "f3", position = .8)
+    )
+    p_sem_set <- set_sem_layout(p_sem,
+      indicator_order = indicator_order,
+      indicator_factor = indicator_factor,
+      factor_layout = factor_layout,
+      factor_point_to = factor_point_to,
+      indicator_push = indicator_push,
+      indicator_spread = indicator_spread,
+      loading_position = loading_position
+    )
+    p_sem2_set <- set_sem_layout(p_sem2,
+      indicator_order = indicator_order,
+      indicator_factor = indicator_factor,
+      factor_layout = factor_layout,
+      factor_point_to = factor_point_to,
+      indicator_push = indicator_push,
+      indicator_spread = indicator_spread,
+      loading_position = loading_position
+    )
+    expect_identical(
+      all.equal(p_sem, p_sem_set),
+      all.equal(p_sem2, p_sem2_set)
+    )
+    expect_identical(
+      p_sem_set$graphAttributes$Nodes$loopRotation,
+      p_sem2_set$graphAttributes$Nodes$loopRotation
+    )
+    expect_identical(
+      p_sem_set$layout,
+      p_sem2_set$layout
+    )
+  }
+)
+
 # Use a named list instead of a list of named list
 
 p_pa2b <- change_node_label(p_pa, list(x1 = "predictor",
