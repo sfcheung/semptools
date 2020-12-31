@@ -101,13 +101,21 @@ change_node_label <- function(semPaths_plot, label_list = NULL) {
     Nodes_labels_old <- Nodes_labels
     Nodes_pos_tochange <- match(Nodes_in, Nodes_labels)
     Nodes_labels[Nodes_pos_tochange] <- to_in
+    Nodes_names_old <- Nodes_names
     Nodes_pos_tochange <- match(Nodes_in, Nodes_names)
     Nodes_names[Nodes_pos_tochange] <- to_in
 
     # TO CHECK: Should Nodes$names and the names of the list be updated?
     # Also change the node names to match the behavior of semPlot::semPaths()
     
+    # Add names to Nodes_labels and Nodes_names
+    if (is.null(names(Nodes_labels))) {
+       names(Nodes_labels) <- Nodes_labels_old
+    }
     semPaths_plot$graphAttributes$Nodes$labels <- Nodes_labels
+    if (is.null(names(Nodes_names))) {
+       names(Nodes_names) <- Nodes_names_old
+    }
     semPaths_plot$graphAttributes$Nodes$names <- Nodes_names
     semPaths_plot
   }
