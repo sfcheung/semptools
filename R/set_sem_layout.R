@@ -152,7 +152,10 @@ set_sem_layout <- function(semPaths_plot,
             stop("semPaths_plot is not a qgraph object.")
           }
       }  
-    Nodes_names <- semPaths_plot$graphAttributes$Nodes$names  
+    Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
+    if (!is.null(names(Nodes_names))) {
+      Nodes_names <- names(Nodes_names)
+    }
     if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
         warning("One or more indicators in the graph may not be in indicator_order. Unexpected results may occur.")
       }
