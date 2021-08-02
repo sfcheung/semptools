@@ -115,6 +115,9 @@ set_cfa_layout <- function(semPaths_plot,
     Nodes_position <- c(indicator_position, factor_position)
     
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
+    if (!is.null(names(Nodes_names))) {
+      Nodes_names <- names(Nodes_names)
+    }
     if (!all(Nodes_names[semPaths_plot$Edgelist$to[!semPaths_plot$Edgelist$bidirectional]] 
              %in% indicator_order)) {
         warning("One or more indicators in the graph are not in indicator_order. Unexpected results may occur.")
