@@ -104,6 +104,38 @@ set_cfa_layout <- function(semPaths_plot,
     if (!is.numeric(loading_position) | length(loading_position) > 1) {
         stop("loading_position is not a single number.")
       }
+
+    Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
+    if (!is.null(names(Nodes_names))) {
+      Nodes_names <- names(Nodes_names)
+      Nodes_names2 <- semPaths_plot$graphAttributes$Nodes$names
+    }
+            
+    if (!all(Nodes_names[semPaths_plot$Edgelist$to[!semPaths_plot$Edgelist$bidirectional]] 
+             %in% indicator_order)) {
+        if (!all(Nodes_names2[semPaths_plot$Edgelist$to[!semPaths_plot$Edgelist$bidirectional]] 
+              %in% indicator_order)) {
+            warning("One or more indicators in the graph are not in indicator_order. Unexpected results may occur.")
+          } else {
+            tmp <- sapply(indicator_order, function(x) {
+                Nodes_names[match(x, Nodes_names2)]
+              }, USE.NAMES = FALSE)
+            indicator_order <- tmp
+          }
+      }
+    if (!all(Nodes_names[semPaths_plot$Edgelist$from[!semPaths_plot$Edgelist$bidirectional]] 
+             %in% indicator_factor)) {
+        if (!all(Nodes_names2[semPaths_plot$Edgelist$from[!semPaths_plot$Edgelist$bidirectional]] 
+             %in% indicator_factor)) {
+            warning("One or more factors in the graph are not in indicator_factor. Unexpected results may occur.")
+          } else {
+            tmp <- sapply(indicator_factor, function(x) {
+                Nodes_names[match(x, Nodes_names2)]
+              }, USE.NAMES = FALSE)
+            indicator_factor <- tmp
+          }
+      }
+
     point_to <- tolower(point_to)
     if (!(point_to %in% c("down", "up", "left", "right"))) {
         stop("point_to must be 'down', 'up', 'left', or 'right'.")        
@@ -114,19 +146,6 @@ set_cfa_layout <- function(semPaths_plot,
     factor_order <- unique(indicator_factor)
     Nodes_position <- c(indicator_position, factor_position)
     
-    Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
-    if (!is.null(names(Nodes_names))) {
-      Nodes_names <- names(Nodes_names)
-    }
-    if (!all(Nodes_names[semPaths_plot$Edgelist$to[!semPaths_plot$Edgelist$bidirectional]] 
-             %in% indicator_order)) {
-        warning("One or more indicators in the graph are not in indicator_order. Unexpected results may occur.")
-      }
-    if (!all(Nodes_names[semPaths_plot$Edgelist$from[!semPaths_plot$Edgelist$bidirectional]] 
-             %in% indicator_factor)) {
-        warning("One or more factors in the graph are not in indicator_factor. Unexpected results may occur.")
-      }
-            
     original_layout <- semPaths_plot$layout
     i <- match(Nodes_names, names(Nodes_position))
     new_layout <- original_layout
