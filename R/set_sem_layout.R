@@ -152,18 +152,55 @@ set_sem_layout <- function(semPaths_plot,
             stop("semPaths_plot is not a qgraph object.")
           }
       }  
+
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
     if (!is.null(names(Nodes_names))) {
       Nodes_names <- names(Nodes_names)
+      Nodes_names2 <- semPaths_plot$graphAttributes$Nodes$names
     }
+            
     if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
-        warning("One or more indicators in the graph may not be in indicator_order. Unexpected results may occur.")
+        if (!all(Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
+            warning("One or more indicators in the graph are not in indicator_order. Unexpected results may occur.")
+          } else {
+            tmp <- sapply(indicator_order, function(x) {
+                Nodes_names[match(x, Nodes_names2)]
+              }, USE.NAMES = FALSE)
+            indicator_order <- tmp
+          }
       }
     if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
-        warning("One or more factors in the graph may not be in indicator_factor. Unexpected results may occur.")
+        if (!all(Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
+            warning("One or more factors in the graph are not in indicator_factor. Unexpected results may occur.")
+          } else {
+            tmp <- sapply(indicator_factor, function(x) {
+                Nodes_names[match(x, Nodes_names2)]
+              }, USE.NAMES = FALSE)
+            indicator_factor <- tmp
+          }
       }
+
+
+    # Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
+    # if (!is.null(names(Nodes_names))) {
+    #   Nodes_names <- names(Nodes_names)
+    # }
+    # if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
+    #     warning("One or more indicators in the graph may not be in indicator_order. Unexpected results may occur.")
+    #   }
+    # if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
+    #     warning("One or more factors in the graph may not be in indicator_factor. Unexpected results may occur.")
+    #   }
     if (!all(factor_layout[!is.na(factor_layout)] %in% indicator_factor)) {
-        stop("The position of one or more latent factors are not in factor_layout.")
+        if (!all(factor_layout[!is.na(factor_layout)] %in% 
+              Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"])) {
+            stop("The position of one or more latent factors are not in factor_layout.")
+          } else {
+            tmp <- sapply(factor_layout, function(x) {
+                Nodes_names[match(x, Nodes_names2)]
+              }, USE.NAMES = FALSE)
+            factor_layout[] <- tmp
+          }
       }
     if (!all(!is.na(factor_layout) == !is.na(factor_point_to))) {
         stop("The positions of the indicators of one or more latent factors are not specified in factor_point_to.")

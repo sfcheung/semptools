@@ -1,5 +1,3 @@
-skip("Not ready")
-
 library(lavaan)
 library(semPlot)
 library(magrittr)
@@ -23,8 +21,9 @@ p <- semPaths(fit_sem, whatLabels="est",
         DoNotPlot = TRUE)
 p2 <- change_node_label(p, list(list(node = "f1", to = "iv1"),
                                 list(node = "f3", to = "Mediator"),
-                                list(node = "f4", to = "dv")))
-indicator_order  <- c("x04", "x05", "x06", "x07", "x01", "x02", "x03", 
+                                list(node = "f4", to = "dv"),
+                                list(node = "x01", to = "Test Item")))
+indicator_order  <- c("x04", "x05", "x06", "x07", "Test Item", "x02", "x03", 
                       "x11", "x12", "x13", "x14", "x08", "x09", "x10")
 indicator_factor <- c( "f2",  "f2",  "f2",  "f2",  "iv1",  "iv1",  "iv1",  
                       "dv",  "dv",  "dv",  "dv",  "Mediator",  "Mediator",  "Mediator")
@@ -52,8 +51,10 @@ p3 <- set_sem_layout(p2,
                        loading_position = loading_position) %>%
          set_curve(list(list(from = "iv1", to = "f2", new_curve =  -1),
                         list(from = "iv1", to = "dv", new_curve = 1.5)))
+
 test_that(
   "Labels after set_cfa_layout are changed as expected", {
-    expect_identical(unlist(p3$graphAttributes$Nodes$labels)[c(15, 17, 18)],
-                     c("iv1", "Mediator", "dv"))
+    expect_equal(unlist(p3$graphAttributes$Nodes$labels)[c(1, 15, 17, 18)],
+                     c("Test Item", "iv1", "Mediator", "dv"),
+                     check.attributes = FALSE)
   })
