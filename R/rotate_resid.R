@@ -66,6 +66,9 @@ rotate_resid <- function(semPaths_plot, rotate_resid_list = NULL) {
 
     Nodes_in <- sapply(rotate_resid_list, function(x) x$node)
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
+    if (!is.null(names(Nodes_names))) {
+      Nodes_names <- names(Nodes_names)
+    }
     if (!all(Nodes_in %in% Nodes_names)) {
         stop("One or more nodes in rotate_resid_list not in semPaths_plot.")
       }
