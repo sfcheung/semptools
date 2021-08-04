@@ -104,11 +104,15 @@ test_that(
                              list(from = "x1", to = "x4", new_position =  .75))
     p_pa_pos <- set_edge_label_position(p_pa, my_position_list)
     p_pa3_pos <- set_edge_label_position(p_pa3, my_position_list)
-    expect_match(all.equal(p_pa2$graphAttributes$Edges, 
-                           p_pa2_curve$graphAttributes$Edges), 
+    aeq1 <- all.equal(p_pa2$graphAttributes$Edges, 
+                      p_pa2_curve$graphAttributes$Edges)
+    aeq1 <- gsub("[“”]", "\"", aeq1)
+    expect_match(aeq1, 
                  "Component \"curve\": Mean absolute difference: 1")
-    expect_match(all.equal(p_pa3$graphAttributes$Edges, 
-                           p_pa3_pos$graphAttributes$Edges), 
+    aeq2 <- all.equal(p_pa3$graphAttributes$Edges, 
+                      p_pa3_pos$graphAttributes$Edges)
+    aeq2 <- gsub("[“”]", "\"", aeq2)
+    expect_match(aeq2,
                  "Component \"edge.label.position\": Mean relative difference: 0.5")
     expect_identical(p_pa_curve$graphAttributes$Edges, 
                      p_pa2_curve$graphAttributes$Edges)
