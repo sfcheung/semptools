@@ -13,7 +13,12 @@ object modified by other semptools functions.}
 \item{position_list}{A list of named lists. Each named list should have three 
 named values: from, to, and new_position. The edge label position
 of the edge from \code{from} to \code{to} will be set to 
- \code{new_position}.}
+ \code{new_position}. Alternatively, it can be a named 
+vector, with [`new_position`] as the value, and the name
+of each value being the name of the curve/path as in the 
+[`lavaan`] model. For example, if the curve to be modified
+is the path from [`x1`] to [`x4`], then the name is `x4 ~ x1`,
+as appeared on the parameter table of the fit.}
 }
 \value{
 A qgrpah based on the original one, with edge label positions for selected edges

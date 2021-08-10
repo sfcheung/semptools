@@ -15,7 +15,9 @@ named values: node and rotate. The position of the residual
 of \code{node} will be placed at \code{rotate}, in degree.
 The 12 o'clock position is zero degree. Positive degree 
 denotes clockwise rotation, and negative degree denotes
-anticlockwise rotation.}
+anticlockwise rotation. Alternatively, it can be a named 
+vector, with [`rotate`] as the value and [`node`] as the 
+name of this value.}
 }
 \value{
 A qgrpah based on the original one, with loopRotation attributes of selected 

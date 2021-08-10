@@ -31,17 +31,19 @@ selected nodes.
 list as input.
 }
 \examples{
+library(semPlot)
+library(lavaan)
 mod_pa <- 
  'x1 ~~ x2
   x3 ~  x1 + x2
   x4 ~  x1 + x3
  '
-fit_pa <- lavaan::sem(mod_pa, pa_example)
-lavaan::parameterEstimates(fit_pa)[, c("lhs", "op", "rhs", "est", "pvalue")]
+fit_pa <- sem(mod_pa, pa_example)
+parameterEstimates(fit_pa)[, c("lhs", "op", "rhs", "est", "pvalue")]
 m <- matrix(c("x1",   NA,   NA,
                NA, "x3", "x4",
              "x2",   NA,   NA), byrow = TRUE, 3, 3)
-p_pa <- semPlot::semPaths(fit_pa, whatLabels="est",
+p_pa <- semPaths(fit_pa, whatLabels="est",
            style = "ram", 
            nCharNodes = 0, nCharEdges = 0,
            layout = m) 
