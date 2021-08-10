@@ -48,13 +48,15 @@ corresponding latent factor (specified in factor_layout)
 points to its indicators.}
 
 \item{indicator_push}{(Optional) This argument is used to adjust the position of 
-indicators of selected latent factors. It must be a list of lists.
+indicators of selected latent factors. It must be a list of lists,
 Each sublist has two named elements: node, the name of a latent 
 factor, and push, how the positions of its indicators will be 
 adjusted. If push = 1, there is no change. Larger than one,
 the indicators will be "pushed" away from the latent factors.
 Less than one, the indicators will be "pulled" to the latent 
-factors.}
+factors. This argument can also be set by supplying a named vector,
+with the values being "push" values, and names being the nodes to be 
+affected.}
 
 \item{indicator_spread}{(Optional) This argument is used to adjust the distance between
 indicators of selected latent factors. It must be a list of lists.
@@ -63,7 +65,9 @@ factor, and spread, how the distance between indicators will be
 adjusted. If spread = 1, there is no change. Larger than one,
 the indicators will be "spread" away from each other.
 Less than one, the indicators will be placed closer to each
-others.}
+others.  This argument can also be set by supplying a named vector,
+with the values being "spread" values, and names being the nodes to be 
+affected.}
 
 \item{loading_position}{Default is .5. This is used adjust the position of the loadings.
 If this is one single number, it will be used to set the positions
@@ -75,7 +79,9 @@ specify the positions of loadings for each factor separately.
 Each sublist will have two named elements: node, the name of the 
 latent factor, and position, the positions of all loadings of this 
 factors. The values of these positions are used in the same way as 
-specifying one single number.}
+specifying one single number.  This argument can also be set by 
+supplying a named vector, with the values being "position" values, 
+and names being the nodes to be affected.}
 }
 \value{
 A qgrpah based on the original one, with various aspects of the model modified.

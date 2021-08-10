@@ -14,7 +14,12 @@
 #'@param position_list A list of named lists. Each named list should have three 
 #'                    named values: from, to, and new_position. The edge label position
 #'                    of the edge from \code{from} to \code{to} will be set to 
-#'                     \code{new_position}.
+#'                     \code{new_position}. Alternatively, it can be a named 
+#'                    vector, with [`new_position`] as the value, and the name
+#'                    of each value being the name of the curve/path as in the 
+#'                    [`lavaan`] model. For example, if the curve to be modified
+#'                    is the path from [`x1`] to [`x4`], then the name is `x4 ~ x1`,
+#'                    as appeared on the parameter table of the fit.
 #'
 #'@examples
 #'mod_pa <- 
@@ -52,6 +57,16 @@ set_edge_label_position <- function(semPaths_plot, position_list = NULL) {
             stop("semPaths_plot is not a qgraph object.")
           }
       }
+
+    # Convert a named vector to a named list
+    if (!is.list(position_list) && is.numeric(position_list)) {
+        position_list_org <- position_list
+        position_list <- to_list_of_lists(position_list,
+                                       name1 = "from",
+                                       name2 = "to",
+                                       name3 = "new_position")
+      }
+
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
     Nodes_id <- seq_len(length(Nodes_names))
     names(Nodes_id) <- Nodes_names

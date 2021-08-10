@@ -1,3 +1,14 @@
+# semptools 0.2.8.1
+
+- Added `change_node_label` for changing the labels of nodes. Several other functions
+  were modified to adapt for this function.
+
+- Added `to_list_of_lists` for converting a named vector to a list of lists. Specifying
+  a list of lists is necessary in some cases because the a label may not be string (e.g.,
+  it may be an expression). However, in most cases, all elements are strings or numbers
+  and so a named vector will do. This function is to be used internally by other functions,
+  not to be used by users.
+
 # semptools 0.2.8
 
 - Fix a bug in set_cfa_layout. It now will not raise an error for one-factor models.

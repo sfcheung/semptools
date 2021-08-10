@@ -89,6 +89,9 @@ mark_sig <- function(semPaths_plot, object,
     if (!is.null(names(Nodes_names))) {
       Nodes_names <- names(Nodes_names)
     }
+    if (!all(Nodes_names %in% union(ests$lhs, ests$rhs))) {
+      abort_nomatch(Nodes_names, union(ests$lhs, ests$rhs))
+    }
     Edgelist <- data.frame(
       from_names = Nodes_names[semPaths_plot$Edgelist$from], 
       to_names   = Nodes_names[semPaths_plot$Edgelist$to], 
