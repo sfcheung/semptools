@@ -39,13 +39,15 @@
 #'                     corresponding latent factor (specified in factor_layout)
 #'                     points to its indicators.
 #'@param indicator_push (Optional) This argument is used to adjust the position of 
-#'                      indicators of selected latent factors. It must be a list of lists.
+#'                      indicators of selected latent factors. It must be a list of lists,
 #'                      Each sublist has two named elements: node, the name of a latent 
 #'                      factor, and push, how the positions of its indicators will be 
 #'                      adjusted. If push = 1, there is no change. Larger than one,
 #'                      the indicators will be "pushed" away from the latent factors.
 #'                      Less than one, the indicators will be "pulled" to the latent 
-#'                      factors. 
+#'                      factors. This argument can also be set by supplying a named vector,
+#'                      with the values being "push" values, and names being the nodes to be 
+#'                      affected.
 #'@param indicator_spread (Optional) This argument is used to adjust the distance between  
 #'                      indicators of selected latent factors. It must be a list of lists.
 #'                      Each sublist has two named elements: node, the name of a latent 
@@ -53,7 +55,9 @@
 #'                      adjusted. If spread = 1, there is no change. Larger than one,
 #'                      the indicators will be "spread" away from each other.
 #'                      Less than one, the indicators will be placed closer to each
-#'                      others. 
+#'                      others.  This argument can also be set by supplying a named vector,
+#'                      with the values being "spread" values, and names being the nodes to be 
+#'                      affected.
 #'@param loading_position Default is .5. This is used adjust the position of the loadings.
 #'                  If this is one single number, it will be used to set the positions
 #'                  of all loadings. If it is .5, the loadings are placed on the center of 
@@ -64,7 +68,9 @@
 #'                  Each sublist will have two named elements: node, the name of the 
 #'                  latent factor, and position, the positions of all loadings of this 
 #'                  factors. The values of these positions are used in the same way as 
-#'                  specifying one single number.
+#'                  specifying one single number.  This argument can also be set by 
+#'                  supplying a named vector, with the values being "position" values, 
+#'                  and names being the nodes to be affected.
 #'@examples
 #'library(lavaan)
 #'library(semPlot)
@@ -146,15 +152,55 @@ set_sem_layout <- function(semPaths_plot,
             stop("semPaths_plot is not a qgraph object.")
           }
       }  
-    Nodes_names <- semPaths_plot$graphAttributes$Nodes$names  
+
+    Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
+    if (!is.null(names(Nodes_names))) {
+      Nodes_names <- names(Nodes_names)
+      Nodes_names2 <- semPaths_plot$graphAttributes$Nodes$names
+    }
+            
     if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
-        warning("One or more indicators in the graph may not be in indicator_order. Unexpected results may occur.")
+        if (!all(Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
+            warning("One or more indicators in the graph are not in indicator_order. Unexpected results may occur.")
+          } else {
+            tmp <- sapply(indicator_order, function(x) {
+                Nodes_names[match(x, Nodes_names2)]
+              }, USE.NAMES = FALSE)
+            indicator_order <- tmp
+          }
       }
     if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
-        warning("One or more factors in the graph may not be in indicator_factor. Unexpected results may occur.")
+        if (!all(Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
+            warning("One or more factors in the graph are not in indicator_factor. Unexpected results may occur.")
+          } else {
+            tmp <- sapply(indicator_factor, function(x) {
+                Nodes_names[match(x, Nodes_names2)]
+              }, USE.NAMES = FALSE)
+            indicator_factor <- tmp
+          }
       }
+
+
+    # Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
+    # if (!is.null(names(Nodes_names))) {
+    #   Nodes_names <- names(Nodes_names)
+    # }
+    # if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
+    #     warning("One or more indicators in the graph may not be in indicator_order. Unexpected results may occur.")
+    #   }
+    # if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
+    #     warning("One or more factors in the graph may not be in indicator_factor. Unexpected results may occur.")
+    #   }
     if (!all(factor_layout[!is.na(factor_layout)] %in% indicator_factor)) {
-        stop("The position of one or more latent factors are not in factor_layout.")
+        if (!all(factor_layout[!is.na(factor_layout)] %in% 
+              Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"])) {
+            stop("The position of one or more latent factors are not in factor_layout.")
+          } else {
+            tmp <- sapply(factor_layout, function(x) {
+                Nodes_names[match(x, Nodes_names2)]
+              }, USE.NAMES = FALSE)
+            factor_layout[] <- tmp
+          }
       }
     if (!all(!is.na(factor_layout) == !is.na(factor_point_to))) {
         stop("The positions of the indicators of one or more latent factors are not specified in factor_point_to.")
@@ -203,6 +249,15 @@ set_sem_layout <- function(semPaths_plot,
         if (is.null(indicator_push)) {
             indicator_push_i <- 1
           } else {
+
+            # Convert a named vector to a named list
+            if (!is.list(indicator_push) && is.numeric(indicator_push)) {
+                indicator_push_org <- indicator_push
+                indicator_push <- to_list_of_lists(indicator_push,
+                                                    name1 = "node",
+                                                    name2 = "push")
+              }
+
             tmp <- sapply(indicator_push, 
               function(y, node) {ifelse(y$node == node, y$push, NA)}, node = x)
             indicator_push_i <- tmp[!is.na(tmp)]
@@ -211,6 +266,15 @@ set_sem_layout <- function(semPaths_plot,
         if (is.null(indicator_spread)) {
             indicator_spread_i <- 1
           } else {
+
+            # Convert a named vector to a named list
+            if (!is.list(indicator_spread) && is.numeric(indicator_spread)) {
+                indicator_spread_org <- indicator_spread
+                indicator_spread <- to_list_of_lists(indicator_spread,
+                                                     name1 = "node",
+                                                     name2 = "spread")
+              }
+
             tmp <- sapply(indicator_spread, 
               function(y, node) {ifelse(y$node == node, y$spread, NA)}, node = x)
             indicator_spread_i <- tmp[!is.na(tmp)]
@@ -312,6 +376,15 @@ set_sem_layout <- function(semPaths_plot,
                          !semPaths_plot$Edgelist$bidirectional
         semPaths_plot$graphAttributes$Edges$edge.label.position[loading_position_list] <- loading_position
       } else {
+
+        # Convert a named vector to a named list
+        if (!is.list(loading_position) && is.numeric(loading_position)) {
+            loading_position_org <- loading_position
+            loading_position <- to_list_of_lists(loading_position,
+                                                 name1 = "node",
+                                                 name2 = "position")
+          }
+
         loading_label_position <- lapply(seq_len(length(loading_position)), 
                 function(x, loading_position,
                             indicator_grouped) {
