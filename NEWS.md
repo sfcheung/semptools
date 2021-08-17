@@ -6,6 +6,10 @@
   then be passed to `semPlot::semPaths` to draw a diagram without the dropped 
   nodes.
 
+- Add `layout_matrix`. A helper function for creating a layout matrix to be used
+  by `semPlot::semPaths`. Users specify the positions of nodes and the function
+  will create the matrix accordingly.
+
 # semptools 0.2.8.1
 
 - Added `change_node_label` for changing the labels of nodes. Several other functions
