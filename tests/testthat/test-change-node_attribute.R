@@ -29,7 +29,7 @@ plot(p_pa2_label_prop)
 plot(p_pa2_label_norm)
 
 test_that("options are changed", {
-  expect_equal(p_pa2_label_cex$graphAttributes$Nodes$label.ces, .2)
+  expect_equal(p_pa2_label_cex$graphAttributes$Nodes$label.cex, .2)
   expect_equal(p_pa2_label_scale$plotOptions$label.scale, FALSE)
   expect_equal(p_pa2_label_prop$plotOptions$label.prop, rep(0.5, 4))
   expect_equal(p_pa2_label_norm$plotOptions$label.norm, "OOOOO")
