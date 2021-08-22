@@ -176,7 +176,7 @@ change_node_label <- function(semPaths_plot, label_list = NULL,
     semPaths_plot$graphAttributes$Nodes$names <- Nodes_names
 
     if (!missing(label.cex)) {
-        semPaths_plot$graphAttributes$Nodes$label.ces <- label.cex
+        semPaths_plot$graphAttributes$Nodes$label.cex <- label.cex
       }
     if (!missing(label.scale)) {
         semPaths_plot$plotOptions$label.scale <- label.scale
