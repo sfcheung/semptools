@@ -23,6 +23,33 @@
 #'                    \code{node}, is a character denoting the label to be changed.
 #'                    It should be as appeared in the qgraph. The second part,
 #'                    \code{to}, is the new label. Expression can be used in \code{to}.
+#'@param label.cex Identical to the same argument in [semPlot::semPaths()].
+#'                   A number tha control the size of labels in the nodes.
+#'                    It has no default. If not set, then
+#'                    this option in the `semPaths_plot` will not
+#'                      be changed.
+#'@param label.scale Identical to the same argument in [semPlot::semPaths].
+#'                   A logical value that determine whether labels wil
+#'                   be scaled (resized) to the nodes they attach
+#'                    to. It has no default. If not set, then
+#'                    this option in the `semPaths_plot` will not
+#'                      be changed.
+#'@param label.prop Identical to the same argument in [semPlot::semPaths].
+#'                   A numeric vector of length equal to the number of
+#'                    nodes. If `label.scale` is `TRUE`, this number
+#'                    is the proportion of the width of a node that
+#'                    its label will be scaled (resized) to.
+#'                    It has no default. If not set, then
+#'                    this option in the `semPaths_plot` will not
+#'                      be changed.
+#'@param label.norm Identical to the same argument in [semPlot::semPaths].
+#'                  It must be a string. All labels as wide as or narrower
+#'                  thna this string will have the same font size, while
+#'                  all labels wider than this string will be rescaled to have
+#'                    the same width as this string.
+#'                    It has no default. If not set, then
+#'                    this option in the `semPaths_plot` will not
+#'                      be changed.
 #'
 #'
 #'@examples
@@ -51,7 +78,12 @@
 #'
 #' @export
 
-change_node_label <- function(semPaths_plot, label_list = NULL) {
+change_node_label <- function(semPaths_plot, label_list = NULL,
+                              label.cex,
+                              label.scale,
+                              label.prop,
+                              label.norm)
+{
     if (is.null(label_list)) {
         rlang::abort("label_list not specified.")
     }
@@ -63,6 +95,29 @@ change_node_label <- function(semPaths_plot, label_list = NULL) {
       } else {
         if (!inherits(semPaths_plot, "qgraph")) {
             rlang::abort("semPaths_plot is not a qgraph object.")
+          }
+      }
+    if (!missing(label.cex)) {
+        if (!is.numeric(label.cex)) {
+            rlang::abort("label.cex must be a single number.")
+          }
+      }
+    if (!missing(label.scale)) {
+        if (!is.logical(label.scale)) {
+            rlang::abort("label.scale must be logical.")
+          }
+        if (is.na(label.scale)) {
+            rlang::abort("label.scale must be TRUE or FALSE.")
+          }
+      }
+    if (!missing(label.prop)) {
+        if (!is.numeric(label.prop)) {
+            rlang::abort("label.prop must be numeric.")
+          }
+      }
+    if (!missing(label.norm)) {
+        if (!is.character(label.norm)) {
+            rlang::abort("label.norm must be a string.")
           }
       }
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
@@ -119,6 +174,20 @@ change_node_label <- function(semPaths_plot, label_list = NULL) {
        names(Nodes_names) <- Nodes_names_old
     }
     semPaths_plot$graphAttributes$Nodes$names <- Nodes_names
+
+    if (!missing(label.cex)) {
+        semPaths_plot$graphAttributes$Nodes$label.ces <- label.cex
+      }
+    if (!missing(label.scale)) {
+        semPaths_plot$plotOptions$label.scale <- label.scale
+      }
+    if (!missing(label.prop)) {
+        semPaths_plot$plotOptions$label.prop <- label.prop
+      }
+    if (!missing(label.norm)) {
+        semPaths_plot$plotOptions$label.norm <- label.norm
+      }
+
     semPaths_plot
   }
 
