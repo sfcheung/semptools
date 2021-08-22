@@ -396,10 +396,9 @@ p_pa3 <- change_node_label(p_pa2,
                            list(x1 = "Attitude",
                                 x2 = "SbjNorm",
                                 x3 = "Intention",
-                                x4 = "Behavior"))
-p_pa3$graphAttributes$Nodes$label.cex <- .5
+                                x4 = "Behavior"),
+                           label.cex = 1.1)
 plot(p_pa3)
-plot(qgraph::qgraph(p_pa3))
 ```
 
 # Using pipe-operator
