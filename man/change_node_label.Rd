@@ -21,7 +21,9 @@ object modified by other semptools functions.}
 named values: \code{node} and \code{to}. The first part,
 \code{node}, is a character denoting the label to be changed.
 It should be as appeared in the qgraph. The second part,
-\code{to}, is the new label. Expression can be used in \code{to}.}
+\code{to}, is the new label. Expression can be used in \code{to}.
+A named vector can also be used, with the names being the
+nodes to be changed, and the values the new labels.}
 
 \item{label.cex}{Identical to the same argument in [semPlot::semPaths()].
 A number tha control the size of labels in the nodes.

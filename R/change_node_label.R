@@ -23,6 +23,8 @@
 #'                    \code{node}, is a character denoting the label to be changed.
 #'                    It should be as appeared in the qgraph. The second part,
 #'                    \code{to}, is the new label. Expression can be used in \code{to}.
+#'                    A named vector can also be used, with the names being the
+#'                    nodes to be changed, and the values the new labels.
 #'@param label.cex Identical to the same argument in [semPlot::semPaths()].
 #'                   A number tha control the size of labels in the nodes.
 #'                    It has no default. If not set, then
@@ -87,6 +89,12 @@ change_node_label <- function(semPaths_plot, label_list = NULL,
     if (is.null(label_list)) {
         rlang::abort("label_list not specified.")
     }
+    if (is.vector(label_list) && !is.list(label_list)) {
+        # c(x1 = "IV", x2 = expression(gamma)) is not an atomic but is
+        # a vector. If converted to a list, it will be a list with
+        # one stirng and one expression.
+        label_list <- as.list(label_list) 
+      }
     if (!is.list(label_list)) {
         rlang::abort("`label_list` should be a list of named list(s).")
     }

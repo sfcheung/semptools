@@ -56,8 +56,8 @@ test_that("node label can be changed back", {
 test_that(
   "node label change results in an error with incorrect or missing input", {
     expect_error(change_node_label(p_pa), "not specified")
-    expect_error(change_node_label(p_pa2, c(x1 = "predictor")), 
-                 "should be a list of named list")
+    # expect_error(change_node_label(p_pa2, c(x1 = "predictor")), 
+    #              "should be a list of named list")
     expect_error(change_node_label(p_pa2, list(list(nodes = "x1", 
                                                     to = "predictor 1"))), 
                  "One or more nodes in")
