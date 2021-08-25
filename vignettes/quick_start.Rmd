@@ -199,6 +199,22 @@ p_pa2 <- rotate_resid(p_pa, my_rotate_resid_list)
 plot(p_pa2)
 ```
 
+Since version 0.2.8, `rotate_resid` also supports specifying
+the changes using a named vector. For example, if the residual
+term of `x3` is to be rotated by 45 degrees clockwise, then
+add the element `x3 = 45` to a vector. Therefore, to achieve
+the same results as above, the vector `c(x3 = 45, x4 = -45, x2 = -90)`
+can also be used as shown below:
+
+```{r}
+library(semptools)
+my_rotate_resid_list <- c(x3 =  45,
+                          x4 = -45,
+                          x2 = -90)
+p_pa3 <- rotate_resid(p_pa, my_rotate_resid_list)
+plot(p_pa3)
+```
+
 # Set the curve attributes of selected arrows: `set_curve`
 
 Let us consider a simple path analysis model:
@@ -276,6 +292,31 @@ p_pa2 <- set_curve(p_pa, my_curve_list)
 plot(p_pa2)
 ```
 
+Since version 0.2.8, `set_curve` supports using a named 
+vector to specify the changes. The "name" of each element is of the
+same form as `lhs-op-rhs` as in `lavaan` model syntax. In `lavaan`,
+`y ~ x` denotes an arrow from `x` to `y`. Therefore, if we want
+to change the curvature of the path *from* `x` *to* `y` to -3, then
+the element is `"y ~ x" = -3`. Note that whether `~` or `~~` is used
+does not matter.
+
+Therefore, the changes in the previous example can also be
+specified by `c("x2 ~~ x1" = -3, "x4  ~ x1" = 2)`, as shown below:
+
+```{r}
+my_curve_list <- c("x2 ~~ x1" = -3,
+                   "x4  ~ x1" =  2)
+p_pa3 <- set_curve(p_pa, my_curve_list)
+plot(p_pa3)
+```
+
+Note that the meaning of the value depends on which variable is in
+the `from` field and which variable is in the `to` field. Therefore,
+`"x2 ~~ x1" = -3` and `"x1 ~~ x2" = -3` are two different changes.
+If we treat the `from` variable as the back and the `to` variable
+as the front, then a *positive* number bends the line to *left*,
+and a *negative* number bends the line to the *right*.
+
 # Set the positions of parameters of selected arrows: `set_edge_label_position`
 
 
@@ -347,6 +388,28 @@ my_position_list <- list(list(from = "x1", to = "x3", new_position =  .25),
 p_pa2 <- set_edge_label_position(p_pa, my_position_list)
 plot(p_pa2)
 ```
+
+Since version 0.2.8, `set_edge_label_position` supports using a named 
+vector to specify the changes. The "name" of each element is of the
+same form as `lhs-op-rhs` as in `lavaan` model syntax. In `lavaan`,
+`y ~ x` denotes an arrow from `x` to `y`. Therefore, if we want
+to change the curvature of the path *from* `x` *to* `y` to -3, then
+the element is `"y ~ x" = -3`. Note that whether `~` or `~~` is used
+does not matter.
+
+Therefore, the changes in the previous example can also be
+specified by `c("x2 ~~ x1" = -3, "x4  ~ x1" = 2)`, as shown below:
+
+```{r}
+library(semptools)
+my_position_list <- c("x3 ~ x1" = .25,
+                      "x3 ~ x2" = .25,
+                      "x4 ~ x1" = .75)
+p_pa3 <- set_edge_label_position(p_pa, my_position_list)
+plot(p_pa3)
+```
+
+
 
 # Change one or more node labels: `change_node_label`
 
@@ -463,6 +526,33 @@ p_pa2 <- p_pa %>% set_curve(my_curve_list) %>%
                   mark_se(fit_pa, sep = "\n") %>%
                   set_edge_label_position(my_position_list)
 plot(p_pa2)
+```
+
+We can also use named vectors:
+
+```{r}
+library(semPlot)
+m <- matrix(c("x1",   NA,  NA,   NA,
+                NA, "x3",  NA, "x4",
+              "x2",   NA,  NA,   NA), byrow = TRUE, 3, 4)
+p_pa <- semPaths(fit_pa, whatLabels = "est",
+           sizeMan = 10,
+           edge.label.cex = 1.15,
+           style = "ram", 
+           nCharNodes = 0, nCharEdges = 0,
+           layout = m)
+my_position_list <- c("x4 ~ x1" = .75)
+my_curve_list <- c("x2 ~ x1" = -2)
+my_rotate_resid_list <- c(x1 = 0, x2 = 180, x3 = 140, x4 = 140)
+my_position_list <- c("x4 ~ x1" = .65)
+
+library(magrittr)
+p_pa3 <- p_pa %>% set_curve(my_curve_list) %>% 
+                  rotate_resid(my_rotate_resid_list) %>% 
+                  mark_sig(fit_pa) %>%
+                  mark_se(fit_pa, sep = "\n") %>%
+                  set_edge_label_position(my_position_list)
+plot(p_pa3)
 ```
 
 Note that the package `magrittr` needed to be loaded first.
