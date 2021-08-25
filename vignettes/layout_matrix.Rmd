@@ -25,9 +25,9 @@ library(semptools)
 
 # Introduction
 
-One useful feature of `semPlot::semPaths` is using a layout matrix to specify
-the location each node in a structural equation model, by setting the argument
-`layout`. This guide briefly explains how to use `layout`, and then introduces
+One useful feature of `semPlot::semPaths` is using setting the argument `layout`
+to a layout matrix to specify the location of each node in a structural
+equation model. This guide briefly explains how to use `layout`, and then introduces
 the helper function `layout_matrix` of `semptools` that can be used to construct
 a layout matrix. Last, it describes how `factor_layout` is used in
 `set_sem_layout`
@@ -65,8 +65,8 @@ p_pa2con <- set_curve(p_pa, list(list(from = "x1", to = "x2", new_curve = -2)))
 plot(p_pa2con)
 ```
 
-If we fit the model by `lavaan` and use `semPlot::semPaths`,
-without using `layout`, this is the resulting plot:
+If we fit the model by `lavaan` and use `semPlot::semPaths` to generate
+the plot without using `layout`, this is the resulting plot:
 
 ```{r wo_layout}
 library(lavaan)
@@ -84,7 +84,7 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
            nCharNodes = 0, nCharEdges = 0)
 ```
 
-This layout is different the convention used in psychology.
+This layout is different from the convention used in psychology.
 
 To use `layout`, we first decide the grid to be used to 
 position the variable (nodes). For example, for the
@@ -92,20 +92,33 @@ conceptual diagram, we can try a 3 by 4 grid
 
 ```{r grid, echo = FALSE}
 plot(p_pa2con)
-segments(-1.25, 1.25, 1.25, 1.25, col = "red", lwd = 4)
-segments(-1.25, .5, 1.25, .5, col = "red", lwd = 4)
-segments(-1.25, -.5, 1.25, -.5, col = "red", lwd = 4)
-segments(-1.25, -1.25, 1.25, -1.25, col = "red", lwd = 4)
-segments(-1.25, -1.25, -1.25, 1.25, col = "red", lwd = 4)
-segments(-.625, -1.25, -.625, 1.25, col = "red", lwd = 4)
-segments(0, -1.25, 0, 1.25, col = "red", lwd = 4)
-segments(.625, -1.25, .625, 1.25, col = "red", lwd = 4)
-segments(1.25, -1.25, 1.25, 1.25, col = "red", lwd = 4)
+xc <- seq(-1.25, 1.25, length.out = 5)
+yc <- seq(1.25, -1.25, length.out = 4)
+for (i in yc) {
+    segments(xc[1], i, xc[5], i, col = "red", lwd = 4)
+  }
+for (i in xc) {
+    segments(i, yc[1], i, yc[4], col = "red", lwd = 4)
+  }
+x_os <- (xc[2] - xc[1]) * .5
+y_os <- (yc[2] - yc[1]) * .9
+for (i in seq_len(length(xc) - 1)) {
+    for (j in seq_len(length(yc) - 1)) {
+        text(xc[i] + x_os, yc[j] + y_os,
+             paste0("(", j, ", ", i, ")"),
+             cex = 1.5, col = "red")
+      }
+  }
 ```
 
+The pair of numbers in each cell denote the location of
+the cell in a 3 by 4 matrix as indexed in an R matrix.
+An empty column was added between `x3` and `x4` because we
+want to move `x4` further away to the right.
+
 We then create a matrix of the same dimension as the
-grid, and initialize the cells by `NA`, denoted a cell
-with nothing.
+grid, and initialize the cells by `NA`, which denoted a cell
+with *nothing*.
 
 ```{r}
 m <- matrix(NA, 3, 4)
@@ -113,7 +126,8 @@ m
 ```
 
 We then set the position of each variable
-(node) by setting the corresponding cell to the name
+(node, as called internally in a plot by `semPlot::semPaths`)
+by setting the corresponding cell to the name
 of this variable as appeared in the `lavaan` model.
 
 ```{r}
@@ -150,15 +164,22 @@ We need to type more because we need to include
 `NA` for all the empty cells. However, 
 this approach let
 us see immediately how the variables will be positioned.
+We just place the variables in the target cell, without
+knowing the coordinates. This is a WYSIWYG
+(what-you-see-is-what-you-get) approach.
 This is the approach used in the Quick Start Guides.
 
 # `layout_matrix` in `semptools`
 
-The what-you-see-is-what-you-get approach in the previous
+The WYSIWYG approach in the previous
 section has one drawback: It is not easy to change the
 position of the variables and the dimension of the grid.
 In real research, trial-and-error is usually needed to 
-find the desirable layout. The `layout_matrix` function
+find a desirable layout. For example, if we want to
+add a column or row,
+we need ty type several `NA`s to crate it.
+
+The `layout_matrix` function in `semptools`
 is designed to generate the matrix using the coordinates
 of the variables. Instead of specifying the dimension
 ourselves, `layout_matrix` will try to figure out the
@@ -182,7 +203,7 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 ```
 
 Suppose we want to move `x4` closer to `x3`. Instead
-of deleting the 3rd rows of `NA`, we can use 
+of deleting the 3rd columns of `NA`, we can  
 just change the coordinates of `x4` in `layout_matrix`:
 
 ```{r}
@@ -210,17 +231,25 @@ did above).
 
 # `factor_layout` in `set_sem_layout`
 
-The `factor_layout` argument in `set_sem_layout` works
-like `layout` in `semPlot::semPaths`. However, if we
-use `layout` for a structural models with latent factors,
-we need to specify the positions of all nodes, that is,
-all the indicators and all the factors. In `set_sem_layout`,
+If we
+use `layout` in `semPlot::semPaths` for a structural
+models with latent factors
+and we want to draw both the factors and their indicators,
+we need to specify the positions of *all* nodes, that is,
+all the indicators and all the factors. The grid will be
+very large and it is difficult to determine the positions
+of the indicators.
+
+The `factor_layout` argument in `set_sem_layout` is developed
+to solve this problem. It works
+like `layout` in `semPlot::semPaths`.
+In `set_sem_layout`,
 we only need to specify the positions of the latent
 factors. As in `layout`, we create a matrix to specify
 the positions of the factors. The procedure is identical
 to what illustrated above for a path model, and all
 the approaches presented above can be used. The only
-difference is, only the names of the *factors* need
+difference is, only the names of the *latent* *factors* need
 to be present in the matrix, and the size of the grid
 only need to consider the factors. 
 
@@ -272,16 +301,26 @@ plot(p_semcon)
 
 Again, we decide the grid to use, which is 3 by 3 in
 this example:
+
 ```{r echo = FALSE}
 plot(p_semcon)
-segments(-1.25, 1.25, 1.25, 1.25, col = "red", lwd = 4)
-segments(-1.25, .5, 1.25, .5, col = "red", lwd = 4)
-segments(-1.25, -.5, 1.25, -.5, col = "red", lwd = 4)
-segments(-1.25, -1.25, 1.25, -1.25, col = "red", lwd = 4)
-segments(-1.25, -1.25, -1.25, 1.25, col = "red", lwd = 4)
-segments(-1.25 + 2.5/3, -1.25, -1.25 + 2.5/3, 1.25, col = "red", lwd = 4)
-segments(-1.25 + 2 * 2.5/3, -1.25, -1.25 + 2 * 2.5/3, 1.25, col = "red", lwd = 4)
-segments(1.25, -1.25, 1.25, 1.25, col = "red", lwd = 4)
+xc <- seq(-1.25, 1.25, length.out = 4)
+yc <- seq(1.25, -1.25, length.out = 4)
+for (i in yc) {
+    segments(xc[1], i, xc[4], i, col = "red", lwd = 4)
+  }
+for (i in xc) {
+    segments(i, yc[1], i, yc[4], col = "red", lwd = 4)
+  }
+x_os <- (xc[2] - xc[1]) * .5
+y_os <- (yc[2] - yc[1]) * .9
+for (i in seq_len(length(xc) - 1)) {
+    for (j in seq_len(length(yc) - 1)) {
+        text(xc[i] + x_os, yc[j] + y_os,
+             paste0("(", j, ", ", i, ")"),
+             cex = 1.5, col = "red")
+      }
+  }
 ```
 
 Therefore, this is the matrix to be used:
@@ -331,3 +370,7 @@ p2 <- set_sem_layout(p,
                      loading_position = loading_position)
 plot(p2)
 ```
+
+This make it much easier to specify the positions of factors
+in a structural equation model with latent factors.
+
