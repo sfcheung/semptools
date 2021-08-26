@@ -80,6 +80,12 @@
 
 mark_sig <- function(semPaths_plot, object, 
                       alphas = c("*" = .05, "**" = .01, "***" = .001)) {
+  if ("triangle" %in% semPaths_plot$graphAttributes$Nodes$shape) {
+    rlang::abort(paste("The semPaths plot seems to have one or",
+                       "more intercepts. Models with intercepts",
+                       "are not supported yet. Consider setting",
+                       "'intercepts = FALSE' in semPaths."))
+  }
     if (object@Data@ngroups > 1) {
       rlang::abort("Multiple-group models are not currently supported.")
     }
