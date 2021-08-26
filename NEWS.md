@@ -10,6 +10,20 @@
   by `semPlot::semPaths`. Users specify the positions of nodes and the function
   will create the matrix accordingly.
 
+- `mark_sig`, `mark_se`, and `set_cfa_layout` will raise an error if the
+  `semPlot::semPaths` has intercepts terms. These function do not support
+  plots with intercept terms yet.
+
+- Updated `change_node_label` to support named vectors.
+
+- Added a vignette to explain how layout matrix is used in `semPlot::semPaths()`,
+  and how `layout_matrix` can be used to construct the layout matrix.
+
+- Updated the vignettes to note that named vactors can be used in place of 
+  "list of lists" in some functions.
+
+- Updated the Quick Start to introduce `change_node_label`.
+
 # semptools 0.2.8.1
 
 - Added `change_node_label` for changing the labels of nodes. Several other functions
