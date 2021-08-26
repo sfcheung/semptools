@@ -193,18 +193,19 @@ The placement of the indicators are too close to the indicators and to neighbori
 ## "Pushing" the indicators away from their assigned factors
 
 We can use the argument `indicator_push` to push the indicators of a factor 
-away from it. The argument needs a list of lists. In each sublist, there should be
-two named elements: `node`: the name of a factor; `push`: the multiplier to the 
+away from it. The argument needs a named vector. The name is the factor
+of which the indictors will be "pushed", and the value is how "hard" the
+push is: the multiplier to the 
 distance from the factor to the indicators. For example:
 
 ```{r}
-indicator_push <- list(list(node = "f3", push =   2),
-                       list(node = "f4", push = 1.5),
-                       list(node = "f1", push = 1.5),
-                       list(node = "f2", push = 1.5))
+indicator_push <- c(f3 = 2,
+                    f4 = 1.5,
+                    f1 = 1.5,
+                    f2 = 1.5)
 ```
 
-This list will double the distance between the indicators of `f3` and their 
+This vector will double the distance between the indicators of `f3` and their 
 factors, and multiply
 the distance between the indicators of `f4`, `f1`, and `f2` and their factors 
 by 1.5. If `push` is less than 1, 
@@ -223,18 +224,18 @@ plot(p2)
 ## "Spreading" out the indicators
 
 We can use the argument `indicator_spread` to spread out the indicators of a factor,
-increasing the distance between the indicators. The argument needs a list of 
-lists. In each sublist, there should be two named elements: `node`: the name of
- a factor; `spread`: the multiplier to the distance between neighboring 
+increasing the distance between the indicators. The argument needs a named
+vector. The name is the fator of which the indicators will be spread out.
+The value is the multiplier to the distance between neighboring 
 indicators. For example:
 
 ```{r}
-indicator_spread <- list(list(node = "f1", spread =    2),
-                         list(node = "f2", spread =  1.5),
-                         list(node = "f4", spread =  1.5))
+indicator_spread <- c(f1 = 2,
+                      f2 = 1.5,
+                      f4 = 1.5)
 ```
 
-This list will double the distance between the indicators of `f1`, and multiply
+This vector will double the distance between the indicators of `f1`, and multiply
 the distance between the indicators of `f2` and `f4`. and its indicators by 
 1.5. If `spread` is less than 1,  the indicators will be squeezed towards each 
 others.
@@ -258,15 +259,15 @@ will be used for the position of all loadings. A value of .5 place the loadings
 on the middle of the paths. Larger the value, closer the loadings to the indicators.
 Smaller the value, closer the loadings to the factors.
 
-We can also use a list of lists to specify the positions of indicators for 
-each factor. The default is .50 and so we only need to specify the positions for 
-factors to be changed. TIn each sublist, there should be two named elements: 
-`node`: the name of a factor; `position`: the positions of the its loadings. For example:
+We can also use a named vector to specify the positions of indicators for 
+each factor.In each element, the name if the factor whose loadings
+will be moved. The value is the positons of its loadings.  The default is .50. We only need to specify the positions for factors to be changed from .50
+to other values. For example:
 
 ```{r}
-loading_position <- list(list(node = "f2", position = .7),
-                         list(node = "f3", position = .8),
-                         list(node = "f4", position = .8))
+loading_position <- c(f2 = .7,
+                      f3 = .8,
+                      f4 = .8)
 ```
 
 
@@ -295,17 +296,17 @@ for the asterisks, and change the orientation of `f4` to `up`):
 factor_point_to <- matrix(c("left",     NA,      NA,
                                 NA, "down",    "up",
                             "left",     NA,      NA), byrow = TRUE, 3, 3)
-indicator_push <- list(list(node = "f3", push = 2.5),
-                       list(node = "f4", push = 2.5),
-                       list(node = "f1", push = 1.5),
-                       list(node = "f2", push = 1.5))
-indicator_spread <- list(list(node = "f1", spread =    2),
-                         list(node = "f2", spread =    2),
-                         list(node = "f4", spread =    2),
-                         list(node = "f3", spread = 1.75))
-loading_position <- list(list(node = "f2", position = .6),
-                         list(node = "f3", position = .8),
-                         list(node = "f4", position = .8))
+indicator_push <- c(f3 = 2.5,
+                    f4 = 2.5,
+                    f1 = 1.5,
+                    f2 = 1.5)
+indicator_spread <- c(f1 = 2,
+                      f2 = 2,
+                      f4 = 2,
+                      f3 = 1.75)
+loading_position <- c(f2 = .6,
+                      f3 = .8,
+                      f4 = .8)
 library(magrittr)
 p2 <- set_sem_layout(p, 
                      indicator_order = indicator_order,
@@ -315,9 +316,8 @@ p2 <- set_sem_layout(p,
                      indicator_push = indicator_push,
                      indicator_spread = indicator_spread,
                      loading_position = loading_position) %>%
-                     set_curve(list(
-                        list(from = "f1", to = "f2", new_curve =  -1),
-                        list(from = "f1", to = "f4", new_curve = 1.5))) %>%
+                     set_curve(c("f2 ~~ f1" = -1,
+                                 "f4 ~ f1" = 1.5)) %>%
                      mark_sig(fit)
 plot(p2)
 ```
