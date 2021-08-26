@@ -98,6 +98,12 @@ set_cfa_layout <- function(semPaths_plot,
             stop("semPaths_plot is not a qgraph object.")
           }
       }
+    if ("triangle" %in% semPaths_plot$graphAttributes$Nodes$shape) {
+      rlang::abort(paste("The semPaths plot seems to have one or",
+                        "more intercepts. Models with intercepts",
+                        "are not supported yet. Consider setting",
+                        "'intercepts = FALSE' in semPaths."))
+    }
     if (!is.numeric(fcov_curve) | length(fcov_curve) > 1) {
         stop("fcov_curve is not a single number.")
       }

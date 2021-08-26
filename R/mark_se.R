@@ -94,6 +94,12 @@
 #' @export
 mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L, 
                     ests = NULL) {
+  if ("triangle" %in% semPaths_plot$graphAttributes$Nodes$shape) {
+    rlang::abort(paste("The semPaths plot seems to have one or",
+                       "more intercepts. Models with intercepts",
+                       "are not supported yet. Consider setting",
+                       "'intercepts = FALSE' in semPaths."))
+  }
   if (is.null(ests)) {
     ests <- lavaan::parameterEstimates(object, se = TRUE, ci = FALSE, 
                                        zstat = FALSE, pvalue = FALSE)
