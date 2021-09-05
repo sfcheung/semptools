@@ -25,16 +25,19 @@ library(semptools)
 
 # Introduction
 
-One useful feature of `semPlot::semPaths` is using setting the argument `layout`
+One useful feature of `semPlot::semPaths()` is using setting the argument
+`layout`
 to a layout matrix to specify the location of each node in a structural
-equation model. This guide briefly explains how to use `layout`, and then introduces
-the helper function `layout_matrix` of `semptools` that can be used to construct
+equation model. This guide briefly explains how to use `layout`, and then
+introduces
+the helper function `layout_matrix()` of `semptools` that can be used to
+construct
 a layout matrix. Last, it describes how `factor_layout` is used in
-`set_sem_layout`
-to specify the layout of the latent factors only, and let `set_sem_layout`  
+`set_sem_layout()`
+to specify the layout of the latent factors only, and let `set_sem_layout()`  
 decide the positions of their indicators.
 
-# What `layout` does in `semPlot::semPaths`.
+# What `layout` Does in `semPlot::semPaths`.
 
 Suppose we have a path model with four variables, 
 `x1`, `x2`, `x3`, and `x4`. `x1` and `x2` affects `x3`,
@@ -65,7 +68,8 @@ p_pa2con <- set_curve(p_pa, list(list(from = "x1", to = "x2", new_curve = -2)))
 plot(p_pa2con)
 ```
 
-If we fit the model by `lavaan` and use `semPlot::semPaths` to generate
+If we fit the model by `lavaan::lavaan()` and use `semPlot::semPaths()` to
+generate
 the plot without using `layout`, this is the resulting plot:
 
 ```{r wo_layout}
@@ -126,7 +130,7 @@ m
 ```
 
 We then set the position of each variable
-(node, as called internally in a plot by `semPlot::semPaths`)
+(node, as called internally in a plot by `semPlot::semPaths()`)
 by setting the corresponding cell to the name
 of this variable as appeared in the `lavaan` model.
 
@@ -139,7 +143,7 @@ m
 ```
 
 We can then set `layout` to this matrix to tell 
-`semPlot::semPaths` how to position the four variables:
+`semPlot::semPaths()` how to position the four variables:
 
 ```{r}
 p_pa <- semPaths(fit_pa, whatLabels = "est",
@@ -169,7 +173,7 @@ knowing the coordinates. This is a WYSIWYG
 (what-you-see-is-what-you-get) approach.
 This is the approach used in the Quick Start Guides.
 
-# `layout_matrix` in `semptools`
+# `layout_matrix()` in `semptools`
 
 The WYSIWYG approach in the previous
 section has one drawback: It is not easy to change the
@@ -179,13 +183,13 @@ find a desirable layout. For example, if we want to
 add a column or row,
 we need ty type several `NA`s to crate it.
 
-The `layout_matrix` function in `semptools`
+The `layout_matrix()` function in `semptools`
 is designed to generate the matrix using the coordinates
 of the variables. Instead of specifying the dimension
-ourselves, `layout_matrix` will try to figure out the
+ourselves, `layout_matrix()` will try to figure out the
 dimension based on the coordinates automatically.
 
-For exmaple, to generate the same layout above, we can
+For example, to generate the same layout above, we can
 do this:
 
 ```{r}
@@ -204,7 +208,7 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 
 Suppose we want to move `x4` closer to `x3`. Instead
 of deleting the 3rd columns of `NA`, we can  
-just change the coordinates of `x4` in `layout_matrix`:
+just change the coordinates of `x4` in `layout_matrix()`:
 
 ```{r}
 m3 <- layout_matrix(x1 = c(1, 1),
@@ -222,17 +226,17 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 
 The best approach to specify the layout depends on
 the situation at hand. During the trial-and-error
-phrase, using `layout_matrix` is good for changing
+phrase, using `layout_matrix()` is good for changing
 the layout. When the layout has been finalized,
 for readability, typing the matrix row-by-row may
-be better (although we can still use `layout_matrix`
+be better (although we can still use `layout_matrix()`
 to form the matrix and then print the matrix, as we
 did above).
 
-# `factor_layout` in `set_sem_layout`
+# `factor_layout` in `set_sem_layout()`
 
 If we
-use `layout` in `semPlot::semPaths` for a structural
+use `layout` in `semPlot::semPaths()` for a structural
 models with latent factors
 and we want to draw both the factors and their indicators,
 we need to specify the positions of *all* nodes, that is,
@@ -240,10 +244,10 @@ all the indicators and all the factors. The grid will be
 very large and it is difficult to determine the positions
 of the indicators.
 
-The `factor_layout` argument in `set_sem_layout` is developed
+The `factor_layout` argument in `set_sem_layout()` is developed
 to solve this problem. It works
-like `layout` in `semPlot::semPaths`.
-In `set_sem_layout`,
+like `layout` in `semPlot::semPaths()`.
+In `set_sem_layout()`,
 we only need to specify the positions of the latent
 factors. As in `layout`, we create a matrix to specify
 the positions of the factors. The procedure is identical
@@ -333,8 +337,18 @@ m_sem <- layout_matrix(f1 = c(1, 1),
 m_sem
 ```
 
-We can then use this matrix in `set_sem_layout` (please
-refer to the quick start guide of `set_sem_layout` on
+Note that `layout_matrix()` can also be used to set up the orientation
+of the indicators of each factor:
+
+```{r}
+point_to <- layout_matrix(left = c(1, 1),
+                          left = c(3, 1),
+                          down = c(2, 2),
+                          up = c(2, 3))
+```
+
+We can then use this matrix in `set_sem_layout()` (please
+refer to `vignette("quick_start_sem")` or `?set_sem_layout` on
 how to specify other arguments):
 
 ```{r}
@@ -346,25 +360,22 @@ indicator_factor <- c( "f2",  "f2",  "f2",  "f2",
                        "f1",  "f1",  "f1",  
                        "f4",  "f4",  "f4",  "f4",  
                        "f3",  "f3",  "f3")
-factor_point_to <- matrix(c("left",     NA,      NA,
-                                NA, "down",    "up",
-                            "left",     NA,      NA), byrow = TRUE, 3, 3)
-indicator_push <- list(list(node = "f3", push = 2.5),
-                       list(node = "f4", push = 2.5),
-                       list(node = "f1", push = 1.5),
-                       list(node = "f2", push = 1.5))
-indicator_spread <- list(list(node = "f1", spread =    2),
-                         list(node = "f2", spread =    2),
-                         list(node = "f4", spread =    2),
-                         list(node = "f3", spread = 1.75))
-loading_position <- list(list(node = "f2", position = .6),
-                         list(node = "f3", position = .8),
-                         list(node = "f4", position = .8))
+indicator_push <- c(f3 = 2.5,
+                    f4 = 2.5,
+                    f1 = 1.5,
+                    f2 = 1.5)
+indicator_spread <- c(f1 = 2,
+                      f2 = 2,
+                      f3 = 2,
+                      f4 = 1.75)
+loading_position <- c(f2 = .6,
+                      f3 = .8,
+                      f4 = .8)
 p2 <- set_sem_layout(p, 
                      indicator_order = indicator_order,
                      indicator_factor = indicator_factor,
                      factor_layout = m_sem,
-                     factor_point_to = factor_point_to,
+                     factor_point_to = point_to,
                      indicator_push = indicator_push,
                      indicator_spread = indicator_spread,
                      loading_position = loading_position)
