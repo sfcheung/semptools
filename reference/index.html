@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
       </span>
     </div>
 
@@ -84,6 +84,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/semptools.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -94,13 +97,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick_start.html">A quick start guide on using semptools</a>
+      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
     </li>
     <li>
-      <a href="../articles/quick_start_cfa.html">A quick start guide on using set_cfa_layout</a>
+      <a href="../articles/layout_matrix.html">Layout Matrices</a>
     </li>
     <li>
-      <a href="../articles/quick_start_sem.html">A quick start guide on using set_sem_layout</a>
+      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
     </li>
   </ul>
 </li>
@@ -172,6 +178,18 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="keep_drop_nodes.html">drop_nodes()</a></code> <code><a href="keep_drop_nodes.html">keep_nodes()</a></code> </p>
+        </td>
+        <td><p>Keep or drop nodes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="layout_matrix.html">layout_matrix()</a></code> </p>
+        </td>
+        <td><p>Create the layout matrix for semPaths</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="mark_se.html">mark_se()</a></code> </p>
         </td>
         <td><p>Add Standard Error Estimates to Parameter Estimates (Edge Labels)</p></td>
@@ -187,6 +205,12 @@
           <p><code><a href="pa_example.html">pa_example</a></code> </p>
         </td>
         <td><p>Sample dataset pa_example</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pa_example_3covs.html">pa_example_3covs</a></code> </p>
+        </td>
+        <td><p>Sample dataset pa_example_3covs</p></td>
       </tr><tr>
         
         <td>
@@ -210,7 +234,7 @@
         <td>
           <p><code><a href="set_curve.html">set_curve()</a></code> </p>
         </td>
-        <td><p>Set the Curve Attributes of Selected edges</p></td>
+        <td><p>Bend or Straighten Selected edges</p></td>
       </tr><tr>
         
         <td>
@@ -222,13 +246,7 @@
         <td>
           <p><code><a href="set_sem_layout.html">set_sem_layout()</a></code> </p>
         </td>
-        <td><p>Configure the layout of factors of an SEM graph by semPaths</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="setlabels.html">setlabels()</a></code> </p>
-        </td>
-        <td><p>Set labels based on p-value</p></td>
+        <td><p>Configure the layout of factors of an SEM graph by <a href='https://rdrr.io/pkg/semPlot/man/semPaths.html'>semPlot::semPaths</a></p></td>
       </tr><tr>
         
         <td>

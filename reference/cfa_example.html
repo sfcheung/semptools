@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Sample dataset pa_example — cfa_example" />
-<meta property="og:description" content="A sample dataset for fitting a confirmatory factor analysis model." />
+<meta property="og:description" content="A sample dataset for fitting a confirmatory factor analysis
+model." />
 
 
 
@@ -72,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
       </span>
     </div>
 
@@ -85,6 +86,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/semptools.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -95,13 +99,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick_start.html">A quick start guide on using semptools</a>
+      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
     </li>
     <li>
-      <a href="../articles/quick_start_cfa.html">A quick start guide on using set_cfa_layout</a>
+      <a href="../articles/layout_matrix.html">Layout Matrices</a>
     </li>
     <li>
-      <a href="../articles/quick_start_sem.html">A quick start guide on using set_sem_layout</a>
+      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
     </li>
   </ul>
 </li>
@@ -135,7 +142,8 @@
     </div>
 
     <div class="ref-description">
-    <p>A sample dataset for fitting a confirmatory factor analysis model.</p>
+    <p>A sample dataset for fitting a confirmatory factor analysis
+model.</p>
     </div>
 
     <pre class="usage"><span class='va'>cfa_example</span></pre>
@@ -147,13 +155,14 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Fourteen variables (x01 to x14), 200 cases.</p>
-<p>Sample model to fit (in lavaan notation)</p>
-<p>mod &lt;- 
- 'f1 =~ x01 + x02 + x03
+<p>Sample model to fit (in <a href='https://rdrr.io/pkg/lavaan/man/model.syntax.html'>lavaan::model.syntax</a> notation)</p><pre><span class='va'>mod</span> <span class='op'>&lt;-</span>
+ <span class='st'>'f1 =~ x01 + x02 + x03
   f2 =~ x04 + x05 + x06 + x07
   f3 =~ x08 + x09 + x10
   f4 =~ x11 + x12 + x13 + x14
- '</p>
+ '</span>
+</pre>
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

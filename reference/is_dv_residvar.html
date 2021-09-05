@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Identify dependent Variable residual variance — is_dv_residvar" />
-<meta property="og:description" content="Check which parameters in a lavaan output are the residual variance of a dependent variable." />
+<meta property="og:description" content="Check which parameters in a lavaan output are the residual
+variance of a dependent variable." />
 
 
 
@@ -72,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
       </span>
     </div>
 
@@ -85,6 +86,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/semptools.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -95,13 +99,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick_start.html">A quick start guide on using semptools</a>
+      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
     </li>
     <li>
-      <a href="../articles/quick_start_cfa.html">A quick start guide on using set_cfa_layout</a>
+      <a href="../articles/layout_matrix.html">Layout Matrices</a>
     </li>
     <li>
-      <a href="../articles/quick_start_sem.html">A quick start guide on using set_sem_layout</a>
+      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
     </li>
   </ul>
 </li>
@@ -135,7 +142,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Check which parameters in a lavaan output are the residual variance of a dependent variable.</p>
+    <p>Check which parameters in a lavaan output are the residual
+variance of a dependent variable.</p>
     </div>
 
     <pre class="usage"><span class='fu'>is_dv_residvar</span><span class='op'>(</span><span class='va'>lavaan_out</span><span class='op'>)</span></pre>
@@ -145,21 +153,22 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>lavaan_out</th>
-      <td><p>A lavaan output.</p></td>
+      <td><p>A <a href='https://rdrr.io/pkg/lavaan/man/lavaan-class.html'>lavaan::lavaan</a> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A boolean vector with length equal to the number of rows in the lavaan output.</p>
+    <p>A boolean vector with length equal to the number of rows in the lavaan
+output.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Check which parameters in a lavaan output are the variance of a dependent variable.
- Indicators of a latent variable will be excluded.</p>
+    <p>Check which parameters in a lavaan output are the variance of a
+dependent variable. Indicators of a latent variable will be excluded.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='va'>mod</span> <span class='op'>&lt;-</span> 
+<span class='va'>mod</span> <span class='op'>&lt;-</span>
  <span class='st'>'x1 ~~ x2
   x3 ~  x1 + x2
   x4 ~  x1 + x3
@@ -170,7 +179,7 @@
 #&gt;    FALSE    FALSE    FALSE    FALSE    FALSE     TRUE     TRUE    FALSE 
 #&gt; x2 ~~ x2 
 #&gt;    FALSE </div><div class='input'>
-<span class='va'>mod</span> <span class='op'>&lt;-</span> 
+<span class='va'>mod</span> <span class='op'>&lt;-</span>
  <span class='st'>'f1 =~ x01 + x02 + x03
   f2 =~ x04 + x05 + x06 + x07
   f3 =~ x08 + x09 + x10
@@ -190,7 +199,7 @@
 #&gt;      FALSE      FALSE      FALSE      FALSE      FALSE      FALSE      FALSE 
 #&gt;   f2 ~~ f3   f2 ~~ f4   f3 ~~ f4 
 #&gt;      FALSE      FALSE      FALSE </div><div class='input'>
-<span class='va'>mod</span> <span class='op'>&lt;-</span> 
+<span class='va'>mod</span> <span class='op'>&lt;-</span>
  <span class='st'>'f1 =~ x01 + x02 + x03
   f2 =~ x04 + x05 + x06 + x07
   f3 =~ x08 + x09 + x10

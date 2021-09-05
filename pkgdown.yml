@@ -2,8 +2,10 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  quick_start: quick_start.html
+  keep_or_drop_nodes: keep_or_drop_nodes.html
+  layout_matrix: layout_matrix.html
   quick_start_cfa: quick_start_cfa.html
   quick_start_sem: quick_start_sem.html
-last_built: 2021-08-10T10:58Z
+  semptools: semptools.html
+last_built: 2021-09-05T16:34Z
 
