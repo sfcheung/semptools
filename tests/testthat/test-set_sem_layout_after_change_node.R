@@ -1,6 +1,5 @@
 library(lavaan)
 library(semPlot)
-library(magrittr)
 mod <- 
   'f1 =~ x01 + x02 + x03
    f2 =~ x04 + x05 + x06 + x07
@@ -48,9 +47,9 @@ p3 <- set_sem_layout(p2,
                        factor_point_to = factor_point_to,
                        indicator_push = indicator_push,
                        indicator_spread = indicator_spread,
-                       loading_position = loading_position) %>%
-         set_curve(list(list(from = "iv1", to = "f2", new_curve =  -1),
-                        list(from = "iv1", to = "dv", new_curve = 1.5)))
+                       loading_position = loading_position)
+p3 <- set_curve(p3, list(list(from = "iv1", to = "f2", new_curve =  -1),
+                         list(from = "iv1", to = "dv", new_curve = 1.5)))
 
 test_that(
   "Labels after set_cfa_layout are changed as expected", {

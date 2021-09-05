@@ -56,8 +56,8 @@ test_that("node label can be changed back", {
 test_that(
   "node label change results in an error with incorrect or missing input", {
     expect_error(change_node_label(p_pa), "not specified")
-    expect_error(change_node_label(p_pa2, c(x1 = "predictor")), 
-                 "should be a list of named list")
+    # expect_error(change_node_label(p_pa2, c(x1 = "predictor")), 
+    #              "should be a list of named list")
     expect_error(change_node_label(p_pa2, list(list(nodes = "x1", 
                                                     to = "predictor 1"))), 
                  "One or more nodes in")
@@ -104,16 +104,24 @@ test_that(
                              list(from = "x1", to = "x4", new_position =  .75))
     p_pa_pos <- set_edge_label_position(p_pa, my_position_list)
     p_pa3_pos <- set_edge_label_position(p_pa3, my_position_list)
-    aeq1 <- all.equal(p_pa2$graphAttributes$Edges, 
-                      p_pa2_curve$graphAttributes$Edges)
-    aeq1 <- gsub("[“”]", "\"", aeq1)
-    expect_match(aeq1, 
-                 "Component \"curve\": Mean absolute difference: 1")
-    aeq2 <- all.equal(p_pa3$graphAttributes$Edges, 
-                      p_pa3_pos$graphAttributes$Edges)
-    aeq2 <- gsub("[“”]", "\"", aeq2)
-    expect_match(aeq2,
-                 "Component \"edge.label.position\": Mean relative difference: 0.5")
+    aeq1a <- p_pa2$graphAttributes$Edges
+    aeq1b <- p_pa2_curve$graphAttributes$Edges
+    expect_equal(aeq1b$curve,
+                 c(-1, 0, 0, 1, 0, 0, 0, 0, 0, 0))
+    aeq1a0 <- aeq1a
+    aeq1b0 <- aeq1b
+    aeq1a0$curve <- NULL
+    aeq1b0$curve <- NULL
+    expect_equal(aeq1a0, aeq1b0)
+    aeq2a <- p_pa3$graphAttributes$Edges
+    aeq2b <- p_pa3_pos$graphAttributes$Edges
+    expect_equal(aeq2b$edge.label.position,
+                 c(.5, .5, .25, .75, .5, .5, .5, .5, .5, .5))
+    aeq2a0 <- aeq2a
+    aeq2b0 <- aeq2b
+    aeq2a0$edge.label.position <- NULL
+    aeq2b0$edge.label.position <- NULL
+    expect_equal(aeq2a0, aeq2b0)
     expect_identical(p_pa_curve$graphAttributes$Edges, 
                      p_pa2_curve$graphAttributes$Edges)
     expect_identical(p_pa_pos$graphAttributes$Edges, 

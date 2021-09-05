@@ -1,6 +1,5 @@
 library(lavaan)
 library(semPlot)
-library(magrittr)
 
 mod <- 
   'f1 =~ x01 + x02 + x03
@@ -22,7 +21,7 @@ indicator_order  <- c("x04", "x05", "x06", "x07", "x01", "x02", "x03", "x11",
                        "x12", "x13", "x14", "x08", "x09", "x10")
 indicator_factor <- c( "f2",  "f2",  "f2",  "f2",  "f1",  "f1",  "f1",  "f4", 
                        "f4",  "f4",  "f4",  "f3",  "f3",  "f3")
-p2 <- p %>% change_node_label(label_list = list(list(node = "f1", to = "factor 1"),
+p2 <- change_node_label(p, label_list = list(list(node = "f1", to = "factor 1"),
                                                 list(node = "f2", to = "F2"),
                                                 list(node = "x03", to = "Test Item")))
 indicator_factor2 <- gsub("f1", "factor 1", indicator_factor)

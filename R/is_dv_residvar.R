@@ -1,18 +1,20 @@
 #'@title Identify dependent Variable residual variance
 #'
-#'@description Check which parameters in a lavaan output are the residual variance of a dependent variable.
+#'@description Check which parameters in a lavaan output are the residual
+#'              variance of a dependent variable.
 #'
-#'@details Check which parameters in a lavaan output are the variance of a dependent variable.
-#'  Indicators of a latent variable will be excluded.
+#'@details Check which parameters in a lavaan output are the variance of a
+#'         dependent variable. Indicators of a latent variable will be excluded.
 #'
 #'@return
-#' A boolean vector with length equal to the number of rows in the lavaan output.
-#' 
-#'@param lavaan_out A lavaan output.
+#' A boolean vector with length equal to the number of rows in the lavaan
+#' output.
+#'
+#'@param lavaan_out A [lavaan::lavaan-class] object.
 #'
 #'@examples
 #'
-#'mod <- 
+#'mod <-
 #'  'x1 ~~ x2
 #'   x3 ~  x1 + x2
 #'   x4 ~  x1 + x3
@@ -20,7 +22,7 @@
 #'fit_pa <- lavaan::sem(mod, pa_example)
 #'is_dv_residvar(fit_pa)
 #'
-#'mod <- 
+#'mod <-
 #'  'f1 =~ x01 + x02 + x03
 #'   f2 =~ x04 + x05 + x06 + x07
 #'   f3 =~ x08 + x09 + x10
@@ -29,7 +31,7 @@
 #'fit_cfa <- lavaan::cfa(mod, cfa_example)
 #'is_dv_residvar(fit_cfa)
 #'
-#'mod <- 
+#'mod <-
 #'  'f1 =~ x01 + x02 + x03
 #'   f2 =~ x04 + x05 + x06 + x07
 #'   f3 =~ x08 + x09 + x10
@@ -50,4 +52,4 @@ is_dv_residvar <- function(lavaan_out) {
     i_names <- paste(p_est$lhs, p_est$op, p_est$rhs)
     names(i) <- i_names
     i
-  }  
+  }

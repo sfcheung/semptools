@@ -15,13 +15,13 @@ edge_index <- function(semPaths_plot, from, to) {
     Nodes_id2 <- Nodes_id
     names(Nodes_id2) <- names(semPaths_plot$graphAttributes$Nodes$names)
 
-    out <- which(semPaths_plot$Edgelist$from == Nodes_id[from] & 
+    out <- which(semPaths_plot$Edgelist$from == Nodes_id[from] &
                  semPaths_plot$Edgelist$to == Nodes_id[to])
     if (length(out) > 0) {
         return(out)
       } else {
         # Check the names of Nodes_names
-        out <- which(semPaths_plot$Edgelist$from == Nodes_id2[from] & 
+        out <- which(semPaths_plot$Edgelist$from == Nodes_id2[from] &
                      semPaths_plot$Edgelist$to == Nodes_id2[to])
         return(out)
       }
