@@ -35,7 +35,7 @@ Use \code{\link[=drop_nodes]{drop_nodes()}} to specify the nodes to be dropped. 
 kept.
 }
 \examples{
-mod_pa <- 
+mod_pa <-
   'x1 ~~ x2
    x3 ~  x1 + x2
    x4 ~  x1 + x3
