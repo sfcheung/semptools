@@ -12,13 +12,13 @@ pa_example_3covs
 }
 \description{
 A sample dataset for fitting a path analysis model, with three
-coontrol variables.
+control variables.
 }
 \details{
 Four variables (x1 to x4), and three control variables (
 cov1, cov2, cov3), 100 cases.
 
-Sample model to fit (in lavaan notation)\preformatted{mod <-
+Sample model to fit (in \link[lavaan:model.syntax]{lavaan::model.syntax} notation)\preformatted{mod <-
 '
 x3 ~  x1 + x2 + cov1 +cov2 + cov3
 x4 ~  x1 + x3 + cov1 +cov2 + cov3
