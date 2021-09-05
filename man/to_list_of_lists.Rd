@@ -9,26 +9,33 @@ to_list_of_lists(input, name1 = NULL, name2 = NULL, name3 = NULL)
 \arguments{
 \item{input}{A named vector}
 
-\item{name1}{The name for the first element in the list-in-list. Default is [`NULL`].}
+\item{name1}{The name for the first element in the list-in-list.
+Default is \code{NULL}.}
 
-\item{name2}{The name for the second element in the list-in-list. Default is [`NULL`].}
+\item{name2}{The name for the second element in the list-in-list.
+Defaultis \code{NULL}.}
 
-\item{name3}{The name for the third element in the list-in-list. Default is [`NULL`].
-If this argument is not [`NULL`], the names of the vector elements will be
-split using [`lavaan`] syntax (by calling [`lavaan::lavParseModelString()`]),
-and the right-hand side ([`rhs`]) and left-hand side ([`lhs`]) of each
-element will be assigned to [`name1`] and [`name2`], respectively.}
+\item{name3}{The name for the third element in the list-in-list.
+Default is \code{NULL}.
+If this argument is not \code{NULL}, the names of the vector
+elements will be
+split using \code{lavaan} syntax (by calling
+\code{\link[lavaan:model.syntax]{lavaan::lavParseModelString()}}),
+and the right-hand side (\code{rhs}) and left-hand side (\code{lhs})
+of each
+element will be assigned to \code{name1} and \code{name2},
+respectively.}
 }
 \value{
 A list of lists.
 }
 \description{
 Convert a named vector to a list of lists,
-to be used by various functions in [`semptools`].
+to be used by various functions in \code{\link{semptools}}.
 }
 \details{
-This function is not to be used by users, but to be used 
-internally by other functions of [`semptools`].
+This function is not to be used by users, but to be used
+internally by other functions of \code{\link{semptools}}.
 }
 \examples{
 x <- c("x1 ~~ x2" = -1, "x4 ~ x1" = 1)

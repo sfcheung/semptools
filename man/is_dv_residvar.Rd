@@ -7,21 +7,23 @@
 is_dv_residvar(lavaan_out)
 }
 \arguments{
-\item{lavaan_out}{A lavaan output.}
+\item{lavaan_out}{A \link[lavaan:lavaan-class]{lavaan::lavaan} object.}
 }
 \value{
-A boolean vector with length equal to the number of rows in the lavaan output.
+A boolean vector with length equal to the number of rows in the lavaan
+output.
 }
 \description{
-Check which parameters in a lavaan output are the residual variance of a dependent variable.
+Check which parameters in a lavaan output are the residual
+variance of a dependent variable.
 }
 \details{
-Check which parameters in a lavaan output are the variance of a dependent variable.
- Indicators of a latent variable will be excluded.
+Check which parameters in a lavaan output are the variance of a
+dependent variable. Indicators of a latent variable will be excluded.
 }
 \examples{
 
-mod <- 
+mod <-
  'x1 ~~ x2
   x3 ~  x1 + x2
   x4 ~  x1 + x3
@@ -29,7 +31,7 @@ mod <-
 fit_pa <- lavaan::sem(mod, pa_example)
 is_dv_residvar(fit_pa)
 
-mod <- 
+mod <-
  'f1 =~ x01 + x02 + x03
   f2 =~ x04 + x05 + x06 + x07
   f3 =~ x08 + x09 + x10
@@ -38,7 +40,7 @@ mod <-
 fit_cfa <- lavaan::cfa(mod, cfa_example)
 is_dv_residvar(fit_cfa)
 
-mod <- 
+mod <-
  'f1 =~ x01 + x02 + x03
   f2 =~ x04 + x05 + x06 + x07
   f3 =~ x08 + x09 + x10
