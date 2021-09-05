@@ -4,7 +4,7 @@
 #'
 #'@details Fourteen variables (x01 to x14), 100 cases.
 #'
-#'Sample model to fit (in lavaan notation)
+#'Sample model to fit (in [lavaan::model.syntax] notation)
 #'
 #'```
 #'mod <-
@@ -24,7 +24,7 @@
 #'
 #'@details Four variables (x1 to x4), 100 cases.
 #'
-#'Sample model to fit (in lavaan notation)
+#'Sample model to fit (in [lavaan::model.syntax] notation)
 #'
 #'```
 #'mod <-
@@ -42,7 +42,7 @@
 #'
 #'@details Fourteen variables (x01 to x14), 200 cases.
 #'
-#'Sample model to fit (in lavaan notation)
+#'Sample model to fit (in [lavaan::model.syntax] notation)
 #'
 #'```
 #'mod <-

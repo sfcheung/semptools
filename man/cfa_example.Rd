@@ -17,7 +17,7 @@ model.
 \details{
 Fourteen variables (x01 to x14), 200 cases.
 
-Sample model to fit (in lavaan notation)\preformatted{mod <-
+Sample model to fit (in \link[lavaan:model.syntax]{lavaan::model.syntax} notation)\preformatted{mod <-
  'f1 =~ x01 + x02 + x03
   f2 =~ x04 + x05 + x06 + x07
   f3 =~ x08 + x09 + x10

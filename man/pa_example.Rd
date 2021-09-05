@@ -16,7 +16,7 @@ A sample dataset for fitting a path analysis model.
 \details{
 Four variables (x1 to x4), 100 cases.
 
-Sample model to fit (in lavaan notation)\preformatted{mod <-
+Sample model to fit (in \link[lavaan:model.syntax]{lavaan::model.syntax} notation)\preformatted{mod <-
  'x1 ~~ x2
   x3 ~  x1 + x2
   x4 ~  x1 + x3
