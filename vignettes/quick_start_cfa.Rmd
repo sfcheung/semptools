@@ -195,14 +195,14 @@ plot(p2)
 # Pipe
 
 Like other functions in `semptools`, the `set_cfa_layout()` function can be chained
-with other functions using the pipe operator, `%>%`, from the package `magrittr`.
+with other functions using the pipe operator, `%>%`, from the package `magrittr`,
+or the native pipe operator `|>` available since R 4.1.x.
 Suppose we want to mark the significant test results for the free parameters using
 `mark_sig`
 
 ```{r}
-library(magrittr)
 p2 <- set_cfa_layout(p, indicator_order, indicator_factor, fcov_curve = 1.75,
-                     loading_position = .9, point_to = "up") %>%
+                     loading_position = .9, point_to = "up") |>
                      mark_sig(fit)
 plot(p2)
 ```

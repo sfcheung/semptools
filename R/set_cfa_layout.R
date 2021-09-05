@@ -89,7 +89,6 @@
 #'                          point_to = "right")
 #'plot(p2)
 #'
-#' @importFrom magrittr %>%
 #' @export
 
 set_cfa_layout <- function(semPaths_plot,

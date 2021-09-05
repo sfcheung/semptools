@@ -286,7 +286,8 @@ plot(p2)
 # Pipe
 
 Like other functions in `semptools`, the `set_sem_layout()` function can be chained
-with other functions using the pipe operator, `%>%`, from the package `magrittr`.
+with other functions using the pipe operator, `%>%`, from the package `magrittr`,
+or the native pipe `|>` available since R 4.1.x.
 Suppose we want to mark the significant test results for the free parameters using
 `mark_sig()`, and use `set_curve()` to change the curvature of `f1 ~~ f2` covariances
 and `f4 ~ f1` paths (we push and spread some indicators to make room
@@ -307,7 +308,6 @@ indicator_spread <- c(f1 = 2,
 loading_position <- c(f2 = .6,
                       f3 = .8,
                       f4 = .8)
-library(magrittr)
 p2 <- set_sem_layout(p, 
                      indicator_order = indicator_order,
                      indicator_factor = indicator_factor,
@@ -315,9 +315,9 @@ p2 <- set_sem_layout(p,
                      factor_point_to = factor_point_to,
                      indicator_push = indicator_push,
                      indicator_spread = indicator_spread,
-                     loading_position = loading_position) %>%
+                     loading_position = loading_position) |>
                      set_curve(c("f2 ~~ f1" = -1,
-                                 "f4 ~ f1" = 1.5)) %>%
+                                 "f4 ~ f1" = 1.5)) |>
                      mark_sig(fit)
 plot(p2)
 ```

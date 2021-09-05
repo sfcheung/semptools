@@ -145,7 +145,6 @@ indicators. If a variable has only one indicator, it is easier to
 \examples{
 library(lavaan)
 library(semPlot)
-library(magrittr)
 mod <- 
  'f1 =~ x01 + x02 + x03
   f2 =~ x04 + x05 + x06 + x07
@@ -176,6 +175,7 @@ factor_point_to <- matrix(c("left",     NA,      NA,
 indicator_push <- c(f3 = 2, f4 = 1.5)
 indicator_spread <- c(f1 = 2, f2 = 2)
 loading_position <- c(f1 = .5, f2 = .8, f3 = .8)
+# Pipe operator can be used if desired
 p2 <- set_sem_layout(p, 
                       indicator_order = indicator_order,
                       indicator_factor = indicator_factor,
@@ -183,11 +183,11 @@ p2 <- set_sem_layout(p,
                       factor_point_to = factor_point_to,
                       indicator_push = indicator_push,
                       indicator_spread = indicator_spread,
-                      loading_position = loading_position) \%>\%
-        set_curve(c("f2 ~ f1" = -1,
-                    "f4 ~ f1" = 1.5)) \%>\%
-        mark_sig(fit_sem) \%>\% 
-        mark_se(fit_sem, sep = "\n")
+                      loading_position = loading_position)
+p2 <- set_curve(p2, c("f2 ~ f1" = -1,
+                     "f4 ~ f1" = 1.5))
+p2 <- mark_sig(p2, fit_sem)
+p2 <- mark_se(p2, fit_sem, sep = "\n")
 plot(p2)
 
 #Lists of named list which are equivalent to the vectors above:
