@@ -4,13 +4,13 @@
 #'
 #'@details The layout argument in [semPlot::semPaths()] accepts a matrix with
 #'         node labels as the elements, and `NA` for empty cells. This function
-#'         allows user to create the matrix using a list of coordinates for the 
+#'         allows user to create the matrix using a list of coordinates for the
 #'         node labels.
 #'
 #'
 #'@return
 #' A layout matrix for the layout argument of [semPlot::semPaths()].
-#' 
+#'
 #'@param ... Each node in the matrix is specified by this form:
 #'           `name = c(x, y)`. The `name` is the node label, and the vector
 #'           is the position of the node. The first element is the `x` position,
