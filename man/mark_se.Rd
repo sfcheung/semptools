@@ -47,13 +47,13 @@ This function is a variant of, and can be combined with,  the
 \code{\link{mark_sig}} function.
 }
 \examples{
-mod_pa <- 
+mod_pa <-
   'x1 ~~ x2
    x3 ~  x1 + x2
    x4 ~  x1 + x3
   '
 fit_pa <- lavaan::sem(mod_pa, pa_example)
-lavaan::parameterEstimates(fit_pa)[ , c("lhs", "op", "rhs", 
+lavaan::parameterEstimates(fit_pa)[ , c("lhs", "op", "rhs",
                                         "est", "pvalue", "se")]
 m <- matrix(c("x1",   NA,   NA,
               NA, "x3", "x4",
@@ -67,19 +67,19 @@ plot(p_pa2)
 
 \dontrun{
 # The following examples will not run because of long loading time.
-mod_cfa <- 
+mod_cfa <-
   'f1 =~ x01 + x02 + x03
    f2 =~ x04 + x05 + x06 + x07
    f3 =~ x08 + x09 + x10
    f4 =~ x11 + x12 + x13 + x14
   '
 fit_cfa <- lavaan::sem(mod_cfa, cfa_example)
-lavaan::parameterEstimates(fit_cfa)[ , c("lhs", "op", "rhs", 
+lavaan::parameterEstimates(fit_cfa)[ , c("lhs", "op", "rhs",
                                          "est", "pvalue", "se")]
 p_cfa <- semPlot::semPaths(fit_cfa, whatLabels = "est",
                            style = "ram",
                            nCharNodes = 0, nCharEdges = 0)
-# Place standard errors on a new line                           
+# Place standard errors on a new line
 p_cfa2 <- mark_se(p_cfa, fit_cfa, sep = "\n")
 plot(p_cfa2)
 
@@ -92,7 +92,7 @@ mod_sem <-
   f4 ~  f1 + f3
  '
 fit_sem <- lavaan::sem(mod_sem, sem_example)
-lavaan::parameterEstimates(fit_sem)[ , c("lhs", "op", "rhs", 
+lavaan::parameterEstimates(fit_sem)[ , c("lhs", "op", "rhs",
                                          "est", "pvalue", "se")]
 p_sem <- semPlot::semPaths(fit_sem, whatLabels = "est",
                            style = "ram",
