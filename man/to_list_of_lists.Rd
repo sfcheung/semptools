@@ -9,15 +9,22 @@ to_list_of_lists(input, name1 = NULL, name2 = NULL, name3 = NULL)
 \arguments{
 \item{input}{A named vector}
 
-\item{name1}{The name for the first element in the list-in-list. Default is \code{\link{NULL}}.}
+\item{name1}{The name for the first element in the list-in-list.
+Default is \code{\link{NULL}}.}
 
-\item{name2}{The name for the second element in the list-in-list. Default is \code{\link{NULL}}.}
+\item{name2}{The name for the second element in the list-in-list.
+Defaultis \code{\link{NULL}}.}
 
-\item{name3}{The name for the third element in the list-in-list. Default is \code{\link{NULL}}.
-If this argument is not \code{\link{NULL}}, the names of the vector elements will be
-split using \code{\link{lavaan}} syntax (by calling \code{\link[lavaan:model.syntax]{lavaan::lavParseModelString()}}),
-and the right-hand side (\code{\link{rhs}}) and left-hand side (\code{\link{lhs}}) of each
-element will be assigned to \code{\link{name1}} and \code{\link{name2}}, respectively.}
+\item{name3}{The name for the third element in the list-in-list.
+Default is \code{\link{NULL}}.
+If this argument is not \code{\link{NULL}}, the names of the vector
+elements will be
+split using \code{\link{lavaan}} syntax (by calling
+\code{\link[lavaan:model.syntax]{lavaan::lavParseModelString()}}),
+and the right-hand side (\code{\link{rhs}}) and left-hand side (\code{\link{lhs}})
+of each
+element will be assigned to \code{\link{name1}} and \code{\link{name2}},
+respectively.}
 }
 \value{
 A list of lists.
