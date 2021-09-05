@@ -17,7 +17,7 @@
 #' For a named vector, the name of an element should be the path
 #' as specified in [lavaan] syntax or as appeared in
 #' [lavaan::parameterEstimates()]. For example, to change the curve
-#' attribute of the path regression `y` on `x`, the name should be
+#' attribute of the path regressing `y` on `x`, the name should be
 #' `"y ~ x"`. To change the curve attribute of the covariance between
 #' `x1` and `x2`, the name should be `"x1 ~~ x2"`. For example,
 #' `c("y ~ x1" = -3, "x1 ~~ x2" = 2)` change the curve attributes

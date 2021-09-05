@@ -15,7 +15,7 @@ object modified by other \link{semptools} functions.}
 For a named vector, the name of an element should be the path
 as specified in \link{lavaan} syntax or as appeared in
 \code{\link[lavaan:parameterEstimates]{lavaan::parameterEstimates()}}. For example, to change the curve
-attribute of the path regression \code{y} on \code{x}, the name should be
+attribute of the path regressing \code{y} on \code{x}, the name should be
 \code{"y ~ x"}. To change the curve attribute of the covariance between
 \code{x1} and \code{x2}, the name should be \code{"x1 ~~ x2"}. For example,
 \code{c("y ~ x1" = -3, "x1 ~~ x2" = 2)} change the curve attributes
