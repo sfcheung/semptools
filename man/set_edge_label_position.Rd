@@ -16,10 +16,10 @@ named values: from, to, and new_position. The edge label
 position
 of the edge from \code{from} to \code{to} will be set to
 \code{new_position}. Alternatively, it can be a named
-vector, with \code{\link{new_position}} as the value, and the name
+vector, with \code{new_position} as the value, and the name
 of each value being the name of the curve/path as in the
-\code{\link{lavaan}} model. For example, if the curve to be modified
-is the path from \code{\link{x1}} to \code{\link{x4}}, then the name is
+\code{lavaan} model. For example, if the curve to be modified
+is the path from \code{x1} to \code{x4}, then the name is
 \code{x4 ~ x1},
 as appeared on the parameter table of the fit.}
 }

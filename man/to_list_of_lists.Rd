@@ -10,20 +10,20 @@ to_list_of_lists(input, name1 = NULL, name2 = NULL, name3 = NULL)
 \item{input}{A named vector}
 
 \item{name1}{The name for the first element in the list-in-list.
-Default is \code{\link{NULL}}.}
+Default is \code{NULL}.}
 
 \item{name2}{The name for the second element in the list-in-list.
-Defaultis \code{\link{NULL}}.}
+Defaultis \code{NULL}.}
 
 \item{name3}{The name for the third element in the list-in-list.
-Default is \code{\link{NULL}}.
-If this argument is not \code{\link{NULL}}, the names of the vector
+Default is \code{NULL}.
+If this argument is not \code{NULL}, the names of the vector
 elements will be
-split using \code{\link{lavaan}} syntax (by calling
+split using \code{lavaan} syntax (by calling
 \code{\link[lavaan:model.syntax]{lavaan::lavParseModelString()}}),
-and the right-hand side (\code{\link{rhs}}) and left-hand side (\code{\link{lhs}})
+and the right-hand side (\code{rhs}) and left-hand side (\code{lhs})
 of each
-element will be assigned to \code{\link{name1}} and \code{\link{name2}},
+element will be assigned to \code{name1} and \code{name2},
 respectively.}
 }
 \value{

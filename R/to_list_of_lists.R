@@ -14,18 +14,18 @@
 #' 
 #' @param input A named vector
 #' @param name1 The name for the first element in the list-in-list.
-#'              Default is [`NULL`].
+#'              Default is `NULL`.
 #' @param name2 The name for the second element in the list-in-list.
-#'              Defaultis [`NULL`].
+#'              Defaultis `NULL`.
 #' @param name3 The name for the third element in the list-in-list.
-#'              Default is [`NULL`].
-#'              If this argument is not [`NULL`], the names of the vector
+#'              Default is `NULL`.
+#'              If this argument is not `NULL`, the names of the vector
 #'              elements will be
-#'              split using [`lavaan`] syntax (by calling
-#'              [`lavaan::lavParseModelString()`]),
-#'              and the right-hand side ([`rhs`]) and left-hand side ([`lhs`])
+#'              split using `lavaan` syntax (by calling
+#'              [lavaan::lavParseModelString()]),
+#'              and the right-hand side (`rhs`) and left-hand side (`lhs`)
 #'              of each
-#'              element will be assigned to [`name1`] and [`name2`],
+#'              element will be assigned to `name1` and `name2`,
 #'              respectively.
 #'
 #'@examples
