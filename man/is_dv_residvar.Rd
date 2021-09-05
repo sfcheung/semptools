@@ -7,7 +7,7 @@
 is_dv_residvar(lavaan_out)
 }
 \arguments{
-\item{lavaan_out}{A lavaan output.}
+\item{lavaan_out}{A \link[lavaan:lavaan-class]{lavaan::lavaan} object.}
 }
 \value{
 A boolean vector with length equal to the number of rows in the lavaan

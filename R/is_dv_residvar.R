@@ -10,7 +10,7 @@
 #' A boolean vector with length equal to the number of rows in the lavaan
 #' output.
 #'
-#'@param lavaan_out A lavaan output.
+#'@param lavaan_out A [lavaan::lavaan-class] object.
 #'
 #'@examples
 #'
