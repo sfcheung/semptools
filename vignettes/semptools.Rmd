@@ -7,6 +7,7 @@ vignette: >
   %\VignetteIndexEntry{quick_start}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{magrittr}
 ---
 
 ```{r, include = FALSE}
@@ -426,17 +427,7 @@ mod_pa <-
 fit_pa <- lavaan::sem(mod_pa, pa_example)
 ```
 
-We will do this:
-
-- Change the curvature of `x1 ~~ x2`
-
-- Rotate the residuals of `x1`, `x2`, `x3`, and `x4`,
-
-- Add asterisks to denote significant test results
-
-- Add standard errors
-
-- Move the parameter estimate of the `x4 ~ x1` path closer to `x4`.
+This is the initial plot:
 
 ```{r}
 library(semPlot)
@@ -449,15 +440,53 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
            style = "ram", 
            nCharNodes = 0, nCharEdges = 0,
            layout = m)
+```
+
+We will do this:
+
+- Change the curvature of `x1 ~~ x2`
+
+- Rotate the residuals of `x1`, `x2`, `x3`, and `x4`,
+
+- Add asterisks to denote significant test results
+
+- Add standard errors
+
+- Move the parameter estimate of the `x4 ~ x1` path closer to `x4`.
+
+```{r eval = FALSE}
 my_position_list <- c("x4 ~ x1" = .75)
 my_curve_list <- c("x2 ~ x1" = -2)
 my_rotate_resid_list <- c(x1 = 0, x2 = 180, x3 = 140, x4 = 140)
 my_position_list <- c("x4 ~ x1" = .65)
+# If R version 4.1.0 or above
 p_pa3 <- p_pa |> set_curve(my_curve_list) |>
                   rotate_resid(my_rotate_resid_list) |>
                   mark_sig(fit_pa) |>
                   mark_se(fit_pa, sep = "\n") |>
                   set_edge_label_position(my_position_list)
+plot(p_pa3)
+```
+
+```{r echo = FALSE}
+my_position_list <- c("x4 ~ x1" = .75)
+my_curve_list <- c("x2 ~ x1" = -2)
+my_rotate_resid_list <- c(x1 = 0, x2 = 180, x3 = 140, x4 = 140)
+my_position_list <- c("x4 ~ x1" = .65)
+if ((compareVersion(as.character(getRversion()), "4.1.0")) >= 0) {
+    p_pa3 <- p_pa |> set_curve(my_curve_list) |>
+                      rotate_resid(my_rotate_resid_list) |>
+                      mark_sig(fit_pa) |>
+                      mark_se(fit_pa, sep = "\n") |>
+                      set_edge_label_position(my_position_list)
+  } else {
+    require(magrittr)
+    p_pa3 <- p_pa %>% set_curve(my_curve_list) %>%
+                      rotate_resid(my_rotate_resid_list) %>%
+                      mark_sig(fit_pa) %>%
+                      mark_se(fit_pa, sep = "\n") %>%
+                      set_edge_label_position(my_position_list)
+  }
 plot(p_pa3)
 ```
 
