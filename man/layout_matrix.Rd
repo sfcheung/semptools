@@ -10,7 +10,7 @@ layout_matrix(...)
 \item{...}{Each node in the matrix is specified by this form:
 \code{name = c(x, y)}. The \code{name} is the node label, and the vector
 is the position of the node. The first element is the \code{x} position,
-and the second element is the \code{y} position, mesured from the top
+and the second element is the \code{y} position, measured from the top
 left corner. The size of the grid
 is determined automatically. For a grid of n rows and m columns,
 the top left cell is specified by \code{c(1, 1)}, and the bottom
