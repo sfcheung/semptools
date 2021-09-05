@@ -15,7 +15,7 @@
 #' object modified by other [semptools] functions.
 #'@param curve_list A named vector or a list of named list.
 #' For a named vector, the name of an element should be the path
-#' as specified in [lavaan] syntax or as appeared in
+#' as specified by [lavaan::model.syntax] or as appeared in
 #' [lavaan::parameterEstimates()]. For example, to change the curve
 #' attribute of the path regressing `y` on `x`, the name should be
 #' `"y ~ x"`. To change the curve attribute of the covariance between

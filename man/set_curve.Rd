@@ -13,7 +13,7 @@ object modified by other \link{semptools} functions.}
 
 \item{curve_list}{A named vector or a list of named list.
 For a named vector, the name of an element should be the path
-as specified in \link{lavaan} syntax or as appeared in
+as specified by \link[lavaan:model.syntax]{lavaan::model.syntax} or as appeared in
 \code{\link[lavaan:parameterEstimates]{lavaan::parameterEstimates()}}. For example, to change the curve
 attribute of the path regressing \code{y} on \code{x}, the name should be
 \code{"y ~ x"}. To change the curve attribute of the covariance between
