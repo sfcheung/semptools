@@ -28,40 +28,40 @@ It should be as appeared in the qgraph. The second part,
 A named vector can also be used, with the names being the
 nodes to be changed, and the values the new labels.}
 
-\item{label.cex}{Identical to the same argument in [semPlot::semPaths()].
+\item{label.cex}{Identical to the same argument in \code{\link[semPlot:semPaths]{semPlot::semPaths()}}.
 A number tha control the size of labels in the nodes.
- It has no default. If not set, then
- this option in the `semPaths_plot` will not
-   be changed.}
+It has no default. If not set, then
+this option in the \code{semPaths_plot} will not
+be changed.}
 
-\item{label.scale}{Identical to the same argument in [semPlot::semPaths].
+\item{label.scale}{Identical to the same argument in \link[semPlot:semPaths]{semPlot::semPaths}.
 A logical value that determine whether labels wil
 be scaled (resized) to the nodes they attach
- to. It has no default. If not set, then
- this option in the `semPaths_plot` will not
-   be changed.}
+to. It has no default. If not set, then
+this option in the \code{semPaths_plot} will not
+be changed.}
 
-\item{label.prop}{Identical to the same argument in [semPlot::semPaths].
+\item{label.prop}{Identical to the same argument in \link[semPlot:semPaths]{semPlot::semPaths}.
 A numeric vector of length equal to the number of
- nodes. If `label.scale` is `TRUE`, this number
- is the proportion of the width of a node that
- its label will be scaled (resized) to.
- It has no default. If not set, then
- this option in the `semPaths_plot` will not
-   be changed.}
+nodes. If \code{label.scale} is \code{TRUE}, this number
+is the proportion of the width of a node that
+its label will be scaled (resized) to.
+It has no default. If not set, then
+this option in the \code{semPaths_plot} will not
+be changed.}
 
-\item{label.norm}{Identical to the same argument in [semPlot::semPaths].
+\item{label.norm}{Identical to the same argument in \link[semPlot:semPaths]{semPlot::semPaths}.
 It must be a string. All labels as wide as or narrower
 thna this string will have the same font size, while
 all labels wider than this string will be rescaled to have
-  the same width as this string.
-  It has no default. If not set, then
-  this option in the `semPaths_plot` will not
-    be changed.}
+the same width as this string.
+It has no default. If not set, then
+this option in the \code{semPaths_plot} will not
+be changed.}
 }
 \value{
 A qgrpah based on the original one, with node attributes of selected
-   nodes modified.
+nodes modified.
 }
 \description{
 Change the labels of selected nodes.

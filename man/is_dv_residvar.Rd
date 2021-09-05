@@ -17,7 +17,7 @@ Check which parameters in a lavaan output are the residual variance of a depende
 }
 \details{
 Check which parameters in a lavaan output are the variance of a dependent variable.
- Indicators of a latent variable will be excluded.
+Indicators of a latent variable will be excluded.
 }
 \examples{
 

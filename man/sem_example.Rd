@@ -18,13 +18,13 @@ Fourteen variables (x01 to x14), 100 cases.
 
 Sample model to fit (in lavaan notation)
 
-mod <- 
- 'f1 =~ x01 + x02 + x03
-  f2 =~ x04 + x05 + x06 + x07
-  f3 =~ x08 + x09 + x10
-  f4 =~ x11 + x12 + x13 + x14
-  f3 ~  f1 + f2
-  f4 ~  f1 + f3
- '
+mod <-
+'f1 =~ x01 + x02 + x03
+f2 =~ x04 + x05 + x06 + x07
+f3 =~ x08 + x09 + x10
+f4 =~ x11 + x12 + x13 + x14
+f3 ~  f1 + f2
+f4 ~  f1 + f3
+'
 }
 \keyword{datasets}

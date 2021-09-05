@@ -20,67 +20,67 @@ set_sem_layout(
 object modified by other semptools functions.}
 
 \item{indicator_order}{A string vector of the indicators. The order of the names
-is the order of the indicators in the graph, when they 
+is the order of the indicators in the graph, when they
 are drawn on the bottom of the graph. The indicators
 should be grouped by the factors on which they load on.
-For example, if x1, x2, x4 load on f2, and x3, x5, x6 
+For example, if x1, x2, x4 load on f2, and x3, x5, x6
 load on f1, then vector should be either c("x1", "x2", "x4", "x3", "x5", "x6")
 or c("x3", "x5", "x6", "x1", "x2", "x4"). Indicators within
 a group can be ordered in any way.}
 
 \item{indicator_factor}{A string vector of the same length of the indicator_order,
- storing the name of the factor for which each of the indicator 
-For example, if x1, x2, x4 load on f2, and x3, x5, x6 
+storing the name of the factor for which each of the indicator
+For example, if x1, x2, x4 load on f2, and x3, x5, x6
 load on f1, and indicator_order is c("x3", "x5", "x6", "x1", "x2", "x4"),
 then indicator_factor should be c("f2", "f2", "f2", "f1", "f1", "f1").}
 
-\item{factor_layout}{A matrix of arbitrary size. This matrix will serve as a grid for 
-users to specify where each latent factor should be placed 
-approximately on the graph. Each cell should contain NA or 
+\item{factor_layout}{A matrix of arbitrary size. This matrix will serve as a grid for
+users to specify where each latent factor should be placed
+approximately on the graph. Each cell should contain NA or
 the name of a latent factor. The locations of all latent factors
 must be explicitly specified by this matrix.}
 
-\item{factor_point_to}{A matrix of the same size as factor_layout. This matrix 
-  specifies where the indicators of each factor are positioned.
-Each cell should contain NA or one of these strings: 
-"down", "left", "up", or "right". This is the direction that the 
+\item{factor_point_to}{A matrix of the same size as factor_layout. This matrix
+specifies where the indicators of each factor are positioned.
+Each cell should contain NA or one of these strings:
+"down", "left", "up", or "right". This is the direction that the
 corresponding latent factor (specified in factor_layout)
 points to its indicators.}
 
-\item{indicator_push}{(Optional) This argument is used to adjust the position of 
+\item{indicator_push}{(Optional) This argument is used to adjust the position of
 indicators of selected latent factors. It must be a list of lists,
-Each sublist has two named elements: node, the name of a latent 
-factor, and push, how the positions of its indicators will be 
+Each sublist has two named elements: node, the name of a latent
+factor, and push, how the positions of its indicators will be
 adjusted. If push = 1, there is no change. Larger than one,
 the indicators will be "pushed" away from the latent factors.
-Less than one, the indicators will be "pulled" to the latent 
+Less than one, the indicators will be "pulled" to the latent
 factors. This argument can also be set by supplying a named vector,
-with the values being "push" values, and names being the nodes to be 
+with the values being "push" values, and names being the nodes to be
 affected.}
 
 \item{indicator_spread}{(Optional) This argument is used to adjust the distance between
 indicators of selected latent factors. It must be a list of lists.
-Each sublist has two named elements: node, the name of a latent 
-factor, and spread, how the distance between indicators will be 
+Each sublist has two named elements: node, the name of a latent
+factor, and spread, how the distance between indicators will be
 adjusted. If spread = 1, there is no change. Larger than one,
 the indicators will be "spread" away from each other.
 Less than one, the indicators will be placed closer to each
 others.  This argument can also be set by supplying a named vector,
-with the values being "spread" values, and names being the nodes to be 
+with the values being "spread" values, and names being the nodes to be
 affected.}
 
 \item{loading_position}{Default is .5. This is used adjust the position of the loadings.
 If this is one single number, it will be used to set the positions
-of all loadings. If it is .5, the loadings are placed on the center of 
+of all loadings. If it is .5, the loadings are placed on the center of
 the arrows. Larger the number, closer the loadings to the indicators.
 Smaller the number, closer to the latent factors.
-This argument also accepts a list of lists, allowing users to 
-specify the positions of loadings for each factor separately. 
-Each sublist will have two named elements: node, the name of the 
-latent factor, and position, the positions of all loadings of this 
-factors. The values of these positions are used in the same way as 
-specifying one single number.  This argument can also be set by 
-supplying a named vector, with the values being "position" values, 
+This argument also accepts a list of lists, allowing users to
+specify the positions of loadings for each factor separately.
+Each sublist will have two named elements: node, the name of the
+latent factor, and position, the positions of all loadings of this
+factors. The values of these positions are used in the same way as
+specifying one single number.  This argument can also be set by
+supplying a named vector, with the values being "position" values,
 and names being the nodes to be affected.}
 }
 \value{
@@ -91,9 +91,9 @@ Configure the layout of factors and adjust other aspects of an SEM graph by semP
 }
 \details{
 Modified a qgraph object generated by semPaths based on a SEM model
-        with latent factors. Currently only support a model in which all 
-        exogenous variables are latent factors, and all observed variables are 
-        indicators. If a variable has only one indicator, it is easier to
+with latent factors. Currently only support a model in which all
+exogenous variables are latent factors, and all observed variables are
+indicators. If a variable has only one indicator, it is easier to
 }
 \examples{
 library(lavaan)
