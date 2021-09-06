@@ -1,3 +1,8 @@
+# semptools 0.2.9.1
+
+- Reformatted the help sections of the functions (wrap the text for readability).
+  This has no impact on uses and the generated help files.
+
 # semptools 0.2.9
 
 - Added `drop_nodes()` and `keep_nodes()`. They process a `semPlotModel` object,
