@@ -10,16 +10,17 @@ is_dv_residvar(lavaan_out)
 \item{lavaan_out}{A \link[lavaan:lavaan-class]{lavaan::lavaan} object.}
 }
 \value{
-A boolean vector with length equal to the number of rows in the lavaan
-output.
+A boolean vector with length equal to the number of rows in
+the lavaan output.
 }
 \description{
-Check which parameters in a lavaan output are the residual
-variance of a dependent variable.
+Check which parameters in a lavaan output are the
+residual variance of a dependent variable.
 }
 \details{
-Check which parameters in a lavaan output are the variance of a
-dependent variable. Indicators of a latent variable will be excluded.
+Check which parameters in a lavaan output are the variance
+of a dependent variable. Indicators of a latent variable will be
+excluded.
 }
 \examples{
 

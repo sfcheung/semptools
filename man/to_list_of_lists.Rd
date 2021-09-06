@@ -16,22 +16,18 @@ Default is \code{NULL}.}
 Defaultis \code{NULL}.}
 
 \item{name3}{The name for the third element in the list-in-list.
-Default is \code{NULL}.
-If this argument is not \code{NULL}, the names of the vector
-elements will be
-split using \code{lavaan} syntax (by calling
-\code{\link[lavaan:model.syntax]{lavaan::lavParseModelString()}}),
-and the right-hand side (\code{rhs}) and left-hand side (\code{lhs})
-of each
-element will be assigned to \code{name1} and \code{name2},
-respectively.}
+Default is \code{NULL}. If this argument is not \code{NULL}, the names of the
+vector elements will be split using \code{lavaan} syntax (by calling
+\code{\link[lavaan:model.syntax]{lavaan::lavParseModelString()}}), and the right-hand side (\code{rhs})
+and left-hand side (\code{lhs}) of each element will be assigned to
+\code{name1} and \code{name2}, respectively.}
 }
 \value{
 A list of lists.
 }
 \description{
-Convert a named vector to a list of lists,
-to be used by various functions in \code{\link{semptools}}.
+Convert a named vector to a list of lists, to be used
+by various functions in \code{\link{semptools}}.
 }
 \details{
 This function is not to be used by users, but to be used

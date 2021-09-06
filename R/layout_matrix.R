@@ -1,24 +1,24 @@
 #'@title Create the layout matrix for semPaths
 #'
-#'@description Create the layout matrix from a list of coordinates for semPaths.
+#'@description Create the layout matrix from a list of coordinates for
+#' semPaths.
 #'
-#'@details The layout argument in [semPlot::semPaths()] accepts a matrix with
-#'         node labels as the elements, and `NA` for empty cells. This function
-#'         allows user to create the matrix using a list of coordinates for the
-#'         node labels.
+#'@details The layout argument in [semPlot::semPaths()] accepts a
+#' matrix with node labels as the elements, and `NA` for empty cells.
+#' This function allows user to create the matrix using a list of
+#' coordinates for the node labels.
 #'
 #'
-#'@return
-#' A layout matrix for the layout argument of [semPlot::semPaths()].
+#'@return A layout matrix for the layout argument of
+#'[semPlot::semPaths()].
 #'
-#'@param ... Each node in the matrix is specified by this form:
-#'           `name = c(x, y)`. The `name` is the node label, and the vector
-#'           is the position of the node. The first element is the `x` position,
-#'           and the second element is the `y` position, measured from the top
-#'           left corner. The size of the grid
-#'           is determined automatically. For a grid of n rows and m columns,
-#'           the top left cell is specified by `c(1, 1)`, and the bottom
-#'           right cell is specified by `c(n, m)`.
+#'@param ... Each node in the matrix is specified by this form: `name
+#' = c(x, y)`. The `name` is the node label, and the vector is the
+#' position of the node. The first element is the `x` position, and
+#' the second element is the `y` position, measured from the top left
+#' corner. The size of the grid is determined automatically. For a
+#' grid of n rows and m columns, the top left cell is specified by
+#' `c(1, 1)`, and the bottom right cell is specified by `c(n, m)`.
 #'
 #'@examples
 #'# Suppose this is the layout to be created:
@@ -33,7 +33,7 @@
 #'                    x5 = c(3, 4))
 #'#The two matrices should be identical.
 #'m0 == m1
-#' @export
+#'@export
 
 layout_matrix <- function(...) {
   layout <- list(...)
