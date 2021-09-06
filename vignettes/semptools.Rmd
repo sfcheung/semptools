@@ -1,5 +1,5 @@
 ---
-title: "A quick start guide on using semptools"
+title: "A Quick Start Guide on Using semptools"
 author: "Shu Fai Cheung & Mark Hok Chio Lai"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
