@@ -263,7 +263,7 @@ set_sem_layout <- function(semPaths_plot,
                               out <- out[-1]
                               out <- out[-length(out)]
                               out
-                            }, simplify = "array", USE.NAMES = TRUE)
+                            }, simplify = FALSE, USE.NAMES = TRUE)
 
     factor_coord2y <- -1*(2*(factor_coord[, 1]*2 - 1)/(2*layout_nrow) - 1)
     factor_coord2x <- 2*(factor_coord[, 2]*2 - 1)/(2*layout_ncol) - 1
