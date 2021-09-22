@@ -11,12 +11,12 @@ An object of class \code{data.frame} with 100 rows and 7 columns.
 pa_example_3covs
 }
 \description{
-A sample dataset for fitting a path analysis model, with three
-control variables.
+A sample dataset for fitting a path analysis model,
+with three control variables.
 }
 \details{
-Four variables (x1 to x4), and three control variables (
-cov1, cov2, cov3), 100 cases.
+Four variables (\code{x1} to \code{x4}), and three control variables
+(\code{cov1}, \code{cov2}, \code{cov3}), 100 cases.
 
 Sample model to fit (in \link[lavaan:model.syntax]{lavaan::model.syntax} notation)\preformatted{mod <-
 '

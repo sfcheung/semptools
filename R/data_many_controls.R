@@ -1,10 +1,10 @@
 #'@title Sample dataset pa_example_3covs
 #'
-#'@description A sample dataset for fitting a path analysis model, with three
-#'              control variables.
+#'@description A sample dataset for fitting a path analysis model,
+#' with three control variables.
 #'
-#'@details Four variables (x1 to x4), and three control variables (
-#'         cov1, cov2, cov3), 100 cases.
+#'@details Four variables (`x1` to `x4`), and three control variables
+#' (`cov1`, `cov2`, `cov3`), 100 cases.
 #'
 #'Sample model to fit (in [lavaan::model.syntax] notation)
 #'

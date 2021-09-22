@@ -1,3 +1,15 @@
+# semptools 0.2.9.1
+
+## Bug Fix
+
+- Fix a bug in `set_sem_layout()`. Failed to work with models in which all
+factors have the same number of indicators.
+
+## Misc
+
+- Reformatted the help sections of the functions (wrap the text for readability).
+  This has no impact on uses and the generated help files.
+
 # semptools 0.2.9
 
 - Added `drop_nodes()` and `keep_nodes()`. They process a `semPlotModel` object,

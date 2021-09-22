@@ -1,14 +1,14 @@
 #'@title Identify dependent Variable residual variance
 #'
-#'@description Check which parameters in a lavaan output are the residual
-#'              variance of a dependent variable.
+#'@description Check which parameters in a lavaan output are the
+#' residual variance of a dependent variable.
 #'
-#'@details Check which parameters in a lavaan output are the variance of a
-#'         dependent variable. Indicators of a latent variable will be excluded.
+#'@details Check which parameters in a lavaan output are the variance
+#' of a dependent variable. Indicators of a latent variable will be
+#' excluded.
 #'
-#'@return
-#' A boolean vector with length equal to the number of rows in the lavaan
-#' output.
+#'@return A boolean vector with length equal to the number of rows in
+#' the lavaan output.
 #'
 #'@param lavaan_out A [lavaan::lavaan-class] object.
 #'

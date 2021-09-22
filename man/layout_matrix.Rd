@@ -7,26 +7,26 @@
 layout_matrix(...)
 }
 \arguments{
-\item{...}{Each node in the matrix is specified by this form:
-\code{name = c(x, y)}. The \code{name} is the node label, and the vector
-is the position of the node. The first element is the \code{x} position,
-and the second element is the \code{y} position, measured from the top
-left corner. The size of the grid
-is determined automatically. For a grid of n rows and m columns,
-the top left cell is specified by \code{c(1, 1)}, and the bottom
-right cell is specified by \code{c(n, m)}.}
+\item{...}{Each node in the matrix is specified by this form: \code{name = c(x, y)}. The \code{name} is the node label, and the vector is the
+position of the node. The first element is the \code{x} position, and
+the second element is the \code{y} position, measured from the top left
+corner. The size of the grid is determined automatically. For a
+grid of n rows and m columns, the top left cell is specified by
+\code{c(1, 1)}, and the bottom right cell is specified by \code{c(n, m)}.}
 }
 \value{
-A layout matrix for the layout argument of \code{\link[semPlot:semPaths]{semPlot::semPaths()}}.
+A layout matrix for the layout argument of
+\code{\link[semPlot:semPaths]{semPlot::semPaths()}}.
 }
 \description{
-Create the layout matrix from a list of coordinates for semPaths.
+Create the layout matrix from a list of coordinates for
+semPaths.
 }
 \details{
-The layout argument in \code{\link[semPlot:semPaths]{semPlot::semPaths()}} accepts a matrix with
-node labels as the elements, and \code{NA} for empty cells. This function
-allows user to create the matrix using a list of coordinates for the
-node labels.
+The layout argument in \code{\link[semPlot:semPaths]{semPlot::semPaths()}} accepts a
+matrix with node labels as the elements, and \code{NA} for empty cells.
+This function allows user to create the matrix using a list of
+coordinates for the node labels.
 }
 \examples{
 # Suppose this is the layout to be created:
