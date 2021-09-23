@@ -215,7 +215,6 @@ p-values. Require the original object used in the semPaths call.</p>
 </div><div class='img'><img src='mark_sig-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p_pa2</span> <span class='op'>&lt;-</span> <span class='fu'>mark_sig</span><span class='op'>(</span><span class='va'>p_pa</span>, <span class='va'>fit_pa</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>p_pa2</span><span class='op'>)</span>
 </div><div class='img'><img src='mark_sig-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># The following examples will not run because of long loading time.</span>
 <span class='va'>mod_cfa</span> <span class='op'>&lt;-</span>
  <span class='st'>'f1 =~ x01 + x02 + x03
@@ -225,12 +224,50 @@ p-values. Require the original object used in the semPaths call.</p>
  '</span>
 <span class='va'>fit_cfa</span> <span class='op'>&lt;-</span> <span class='fu'>lavaan</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lavaan/man/sem.html'>sem</a></span><span class='op'>(</span><span class='va'>mod_cfa</span>, <span class='va'>cfa_example</span><span class='op'>)</span>
 <span class='fu'>lavaan</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lavaan/man/parameterEstimates.html'>parameterEstimates</a></span><span class='op'>(</span><span class='va'>fit_cfa</span><span class='op'>)</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lhs"</span>, <span class='st'>"op"</span>, <span class='st'>"rhs"</span>, <span class='st'>"est"</span>, <span class='st'>"pvalue"</span><span class='op'>)</span><span class='op'>]</span>
-<span class='va'>p_cfa</span> <span class='op'>&lt;-</span> <span class='fu'>semPlot</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/semPlot/man/semPaths.html'>semPaths</a></span><span class='op'>(</span><span class='va'>fit_cfa</span>, whatLabels<span class='op'>=</span><span class='st'>"est"</span>,
+</div><div class='output co'>#&gt;    lhs op rhs    est pvalue
+#&gt; 1   f1 =~ x01  1.000     NA
+#&gt; 2   f1 =~ x02  1.097  0.000
+#&gt; 3   f1 =~ x03  1.247  0.000
+#&gt; 4   f2 =~ x04  1.000     NA
+#&gt; 5   f2 =~ x05 -0.040  0.587
+#&gt; 6   f2 =~ x06  1.098  0.000
+#&gt; 7   f2 =~ x07  0.771  0.000
+#&gt; 8   f3 =~ x08  1.000     NA
+#&gt; 9   f3 =~ x09  0.937  0.000
+#&gt; 10  f3 =~ x10  1.785  0.000
+#&gt; 11  f4 =~ x11  1.000     NA
+#&gt; 12  f4 =~ x12  0.949  0.000
+#&gt; 13  f4 =~ x13 -0.077  0.356
+#&gt; 14  f4 =~ x14  1.184  0.000
+#&gt; 15 x01 ~~ x01  0.969  0.000
+#&gt; 16 x02 ~~ x02  0.853  0.000
+#&gt; 17 x03 ~~ x03  0.976  0.000
+#&gt; 18 x04 ~~ x04  0.725  0.000
+#&gt; 19 x05 ~~ x05  0.954  0.000
+#&gt; 20 x06 ~~ x06  1.161  0.000
+#&gt; 21 x07 ~~ x07  0.903  0.000
+#&gt; 22 x08 ~~ x08  1.026  0.000
+#&gt; 23 x09 ~~ x09  1.119  0.000
+#&gt; 24 x10 ~~ x10  0.566  0.009
+#&gt; 25 x11 ~~ x11  1.231  0.000
+#&gt; 26 x12 ~~ x12  1.032  0.000
+#&gt; 27 x13 ~~ x13  0.990  0.000
+#&gt; 28 x14 ~~ x14  0.985  0.000
+#&gt; 29  f1 ~~  f1  0.855  0.000
+#&gt; 30  f2 ~~  f2  1.119  0.000
+#&gt; 31  f3 ~~  f3  0.585  0.000
+#&gt; 32  f4 ~~  f4  0.943  0.000
+#&gt; 33  f1 ~~  f2 -0.173  0.059
+#&gt; 34  f1 ~~  f3  0.387  0.000
+#&gt; 35  f1 ~~  f4 -0.178  0.041
+#&gt; 36  f2 ~~  f3 -0.112  0.132
+#&gt; 37  f2 ~~  f4  0.593  0.000
+#&gt; 38  f3 ~~  f4 -0.181  0.014</div><div class='input'><span class='va'>p_cfa</span> <span class='op'>&lt;-</span> <span class='fu'>semPlot</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/semPlot/man/semPaths.html'>semPaths</a></span><span class='op'>(</span><span class='va'>fit_cfa</span>, whatLabels<span class='op'>=</span><span class='st'>"est"</span>,
            style <span class='op'>=</span> <span class='st'>"ram"</span>,
            nCharNodes <span class='op'>=</span> <span class='fl'>0</span>, nCharEdges <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-<span class='va'>p_cfa2</span> <span class='op'>&lt;-</span> <span class='fu'>mark_sig</span><span class='op'>(</span><span class='va'>p_cfa</span>, <span class='va'>fit_cfa</span><span class='op'>)</span>
+</div><div class='img'><img src='mark_sig-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p_cfa2</span> <span class='op'>&lt;-</span> <span class='fu'>mark_sig</span><span class='op'>(</span><span class='va'>p_cfa</span>, <span class='va'>fit_cfa</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>p_cfa2</span><span class='op'>)</span>
-
+</div><div class='img'><img src='mark_sig-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='va'>mod_sem</span> <span class='op'>&lt;-</span>
  <span class='st'>'f1 =~ x01 + x02 + x03
   f2 =~ x04 + x05 + x06 + x07
@@ -241,13 +278,49 @@ p-values. Require the original object used in the semPaths call.</p>
  '</span>
 <span class='va'>fit_sem</span> <span class='op'>&lt;-</span> <span class='fu'>lavaan</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lavaan/man/sem.html'>sem</a></span><span class='op'>(</span><span class='va'>mod_sem</span>, <span class='va'>sem_example</span><span class='op'>)</span>
 <span class='fu'>lavaan</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lavaan/man/parameterEstimates.html'>parameterEstimates</a></span><span class='op'>(</span><span class='va'>fit_sem</span><span class='op'>)</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lhs"</span>, <span class='st'>"op"</span>, <span class='st'>"rhs"</span>, <span class='st'>"est"</span>, <span class='st'>"pvalue"</span><span class='op'>)</span><span class='op'>]</span>
-<span class='va'>p_sem</span> <span class='op'>&lt;-</span> <span class='fu'>semPlot</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/semPlot/man/semPaths.html'>semPaths</a></span><span class='op'>(</span><span class='va'>fit_sem</span>, whatLabels<span class='op'>=</span><span class='st'>"est"</span>,
+</div><div class='output co'>#&gt;    lhs op rhs    est pvalue
+#&gt; 1   f1 =~ x01  1.000     NA
+#&gt; 2   f1 =~ x02  1.124  0.000
+#&gt; 3   f1 =~ x03  1.310  0.000
+#&gt; 4   f2 =~ x04  1.000     NA
+#&gt; 5   f2 =~ x05  0.079  0.205
+#&gt; 6   f2 =~ x06  1.120  0.000
+#&gt; 7   f2 =~ x07  0.736  0.000
+#&gt; 8   f3 =~ x08  1.000     NA
+#&gt; 9   f3 =~ x09  0.819  0.000
+#&gt; 10  f3 =~ x10  1.230  0.000
+#&gt; 11  f4 =~ x11  1.000     NA
+#&gt; 12  f4 =~ x12  0.773  0.000
+#&gt; 13  f4 =~ x13  0.064  0.160
+#&gt; 14  f4 =~ x14  0.928  0.000
+#&gt; 15  f3  ~  f1  0.612  0.000
+#&gt; 16  f3  ~  f2  0.584  0.000
+#&gt; 17  f4  ~  f1 -0.542  0.001
+#&gt; 18  f4  ~  f3  0.980  0.000
+#&gt; 19 x01 ~~ x01  1.055  0.000
+#&gt; 20 x02 ~~ x02  1.015  0.000
+#&gt; 21 x03 ~~ x03  1.028  0.000
+#&gt; 22 x04 ~~ x04  0.933  0.000
+#&gt; 23 x05 ~~ x05  0.795  0.000
+#&gt; 24 x06 ~~ x06  0.771  0.000
+#&gt; 25 x07 ~~ x07  1.071  0.000
+#&gt; 26 x08 ~~ x08  0.976  0.000
+#&gt; 27 x09 ~~ x09  0.937  0.000
+#&gt; 28 x10 ~~ x10  1.164  0.000
+#&gt; 29 x11 ~~ x11  1.008  0.000
+#&gt; 30 x12 ~~ x12  1.033  0.000
+#&gt; 31 x13 ~~ x13  0.846  0.000
+#&gt; 32 x14 ~~ x14  0.807  0.000
+#&gt; 33  f1 ~~  f1  0.714  0.000
+#&gt; 34  f2 ~~  f2  1.277  0.000
+#&gt; 35  f3 ~~  f3  0.759  0.000
+#&gt; 36  f4 ~~  f4  1.188  0.000
+#&gt; 37  f1 ~~  f2  0.016  0.856</div><div class='input'><span class='va'>p_sem</span> <span class='op'>&lt;-</span> <span class='fu'>semPlot</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/semPlot/man/semPaths.html'>semPaths</a></span><span class='op'>(</span><span class='va'>fit_sem</span>, whatLabels<span class='op'>=</span><span class='st'>"est"</span>,
            style <span class='op'>=</span> <span class='st'>"ram"</span>,
            nCharNodes <span class='op'>=</span> <span class='fl'>0</span>, nCharEdges <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
-<span class='va'>p_sem2</span> <span class='op'>&lt;-</span> <span class='fu'>mark_sig</span><span class='op'>(</span><span class='va'>p_sem</span>, <span class='va'>fit_sem</span><span class='op'>)</span>
+</div><div class='img'><img src='mark_sig-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>p_sem2</span> <span class='op'>&lt;-</span> <span class='fu'>mark_sig</span><span class='op'>(</span><span class='va'>p_sem</span>, <span class='va'>fit_sem</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>p_sem2</span><span class='op'>)</span>
-
-<span class='op'>}</span>
+</div><div class='img'><img src='mark_sig-6.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
