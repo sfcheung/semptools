@@ -45,7 +45,6 @@
 #'p_pa2 <- mark_sig(p_pa, fit_pa)
 #'plot(p_pa2)
 #'
-#'\dontrun{
 #'# The following examples will not run because of long loading time.
 #'mod_cfa <-
 #'  'f1 =~ x01 + x02 + x03
@@ -77,7 +76,6 @@
 #'p_sem2 <- mark_sig(p_sem, fit_sem)
 #'plot(p_sem2)
 #'
-#'}
 #' @importFrom rlang .data
 #' @export
 
