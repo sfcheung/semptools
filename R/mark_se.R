@@ -59,7 +59,6 @@
 #'p_pa2 <- mark_se(p_pa, fit_pa)
 #'plot(p_pa2)
 #'
-#'# The following examples will not run because of long loading time.
 #'mod_cfa <-
 #'  'f1 =~ x01 + x02 + x03
 #'   f2 =~ x04 + x05 + x06 + x07
