@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9.2</span>
       </span>
     </div>
 
@@ -97,7 +97,7 @@
       <h1 data-toc-skip>A Quick Start Guide on Using semptools</h1>
                         <h4 class="author">Shu Fai Cheung &amp; Mark Hok Chio Lai</h4>
             
-            <h4 class="date">2021-09-22</h4>
+            <h4 class="date">2021-09-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sfcheung/semptools/blob/master/vignettes/semptools.Rmd"><code>vignettes/semptools.Rmd</code></a></small>
       <div class="hidden name"><code>semptools.Rmd</code></div>
@@ -153,7 +153,7 @@
 <p><img src="semptools_files/figure-html/unnamed-chunk-2-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>We know from the <code><a href="https://rdrr.io/pkg/lavaan/man/lavaan.html">lavaan::lavaan()</a></code> output that some paths are significant and some are not. In some disciplines, asterisks are conventionally added indicate this. However, <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html">semPlot::semPaths()</a></code> does not do this. We can use <code><a href="../reference/mark_sig.html">mark_sig()</a></code> to add asterisks based on the p-values of the free parameters.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">semptools</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://sfcheung.github.io/semptools/">semptools</a></span><span class="op">)</span>
 <span class="va">p_pa2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mark_sig.html">mark_sig</a></span><span class="op">(</span><span class="va">p_pa</span>, <span class="va">fit_pa</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">p_pa2</span><span class="op">)</span></code></pre></div>
 <p><img src="semptools_files/figure-html/unnamed-chunk-3-1.png" width="576" style="display: block; margin: auto;"></p>
@@ -203,7 +203,7 @@
 <p><img src="semptools_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>We can use <code><a href="../reference/mark_se.html">mark_se()</a></code> to add the standard errors for the parameter estimates:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">semptools</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://sfcheung.github.io/semptools/">semptools</a></span><span class="op">)</span>
 <span class="va">p_pa2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mark_se.html">mark_se</a></span><span class="op">(</span><span class="va">p_pa</span>, <span class="va">fit_pa</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">p_pa2</span><span class="op">)</span></code></pre></div>
 <p><img src="semptools_files/figure-html/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;"></p>
@@ -251,7 +251,7 @@
 <p>Therefore, top-right is 45, top-left is -45, and left is -90.</p>
 <p>We then use <code><a href="../reference/rotate_resid.html">rotate_resid()</a></code> to post-process the <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html">semPlot::semPaths()</a></code> output. The first argument, <code>semPaths_plot</code>, is the <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html">semPlot::semPaths()</a></code> output. The second argument, <code>rotate_resid_list</code>, is the vector to specify how the residuals should be rotated. The name is the node for which the residual will be rotated, and the value is the degree of rotation. For example, to achieve the results described above, the vector is <code><a href="https://rdrr.io/r/base/c.html">c(x3 = 45, x4 = -45, x2 = -90)</a></code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">semptools</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://sfcheung.github.io/semptools/">semptools</a></span><span class="op">)</span>
 <span class="va">my_rotate_resid_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>x3 <span class="op">=</span>  <span class="fl">45</span>,
                           x4 <span class="op">=</span> <span class="op">-</span><span class="fl">45</span>,
                           x2 <span class="op">=</span> <span class="op">-</span><span class="fl">90</span><span class="op">)</span>
@@ -340,7 +340,7 @@
 <p>We can use a named vector to specify the changes. The “name” of each element is of the same form as <code>lhs-op-rhs</code> as in <code><a href="https://rdrr.io/pkg/lavaan/man/lavaan.html">lavaan::lavaan()</a></code> model syntax. In <code>lavaan</code>, <code>y ~ x</code> denotes an arrow from <code>x</code> to <code>y</code>. Therefore, if we want to change the curvature of the path <em>from</em> <code>x</code> <em>to</em> <code>y</code> to -3, then the element is <code>"y ~ x" = -3</code>. Note that whether <code><a href="https://rdrr.io/r/base/tilde.html">~</a></code> or <code>~~</code> is used does not matter.</p>
 <p>Therefore, the changes described above can be specified by <code><a href="https://rdrr.io/r/base/c.html">c("x2 ~~ x1" = -3, "x4  ~ x1" = 2)</a></code>, as shown below:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">semptools</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://sfcheung.github.io/semptools/">semptools</a></span><span class="op">)</span>
 <span class="va">my_position_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x3 ~ x1"</span> <span class="op">=</span> <span class="fl">.25</span>,
                       <span class="st">"x3 ~ x2"</span> <span class="op">=</span> <span class="fl">.25</span>,
                       <span class="st">"x4 ~ x1"</span> <span class="op">=</span> <span class="fl">.75</span><span class="op">)</span>
@@ -359,7 +359,7 @@
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lavaan.ugent.be">lavaan</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SachaEpskamp/semPlot">semPlot</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">semptools</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://sfcheung.github.io/semptools/">semptools</a></span><span class="op">)</span>
 <span class="va">mod_pa</span> <span class="op">&lt;-</span> 
  <span class="st">'x1 ~~ x2
   x3 ~  x1 + x2
