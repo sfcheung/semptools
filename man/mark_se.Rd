@@ -69,7 +69,6 @@ p_pa <- semPlot::semPaths(fit_pa, whatLabels = "est",
 p_pa2 <- mark_se(p_pa, fit_pa)
 plot(p_pa2)
 
-\dontrun{
 # The following examples will not run because of long loading time.
 mod_cfa <-
  'f1 =~ x01 + x02 + x03
@@ -106,5 +105,4 @@ p_sem2 <- mark_sig(p_sem, fit_sem)
 p_sem3 <- mark_se(p_sem2, fit_sem, sep = "\n")
 plot(p_sem3)
 
-}
 }
