@@ -1,3 +1,7 @@
+# semptools 0.2.9.2
+
+- Minor fixes to the DESCRIPTION file and examples.
+
 # semptools 0.2.9.1
 
 ## Bug Fix
