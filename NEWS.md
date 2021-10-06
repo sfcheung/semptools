@@ -1,3 +1,7 @@
+# semptools 0.2.9.3
+
+- Minor fixes to errors in CRAN checks.
+
 # semptools 0.2.9.2
 
 - Minor fixes to the DESCRIPTION file and examples.

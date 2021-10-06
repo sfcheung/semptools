@@ -473,20 +473,20 @@ my_position_list <- c("x4 ~ x1" = .75)
 my_curve_list <- c("x2 ~ x1" = -2)
 my_rotate_resid_list <- c(x1 = 0, x2 = 180, x3 = 140, x4 = 140)
 my_position_list <- c("x4 ~ x1" = .65)
-if ((compareVersion(as.character(getRversion()), "4.1.0")) >= 0) {
-    p_pa3 <- p_pa |> set_curve(my_curve_list) |>
-                      rotate_resid(my_rotate_resid_list) |>
-                      mark_sig(fit_pa) |>
-                      mark_se(fit_pa, sep = "\n") |>
-                      set_edge_label_position(my_position_list)
-  } else {
+# if ((compareVersion(as.character(getRversion()), "4.1.0")) >= 0) {
+#     p_pa3 <- p_pa |> set_curve(my_curve_list) |>
+#                       rotate_resid(my_rotate_resid_list) |>
+#                       mark_sig(fit_pa) |>
+#                       mark_se(fit_pa, sep = "\n") |>
+#                       set_edge_label_position(my_position_list)
+#   } else {
     require(magrittr)
     p_pa3 <- p_pa %>% set_curve(my_curve_list) %>%
                       rotate_resid(my_rotate_resid_list) %>%
                       mark_sig(fit_pa) %>%
                       mark_se(fit_pa, sep = "\n") %>%
                       set_edge_label_position(my_position_list)
-  }
+  # }
 plot(p_pa3)
 ```
 

@@ -137,13 +137,17 @@ test_that(
     )
     p_pa_rotate <- rotate_resid(p_pa, rotate_resid_list = my_rotate_resid_list)
     p_pa2_rotate <- rotate_resid(p_pa2, rotate_resid_list = my_rotate_resid_list)
-    expect_match(
-      all.equal(
-        p_pa2$graphAttributes$Nodes$loopRotation,
-        p_pa2_rotate$graphAttributes$Nodes$loopRotation
-      ),
-      "Mean relative difference: 1.666667"
-    )
+    # expect_match(
+    #   all.equal(
+    #     p_pa2$graphAttributes$Nodes$loopRotation,
+    #     p_pa2_rotate$graphAttributes$Nodes$loopRotation
+    #   ),
+    #   "Mean relative difference: 1.666667"
+    # )
+    expect_equal(
+        p_pa2_rotate$graphAttributes$Nodes$loopRotation / pi,
+        c(0.25, -0.25, 1.50, -0.50)
+      )
     expect_identical(p_pa_rotate$graphAttributes$Nodes$loopRotation, 
                      p_pa2_rotate$graphAttributes$Nodes$loopRotation)
   })
