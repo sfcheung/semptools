@@ -105,7 +105,9 @@
 <div id="installation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h1>
-<p>The latest version can be installed by <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github()</a></code>:</p>
+<p>The latest stable version can be installed from CRAN:</p>
+<pre><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("semptools")</a></code></pre>
+<p>The latest development version at GitHub can be installed by <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github()</a></code>:</p>
 <pre><code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("sfcheung/semptools")</a></code></pre>
 <p>To read the guides (vignettes) on how to use the functions, you can build the vignettes locally when installing the package:</p>
 <pre><code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("sfcheung/semptools", build_vignettes = TRUE)</a></code></pre>
@@ -123,7 +125,7 @@
 <pre><code>modified_graph &lt;- original_graph %&gt;%
                     task_1() %&gt;%
                     task_2(other_arguments) %&gt;%
-                    task_3</code></pre>
+                    task_3()</code></pre>
 <p>In psychology, two typical models are confirmatory factor analysis model and structural models with latent factors. Therefore, we also wrote two functions, one for each model, that can combine several common tasks together, such as specifying the positions of the latent factors and adjusting the positions of the indicators.</p>
 <p>We also write the functions in a way that users do not need to know the technical detail (e.g., the position of the path in the list of all paths). For example, if a user wants to move the path coefficient of the path from <code>x</code> to <code>y</code> closer to <code>y</code>, the user only needs to tell the function that it is the path from <code>x</code> to <code>y</code>. The function will find which path it is in the <code>qgraph</code> object.</p>
 </div>
