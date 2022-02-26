@@ -229,3 +229,26 @@ test_that("Correct nodes dropped", {
     check.attributes = FALSE
   )
 })
+
+# Added in 0.2.9.4
+# Contributed by marklhc
+
+m2 <- " eta_Y =~ 1 * fs_y
+        eta_M =~ 1 * fs_m
+        fs_y ~~ theta_y * fs_y
+        fs_m ~~ theta_m * fs_m
+        eta_Y ~ b2 * X + b3 * eta_M
+        eta_M ~ b1 * X "
+pm2 <- semPlot::semPlotModel(
+    lavaan::lavaanify(m2)
+)
+pm2_2 <- drop_nodes(pm2, c("fs_y", "fs_m"))
+
+test_that("Correct nodes dropped for lavaanify output", {
+  expect_true(
+    all(!(c("fs_y", "fs_m") %in% pm2_2@Vars$name))
+  )
+  expect_true(
+    all(c("X", "eta_Y", "eta_M") %in% pm2_2@Vars$name)
+  )
+})
