@@ -1,3 +1,8 @@
+# semptools 0.2.9.4
+
+- Update `drop_nodes()`: It now works with output without a covariance matrix
+  (e.g, a model generated from `lavaan::lavaanify()` without data).
+
 # semptools 0.2.9.3
 
 - Minor fixes to errors in CRAN checks.
