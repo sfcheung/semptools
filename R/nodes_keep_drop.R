@@ -63,12 +63,16 @@ drop_nodes <- function(object, nodes) {
     tmp <- object@Vars
     pos_to_keep <- !(tmp[, "name"] %in% nodes)
     object@Vars <- object@Vars[pos_to_keep, ]
-    tmp <- object@ObsCovs[[1]]
-    pos_to_keep <- !(colnames(tmp) %in% nodes)
-    object@ObsCovs[[1]] <- tmp[pos_to_keep, pos_to_keep]
-    tmp <- object@ImpCovs[[1]]
-    pos_to_keep <- !(colnames(tmp) %in% nodes)
-    object@ImpCovs[[1]] <- tmp[pos_to_keep, pos_to_keep]
+    if (length(object@ObsCovs) > 0) {
+        tmp <- object@ObsCovs[[1]]
+        pos_to_keep <- !(colnames(tmp) %in% nodes)
+        object@ObsCovs[[1]] <- tmp[pos_to_keep, pos_to_keep]
+    }
+    if (length(object@ImpCovs) > 0) {
+        tmp <- object@ImpCovs[[1]]
+        pos_to_keep <- !(colnames(tmp) %in% nodes)
+        object@ImpCovs[[1]] <- tmp[pos_to_keep, pos_to_keep]
+    }
     object
   }
 
