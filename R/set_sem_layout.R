@@ -201,11 +201,21 @@ set_sem_layout <- function(semPaths_plot,
     if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
         if (!all(Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
             warning("One or more indicators in the graph are not in indicator_order. Unexpected results may occur.")
+          } else {
+            tmp <- sapply(indicator_order, function(x) {
+                Nodes_names[match(x, Nodes_names2)]
+              }, USE.NAMES = FALSE)
+            indicator_order <- tmp
           }
       }
     if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
         if (!all(Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
             warning("One or more factors in the graph are not in indicator_factor. Unexpected results may occur.")
+          } else {
+            tmp <- sapply(indicator_factor, function(x) {
+                Nodes_names[match(x, Nodes_names2)]
+              }, USE.NAMES = FALSE)
+            indicator_factor <- tmp
           }
       }
 
@@ -223,22 +233,12 @@ set_sem_layout <- function(semPaths_plot,
         if (!all(factor_layout[!is.na(factor_layout)] %in% 
               Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"])) {
             stop("The position of one or more latent factors are not in factor_layout.")
+          } else {
+            tmp <- sapply(factor_layout, function(x) {
+                Nodes_names[match(x, Nodes_names2)]
+              }, USE.NAMES = FALSE)
+            factor_layout[] <- tmp
           }
-      }
-
-    if (!all(is.na(Nodes_names2))) {
-        tmp <- sapply(indicator_order, function(x) {
-            Nodes_names[match(x, Nodes_names2)]
-          }, USE.NAMES = FALSE)
-        indicator_order <- tmp
-        tmp <- sapply(indicator_factor, function(x) {
-            Nodes_names[match(x, Nodes_names2)]
-          }, USE.NAMES = FALSE)
-        indicator_factor <- tmp
-        tmp <- sapply(factor_layout, function(x) {
-            Nodes_names[match(x, Nodes_names2)]
-          }, USE.NAMES = FALSE)
-        factor_layout[] <- tmp
       }
 
     if (!all((!is.na(factor_layout) & !(factor_layout %in% indicator_order)) ==
