@@ -22,17 +22,17 @@ indicator_order  <- c("x04", "x05", "x01", "x02", "x03",
 indicator_factor <- c("x04", "x05", "f1",  "f1",  "f1",
                       "f4",  "f4",  "f4",  "f4",  "f3",  "f3",  "f3")
 factor_layout <- matrix(c( "f1",  "f3", "f4",
-                          "x04", "X05",  NA), byrow = TRUE, 2, 3)
+                          "x04", "x05",  NA), byrow = TRUE, 2, 3)
 factor_point_to <- matrix(c("left", "up", "right",
                                 NA,   NA,      NA), byrow = TRUE, 2, 3)
 indicator_push <- c(f3 = 2, f4 = 1.5)
 indicator_spread <- c(f1 = 2)
 loading_position <- c(f3 = .8)
-p2 <- set_sem_layout(p, 
-                       indicator_order = indicator_order,
-                       indicator_factor = indicator_factor,
-                       factor_layout = factor_layout,
-                       factor_point_to = factor_point_to,
-                       indicator_push = indicator_push,
-                       indicator_spread = indicator_spread,
-                       loading_position = loading_position)
+p2 <- set_sem_layout(p,
+                    indicator_order = indicator_order,
+                    indicator_factor = indicator_factor,
+                    factor_layout = factor_layout,
+                    factor_point_to = factor_point_to,
+                    indicator_push = indicator_push,
+                    indicator_spread = indicator_spread,
+                    loading_position = loading_position)

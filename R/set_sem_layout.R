@@ -192,31 +192,22 @@ set_sem_layout <- function(semPaths_plot,
 
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
     if (!is.null(names(Nodes_names))) {
-      Nodes_names <- names(Nodes_names)
-      Nodes_names2 <- semPaths_plot$graphAttributes$Nodes$names
-    }
-            
+        Nodes_names <- names(Nodes_names)
+        Nodes_names2 <- semPaths_plot$graphAttributes$Nodes$names
+      } else {
+        Nodes_names2 <- NA
+      }
+
     if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
         if (!all(Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
             warning("One or more indicators in the graph are not in indicator_order. Unexpected results may occur.")
-          } else {
-            tmp <- sapply(indicator_order, function(x) {
-                Nodes_names[match(x, Nodes_names2)]
-              }, USE.NAMES = FALSE)
-            indicator_order <- tmp
           }
       }
     if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
         if (!all(Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
             warning("One or more factors in the graph are not in indicator_factor. Unexpected results may occur.")
-          } else {
-            tmp <- sapply(indicator_factor, function(x) {
-                Nodes_names[match(x, Nodes_names2)]
-              }, USE.NAMES = FALSE)
-            indicator_factor <- tmp
           }
       }
-
 
     # Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
     # if (!is.null(names(Nodes_names))) {
@@ -232,14 +223,26 @@ set_sem_layout <- function(semPaths_plot,
         if (!all(factor_layout[!is.na(factor_layout)] %in% 
               Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"])) {
             stop("The position of one or more latent factors are not in factor_layout.")
-          } else {
-            tmp <- sapply(factor_layout, function(x) {
-                Nodes_names[match(x, Nodes_names2)]
-              }, USE.NAMES = FALSE)
-            factor_layout[] <- tmp
           }
       }
-    if (!all(!is.na(factor_layout) == !is.na(factor_point_to))) {
+
+    if (!all(is.na(Nodes_names2))) {
+        tmp <- sapply(indicator_order, function(x) {
+            Nodes_names[match(x, Nodes_names2)]
+          }, USE.NAMES = FALSE)
+        indicator_order <- tmp
+        tmp <- sapply(indicator_factor, function(x) {
+            Nodes_names[match(x, Nodes_names2)]
+          }, USE.NAMES = FALSE)
+        indicator_factor <- tmp
+        tmp <- sapply(factor_layout, function(x) {
+            Nodes_names[match(x, Nodes_names2)]
+          }, USE.NAMES = FALSE)
+        factor_layout[] <- tmp
+      }
+
+    if (!all((!is.na(factor_layout) & !(factor_layout %in% indicator_order)) ==
+               !is.na(factor_point_to))) {
         stop("The positions of the indicators of one or more latent factors are not specified in factor_point_to.")
       }
       
@@ -269,7 +272,8 @@ set_sem_layout <- function(semPaths_plot,
     factor_coord2x <- 2*(factor_coord[, 2]*2 - 1)/(2*layout_ncol) - 1
     box_width  <- 2/layout_ncol
     box_height <- 2/layout_nrow
-    
+    factor_order <- factor_order[!(factor_order %in% indicator_order)]
+
     set_indicator_xy <- function(x, 
                                  position_grouped,
                                  factor_coord_point_to,
@@ -377,8 +381,10 @@ set_sem_layout <- function(semPaths_plot,
     semPaths_plot$layout <- new_layout
 
     # Fix the residual
-    
-    residual_rotate <- lapply(seq_len(length(indicator_order)), 
+    indicator_order_latent <- indicator_order[!(indicator_order %in% indicator_factor)]
+    indicator_factor_latent <- indicator_factor[!(indicator_factor %in% indicator_order)]
+
+    residual_rotate <- lapply(seq_len(length(indicator_order_latent)), 
             function(x, indicator_order,
                         indicator_factor,
                         factor_coord_point_to) {
@@ -388,12 +394,13 @@ set_sem_layout <- function(semPaths_plot,
                                 right =  90,
                                 down  = 180,
                                 left  = -90))
-              }, indicator_order = indicator_order,
-                 indicator_factor = indicator_factor,
+              }, indicator_order = indicator_order_latent,
+                 indicator_factor = indicator_factor_latent,
                  factor_coord_point_to = factor_coord_point_to)
     semPaths_plot <- rotate_resid(semPaths_plot, residual_rotate)
     
-    factor_residual_rotate <- lapply(names(factor_coord_point_to),
+    factor_coord_point_to_latent <- factor_coord_point_to[!(names(factor_coord_point_to) %in% indicator_order)]
+    factor_residual_rotate <- lapply(names(factor_coord_point_to_latent),
           function(x, factor_coord_point_to) {
                 list(node = x, 
                      rotate = switch(factor_coord_point_to[x],
@@ -401,7 +408,7 @@ set_sem_layout <- function(semPaths_plot,
                                 right = -90,
                                 down  =   0,
                                 left  =  90))
-              }, factor_coord_point_to = factor_coord_point_to)
+              }, factor_coord_point_to = factor_coord_point_to_latent)
     semPaths_plot <- rotate_resid(semPaths_plot, factor_residual_rotate)
     
     # Position the loadings
