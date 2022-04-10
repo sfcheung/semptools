@@ -48,3 +48,28 @@ test_that("Layout as expected", {
       e_layout
     )
   })
+
+p_cha <- change_node_label(p, list(list(node = "f1", to = "Factor 1"),
+                                   list(node = "x04", to = "Obs Exo4"),
+                                   list(node = "x08", to = "Item 8")))
+p_cha2 <- set_sem_layout(p_cha,
+                    indicator_order = indicator_order,
+                    indicator_factor = indicator_factor,
+                    factor_layout = factor_layout,
+                    factor_point_to = factor_point_to,
+                    indicator_push = indicator_push,
+                    indicator_spread = indicator_spread,
+                    loading_position = loading_position)
+e2_layout <- structure(
+    c(-1, -1, -1, -0.166666666666667, 0, 0.166666666666667, 
+      -0.666666666666667, 1.16666666666667, 1.16666666666667, 1.16666666666667,
+      1.16666666666667, 0, -0.666666666666667, 0, 0.666666666666667,
+      0, 0.5, 1, 1.5, 1.5, 1.5, -0.5, 0.2, 0.4, 0.6, 0.8, -0.5, 0.5,
+      0.5, 0.5), .Dim = c(15L, 2L)
+     )
+test_that("Layout as expected after change_node_label", {
+    expect_equal(
+      p_cha2$layout,
+      e2_layout
+    )
+  })
