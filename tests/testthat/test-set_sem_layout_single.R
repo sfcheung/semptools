@@ -44,7 +44,7 @@ e_layout <- structure(
   )
 test_that("Layout as expected", {
     expect_equal(
-      p2$layout, 
+      p2$layout,
       e_layout
     )
   })
