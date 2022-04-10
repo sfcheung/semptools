@@ -1,3 +1,7 @@
+# semptools 0.2.9.5
+
+- Update `set_sem_layout()` to support observed exogenous variables.
+
 # semptools 0.2.9.4
 
 - Update `drop_nodes()`: It now works with output without a covariance matrix
