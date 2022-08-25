@@ -1,10 +1,10 @@
 ---
-title: Layout Matrices  
+title: Layout Matrices
 author: "Shu Fai Cheung & Mark Hok Chio Lai"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{layout_matrix}
+  %\VignetteIndexEntry{Layout Matrices}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -34,12 +34,12 @@ the helper function `layout_matrix()` of `semptools` that can be used to
 construct
 a layout matrix. Last, it describes how `factor_layout` is used in
 `set_sem_layout()`
-to specify the layout of the latent factors only, and let `set_sem_layout()`  
+to specify the layout of the latent factors only, and let `set_sem_layout()`
 decide the positions of their indicators.
 
 # What `layout` Does in `semPlot::semPaths`.
 
-Suppose we have a path model with four variables, 
+Suppose we have a path model with four variables,
 `x1`, `x2`, `x3`, and `x4`. `x1` and `x2` affects `x3`,
 and `x1` and `x3` affects `x4`. In psychology, this
 model is usually presented this way:
@@ -47,7 +47,7 @@ model is usually presented this way:
 ```{r conceptual_diagram, echo = FALSE}
 suppressMessages(library(lavaan))
 suppressMessages(library(semPlot))
-mod_pa <- 
+mod_pa <-
  'x1 ~~ x2
   x3 ~  x1 + x2
   x4 ~  x1 + x3
@@ -75,7 +75,7 @@ the plot without using `layout`, this is the resulting plot:
 ```{r wo_layout}
 library(lavaan)
 library(semPlot)
-mod_pa <- 
+mod_pa <-
  'x1 ~~ x2
   x3 ~  x1 + x2
   x4 ~  x1 + x3
@@ -84,13 +84,13 @@ fit_pa <- lavaan::sem(mod_pa, pa_example)
 p_pa <- semPaths(fit_pa, whatLabels = "est",
            sizeMan = 10,
            edge.label.cex = 1.15,
-           style = "ram", 
+           style = "ram",
            nCharNodes = 0, nCharEdges = 0)
 ```
 
 This layout is different from the convention used in psychology.
 
-To use `layout`, we first decide the grid to be used to 
+To use `layout`, we first decide the grid to be used to
 position the variable (nodes). For example, for the
 conceptual diagram, we can try a 3 by 4 grid
 
@@ -142,14 +142,14 @@ m[2, 4] <- "x4"
 m
 ```
 
-We can then set `layout` to this matrix to tell 
+We can then set `layout` to this matrix to tell
 `semPlot::semPaths()` how to position the four variables:
 
 ```{r}
 p_pa <- semPaths(fit_pa, whatLabels = "est",
            sizeMan = 10,
            edge.label.cex = 1.15,
-           style = "ram", 
+           style = "ram",
            nCharNodes = 0, nCharEdges = 0,
            layout = m)
 ```
@@ -165,7 +165,7 @@ m
 ```
 
 We need to type more because we need to include
-`NA` for all the empty cells. However, 
+`NA` for all the empty cells. However,
 this approach let
 us see immediately how the variables will be positioned.
 We just place the variables in the target cell, without
@@ -178,7 +178,7 @@ This is the approach used in the Quick Start Guides.
 The WYSIWYG approach in the previous
 section has one drawback: It is not easy to change the
 position of the variables and the dimension of the grid.
-In real research, trial-and-error is usually needed to 
+In real research, trial-and-error is usually needed to
 find a desirable layout. For example, if we want to
 add a column or row,
 we need ty type several `NA`s to crate it.
@@ -201,13 +201,13 @@ m2
 p_pa <- semPaths(fit_pa, whatLabels = "est",
            sizeMan = 10,
            edge.label.cex = 1.15,
-           style = "ram", 
+           style = "ram",
            nCharNodes = 0, nCharEdges = 0,
            layout = m2)
 ```
 
 Suppose we want to move `x4` closer to `x3`. Instead
-of deleting the 3rd columns of `NA`, we can  
+of deleting the 3rd columns of `NA`, we can
 just change the coordinates of `x4` in `layout_matrix()`:
 
 ```{r}
@@ -219,7 +219,7 @@ m3
 p_pa <- semPaths(fit_pa, whatLabels = "est",
            sizeMan = 10,
            edge.label.cex = 1.15,
-           style = "ram", 
+           style = "ram",
            nCharNodes = 0, nCharEdges = 0,
            layout = m3)
 ```
@@ -255,13 +255,13 @@ to what illustrated above for a path model, and all
 the approaches presented above can be used. The only
 difference is, only the names of the *latent* *factors* need
 to be present in the matrix, and the size of the grid
-only need to consider the factors. 
+only need to consider the factors.
 
 For example, suppose we have 14 indicators and four
 factors, and this is the model:
 
 ```{r}
-mod <- 
+mod <-
   'f1 =~ x01 + x02 + x03
    f2 =~ x04 + x05 + x06 + x07
    f3 =~ x08 + x09 + x10
@@ -352,13 +352,13 @@ refer to `vignette("quick_start_sem")` or `?set_sem_layout` on
 how to specify other arguments):
 
 ```{r}
-indicator_order  <- c("x04", "x05", "x06", "x07", 
-                      "x01", "x02", "x03", 
+indicator_order  <- c("x04", "x05", "x06", "x07",
+                      "x01", "x02", "x03",
                       "x11", "x12", "x13", "x14",
                       "x08", "x09", "x10")
-indicator_factor <- c( "f2",  "f2",  "f2",  "f2",  
-                       "f1",  "f1",  "f1",  
-                       "f4",  "f4",  "f4",  "f4",  
+indicator_factor <- c( "f2",  "f2",  "f2",  "f2",
+                       "f1",  "f1",  "f1",
+                       "f4",  "f4",  "f4",  "f4",
                        "f3",  "f3",  "f3")
 indicator_push <- c(f3 = 2.5,
                     f4 = 2.5,
@@ -371,7 +371,7 @@ indicator_spread <- c(f1 = 2,
 loading_position <- c(f2 = .6,
                       f3 = .8,
                       f4 = .8)
-p2 <- set_sem_layout(p, 
+p2 <- set_sem_layout(p,
                      indicator_order = indicator_order,
                      indicator_factor = indicator_factor,
                      factor_layout = m_sem,

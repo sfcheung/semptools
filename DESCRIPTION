@@ -1,6 +1,6 @@
 Package: semptools
 Title: Customizing Structural Equation Modelling Plots
-Version: 0.2.9.5
+Version: 0.2.9.6
 Authors@R: c(
     person(given = "Shu Fai",
            family = "Cheung",
@@ -13,26 +13,26 @@ Authors@R: c(
            email = "marklhc@gmail.com ",
            comment = c(ORCID = "0000-0002-9196-7406"))
            )
-Description: Most function focus on specific ways to customize a graph. 
+Description: Most function focus on specific ways to customize a graph.
              They use a 'qgraph' output  as the first argument, and return a
              modified 'qgraph' object. This allows the functions to be chained
              by a pipe operator.
-URL: https://sfcheung.github.io/semptools/ 
+URL: https://sfcheung.github.io/semptools/
 BugReports: https://github.com/sfcheung/semptools/issues
 Depends: R (>= 3.6.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: 
+Imports:
     dplyr,
     lavaan,
     rlang
-Suggests: 
+Suggests:
     semPlot,
     testthat (>= 2.1.0),
     knitr,
     rmarkdown,
     magrittr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 VignetteBuilder: knitr

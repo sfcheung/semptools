@@ -1,10 +1,41 @@
 destination: docs
+
+url: https://sfcheung.github.io/semptools/
+
 articles:
 - title: Articles
   navbar: ~
   contents:
-  - quick_start
-  - quick_start_cfa
-  - quick_start_sem
+  - semptools
+  - starts_with("quick")
+  - starts_with("layout")
+  - starts_with("keep")
+
+reference:
+- title: Main Functions
+  desc:  >
+    Functions for processing a plot
+- contents:
+  - mark_sig
+  - mark_se
+  - set_curve
+  - set_edge_label_position
+  - rotate_resid
+  - change_node_label
+  - keep_drop_nodes
+- title: Layouts
+  desc:  >
+    Functions for setting the layout
+- contents:
+  - set_cfa_layout
+  - set_sem_layout
   - layout_matrix
-  - keep_or_drop_nodes
+- title: Other Helpers
+- contents:
+  - is_dv_residvar
+  - to_list_of_lists
+
+- title: Datasets
+  desc: Datasets used in examples and vignettes.
+- contents:
+  - has_keyword("datasets")

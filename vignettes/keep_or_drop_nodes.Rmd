@@ -4,7 +4,7 @@ author: "Shu Fai Cheung & Mark Hok Chio Lai"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{keep_or_drop_nodes}
+  %\VignetteIndexEntry{Keep or Drop Selected Variables}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -25,7 +25,7 @@ library(semptools)
 
 # Introduction
 
-In psychological research, it is common for a path analytic model to have 
+In psychological research, it is common for a path analytic model to have
 several control variables. They need to be included in the analysis. However,
 for generating the plot, it is acceptable to omit them as long as results
 regarding these control variables are reported in other forms (e.g., a table
@@ -36,7 +36,7 @@ this purpose. When an SEM output object, such as the output from `lavaan`,
 is passed to `semPlot::semPaths`, it is first processed by
 `semPlot::semPlotModel`. In other words, `semPlot::semPaths` itself
 does not interpret the SEM output. It actually use the output of
-`semPlot::semPlotModel` to generate the plot. 
+`semPlot::semPlotModel` to generate the plot.
 These helper functions modify the output
 of `semPlot::semPlotModel` to be used by `semPlot::semPaths`.
 
@@ -50,7 +50,7 @@ This is the analysis in `lavaan`:
 
 ```{r}
 library(lavaan)
-mod <- 
+mod <-
   'x3 ~  x1 + x2 + cov1 + cov2 + cov3
    x4 ~  x1 + x3 + cov1 + cov2 + cov3
   '
@@ -75,7 +75,7 @@ m <- layout_matrix(x1 = c(1, 1),
 p_pa <- semPaths(fit, whatLabels = "est",
            sizeMan = 10,
            edge.label.cex = .5,
-           style = "ram", 
+           style = "ram",
            nCharNodes = 0, nCharEdges = 0,
            layout = m)
 ```
@@ -148,7 +148,7 @@ pa_only_xs <- semPaths(pm_only_xs, whatLabels = "est",
 This plot is identical to the previous plot.
 
 The plot generated
-by `semPlot::semPaths` with selected nodes dropped or 
+by `semPlot::semPaths` with selected nodes dropped or
 kept can then be passed to other
 `semptools` functions for further processing.
 
