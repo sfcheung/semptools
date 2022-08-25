@@ -21,7 +21,7 @@ The latest development version at GitHub can be installed by `remotes::install_g
 remotes::install_github("sfcheung/semptools")
 ```
 
-To read the guides (vignettes) on how to use the functions, you can build the vignettes locally when installing the package: 
+To read the guides (vignettes) on how to use the functions, you can build the vignettes locally when installing the package:
 
 ```
 remotes::install_github("sfcheung/semptools", build_vignettes = TRUE)
@@ -45,11 +45,13 @@ modified_graph <- original_graph %>%
                     task_3()
 ```
 
-In psychology, two typical models are confirmatory factor analysis model and structural models with latent factors. Therefore, we also wrote two functions, one for each model, that can combine several common tasks together, such as specifying the positions of the latent factors and adjusting the positions of the indicators. 
+In psychology, two typical models are confirmatory factor analysis model and structural models with latent factors. Therefore, we also wrote two functions, one for each model, that can combine several common tasks together, such as specifying the positions of the latent factors and adjusting the positions of the indicators.
 
 We also write the functions in a way that users do not need to know the technical detail (e.g., the position of the path in the list of all paths). For example, if a user wants to move the path coefficient of the path from `x` to `y` closer to `y`, the user only needs to tell the function that it is the path from `x` to `y`. The function will find which path it is in the `qgraph` object.
 
 # What we have so far
+
+These are some of the functions included so far
 
 - `mark_se()`: Add the standard errors to parameter estimates.
 
@@ -61,10 +63,17 @@ We also write the functions in a way that users do not need to know the technica
 
 - `set_edge_label_position()`: Move the parameter labels of selected paths along the paths.
 
+- `change_node_label()`: Change the labels of nodes.
+
+- `drop_nodes()` and `keep_nodes()`: Drop or keeps nodes (e.g., drop all control variables).
+
 - `set_cfa_layout()`: A function for typical confirmatory factor analysis models. It can be used for specifying the orders of the indicators and factors, specifying the positions of the factors, setting the curvatures of the interfactor covariances, set the position of all loadings, and setting the orientation of the model (down, left, up, or right).
 
 - `set_sem_layout()`: A function for typical SEM models. It can be used for specifying the orders of the indicators and factors, specifying the positions of the factors using a grid, specifying the orientation of each factor's indicators (down, left, up, right), fine tuning the positions of indicators of selected factor, setting the curvatures of selected paths, and specifying the position of all or selected loadings.
 
+See the [Get Started](https://sfcheung.github.io/semptools/articles/semptools.html) to learn more about these and other functions.
+
 # Status
 
-This package is still under development. There will be bugs, and there are limitations. Comments and suggestions are welcomed.
+This package is still under development. There will be bugs, and there are limitations. Please
+post your comments and suggestions as issues at [GitHub](https://github.com/sfcheung/semptools/issues).
