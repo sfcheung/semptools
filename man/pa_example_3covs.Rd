@@ -18,11 +18,13 @@ with three control variables.
 Four variables (\code{x1} to \code{x4}), and three control variables
 (\code{cov1}, \code{cov2}, \code{cov3}), 100 cases.
 
-Sample model to fit (in \link[lavaan:model.syntax]{lavaan::model.syntax} notation)\preformatted{mod <-
+Sample model to fit (in \link[lavaan:model.syntax]{lavaan::model.syntax} notation)
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mod <-
 '
 x3 ~  x1 + x2 + cov1 +cov2 + cov3
 x4 ~  x1 + x3 + cov1 +cov2 + cov3
 '
-}
+}\if{html}{\out{</div>}}
 }
 \keyword{datasets}
