@@ -1,90 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://sfcheung.github.io/semptools/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://sfcheung.github.io/semptools/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://sfcheung.github.io/semptools/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/keep_or_drop_nodes.html</loc>
+    <loc>https://sfcheung.github.io/semptools/articles/keep_or_drop_nodes.html</loc>
   </url>
   <url>
-    <loc>/articles/layout_matrix.html</loc>
+    <loc>https://sfcheung.github.io/semptools/articles/layout_matrix.html</loc>
   </url>
   <url>
-    <loc>/articles/quick_start_cfa.html</loc>
+    <loc>https://sfcheung.github.io/semptools/articles/quick_start_cfa.html</loc>
   </url>
   <url>
-    <loc>/articles/quick_start_sem.html</loc>
+    <loc>https://sfcheung.github.io/semptools/articles/quick_start_sem.html</loc>
   </url>
   <url>
-    <loc>/articles/semptools.html</loc>
+    <loc>https://sfcheung.github.io/semptools/articles/semptools.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://sfcheung.github.io/semptools/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://sfcheung.github.io/semptools/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://sfcheung.github.io/semptools/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/cfa_example.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/cfa_example.html</loc>
   </url>
   <url>
-    <loc>/reference/change_node_label.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/change_node_label.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/is_dv_residvar.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/is_dv_residvar.html</loc>
   </url>
   <url>
-    <loc>/reference/keep_drop_nodes.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/keep_drop_nodes.html</loc>
   </url>
   <url>
-    <loc>/reference/layout_matrix.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/layout_matrix.html</loc>
   </url>
   <url>
-    <loc>/reference/mark_se.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/mark_se.html</loc>
   </url>
   <url>
-    <loc>/reference/mark_sig.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/mark_sig.html</loc>
   </url>
   <url>
-    <loc>/reference/pa_example.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/pa_example.html</loc>
   </url>
   <url>
-    <loc>/reference/pa_example_3covs.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/pa_example_3covs.html</loc>
   </url>
   <url>
-    <loc>/reference/rotate_resid.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/rotate_resid.html</loc>
   </url>
   <url>
-    <loc>/reference/sem_example.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/sem_example.html</loc>
   </url>
   <url>
-    <loc>/reference/semptools-package.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/semptools-package.html</loc>
   </url>
   <url>
-    <loc>/reference/set_cfa_layout.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/set_cfa_layout.html</loc>
   </url>
   <url>
-    <loc>/reference/set_curve.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/set_curve.html</loc>
   </url>
   <url>
-    <loc>/reference/set_edge_label_position.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/set_edge_label_position.html</loc>
   </url>
   <url>
-    <loc>/reference/set_sem_layout.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/set_sem_layout.html</loc>
   </url>
   <url>
-    <loc>/reference/to_list_of_lists.html</loc>
+    <loc>https://sfcheung.github.io/semptools/reference/to_list_of_lists.html</loc>
   </url>
 </urlset>

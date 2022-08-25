@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.6</span>
       </span>
     </div>
 
@@ -35,16 +35,16 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
+      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
     </li>
     <li>
       <a href="../articles/layout_matrix.html">Layout Matrices</a>
     </li>
     <li>
-      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
+      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
     </li>
   </ul></li>
 <li>
@@ -69,58 +69,18 @@
     </div>
 
     <table class="ref-index"><colgroup><col class="alias"><col class="title"></colgroup><tbody><tr><th colspan="2">
-          <h2 id="all-functions">All functions <a href="#all-functions" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p>
+          <h2 id="main-functions">Main Functions <a href="#main-functions" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Functions for processing a plot</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="cfa_example.html">cfa_example</a></code> </p>
+          <p><code><a href="mark_sig.html">mark_sig()</a></code> </p>
         </td>
-        <td><p>Sample dataset pa_example</p></td>
-      </tr><tr><td>
-          <p><code><a href="change_node_label.html">change_node_label()</a></code> </p>
-        </td>
-        <td><p>Change node labels</p></td>
-      </tr><tr><td>
-          <p><code><a href="is_dv_residvar.html">is_dv_residvar()</a></code> </p>
-        </td>
-        <td><p>Identify dependent Variable residual variance</p></td>
-      </tr><tr><td>
-          <p><code><a href="keep_drop_nodes.html">drop_nodes()</a></code> <code><a href="keep_drop_nodes.html">keep_nodes()</a></code> </p>
-        </td>
-        <td><p>Keep or drop nodes</p></td>
-      </tr><tr><td>
-          <p><code><a href="layout_matrix.html">layout_matrix()</a></code> </p>
-        </td>
-        <td><p>Create the layout matrix for semPaths</p></td>
+        <td><p>Mark Parameter Estimates (Edge Labels) Based on p-Value</p></td>
       </tr><tr><td>
           <p><code><a href="mark_se.html">mark_se()</a></code> </p>
         </td>
         <td><p>Add Standard Error Estimates to Parameter Estimates (Edge
 Labels)</p></td>
-      </tr><tr><td>
-          <p><code><a href="mark_sig.html">mark_sig()</a></code> </p>
-        </td>
-        <td><p>Mark Parameter Estimates (Edge Labels) Based on p-Value</p></td>
-      </tr><tr><td>
-          <p><code><a href="pa_example.html">pa_example</a></code> </p>
-        </td>
-        <td><p>Sample dataset pa_example</p></td>
-      </tr><tr><td>
-          <p><code><a href="pa_example_3covs.html">pa_example_3covs</a></code> </p>
-        </td>
-        <td><p>Sample dataset pa_example_3covs</p></td>
-      </tr><tr><td>
-          <p><code><a href="rotate_resid.html">rotate_resid()</a></code> </p>
-        </td>
-        <td><p>Rotate the residuals of selected nodes</p></td>
-      </tr><tr><td>
-          <p><code><a href="sem_example.html">sem_example</a></code> </p>
-        </td>
-        <td><p>Sample dataset sem_example</p></td>
-      </tr><tr><td>
-          <p><code><a href="set_cfa_layout.html">set_cfa_layout()</a></code> </p>
-        </td>
-        <td><p>Configure the layout of factors of a CFA graph by semPaths</p></td>
       </tr><tr><td>
           <p><code><a href="set_curve.html">set_curve()</a></code> </p>
         </td>
@@ -130,14 +90,66 @@ Labels)</p></td>
         </td>
         <td><p>Set the positions of edge labels of selected edges</p></td>
       </tr><tr><td>
+          <p><code><a href="rotate_resid.html">rotate_resid()</a></code> </p>
+        </td>
+        <td><p>Rotate the residuals of selected nodes</p></td>
+      </tr><tr><td>
+          <p><code><a href="change_node_label.html">change_node_label()</a></code> </p>
+        </td>
+        <td><p>Change node labels</p></td>
+      </tr><tr><td>
+          <p><code><a href="keep_drop_nodes.html">drop_nodes()</a></code> <code><a href="keep_drop_nodes.html">keep_nodes()</a></code> </p>
+        </td>
+        <td><p>Keep or drop nodes</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="layouts">Layouts <a href="#layouts" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Functions for setting the layout</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="set_cfa_layout.html">set_cfa_layout()</a></code> </p>
+        </td>
+        <td><p>Configure the layout of factors of a CFA graph by semPaths</p></td>
+      </tr><tr><td>
           <p><code><a href="set_sem_layout.html">set_sem_layout()</a></code> </p>
         </td>
         <td><p>Configure the layout of factors of an SEM graph by
 <a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths</a></p></td>
       </tr><tr><td>
+          <p><code><a href="layout_matrix.html">layout_matrix()</a></code> </p>
+        </td>
+        <td><p>Create the layout matrix for semPaths</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="other-helpers">Other Helpers <a href="#other-helpers" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="is_dv_residvar.html">is_dv_residvar()</a></code> </p>
+        </td>
+        <td><p>Identify dependent Variable residual variance</p></td>
+      </tr><tr><td>
           <p><code><a href="to_list_of_lists.html">to_list_of_lists()</a></code> </p>
         </td>
         <td><p>Convert a named vector to a list of lists</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="datasets">Datasets <a href="#datasets" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Datasets used in examples and vignettes.</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="cfa_example.html">cfa_example</a></code> </p>
+        </td>
+        <td><p>Sample dataset pa_example</p></td>
+      </tr><tr><td>
+          <p><code><a href="pa_example.html">pa_example</a></code> </p>
+        </td>
+        <td><p>Sample dataset pa_example</p></td>
+      </tr><tr><td>
+          <p><code><a href="pa_example_3covs.html">pa_example_3covs</a></code> </p>
+        </td>
+        <td><p>Sample dataset pa_example_3covs</p></td>
+      </tr><tr><td>
+          <p><code><a href="sem_example.html">sem_example</a></code> </p>
+        </td>
+        <td><p>Sample dataset sem_example</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -151,7 +163,7 @@ Labels)</p></td>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

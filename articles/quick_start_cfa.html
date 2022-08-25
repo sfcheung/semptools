@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.6</span>
       </span>
     </div>
 
@@ -53,16 +53,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
+      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
     </li>
     <li>
       <a href="../articles/layout_matrix.html">Layout Matrices</a>
     </li>
     <li>
-      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
+      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
     </li>
   </ul>
 </li>
@@ -93,7 +93,7 @@
       <h1 data-toc-skip>Quick Start To set_cfa_layout</h1>
                         <h4 data-toc-skip class="author">Shu Fai Cheung &amp; Mark Hok Chio Lai</h4>
             
-            <h4 data-toc-skip class="date">2022-04-10</h4>
+            <h4 data-toc-skip class="date">2022-08-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sfcheung/semptools/blob/HEAD/vignettes/quick_start_cfa.Rmd" class="external-link"><code>vignettes/quick_start_cfa.Rmd</code></a></small>
       <div class="hidden name"><code>quick_start_cfa.Rmd</code></div>
@@ -112,39 +112,39 @@
 </h2>
 <p>Let us consider a CFA model. We will use <code>cfa_example</code>, a sample CFA dataset from <code>semptools</code> with 14 variables for illustration.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sfcheung.github.io/semptools/" class="external-link">semptools</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">cfa_example</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
-<span class="co">#&gt;      x01    x02    x03    x04    x05    x06    x07   x08   x09    x10    x11</span>
-<span class="co">#&gt; 1  1.159  1.271  1.451 -0.691 -0.015 -0.212 -0.336 1.559 0.870  1.115 -1.251</span>
-<span class="co">#&gt; 2  0.059 -0.496 -0.585 -1.800 -0.555  0.012  1.208 0.551 0.055 -0.365 -0.142</span>
-<span class="co">#&gt; 3 -0.737  2.933  1.625  0.642 -1.218 -0.155 -0.861 0.862 0.738  2.443 -0.628</span>
-<span class="co">#&gt;     x12    x13    x14</span>
-<span class="co">#&gt; 1 0.253  0.663 -1.049</span>
-<span class="co">#&gt; 2 0.110 -0.207 -0.226</span>
-<span class="co">#&gt; 3 1.604 -1.688  0.395</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sfcheung.github.io/semptools/">semptools</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">cfa_example</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      x01    x02    x03    x04    x05    x06    x07   x08   x09    x10    x11</span></span>
+<span><span class="co">#&gt; 1  1.159  1.271  1.451 -0.691 -0.015 -0.212 -0.336 1.559 0.870  1.115 -1.251</span></span>
+<span><span class="co">#&gt; 2  0.059 -0.496 -0.585 -1.800 -0.555  0.012  1.208 0.551 0.055 -0.365 -0.142</span></span>
+<span><span class="co">#&gt; 3 -0.737  2.933  1.625  0.642 -1.218 -0.155 -0.861 0.862 0.738  2.443 -0.628</span></span>
+<span><span class="co">#&gt;     x12    x13    x14</span></span>
+<span><span class="co">#&gt; 1 0.253  0.663 -1.049</span></span>
+<span><span class="co">#&gt; 2 0.110 -0.207 -0.226</span></span>
+<span><span class="co">#&gt; 3 1.604 -1.688  0.395</span></span></code></pre></div>
 <p>This is the CFA model to be fitted:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> 
-  <span class="st">'f1 =~ x01 + x02 + x03
-   f2 =~ x04 + x05 + x06 + x07
-   f3 =~ x08 + x09 + x10
-   f4 =~ x11 + x12 + x13 + x14
-  '</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span></span>
+<span>  <span class="st">'f1 =~ x01 + x02 + x03</span></span>
+<span><span class="st">   f2 =~ x04 + x05 + x06 + x07</span></span>
+<span><span class="st">   f3 =~ x08 + x09 + x10</span></span>
+<span><span class="st">   f4 =~ x11 + x12 + x13 + x14</span></span>
+<span><span class="st">  '</span></span></code></pre></div>
 <p>Fitting the model by <code><a href="https://rdrr.io/pkg/lavaan/man/cfa.html" class="external-link">lavaan::cfa()</a></code></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lavaan.ugent.be" class="external-link">lavaan</a></span><span class="op">)</span>
-<span class="co">#&gt; This is lavaan 0.6-11</span>
-<span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span>
-<span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/cfa.html" class="external-link">cfa</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">cfa_example</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lavaan.ugent.be" class="external-link">lavaan</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; This is lavaan 0.6-12</span></span>
+<span><span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/cfa.html" class="external-link">cfa</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">cfa_example</span><span class="op">)</span></span></code></pre></div>
 <p>This is the plot from <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SachaEpskamp/semPlot" class="external-link">semPlot</a></span><span class="op">)</span>
-<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPaths</a></span><span class="op">(</span><span class="va">fit</span>, whatLabels<span class="op">=</span><span class="st">"est"</span>,
-        sizeMan <span class="op">=</span> <span class="fl">3.25</span>,
-        node.width <span class="op">=</span> <span class="fl">1</span>,
-        edge.label.cex <span class="op">=</span> <span class="fl">.75</span>,
-        style <span class="op">=</span> <span class="st">"ram"</span>,
-        mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SachaEpskamp/semPlot" class="external-link">semPlot</a></span><span class="op">)</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPaths</a></span><span class="op">(</span><span class="va">fit</span>, whatLabels<span class="op">=</span><span class="st">"est"</span>,</span>
+<span>        sizeMan <span class="op">=</span> <span class="fl">3.25</span>,</span>
+<span>        node.width <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>        edge.label.cex <span class="op">=</span> <span class="fl">.75</span>,</span>
+<span>        style <span class="op">=</span> <span class="st">"ram"</span>,</span>
+<span>        mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quick_start_cfa_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>The default layout is sufficient to have a quick examination of the results. We will see how <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> can be used to do the following tasks to <em>post-process</em> the graph:</p>
 <ul>
@@ -188,19 +188,19 @@
 <code>indicator_order</code> is a string vector with length equal to the number of indicators, with the desired order. In this example, it will be like this:</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">indicator_order</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x04"</span>, <span class="st">"x05"</span>, <span class="st">"x06"</span>, <span class="st">"x07"</span>, 
-                      <span class="st">"x01"</span>, <span class="st">"x02"</span>, <span class="st">"x03"</span>, 
-                      <span class="st">"x11"</span>, <span class="st">"x12"</span>, <span class="st">"x13"</span>, <span class="st">"x14"</span>,
-                      <span class="st">"x08"</span>, <span class="st">"x09"</span>, <span class="st">"x10"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">indicator_order</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x04"</span>, <span class="st">"x05"</span>, <span class="st">"x06"</span>, <span class="st">"x07"</span>,</span>
+<span>                      <span class="st">"x01"</span>, <span class="st">"x02"</span>, <span class="st">"x03"</span>,</span>
+<span>                      <span class="st">"x11"</span>, <span class="st">"x12"</span>, <span class="st">"x13"</span>, <span class="st">"x14"</span>,</span>
+<span>                      <span class="st">"x08"</span>, <span class="st">"x09"</span>, <span class="st">"x10"</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>
 <code>indicator_factor</code> is a string vector with length equal to the number of indicators. The elements are the names of the latent factors, denoting which indicators will be used to compute the mean positions to place the latent factors:</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">indicator_factor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"f2"</span>,  <span class="st">"f2"</span>,  <span class="st">"f2"</span>,  <span class="st">"f2"</span>,  
-                       <span class="st">"f1"</span>,  <span class="st">"f1"</span>,  <span class="st">"f1"</span>,  
-                       <span class="st">"f4"</span>,  <span class="st">"f4"</span>,  <span class="st">"f4"</span>,  <span class="st">"f4"</span>,  
-                       <span class="st">"f3"</span>,  <span class="st">"f3"</span>,  <span class="st">"f3"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">indicator_factor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"f2"</span>,  <span class="st">"f2"</span>,  <span class="st">"f2"</span>,  <span class="st">"f2"</span>,</span>
+<span>                       <span class="st">"f1"</span>,  <span class="st">"f1"</span>,  <span class="st">"f1"</span>,</span>
+<span>                       <span class="st">"f4"</span>,  <span class="st">"f4"</span>,  <span class="st">"f4"</span>,  <span class="st">"f4"</span>,</span>
+<span>                       <span class="st">"f3"</span>,  <span class="st">"f3"</span>,  <span class="st">"f3"</span><span class="op">)</span></span></code></pre></div>
 <p>The <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> function needs at least three arguments:</p>
 <ul>
 <li><p><code>semPaths_plot</code>: The <code>semPaths</code> plot.</p></li>
@@ -210,10 +210,10 @@
 <p>They do not have to be named if they are in this order.</p>
 <p>We now use <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> to post-process the graph:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_cfa_layout.html">set_cfa_layout</a></span><span class="op">(</span><span class="va">p</span>,
-                     <span class="va">indicator_order</span>,
-                     <span class="va">indicator_factor</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_cfa_layout.html">set_cfa_layout</a></span><span class="op">(</span><span class="va">p</span>,</span>
+<span>                     <span class="va">indicator_order</span>,</span>
+<span>                     <span class="va">indicator_factor</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quick_start_cfa_files/figure-html/unnamed-chunk-8-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -221,11 +221,11 @@
 </h2>
 <p>The graph has the factors and indicators ordered as required. However, the inter-factor covariances are too close to the factors. To increases the curvatures of the covariances, we can use the argument <code>fcov_curve</code>. The default is .4. Let us increase it to 1.75.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_cfa_layout.html">set_cfa_layout</a></span><span class="op">(</span><span class="va">p</span>, 
-                     <span class="va">indicator_order</span>,
-                     <span class="va">indicator_factor</span>,
-                     fcov_curve <span class="op">=</span> <span class="fl">1.75</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_cfa_layout.html">set_cfa_layout</a></span><span class="op">(</span><span class="va">p</span>,</span>
+<span>                     <span class="va">indicator_order</span>,</span>
+<span>                     <span class="va">indicator_factor</span>,</span>
+<span>                     fcov_curve <span class="op">=</span> <span class="fl">1.75</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quick_start_cfa_files/figure-html/unnamed-chunk-9-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>The covariances are now more readable. The exact effect of the values vary from graph to graph. Therefore, trial and error is required to find a value suitable for a graph.</p>
 </div>
@@ -234,12 +234,12 @@
 </h2>
 <p>We can also move all the factor loadings together using the argument <code>loading_position</code>. The default value is .5, at the middle of the paths. If we want to move the loadings closer to the indicators, we increase this number. If we want to move the loadings closer to the indicators, we decrease this number. In the following example, we move the loadings closer to the indicators, and increase the distance between them in the process.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_cfa_layout.html">set_cfa_layout</a></span><span class="op">(</span><span class="va">p</span>,
-                     <span class="va">indicator_order</span>,
-                     <span class="va">indicator_factor</span>,
-                     fcov_curve <span class="op">=</span> <span class="fl">1.75</span>,
-                     loading_position <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_cfa_layout.html">set_cfa_layout</a></span><span class="op">(</span><span class="va">p</span>,</span>
+<span>                     <span class="va">indicator_order</span>,</span>
+<span>                     <span class="va">indicator_factor</span>,</span>
+<span>                     fcov_curve <span class="op">=</span> <span class="fl">1.75</span>,</span>
+<span>                     loading_position <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quick_start_cfa_files/figure-html/unnamed-chunk-10-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>The factor loadings are now easier to read, and also closer to the corresponding indicators.</p>
 </div>
@@ -248,13 +248,13 @@
 </h2>
 <p>The default orientation is “pointing downwards”: latent factors on the top, pointing down to the indicators on the bottom. The orientation can be set to one of these four directions: down (default), left, up, and right. This is done by the argument <code>point_to</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_cfa_layout.html">set_cfa_layout</a></span><span class="op">(</span><span class="va">p</span>,
-                     <span class="va">indicator_order</span>,
-                     <span class="va">indicator_factor</span>,
-                     fcov_curve <span class="op">=</span> <span class="fl">1.75</span>,
-                     loading_position <span class="op">=</span> <span class="fl">.8</span>,
-                     point_to <span class="op">=</span> <span class="st">"up"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_cfa_layout.html">set_cfa_layout</a></span><span class="op">(</span><span class="va">p</span>,</span>
+<span>                     <span class="va">indicator_order</span>,</span>
+<span>                     <span class="va">indicator_factor</span>,</span>
+<span>                     fcov_curve <span class="op">=</span> <span class="fl">1.75</span>,</span>
+<span>                     loading_position <span class="op">=</span> <span class="fl">.8</span>,</span>
+<span>                     point_to <span class="op">=</span> <span class="st">"up"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quick_start_cfa_files/figure-html/unnamed-chunk-11-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -262,16 +262,16 @@
 </h2>
 <p>Like other functions in <code>semptools</code>, the <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> function can be chained with other functions using the pipe operator, <code>%&gt;%</code>, from the package <code>magrittr</code>, or the native pipe operator <code>|&gt;</code> available since R 4.1.x. Suppose we want to mark the significant test results for the free parameters using <code><a href="../reference/mark_sig.html">mark_sig()</a></code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># If R version &gt;= 4.1.0</span>
-<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_cfa_layout.html">set_cfa_layout</a></span><span class="op">(</span><span class="va">p</span>,
-                     <span class="va">indicator_order</span>,
-                     <span class="va">indicator_factor</span>,
-                     fcov_curve <span class="op">=</span> <span class="fl">1.75</span>,
-                     loading_position <span class="op">=</span> <span class="fl">.9</span>,
-                     point_to <span class="op">=</span> <span class="st">"up"</span><span class="op">)</span> |&gt;
-      <span class="fu"><a href="../reference/mark_sig.html">mark_sig</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; Loading required package: magrittr</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># If R version &gt;= 4.1.0</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_cfa_layout.html">set_cfa_layout</a></span><span class="op">(</span><span class="va">p</span>,</span>
+<span>                     <span class="va">indicator_order</span>,</span>
+<span>                     <span class="va">indicator_factor</span>,</span>
+<span>                     fcov_curve <span class="op">=</span> <span class="fl">1.75</span>,</span>
+<span>                     loading_position <span class="op">=</span> <span class="fl">.9</span>,</span>
+<span>                     point_to <span class="op">=</span> <span class="st">"up"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>      <span class="fu"><a href="../reference/mark_sig.html">mark_sig</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; Loading required package: magrittr</span></span></code></pre>
 <p><img src="quick_start_cfa_files/figure-html/unnamed-chunk-13-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -300,7 +300,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

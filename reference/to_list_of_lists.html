@@ -18,7 +18,7 @@ by various functions in semptools."><!-- mathjax --><script src="https://cdnjs.c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.6</span>
       </span>
     </div>
 
@@ -36,16 +36,16 @@ by various functions in semptools."><!-- mathjax --><script src="https://cdnjs.c
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
+      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
     </li>
     <li>
       <a href="../articles/layout_matrix.html">Layout Matrices</a>
     </li>
     <li>
-      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
+      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
     </li>
   </ul></li>
 <li>
@@ -77,19 +77,25 @@ by various functions in <code><a href="semptools-package.html">semptools</a></co
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">to_list_of_lists</span><span class="op">(</span><span class="va">input</span>, name1 <span class="op">=</span> <span class="cn">NULL</span>, name2 <span class="op">=</span> <span class="cn">NULL</span>, name3 <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">to_list_of_lists</span><span class="op">(</span><span class="va">input</span>, name1 <span class="op">=</span> <span class="cn">NULL</span>, name2 <span class="op">=</span> <span class="cn">NULL</span>, name3 <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>input</dt>
 <dd><p>A named vector</p></dd>
+
+
 <dt>name1</dt>
 <dd><p>The name for the first element in the list-in-list.
 Default is <code>NULL</code>.</p></dd>
+
+
 <dt>name2</dt>
 <dd><p>The name for the second element in the list-in-list.
 Defaultis <code>NULL</code>.</p></dd>
+
+
 <dt>name3</dt>
 <dd><p>The name for the third element in the list-in-list.
 Default is <code>NULL</code>. If this argument is not <code>NULL</code>, the names of the
@@ -97,10 +103,13 @@ vector elements will be split using <code>lavaan</code> syntax (by calling
 <code><a href="https://rdrr.io/pkg/lavaan/man/model.syntax.html" class="external-link">lavaan::lavParseModelString()</a></code>), and the right-hand side (<code>rhs</code>)
 and left-hand side (<code>lhs</code>) of each element will be assigned to
 <code>name1</code> and <code>name2</code>, respectively.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list of lists.</p>
+    
+
+<p>A list of lists.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -110,8 +119,8 @@ internally by other functions of <code><a href="semptools-package.html">semptool
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1 ~~ x2"</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, <span class="st">"x4 ~ x1"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">to_list_of_lists</span><span class="op">(</span><span class="va">x</span>, name1 <span class="op">=</span> <span class="st">"from"</span>, name2 <span class="op">=</span> <span class="st">"to"</span>, name3 <span class="op">=</span> <span class="st">"new_curve"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1 ~~ x2"</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, <span class="st">"x4 ~ x1"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">to_list_of_lists</span><span class="op">(</span><span class="va">x</span>, name1 <span class="op">=</span> <span class="st">"from"</span>, name2 <span class="op">=</span> <span class="st">"to"</span>, name3 <span class="op">=</span> <span class="st">"new_curve"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]$from</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "x2"</span>
@@ -134,11 +143,11 @@ internally by other functions of <code><a href="semptools-package.html">semptool
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co">#list(list(from = "x1", to = "x2", new_curve = -1),</span></span>
-<span class="r-in"><span class="co">#     list(from = "x1", to = "x4", new_curve =  1))</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">0</span>, x2 <span class="op">=</span> <span class="fl">180</span>, x3 <span class="op">=</span> <span class="fl">140</span>, x4 <span class="op">=</span> <span class="fl">140</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">to_list_of_lists</span><span class="op">(</span><span class="va">y</span>, name1 <span class="op">=</span> <span class="st">"node"</span>, name2 <span class="op">=</span> <span class="st">"rotate"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">#list(list(from = "x1", to = "x2", new_curve = -1),</span></span></span>
+<span class="r-in"><span><span class="co">#     list(from = "x1", to = "x4", new_curve =  1))</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">0</span>, x2 <span class="op">=</span> <span class="fl">180</span>, x3 <span class="op">=</span> <span class="fl">140</span>, x4 <span class="op">=</span> <span class="fl">140</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">to_list_of_lists</span><span class="op">(</span><span class="va">y</span>, name1 <span class="op">=</span> <span class="st">"node"</span>, name2 <span class="op">=</span> <span class="st">"rotate"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]$node</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "x1"</span>
@@ -171,11 +180,11 @@ internally by other functions of <code><a href="semptools-package.html">semptool
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 140</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co">#list(list(node = "x1", rotate =   0),</span></span>
-<span class="r-in"><span class="co">#     list(node = "x2", rotate = 180),</span></span>
-<span class="r-in"><span class="co">#     list(node = "x3", rotate = 140),</span></span>
-<span class="r-in"><span class="co">#     list(node = "x4", rotate = 140))</span></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="co">#list(list(node = "x1", rotate =   0),</span></span></span>
+<span class="r-in"><span><span class="co">#     list(node = "x2", rotate = 180),</span></span></span>
+<span class="r-in"><span><span class="co">#     list(node = "x3", rotate = 140),</span></span></span>
+<span class="r-in"><span><span class="co">#     list(node = "x4", rotate = 140))</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -190,7 +199,7 @@ internally by other functions of <code><a href="semptools-package.html">semptool
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

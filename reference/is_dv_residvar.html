@@ -18,7 +18,7 @@ residual variance of a dependent variable."><!-- mathjax --><script src="https:/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.6</span>
       </span>
     </div>
 
@@ -36,16 +36,16 @@ residual variance of a dependent variable."><!-- mathjax --><script src="https:/
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
+      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
     </li>
     <li>
       <a href="../articles/layout_matrix.html">Layout Matrices</a>
     </li>
     <li>
-      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
+      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
     </li>
   </ul></li>
 <li>
@@ -77,17 +77,20 @@ residual variance of a dependent variable.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">is_dv_residvar</span><span class="op">(</span><span class="va">lavaan_out</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">is_dv_residvar</span><span class="op">(</span><span class="va">lavaan_out</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>lavaan_out</dt>
 <dd><p>A <a href="https://rdrr.io/pkg/lavaan/man/lavaan-class.html" class="external-link">lavaan::lavaan</a> object.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A boolean vector with length equal to the number of rows in
+    
+
+<p>A boolean vector with length equal to the number of rows in
 the lavaan output.</p>
     </div>
     <div id="details">
@@ -99,27 +102,27 @@ excluded.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span></span>
-<span class="r-in"> <span class="st">'x1 ~~ x2</span>
-<span class="r-in">  x3 ~  x1 + x2</span>
-<span class="r-in">  x4 ~  x1 + x3</span>
-<span class="r-in"> '</span></span>
-<span class="r-in"><span class="va">fit_pa</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">pa_example</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">is_dv_residvar</span><span class="op">(</span><span class="va">fit_pa</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span> <span class="st">'x1 ~~ x2</span></span></span>
+<span class="r-in"><span><span class="st">  x3 ~  x1 + x2</span></span></span>
+<span class="r-in"><span><span class="st">  x4 ~  x1 + x3</span></span></span>
+<span class="r-in"><span><span class="st"> '</span></span></span>
+<span class="r-in"><span><span class="va">fit_pa</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">pa_example</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">is_dv_residvar</span><span class="op">(</span><span class="va">fit_pa</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x1 ~~ x2  x3 ~ x1  x3 ~ x2  x4 ~ x1  x4 ~ x3 x3 ~~ x3 x4 ~~ x4 x1 ~~ x1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    FALSE    FALSE    FALSE    FALSE    FALSE     TRUE     TRUE    FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x2 ~~ x2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    FALSE </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span></span>
-<span class="r-in"> <span class="st">'f1 =~ x01 + x02 + x03</span>
-<span class="r-in">  f2 =~ x04 + x05 + x06 + x07</span>
-<span class="r-in">  f3 =~ x08 + x09 + x10</span>
-<span class="r-in">  f4 =~ x11 + x12 + x13 + x14</span>
-<span class="r-in"> '</span></span>
-<span class="r-in"><span class="va">fit_cfa</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/cfa.html" class="external-link">cfa</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">cfa_example</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">is_dv_residvar</span><span class="op">(</span><span class="va">fit_cfa</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span> <span class="st">'f1 =~ x01 + x02 + x03</span></span></span>
+<span class="r-in"><span><span class="st">  f2 =~ x04 + x05 + x06 + x07</span></span></span>
+<span class="r-in"><span><span class="st">  f3 =~ x08 + x09 + x10</span></span></span>
+<span class="r-in"><span><span class="st">  f4 =~ x11 + x12 + x13 + x14</span></span></span>
+<span class="r-in"><span><span class="st"> '</span></span></span>
+<span class="r-in"><span><span class="va">fit_cfa</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/cfa.html" class="external-link">cfa</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">cfa_example</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">is_dv_residvar</span><span class="op">(</span><span class="va">fit_cfa</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  f1 =~ x01  f1 =~ x02  f1 =~ x03  f2 =~ x04  f2 =~ x05  f2 =~ x06  f2 =~ x07 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      FALSE      FALSE      FALSE      FALSE      FALSE      FALSE      FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  f3 =~ x08  f3 =~ x09  f3 =~ x10  f4 =~ x11  f4 =~ x12  f4 =~ x13  f4 =~ x14 </span>
@@ -132,17 +135,17 @@ excluded.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      FALSE      FALSE      FALSE      FALSE      FALSE      FALSE      FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   f2 ~~ f3   f2 ~~ f4   f3 ~~ f4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      FALSE      FALSE      FALSE </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span></span>
-<span class="r-in"> <span class="st">'f1 =~ x01 + x02 + x03</span>
-<span class="r-in">  f2 =~ x04 + x05 + x06 + x07</span>
-<span class="r-in">  f3 =~ x08 + x09 + x10</span>
-<span class="r-in">  f4 =~ x11 + x12 + x13 + x14</span>
-<span class="r-in">  f3 ~  f1 + f2</span>
-<span class="r-in">  f4 ~  f1 + f3</span>
-<span class="r-in"> '</span></span>
-<span class="r-in"><span class="va">fit_sem</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">sem_example</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">is_dv_residvar</span><span class="op">(</span><span class="va">fit_sem</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span> <span class="st">'f1 =~ x01 + x02 + x03</span></span></span>
+<span class="r-in"><span><span class="st">  f2 =~ x04 + x05 + x06 + x07</span></span></span>
+<span class="r-in"><span><span class="st">  f3 =~ x08 + x09 + x10</span></span></span>
+<span class="r-in"><span><span class="st">  f4 =~ x11 + x12 + x13 + x14</span></span></span>
+<span class="r-in"><span><span class="st">  f3 ~  f1 + f2</span></span></span>
+<span class="r-in"><span><span class="st">  f4 ~  f1 + f3</span></span></span>
+<span class="r-in"><span><span class="st"> '</span></span></span>
+<span class="r-in"><span><span class="va">fit_sem</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">sem_example</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">is_dv_residvar</span><span class="op">(</span><span class="va">fit_sem</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  f1 =~ x01  f1 =~ x02  f1 =~ x03  f2 =~ x04  f2 =~ x05  f2 =~ x06  f2 =~ x07 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      FALSE      FALSE      FALSE      FALSE      FALSE      FALSE      FALSE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  f3 =~ x08  f3 =~ x09  f3 =~ x10  f4 =~ x11  f4 =~ x12  f4 =~ x13  f4 =~ x14 </span>
@@ -155,7 +158,7 @@ excluded.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      FALSE      FALSE      FALSE      FALSE      FALSE      FALSE       TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   f4 ~~ f4   f1 ~~ f2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       TRUE      FALSE </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -170,7 +173,7 @@ excluded.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.6</span>
       </span>
     </div>
 
@@ -53,16 +53,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
+      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
     </li>
     <li>
       <a href="../articles/layout_matrix.html">Layout Matrices</a>
     </li>
     <li>
-      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
+      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
     </li>
   </ul>
 </li>
@@ -93,7 +93,7 @@
       <h1 data-toc-skip>Quick Start To set_sem_layout</h1>
                         <h4 data-toc-skip class="author">Shu Fai Cheung &amp; Mark Hok Chio Lai</h4>
             
-            <h4 data-toc-skip class="date">2022-04-10</h4>
+            <h4 data-toc-skip class="date">2022-08-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sfcheung/semptools/blob/HEAD/vignettes/quick_start_sem.Rmd" class="external-link"><code>vignettes/quick_start_sem.Rmd</code></a></small>
       <div class="hidden name"><code>quick_start_sem.Rmd</code></div>
@@ -112,41 +112,41 @@
 </h2>
 <p>Let us consider an SEM model. We will use <code>sem_example</code>, a sample CFA dataset from semptools with 14 variables for illustration.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sfcheung.github.io/semptools/" class="external-link">semptools</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">sem_example</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>
-<span class="co">#&gt;      x01    x02    x03    x04    x05    x06    x07    x08    x09    x10   x11</span>
-<span class="co">#&gt; 1  2.861  2.289  3.381  0.191  0.095 -0.395 -0.060  1.320  2.807  2.330 2.069</span>
-<span class="co">#&gt; 2 -0.246 -1.299 -0.371  2.232 -0.419 -0.565 -0.162  3.050  1.513  1.777 2.991</span>
-<span class="co">#&gt; 3  0.079  0.067  0.323 -3.043 -1.093 -0.626 -1.961 -4.908 -2.048 -3.190 1.403</span>
-<span class="co">#&gt;     x12    x13   x14</span>
-<span class="co">#&gt; 1 0.569 -0.808 1.989</span>
-<span class="co">#&gt; 2 2.125  0.767 1.539</span>
-<span class="co">#&gt; 3 1.888  1.356 1.107</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sfcheung.github.io/semptools/">semptools</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">sem_example</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      x01    x02    x03    x04    x05    x06    x07    x08    x09    x10   x11</span></span>
+<span><span class="co">#&gt; 1  2.861  2.289  3.381  0.191  0.095 -0.395 -0.060  1.320  2.807  2.330 2.069</span></span>
+<span><span class="co">#&gt; 2 -0.246 -1.299 -0.371  2.232 -0.419 -0.565 -0.162  3.050  1.513  1.777 2.991</span></span>
+<span><span class="co">#&gt; 3  0.079  0.067  0.323 -3.043 -1.093 -0.626 -1.961 -4.908 -2.048 -3.190 1.403</span></span>
+<span><span class="co">#&gt;     x12    x13   x14</span></span>
+<span><span class="co">#&gt; 1 0.569 -0.808 1.989</span></span>
+<span><span class="co">#&gt; 2 2.125  0.767 1.539</span></span>
+<span><span class="co">#&gt; 3 1.888  1.356 1.107</span></span></code></pre></div>
 <p>This is the SEM model to be fitted:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> 
-  <span class="st">'f1 =~ x01 + x02 + x03
-   f2 =~ x04 + x05 + x06 + x07
-   f3 =~ x08 + x09 + x10
-   f4 =~ x11 + x12 + x13 + x14
-   f3 ~  f1 + f2
-   f4 ~  f1 + f3
-  '</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span></span>
+<span>  <span class="st">'f1 =~ x01 + x02 + x03</span></span>
+<span><span class="st">   f2 =~ x04 + x05 + x06 + x07</span></span>
+<span><span class="st">   f3 =~ x08 + x09 + x10</span></span>
+<span><span class="st">   f4 =~ x11 + x12 + x13 + x14</span></span>
+<span><span class="st">   f3 ~  f1 + f2</span></span>
+<span><span class="st">   f4 ~  f1 + f3</span></span>
+<span><span class="st">  '</span></span></code></pre></div>
 <p>Fitting the model using <code><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">lavaan::sem()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lavaan.ugent.be" class="external-link">lavaan</a></span><span class="op">)</span>
-<span class="co">#&gt; This is lavaan 0.6-11</span>
-<span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span>
-<span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">cfa_example</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lavaan.ugent.be" class="external-link">lavaan</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; This is lavaan 0.6-12</span></span>
+<span><span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">cfa_example</span><span class="op">)</span></span></code></pre></div>
 <p>This is the plot from <code>semPaths</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SachaEpskamp/semPlot" class="external-link">semPlot</a></span><span class="op">)</span>
-<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPaths</a></span><span class="op">(</span><span class="va">fit</span>, whatLabels<span class="op">=</span><span class="st">"est"</span>,
-        sizeMan <span class="op">=</span> <span class="fl">5</span>,
-        node.width <span class="op">=</span> <span class="fl">1</span>,
-        edge.label.cex <span class="op">=</span> <span class="fl">.75</span>,
-        style <span class="op">=</span> <span class="st">"ram"</span>,
-        mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SachaEpskamp/semPlot" class="external-link">semPlot</a></span><span class="op">)</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPaths</a></span><span class="op">(</span><span class="va">fit</span>, whatLabels<span class="op">=</span><span class="st">"est"</span>,</span>
+<span>        sizeMan <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>        node.width <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>        edge.label.cex <span class="op">=</span> <span class="fl">.75</span>,</span>
+<span>        style <span class="op">=</span> <span class="st">"ram"</span>,</span>
+<span>        mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quick_start_sem_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>We will see how <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> can be used to do the following tasks to <em>post-process</em> the graph:</p>
 <ul>
@@ -180,55 +180,55 @@
 <code>indicator_order</code> is a string vector with length equal to the number of indicators, with the desired order if the indicators are placed <em>above</em> the corresponding factors. In this example, it will be like this:</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">indicator_order</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x04"</span>, <span class="st">"x05"</span>, <span class="st">"x06"</span>, <span class="st">"x07"</span>, 
-                      <span class="st">"x01"</span>, <span class="st">"x02"</span>, <span class="st">"x03"</span>, 
-                      <span class="st">"x11"</span>, <span class="st">"x12"</span>, <span class="st">"x13"</span>, <span class="st">"x14"</span>,
-                      <span class="st">"x08"</span>, <span class="st">"x09"</span>, <span class="st">"x10"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">indicator_order</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x04"</span>, <span class="st">"x05"</span>, <span class="st">"x06"</span>, <span class="st">"x07"</span>,</span>
+<span>                      <span class="st">"x01"</span>, <span class="st">"x02"</span>, <span class="st">"x03"</span>,</span>
+<span>                      <span class="st">"x11"</span>, <span class="st">"x12"</span>, <span class="st">"x13"</span>, <span class="st">"x14"</span>,</span>
+<span>                      <span class="st">"x08"</span>, <span class="st">"x09"</span>, <span class="st">"x10"</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>
 <code>indicator_factor</code> is a string vector with length equal to the number of indicators. The elements are the names of the latent factors, denoting which factor each indicator will be assigned to:</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">indicator_factor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"f2"</span>,  <span class="st">"f2"</span>,  <span class="st">"f2"</span>,  <span class="st">"f2"</span>,  
-                       <span class="st">"f1"</span>,  <span class="st">"f1"</span>,  <span class="st">"f1"</span>,  
-                       <span class="st">"f4"</span>,  <span class="st">"f4"</span>,  <span class="st">"f4"</span>,  <span class="st">"f4"</span>,  
-                       <span class="st">"f3"</span>,  <span class="st">"f3"</span>,  <span class="st">"f3"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">indicator_factor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="st">"f2"</span>,  <span class="st">"f2"</span>,  <span class="st">"f2"</span>,  <span class="st">"f2"</span>,</span>
+<span>                       <span class="st">"f1"</span>,  <span class="st">"f1"</span>,  <span class="st">"f1"</span>,</span>
+<span>                       <span class="st">"f4"</span>,  <span class="st">"f4"</span>,  <span class="st">"f4"</span>,  <span class="st">"f4"</span>,</span>
+<span>                       <span class="st">"f3"</span>,  <span class="st">"f3"</span>,  <span class="st">"f3"</span><span class="op">)</span></span></code></pre></div>
 <p>To specify the locations of the factors, we need two more arguments, <code>factor_layout</code> and <code>factor_point_to</code>.</p>
 <p><code>factor_layout</code> is a matrix of arbitrary size, with either <code>NA</code> or the name of a factor. For example:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">factor_layout</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"f1"</span>,   <span class="cn">NA</span>,   <span class="cn">NA</span>,
-                           <span class="cn">NA</span>, <span class="st">"f3"</span>, <span class="st">"f4"</span>,
-                         <span class="st">"f2"</span>,   <span class="cn">NA</span>,   <span class="cn">NA</span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">factor_layout</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"f1"</span>,   <span class="cn">NA</span>,   <span class="cn">NA</span>,</span>
+<span>                           <span class="cn">NA</span>, <span class="st">"f3"</span>, <span class="st">"f4"</span>,</span>
+<span>                         <span class="st">"f2"</span>,   <span class="cn">NA</span>,   <span class="cn">NA</span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p>This sets up a 3-by-3 grid, with <code>f1</code> on the top left, <code>f2</code> on the bottom left, <code>f3</code> in the center, and <code>f4</code> on the right of <code>f3</code>. Each factor must be in one and only one cell of this matrix.</p>
 <p>Note that a column or row can contain only <code>NA</code>, to increase the vertical or horizontal distance between factors.</p>
 <p>The helper function <code><a href="../reference/layout_matrix.html">layout_matrix()</a></code> can also be used to create the matrix to be used in <code>factor_layout</code> (see <code><a href="../articles/layout_matrix.html">vignette("layout_matrix")</a></code> on how to use <code><a href="../reference/layout_matrix.html">layout_matrix()</a></code>):</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">factor_layout</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layout_matrix.html">layout_matrix</a></span><span class="op">(</span>f1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,
-                               f2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,
-                               f3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,
-                               f4 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-<span class="va">factor_layout</span>
-<span class="co">#&gt;      [,1] [,2] [,3]</span>
-<span class="co">#&gt; [1,] "f1" NA   NA  </span>
-<span class="co">#&gt; [2,] NA   "f3" "f4"</span>
-<span class="co">#&gt; [3,] "f2" NA   NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">factor_layout</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layout_matrix.html">layout_matrix</a></span><span class="op">(</span>f1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                               f2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                               f3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>                               f4 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">factor_layout</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,] "f1" NA   NA  </span></span>
+<span><span class="co">#&gt; [2,] NA   "f3" "f4"</span></span>
+<span><span class="co">#&gt; [3,] "f2" NA   NA</span></span></code></pre></div>
 <p><code>factor_point_to</code> is a matrix of the size as <code>factor_layout</code>, with either <code>NA</code> or one of these: “down”, “left”, “up”, or “right”, to indicate the direction that a factor “points to” its indicator. For example:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">factor_point_to</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>,     <span class="cn">NA</span>,      <span class="cn">NA</span>,
-                                <span class="cn">NA</span>, <span class="st">"down"</span>, <span class="st">"down"</span>,
-                            <span class="st">"left"</span>,     <span class="cn">NA</span>,      <span class="cn">NA</span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">factor_point_to</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>,     <span class="cn">NA</span>,      <span class="cn">NA</span>,</span>
+<span>                                <span class="cn">NA</span>, <span class="st">"down"</span>, <span class="st">"down"</span>,</span>
+<span>                            <span class="st">"left"</span>,     <span class="cn">NA</span>,      <span class="cn">NA</span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><code>f1</code> and <code>f2</code> will point to the left (i.e., indicators on the left), <code>f3</code> and <code>f4</code> will point downwards.</p>
 <p><code><a href="../reference/layout_matrix.html">layout_matrix()</a></code> can also be used to create this matrix:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">factor_point_to</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layout_matrix.html">layout_matrix</a></span><span class="op">(</span>left <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,
-                                 left <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,
-                                 down <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,
-                                 down <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-<span class="va">factor_point_to</span>
-<span class="co">#&gt;      [,1]   [,2]   [,3]  </span>
-<span class="co">#&gt; [1,] "left" NA     NA    </span>
-<span class="co">#&gt; [2,] NA     "down" "down"</span>
-<span class="co">#&gt; [3,] "left" NA     NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">factor_point_to</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layout_matrix.html">layout_matrix</a></span><span class="op">(</span>left <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                                 left <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                                 down <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>                                 down <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">factor_point_to</span></span>
+<span><span class="co">#&gt;      [,1]   [,2]   [,3]  </span></span>
+<span><span class="co">#&gt; [1,] "left" NA     NA    </span></span>
+<span><span class="co">#&gt; [2,] NA     "down" "down"</span></span>
+<span><span class="co">#&gt; [3,] "left" NA     NA</span></span></code></pre></div>
 <p>In sum, the <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> function needs at least these arguments:</p>
 <ul>
 <li><p><code>semPaths_plot</code>: The <code>semPaths</code> plot.</p></li>
@@ -240,12 +240,12 @@
 <p>They do not have to be named if they are in this order.</p>
 <p>We now use <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> to post-process the graph:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_sem_layout.html">set_sem_layout</a></span><span class="op">(</span><span class="va">p</span>, 
-                     indicator_order <span class="op">=</span> <span class="va">indicator_order</span>,
-                     indicator_factor <span class="op">=</span> <span class="va">indicator_factor</span>,
-                     factor_layout <span class="op">=</span> <span class="va">factor_layout</span>,
-                     factor_point_to <span class="op">=</span> <span class="va">factor_point_to</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_sem_layout.html">set_sem_layout</a></span><span class="op">(</span><span class="va">p</span>,</span>
+<span>                     indicator_order <span class="op">=</span> <span class="va">indicator_order</span>,</span>
+<span>                     indicator_factor <span class="op">=</span> <span class="va">indicator_factor</span>,</span>
+<span>                     factor_layout <span class="op">=</span> <span class="va">factor_layout</span>,</span>
+<span>                     factor_point_to <span class="op">=</span> <span class="va">factor_point_to</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quick_start_sem_files/figure-html/unnamed-chunk-12-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -257,19 +257,19 @@
 </h3>
 <p>We can use the argument <code>indicator_push</code> to push the indicators of a factor away from it. The argument needs a named vector. The name is the factor of which the indictors will be “pushed”, and the value is how “hard” the push is: the multiplier to the distance from the factor to the indicators. For example:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">indicator_push</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>f3 <span class="op">=</span> <span class="fl">2</span>,
-                    f4 <span class="op">=</span> <span class="fl">1.5</span>,
-                    f1 <span class="op">=</span> <span class="fl">1.5</span>,
-                    f2 <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">indicator_push</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>f3 <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>                    f4 <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>                    f1 <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>                    f2 <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span></code></pre></div>
 <p>This vector will double the distance between the indicators of <code>f3</code> and their factors, and multiply the distance between the indicators of <code>f4</code>, <code>f1</code>, and <code>f2</code> and their factors by 1.5. If <code>push</code> is less than 1, the indicators will be “pulled” towards their factors.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_sem_layout.html">set_sem_layout</a></span><span class="op">(</span><span class="va">p</span>, 
-                     indicator_order <span class="op">=</span> <span class="va">indicator_order</span>,
-                     indicator_factor <span class="op">=</span> <span class="va">indicator_factor</span>,
-                     factor_layout <span class="op">=</span> <span class="va">factor_layout</span>,
-                     factor_point_to <span class="op">=</span> <span class="va">factor_point_to</span>,
-                     indicator_push <span class="op">=</span> <span class="va">indicator_push</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_sem_layout.html">set_sem_layout</a></span><span class="op">(</span><span class="va">p</span>,</span>
+<span>                     indicator_order <span class="op">=</span> <span class="va">indicator_order</span>,</span>
+<span>                     indicator_factor <span class="op">=</span> <span class="va">indicator_factor</span>,</span>
+<span>                     factor_layout <span class="op">=</span> <span class="va">factor_layout</span>,</span>
+<span>                     factor_point_to <span class="op">=</span> <span class="va">factor_point_to</span>,</span>
+<span>                     indicator_push <span class="op">=</span> <span class="va">indicator_push</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quick_start_sem_files/figure-html/unnamed-chunk-14-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -277,19 +277,19 @@
 </h3>
 <p>We can use the argument <code>indicator_spread</code> to spread out the indicators of a factor, increasing the distance between the indicators. The argument needs a named vector. The name is the factor of which the indicators will be spread out. The value is the multiplier to the distance between neighboring indicators. For example:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">indicator_spread</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>f1 <span class="op">=</span> <span class="fl">2</span>,
-                      f2 <span class="op">=</span> <span class="fl">1.5</span>,
-                      f4 <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">indicator_spread</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>f1 <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>                      f2 <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>                      f4 <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span></code></pre></div>
 <p>This vector will double the distance between the indicators of <code>f1</code>, and multiply the distance between the indicators of <code>f2</code> and <code>f4</code>. and its indicators by 1.5. If <code>spread</code> is less than 1, the indicators will be squeezed towards each others.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_sem_layout.html">set_sem_layout</a></span><span class="op">(</span><span class="va">p</span>, 
-                     indicator_order <span class="op">=</span> <span class="va">indicator_order</span>,
-                     indicator_factor <span class="op">=</span> <span class="va">indicator_factor</span>,
-                     factor_layout <span class="op">=</span> <span class="va">factor_layout</span>,
-                     factor_point_to <span class="op">=</span> <span class="va">factor_point_to</span>,
-                     indicator_push <span class="op">=</span> <span class="va">indicator_push</span>,
-                     indicator_spread <span class="op">=</span> <span class="va">indicator_spread</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_sem_layout.html">set_sem_layout</a></span><span class="op">(</span><span class="va">p</span>,</span>
+<span>                     indicator_order <span class="op">=</span> <span class="va">indicator_order</span>,</span>
+<span>                     indicator_factor <span class="op">=</span> <span class="va">indicator_factor</span>,</span>
+<span>                     factor_layout <span class="op">=</span> <span class="va">factor_layout</span>,</span>
+<span>                     factor_point_to <span class="op">=</span> <span class="va">factor_point_to</span>,</span>
+<span>                     indicator_push <span class="op">=</span> <span class="va">indicator_push</span>,</span>
+<span>                     indicator_spread <span class="op">=</span> <span class="va">indicator_spread</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quick_start_sem_files/figure-html/unnamed-chunk-16-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -299,19 +299,19 @@
 <p>We can move the loadings of indicators along the paths by the argument <code>loading_position</code>. If we supply one single number, from 0 to 1, this number will be used for the position of all loadings. A value of .5 place the loadings on the middle of the paths. Larger the value, closer the loadings to the indicators. Smaller the value, closer the loadings to the factors.</p>
 <p>We can also use a named vector to specify the positions of indicators for each factor.In each element, the name if the factor whose loadings will be moved. The value is the positions of its loadings. The default is .50. We only need to specify the positions for factors to be changed from .50 to other values. For example:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">loading_position</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>f2 <span class="op">=</span> <span class="fl">.7</span>,
-                      f3 <span class="op">=</span> <span class="fl">.8</span>,
-                      f4 <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">loading_position</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>f2 <span class="op">=</span> <span class="fl">.7</span>,</span>
+<span>                      f3 <span class="op">=</span> <span class="fl">.8</span>,</span>
+<span>                      f4 <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_sem_layout.html">set_sem_layout</a></span><span class="op">(</span><span class="va">p</span>, 
-                     indicator_order <span class="op">=</span> <span class="va">indicator_order</span>,
-                     indicator_factor <span class="op">=</span> <span class="va">indicator_factor</span>,
-                     factor_layout <span class="op">=</span> <span class="va">factor_layout</span>,
-                     factor_point_to <span class="op">=</span> <span class="va">factor_point_to</span>,
-                     indicator_push <span class="op">=</span> <span class="va">indicator_push</span>,
-                     indicator_spread <span class="op">=</span> <span class="va">indicator_spread</span>,
-                     loading_position <span class="op">=</span> <span class="va">loading_position</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_sem_layout.html">set_sem_layout</a></span><span class="op">(</span><span class="va">p</span>,</span>
+<span>                     indicator_order <span class="op">=</span> <span class="va">indicator_order</span>,</span>
+<span>                     indicator_factor <span class="op">=</span> <span class="va">indicator_factor</span>,</span>
+<span>                     factor_layout <span class="op">=</span> <span class="va">factor_layout</span>,</span>
+<span>                     factor_point_to <span class="op">=</span> <span class="va">factor_point_to</span>,</span>
+<span>                     indicator_push <span class="op">=</span> <span class="va">indicator_push</span>,</span>
+<span>                     indicator_spread <span class="op">=</span> <span class="va">indicator_spread</span>,</span>
+<span>                     loading_position <span class="op">=</span> <span class="va">loading_position</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quick_start_sem_files/figure-html/unnamed-chunk-18-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -319,20 +319,20 @@
 </h2>
 <p>Like other functions in <code>semptools</code>, the <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> function can be chained with other functions using the pipe operator, <code>%&gt;%</code>, from the package <code>magrittr</code>, or the native pipe operator <code>|&gt;</code> available since R 4.1.x. Suppose we want to mark the significant test results for the free parameters using <code><a href="../reference/mark_sig.html">mark_sig()</a></code>, and use <code><a href="../reference/set_curve.html">set_curve()</a></code> to change the curvature of <code>f1 ~~ f2</code> covariances and <code>f4 ~ f1</code> paths (we push and spread some indicators to make room for the asterisks, and change the orientation of <code>f4</code> to <code>up</code>):</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># If R version &gt;= 4.1.0</span>
-<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_sem_layout.html">set_sem_layout</a></span><span class="op">(</span><span class="va">p</span>, 
-                    indicator_order <span class="op">=</span> <span class="va">indicator_order</span>,
-                    indicator_factor <span class="op">=</span> <span class="va">indicator_factor</span>,
-                    factor_layout <span class="op">=</span> <span class="va">factor_layout</span>,
-                    factor_point_to <span class="op">=</span> <span class="va">factor_point_to</span>,
-                    indicator_push <span class="op">=</span> <span class="va">indicator_push</span>,
-                    indicator_spread <span class="op">=</span> <span class="va">indicator_spread</span>,
-                    loading_position <span class="op">=</span> <span class="va">loading_position</span><span class="op">)</span> |&gt;
-                    <span class="fu"><a href="../reference/set_curve.html">set_curve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"f2 ~~ f1"</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,
-                                <span class="st">"f4 ~ f1"</span> <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span> |&gt;
-                    <span class="fu"><a href="../reference/mark_sig.html">mark_sig</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; Loading required package: magrittr</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># If R version &gt;= 4.1.0</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_sem_layout.html">set_sem_layout</a></span><span class="op">(</span><span class="va">p</span>,</span>
+<span>                    indicator_order <span class="op">=</span> <span class="va">indicator_order</span>,</span>
+<span>                    indicator_factor <span class="op">=</span> <span class="va">indicator_factor</span>,</span>
+<span>                    factor_layout <span class="op">=</span> <span class="va">factor_layout</span>,</span>
+<span>                    factor_point_to <span class="op">=</span> <span class="va">factor_point_to</span>,</span>
+<span>                    indicator_push <span class="op">=</span> <span class="va">indicator_push</span>,</span>
+<span>                    indicator_spread <span class="op">=</span> <span class="va">indicator_spread</span>,</span>
+<span>                    loading_position <span class="op">=</span> <span class="va">loading_position</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                    <span class="fu"><a href="../reference/set_curve.html">set_curve</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"f2 ~~ f1"</span> <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
+<span>                                <span class="st">"f4 ~ f1"</span> <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                    <span class="fu"><a href="../reference/mark_sig.html">mark_sig</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; Loading required package: magrittr</span></span></code></pre>
 <p><img src="quick_start_sem_files/figure-html/unnamed-chunk-20-1.png" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -361,7 +361,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

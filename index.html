@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Customizing Structural Equation Modelling Plots">
-<meta property="og:description" content="Most function focus on specific ways to customize a graph. 
+<meta property="og:description" content="Most function focus on specific ways to customize a graph.
              They use a qgraph output  as the first argument, and return a
              modified qgraph object. This allows the functions to be chained
              by a pipe operator.">
@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.6</span>
       </span>
     </div>
 
@@ -56,16 +56,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
+      <a href="articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
+    </li>
+    <li>
+      <a href="articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
     </li>
     <li>
       <a href="articles/layout_matrix.html">Layout Matrices</a>
     </li>
     <li>
-      <a href="articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
-    </li>
-    <li>
-      <a href="articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
+      <a href="articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
     </li>
   </ul>
 </li>
@@ -93,6 +93,7 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
+
 <div class="section level1">
 <div class="page-header"><h1 id="semptools">semptools<a class="anchor" aria-label="anchor" href="#semptools"></a>
 </h1></div>
@@ -102,12 +103,12 @@
 <h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h1>
 <p>The latest stable version can be installed from CRAN:</p>
-<pre><code><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"semptools"</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"semptools"</span><span class="op">)</span></span></code></pre>
 <p>The latest development version at GitHub can be installed by <code>remotes::install_github()</code>:</p>
-<pre><code><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"sfcheung/semptools"</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"sfcheung/semptools"</span><span class="op">)</span></span></code></pre>
 <p>To read the guides (vignettes) on how to use the functions, you can build the vignettes locally when installing the package:</p>
-<pre><code><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"sfcheung/semptools"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre>
-<p>You can also find the guides under <em>Articles</em> of the <a href="https://sfcheung.github.io/semptools/" class="external-link">Github page</a> of this package.</p>
+<pre><code><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"sfcheung/semptools"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<p>You can also find the guides under <em>Articles</em> of the <a href="https://sfcheung.github.io/semptools/">Github page</a> of this package.</p>
 </div>
 <div class="section level1">
 <h1 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
@@ -118,30 +119,34 @@
 <h1 id="philosophy">Philosophy<a class="anchor" aria-label="anchor" href="#philosophy"></a>
 </h1>
 <p>We think about the tasks we usually want to do with an <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph, and write one function for each task. We write the functions such that all of them work by postprocessing a <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph: receive an <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph, modify it, and return a modified <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph. This also allows users to use the <code>%&gt;%</code> (pipe) operator from the <code>magrittr</code> package or the native pipe operator <code>|&gt;</code> available since R 4.1.x to chain together modifications. For example:</p>
-<pre><code><span class="va">modified_graph</span> <span class="op">&lt;-</span> <span class="va">original_graph</span> <span class="op">%&gt;%</span>
-                    <span class="fu">task_1</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-                    <span class="fu">task_2</span><span class="op">(</span><span class="va">other_arguments</span><span class="op">)</span> <span class="op">%&gt;%</span>
-                    <span class="fu">task_3</span><span class="op">(</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="va">modified_graph</span> <span class="op">&lt;-</span> <span class="va">original_graph</span> <span class="op">%&gt;%</span></span>
+<span>                    <span class="fu">task_1</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>                    <span class="fu">task_2</span><span class="op">(</span><span class="va">other_arguments</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>                    <span class="fu">task_3</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 <p>In psychology, two typical models are confirmatory factor analysis model and structural models with latent factors. Therefore, we also wrote two functions, one for each model, that can combine several common tasks together, such as specifying the positions of the latent factors and adjusting the positions of the indicators.</p>
 <p>We also write the functions in a way that users do not need to know the technical detail (e.g., the position of the path in the list of all paths). For example, if a user wants to move the path coefficient of the path from <code>x</code> to <code>y</code> closer to <code>y</code>, the user only needs to tell the function that it is the path from <code>x</code> to <code>y</code>. The function will find which path it is in the <code>qgraph</code> object.</p>
 </div>
 <div class="section level1">
 <h1 id="what-we-have-so-far">What we have so far<a class="anchor" aria-label="anchor" href="#what-we-have-so-far"></a>
 </h1>
+<p>These are some of the functions included so far</p>
 <ul>
 <li><p><code><a href="reference/mark_se.html">mark_se()</a></code>: Add the standard errors to parameter estimates.</p></li>
 <li><p><code><a href="reference/mark_sig.html">mark_sig()</a></code>: Add asterisks (“*”, “**”, “***”) based on <span class="math inline"><em>p</em></span>-values of parameter estimates.</p></li>
 <li><p><code><a href="reference/rotate_resid.html">rotate_resid()</a></code>: Rotate the residuals of selected variables.</p></li>
 <li><p><code><a href="reference/set_curve.html">set_curve()</a></code>: Change the curvature of selected paths.</p></li>
 <li><p><code><a href="reference/set_edge_label_position.html">set_edge_label_position()</a></code>: Move the parameter labels of selected paths along the paths.</p></li>
+<li><p><code><a href="reference/change_node_label.html">change_node_label()</a></code>: Change the labels of nodes.</p></li>
+<li><p><code><a href="reference/keep_drop_nodes.html">drop_nodes()</a></code> and <code><a href="reference/keep_drop_nodes.html">keep_nodes()</a></code>: Drop or keeps nodes (e.g., drop all control variables).</p></li>
 <li><p><code><a href="reference/set_cfa_layout.html">set_cfa_layout()</a></code>: A function for typical confirmatory factor analysis models. It can be used for specifying the orders of the indicators and factors, specifying the positions of the factors, setting the curvatures of the interfactor covariances, set the position of all loadings, and setting the orientation of the model (down, left, up, or right).</p></li>
 <li><p><code><a href="reference/set_sem_layout.html">set_sem_layout()</a></code>: A function for typical SEM models. It can be used for specifying the orders of the indicators and factors, specifying the positions of the factors using a grid, specifying the orientation of each factor’s indicators (down, left, up, right), fine tuning the positions of indicators of selected factor, setting the curvatures of selected paths, and specifying the position of all or selected loadings.</p></li>
 </ul>
+<p>See the <a href="https://sfcheung.github.io/semptools/articles/semptools.html">Get Started</a> to learn more about these and other functions.</p>
 </div>
 <div class="section level1">
 <h1 id="status">Status<a class="anchor" aria-label="anchor" href="#status"></a>
 </h1>
-<p>This package is still under development. There will be bugs, and there are limitations. Comments and suggestions are welcomed.</p>
+<p>This package is still under development. There will be bugs, and there are limitations. Please post your comments and suggestions as issues at <a href="https://github.com/sfcheung/semptools/issues" class="external-link">GitHub</a>.</p>
 </div>
 
   </div>
@@ -180,7 +185,14 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=semptools" class="external-link"><img src="https://www.r-pkg.org/badges/version/semptools?color=blue" alt="CRAN Version"></a></li>
+<li><a href="https://cran.r-project.org/package=semptools" class="external-link"><img src="https://www.r-pkg.org/badges/last-release/semptools?color=blue" alt="CRAN: Release Date"></a></li>
+<li><a href="https://r-pkg.org/pkg/semptools" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/semptools?color=blue" alt="CRAN RStudio mirror downloads"></a></li>
+</ul>
+</div>
 
   </div>
 </div>
@@ -193,7 +205,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

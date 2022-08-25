@@ -18,7 +18,7 @@ semPaths."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/m
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.6</span>
       </span>
     </div>
 
@@ -36,16 +36,16 @@ semPaths."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/m
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
+      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
     </li>
     <li>
       <a href="../articles/layout_matrix.html">Layout Matrices</a>
     </li>
     <li>
-      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
+      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
     </li>
   </ul></li>
 <li>
@@ -77,7 +77,7 @@ semPaths.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">layout_matrix</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">layout_matrix</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -89,10 +89,13 @@ the second element is the <code>y</code> position, measured from the top left
 corner. The size of the grid is determined automatically. For a
 grid of n rows and m columns, the top left cell is specified by
 <code>c(1, 1)</code>, and the bottom right cell is specified by <code>c(n, m)</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A layout matrix for the layout argument of
+    
+
+<p>A layout matrix for the layout argument of
 <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code>.</p>
     </div>
     <div id="details">
@@ -105,18 +108,18 @@ coordinates for the node labels.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Suppose this is the layout to be created:</span></span>
-<span class="r-in"><span class="va">m0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
-<span class="r-in">              <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span>
-<span class="r-in">               <span class="cn">NA</span>,  <span class="st">"x4"</span>, <span class="cn">NA</span>, <span class="st">"x5"</span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># This call will create the same matrix.</span></span>
-<span class="r-in"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu">layout_matrix</span><span class="op">(</span>x1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span class="r-in">                   x2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>,</span>
-<span class="r-in">                   x3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
-<span class="r-in">                   x4 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span>,</span>
-<span class="r-in">                   x5 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">#The two matrices should be identical.</span></span>
-<span class="r-in"><span class="va">m0</span> <span class="op">==</span> <span class="va">m1</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Suppose this is the layout to be created:</span></span></span>
+<span class="r-in"><span><span class="va">m0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span></span>
+<span class="r-in"><span>              <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="cn">NA</span>, <span class="cn">NA</span>,</span></span>
+<span class="r-in"><span>               <span class="cn">NA</span>,  <span class="st">"x4"</span>, <span class="cn">NA</span>, <span class="st">"x5"</span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># This call will create the same matrix.</span></span></span>
+<span class="r-in"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu">layout_matrix</span><span class="op">(</span>x1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   x2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   x3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   x4 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   x5 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#The two matrices should be identical.</span></span></span>
+<span class="r-in"><span><span class="va">m0</span> <span class="op">==</span> <span class="va">m1</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] TRUE   NA   NA   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] TRUE TRUE   NA   NA</span>
@@ -135,7 +138,7 @@ coordinates for the node labels.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

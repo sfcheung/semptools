@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.6</span>
       </span>
     </div>
 
@@ -53,16 +53,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
+      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
     </li>
     <li>
       <a href="../articles/layout_matrix.html">Layout Matrices</a>
     </li>
     <li>
-      <a href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
+      <a href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
     </li>
   </ul>
 </li>
@@ -93,7 +93,7 @@
       <h1 data-toc-skip>Keep or Drop Selected Variables</h1>
                         <h4 data-toc-skip class="author">Shu Fai Cheung &amp; Mark Hok Chio Lai</h4>
             
-            <h4 data-toc-skip class="date">2022-04-10</h4>
+            <h4 data-toc-skip class="date">2022-08-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sfcheung/semptools/blob/HEAD/vignettes/keep_or_drop_nodes.Rmd" class="external-link"><code>vignettes/keep_or_drop_nodes.Rmd</code></a></small>
       <div class="hidden name"><code>keep_or_drop_nodes.Rmd</code></div>
@@ -114,70 +114,70 @@
 <p>Suppose we have a model with four main variables, <code>x1</code>, <code>x2</code>, <code>x3</code>, and <code>x4</code>, and three control variables, <code>cov1</code>, <code>cov2</code>, and <code>cov3</code>. The sample data, <code>pa_example_3covs</code>, is in the package <code>semptools</code>.</p>
 <p>This is the analysis in <code>lavaan</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lavaan.ugent.be" class="external-link">lavaan</a></span><span class="op">)</span>
-<span class="co">#&gt; This is lavaan 0.6-11</span>
-<span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span>
-<span class="va">mod</span> <span class="op">&lt;-</span> 
-  <span class="st">'x3 ~  x1 + x2 + cov1 + cov2 + cov3
-   x4 ~  x1 + x3 + cov1 + cov2 + cov3
-  '</span>
-<span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">pa_example_3covs</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lavaan.ugent.be" class="external-link">lavaan</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; This is lavaan 0.6-12</span></span>
+<span><span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span></span>
+<span><span class="va">mod</span> <span class="op">&lt;-</span></span>
+<span>  <span class="st">'x3 ~  x1 + x2 + cov1 + cov2 + cov3</span></span>
+<span><span class="st">   x4 ~  x1 + x3 + cov1 + cov2 + cov3</span></span>
+<span><span class="st">  '</span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">pa_example_3covs</span><span class="op">)</span></span></code></pre></div>
 <p>We can plot the full model using <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths</a></code> and use <code>layout</code> and <code>layout_matrix</code> to control the positions of all seven variables (please refer to the vignette on <code>layou_matrix</code> on how to do this):</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SachaEpskamp/semPlot" class="external-link">semPlot</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sfcheung.github.io/semptools/" class="external-link">semptools</a></span><span class="op">)</span>
-<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layout_matrix.html">layout_matrix</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,
-                   x2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,
-                   x3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,
-                   x4 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,
-                   cov1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span>,
-                   cov2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span>,
-                   cov3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="va">p_pa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPaths</a></span><span class="op">(</span><span class="va">fit</span>, whatLabels <span class="op">=</span> <span class="st">"est"</span>,
-           sizeMan <span class="op">=</span> <span class="fl">10</span>,
-           edge.label.cex <span class="op">=</span> <span class="fl">.5</span>,
-           style <span class="op">=</span> <span class="st">"ram"</span>, 
-           nCharNodes <span class="op">=</span> <span class="fl">0</span>, nCharEdges <span class="op">=</span> <span class="fl">0</span>,
-           layout <span class="op">=</span> <span class="va">m</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SachaEpskamp/semPlot" class="external-link">semPlot</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sfcheung.github.io/semptools/">semptools</a></span><span class="op">)</span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layout_matrix.html">layout_matrix</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                   x2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                   x3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>                   x4 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>                   cov1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                   cov2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                   cov3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p_pa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPaths</a></span><span class="op">(</span><span class="va">fit</span>, whatLabels <span class="op">=</span> <span class="st">"est"</span>,</span>
+<span>           sizeMan <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>           edge.label.cex <span class="op">=</span> <span class="fl">.5</span>,</span>
+<span>           style <span class="op">=</span> <span class="st">"ram"</span>,</span>
+<span>           nCharNodes <span class="op">=</span> <span class="fl">0</span>, nCharEdges <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>           layout <span class="op">=</span> <span class="va">m</span><span class="op">)</span></span></code></pre></div>
 <p><img src="keep_or_drop_nodes_files/figure-html/unnamed-chunk-3-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>Suppose we want to remove <code>cov1</code>, <code>cov2</code>, and <code>cov3</code>. We do this by calling <code><a href="https://rdrr.io/pkg/semPlot/man/semPlotModel.html" class="external-link">semPlot::semPlotModel</a></code> directly, and modify it by <code>keep_nodes</code> or <code>drop_nodes</code>.</p>
 <p>We can <em>drop</em> <code>cov1</code>, <code>cov2</code>, and <code>cov3</code> by <code>drop_nodes</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pm_no_covs</span> <span class="op">&lt;-</span> <span class="fu">semptools</span><span class="fu">::</span><span class="fu"><a href="../reference/keep_drop_nodes.html">drop_nodes</a></span><span class="op">(</span>
-                object <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPlotModel.html" class="external-link">semPlotModel</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>,
-                nodes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cov1"</span>, <span class="st">"cov2"</span>, <span class="st">"cov3"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pm_no_covs</span> <span class="op">&lt;-</span> <span class="fu">semptools</span><span class="fu">::</span><span class="fu"><a href="../reference/keep_drop_nodes.html">drop_nodes</a></span><span class="op">(</span></span>
+<span>                object <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPlotModel.html" class="external-link">semPlotModel</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>,</span>
+<span>                nodes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cov1"</span>, <span class="st">"cov2"</span>, <span class="st">"cov3"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The first argument, <code>object</code>, should be the output of <code><a href="https://rdrr.io/pkg/semPlot/man/semPlotModel.html" class="external-link">semPlot::semPlotModel</a></code>. In the example, <code>semPlotModel(fit)</code> is used to call <code><a href="https://rdrr.io/pkg/semPlot/man/semPlotModel.html" class="external-link">semPlot::semPlotModel</a></code> to process <code>fit</code> and then pass the results immediately to <code>drop_nodes</code>.</p>
 <p>The second argument, <code>nodes</code>, is a character vector with the names of the variables to be dropped.</p>
 <p>With just two arguments, the argument names can be omitted:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pm_no_covs</span> <span class="op">&lt;-</span> <span class="fu">semptools</span><span class="fu">::</span><span class="fu"><a href="../reference/keep_drop_nodes.html">drop_nodes</a></span><span class="op">(</span>
-                <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPlotModel.html" class="external-link">semPlotModel</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>,
-                <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cov1"</span>, <span class="st">"cov2"</span>, <span class="st">"cov3"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pm_no_covs</span> <span class="op">&lt;-</span> <span class="fu">semptools</span><span class="fu">::</span><span class="fu"><a href="../reference/keep_drop_nodes.html">drop_nodes</a></span><span class="op">(</span></span>
+<span>                <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPlotModel.html" class="external-link">semPlotModel</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>,</span>
+<span>                <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cov1"</span>, <span class="st">"cov2"</span>, <span class="st">"cov3"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We can then use <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths</a></code> to plot this modified model:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m_no_covs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layout_matrix.html">layout_matrix</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,
-                           x2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,
-                           x3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,
-                           x4 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
-<span class="va">pa_no_covs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPaths</a></span><span class="op">(</span><span class="va">pm_no_covs</span>, whatLabels <span class="op">=</span> <span class="st">"est"</span>,
-                    sizeMan <span class="op">=</span> <span class="fl">10</span>,
-                    edge.label.cex <span class="op">=</span> <span class="fl">.5</span>,
-                    style <span class="op">=</span> <span class="st">"ram"</span>,
-                    nCharNodes <span class="op">=</span> <span class="fl">0</span>, nCharEdges <span class="op">=</span> <span class="fl">0</span>,
-                    layout <span class="op">=</span> <span class="va">m_no_covs</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">m_no_covs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layout_matrix.html">layout_matrix</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                           x2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                           x3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>                           x4 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">pa_no_covs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPaths</a></span><span class="op">(</span><span class="va">pm_no_covs</span>, whatLabels <span class="op">=</span> <span class="st">"est"</span>,</span>
+<span>                    sizeMan <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>                    edge.label.cex <span class="op">=</span> <span class="fl">.5</span>,</span>
+<span>                    style <span class="op">=</span> <span class="st">"ram"</span>,</span>
+<span>                    nCharNodes <span class="op">=</span> <span class="fl">0</span>, nCharEdges <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>                    layout <span class="op">=</span> <span class="va">m_no_covs</span><span class="op">)</span></span></code></pre></div>
 <p><img src="keep_or_drop_nodes_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>Note that in the call to <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths</a></code>, the modified output of <code><a href="https://rdrr.io/pkg/semPlot/man/semPlotModel.html" class="external-link">semPlot::semPlotModel</a></code>, <code>pm_no_covs</code>, is used instead of <code>fit</code>, the output of <code>lavaan</code>.</p>
 <p>Alternatively, we can also specify the variables to <em>keep</em> using <code>keep_nodes</code>. It is used in a similar way, except that the variables specified in <code>nodes</code> will be kept, and all variables <em>not specified</em> will be removed.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pm_only_xs</span> <span class="op">&lt;-</span> <span class="fu">semptools</span><span class="fu">::</span><span class="fu"><a href="../reference/keep_drop_nodes.html">keep_nodes</a></span><span class="op">(</span>
-                <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPlotModel.html" class="external-link">semPlotModel</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>,
-                <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">pa_only_xs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPaths</a></span><span class="op">(</span><span class="va">pm_only_xs</span>, whatLabels <span class="op">=</span> <span class="st">"est"</span>,
-                    sizeMan <span class="op">=</span> <span class="fl">10</span>,
-                    edge.label.cex <span class="op">=</span> <span class="fl">.5</span>,
-                    style <span class="op">=</span> <span class="st">"ram"</span>,
-                    nCharNodes <span class="op">=</span> <span class="fl">0</span>, nCharEdges <span class="op">=</span> <span class="fl">0</span>,
-                    layout <span class="op">=</span> <span class="va">m_no_covs</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pm_only_xs</span> <span class="op">&lt;-</span> <span class="fu">semptools</span><span class="fu">::</span><span class="fu"><a href="../reference/keep_drop_nodes.html">keep_nodes</a></span><span class="op">(</span></span>
+<span>                <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPlotModel.html" class="external-link">semPlotModel</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>,</span>
+<span>                <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">pa_only_xs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPaths</a></span><span class="op">(</span><span class="va">pm_only_xs</span>, whatLabels <span class="op">=</span> <span class="st">"est"</span>,</span>
+<span>                    sizeMan <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>                    edge.label.cex <span class="op">=</span> <span class="fl">.5</span>,</span>
+<span>                    style <span class="op">=</span> <span class="st">"ram"</span>,</span>
+<span>                    nCharNodes <span class="op">=</span> <span class="fl">0</span>, nCharEdges <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>                    layout <span class="op">=</span> <span class="va">m_no_covs</span><span class="op">)</span></span></code></pre></div>
 <p><img src="keep_or_drop_nodes_files/figure-html/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>This plot is identical to the previous plot.</p>
 <p>The plot generated by <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths</a></code> with selected nodes dropped or kept can then be passed to other <code>semptools</code> functions for further processing.</p>
@@ -206,7 +206,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
