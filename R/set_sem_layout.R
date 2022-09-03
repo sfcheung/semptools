@@ -247,6 +247,10 @@ set_sem_layout <- function(semPaths_plot,
           }
       }
 
+    # Record "indicators" of 2nd order factors to NA
+    tmp <- unique(indicator_factor)
+    indicator_order[indicator_order %in% tmp] <- NA
+
     if (!all((!is.na(factor_layout) & !(factor_layout %in% indicator_order)) ==
                !is.na(factor_point_to))) {
         stop("The positions of the indicators of one or more latent factors are not specified in factor_point_to.")
