@@ -1,3 +1,7 @@
+# semptools 0.2.9.7 (Experimental)
+
+- Added experimental support for 2nd order factor.
+
 # semptools 0.2.9.6
 
 - Fixed several problems with `pkgdown` setting.
