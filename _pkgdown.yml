@@ -11,6 +11,7 @@ articles:
   - quick_start_sem
   - keep_or_drop_nodes
   - layout_matrix
+  - second_order
 
 reference:
 - title: Main Functions
