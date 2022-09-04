@@ -254,6 +254,7 @@ set_sem_layout <- function(semPaths_plot,
         # Remove manifest variables treated as factors
         tmp <- setdiff(tmp, unique(indicator_factor[tmp2]))
       }
+    indicator_order_original <- indicator_order
     indicator_order[indicator_order %in% tmp] <- NA
 
     if (!all((!is.na(factor_layout) & !(factor_layout %in% indicator_order)) ==
@@ -465,5 +466,15 @@ set_sem_layout <- function(semPaths_plot,
         semPaths_plot <- set_edge_label_position(semPaths_plot,
                                                  loading_label_position)
       }
+
+    # Force all arrows from factors to indicators to be straight
+    tmp <- !(indicator_order_original == indicator_factor)
+    tmp[is.na(indicator_order)] <- TRUE
+    i_o_1 <- indicator_order_original[tmp]
+    i_f_1 <- indicator_factor[tmp]
+    tmp2 <- paste0(i_o_1, " ~ ", i_f_1)
+    tmp3 <- setNames(vector(mode = "numeric", length(tmp2)), tmp2)
+    semPaths_plot <- set_curve(semPaths_plot, tmp3)
+
     semPaths_plot
   }
