@@ -473,7 +473,7 @@ set_sem_layout <- function(semPaths_plot,
     i_o_1 <- indicator_order_original[tmp]
     i_f_1 <- indicator_factor[tmp]
     tmp2 <- paste0(i_o_1, " ~ ", i_f_1)
-    tmp3 <- setNames(vector(mode = "numeric", length(tmp2)), tmp2)
+    tmp3 <- stats::setNames(vector(mode = "numeric", length(tmp2)), tmp2)
     semPaths_plot <- set_curve(semPaths_plot, tmp3)
 
     semPaths_plot
