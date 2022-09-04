@@ -1,6 +1,7 @@
-# semptools 0.2.9.7 (Experimental)
+# semptools 0.2.9.7
 
-- Added experimental support for 2nd order factor.
+- Added support for 2nd order factor.
+- Fixed doc due to Roxygen updated to 7.2.1
 
 # semptools 0.2.9.6
 
