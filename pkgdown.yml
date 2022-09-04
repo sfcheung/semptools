@@ -6,8 +6,9 @@ articles:
   layout_matrix: layout_matrix.html
   quick_start_cfa: quick_start_cfa.html
   quick_start_sem: quick_start_sem.html
+  second_order: second_order.html
   semptools: semptools.html
-last_built: 2022-08-25T14:57Z
+last_built: 2022-09-04T12:45Z
 urls:
   reference: https://sfcheung.github.io/semptools/reference
   article: https://sfcheung.github.io/semptools/articles

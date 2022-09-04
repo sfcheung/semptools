@@ -22,6 +22,9 @@
     <loc>https://sfcheung.github.io/semptools/articles/quick_start_sem.html</loc>
   </url>
   <url>
+    <loc>https://sfcheung.github.io/semptools/articles/second_order.html</loc>
+  </url>
+  <url>
     <loc>https://sfcheung.github.io/semptools/articles/semptools.html</loc>
   </url>
   <url>
@@ -65,6 +68,9 @@
   </url>
   <url>
     <loc>https://sfcheung.github.io/semptools/reference/rotate_resid.html</loc>
+  </url>
+  <url>
+    <loc>https://sfcheung.github.io/semptools/reference/sem_2nd_order_example.html</loc>
   </url>
   <url>
     <loc>https://sfcheung.github.io/semptools/reference/sem_example.html</loc>

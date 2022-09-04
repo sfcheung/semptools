@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.7</span>
       </span>
     </div>
 
@@ -62,10 +62,13 @@
       <a href="articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
     </li>
     <li>
+      <a href="articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
+    </li>
+    <li>
       <a href="articles/layout_matrix.html">Layout Matrices</a>
     </li>
     <li>
-      <a href="articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
+      <a href="articles/second_order.html">Models with Second-Order Factors</a>
     </li>
   </ul>
 </li>
@@ -94,6 +97,7 @@
   <div class="contents col-md-9">
 
 
+<p>(Version 0.2.9.7), updated on 2022-09-04, <a href="https://sfcheung.github.io/semptools/news/index.html">release history</a>)</p>
 <div class="section level1">
 <div class="page-header"><h1 id="semptools">semptools<a class="anchor" aria-label="anchor" href="#semptools"></a>
 </h1></div>
@@ -103,11 +107,14 @@
 <h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h1>
 <p>The latest stable version can be installed from CRAN:</p>
-<pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"semptools"</span><span class="op">)</span></span></code></pre>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"semptools"</span><span class="op">)</span></span></code></pre></div>
 <p>The latest development version at GitHub can be installed by <code>remotes::install_github()</code>:</p>
-<pre><code><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"sfcheung/semptools"</span><span class="op">)</span></span></code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"sfcheung/semptools"</span><span class="op">)</span></span></code></pre></div>
 <p>To read the guides (vignettes) on how to use the functions, you can build the vignettes locally when installing the package:</p>
-<pre><code><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"sfcheung/semptools"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"sfcheung/semptools"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>You can also find the guides under <em>Articles</em> of the <a href="https://sfcheung.github.io/semptools/">Github page</a> of this package.</p>
 </div>
 <div class="section level1">
@@ -119,10 +126,11 @@
 <h1 id="philosophy">Philosophy<a class="anchor" aria-label="anchor" href="#philosophy"></a>
 </h1>
 <p>We think about the tasks we usually want to do with an <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph, and write one function for each task. We write the functions such that all of them work by postprocessing a <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph: receive an <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph, modify it, and return a modified <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph. This also allows users to use the <code>%&gt;%</code> (pipe) operator from the <code>magrittr</code> package or the native pipe operator <code>|&gt;</code> available since R 4.1.x to chain together modifications. For example:</p>
-<pre><code><span><span class="va">modified_graph</span> <span class="op">&lt;-</span> <span class="va">original_graph</span> <span class="op">%&gt;%</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">modified_graph</span> <span class="op">&lt;-</span> <span class="va">original_graph</span> <span class="op">%&gt;%</span></span>
 <span>                    <span class="fu">task_1</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>                    <span class="fu">task_2</span><span class="op">(</span><span class="va">other_arguments</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>                    <span class="fu">task_3</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<span>                    <span class="fu">task_3</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>In psychology, two typical models are confirmatory factor analysis model and structural models with latent factors. Therefore, we also wrote two functions, one for each model, that can combine several common tasks together, such as specifying the positions of the latent factors and adjusting the positions of the indicators.</p>
 <p>We also write the functions in a way that users do not need to know the technical detail (e.g., the position of the path in the list of all paths). For example, if a user wants to move the path coefficient of the path from <code>x</code> to <code>y</code> closer to <code>y</code>, the user only needs to tell the function that it is the path from <code>x</code> to <code>y</code>. The function will find which path it is in the <code>qgraph</code> object.</p>
 </div>
@@ -191,6 +199,7 @@
 <li><a href="https://cran.r-project.org/package=semptools" class="external-link"><img src="https://www.r-pkg.org/badges/version/semptools?color=blue" alt="CRAN Version"></a></li>
 <li><a href="https://cran.r-project.org/package=semptools" class="external-link"><img src="https://www.r-pkg.org/badges/last-release/semptools?color=blue" alt="CRAN: Release Date"></a></li>
 <li><a href="https://r-pkg.org/pkg/semptools" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/semptools?color=blue" alt="CRAN RStudio mirror downloads"></a></li>
+<li><a href="https://github.com/sfcheung/semptools/commits/master" class="external-link"><img src="https://img.shields.io/github/last-commit/sfcheung/semptools.svg" alt="Last Commit at Master"></a></li>
 </ul>
 </div>
 
