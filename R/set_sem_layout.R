@@ -249,6 +249,11 @@ set_sem_layout <- function(semPaths_plot,
 
     # Record "indicators" of 2nd order factors to NA
     tmp <- unique(indicator_factor)
+    tmp2 <- indicator_factor == indicator_order
+    if (any(tmp2)) {
+        # Remove manifest variables treated as factors
+        tmp <- setdiff(tmp, unique(indicator_factor[tmp2]))
+      }
     indicator_order[indicator_order %in% tmp] <- NA
 
     if (!all((!is.na(factor_layout) & !(factor_layout %in% indicator_order)) ==
