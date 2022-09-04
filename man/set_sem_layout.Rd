@@ -128,7 +128,7 @@ specification for this function to work.
 \examples{
 library(lavaan)
 library(semPlot)
-mod <- 
+mod <-
  'f1 =~ x01 + x02 + x03
   f2 =~ x04 + x05 + x06 + x07
   f3 =~ x08 + x09 + x10
@@ -143,11 +143,11 @@ p <- semPaths(fit_sem, whatLabels="est",
        nCharNodes = 0, nCharEdges = 0,
        edge.width = 0.8, node.width = 0.7,
        edge.label.cex = 0.6,
-       style = "ram", 
+       style = "ram",
        mar = c(10,10,10,10))
-indicator_order  <- c("x04", "x05", "x06", "x07", "x01", "x02", "x03", 
+indicator_order  <- c("x04", "x05", "x06", "x07", "x01", "x02", "x03",
                      "x11", "x12", "x13", "x14", "x08", "x09", "x10")
-indicator_factor <- c( "f2",  "f2",  "f2",  "f2",  "f1",  "f1",  "f1",  
+indicator_factor <- c( "f2",  "f2",  "f2",  "f2",  "f1",  "f1",  "f1",
                      "f4",  "f4",  "f4",  "f4",  "f3",  "f3",  "f3")
 factor_layout <- matrix(c("f1",   NA,   NA,
                            NA, "f3", "f4",
@@ -159,7 +159,7 @@ indicator_push <- c(f3 = 2, f4 = 1.5)
 indicator_spread <- c(f1 = 2, f2 = 2)
 loading_position <- c(f1 = .5, f2 = .8, f3 = .8)
 # Pipe operator can be used if desired
-p2 <- set_sem_layout(p, 
+p2 <- set_sem_layout(p,
                       indicator_order = indicator_order,
                       indicator_factor = indicator_factor,
                       factor_layout = factor_layout,

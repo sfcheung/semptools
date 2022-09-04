@@ -7,9 +7,11 @@ articles:
   navbar: ~
   contents:
   - semptools
-  - starts_with("quick")
-  - starts_with("layout")
-  - starts_with("keep")
+  - quick_start_cfa
+  - quick_start_sem
+  - keep_or_drop_nodes
+  - layout_matrix
+  - second_order
 
 reference:
 - title: Main Functions
