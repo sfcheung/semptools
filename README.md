@@ -9,7 +9,7 @@
 [![R-CMD-check](https://github.com/sfcheung/semptools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sfcheung/semptools/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-(Version 0.2.9.8), updated on 2023-02-24, [release history](https://sfcheung.github.io/semptools/news/index.html))
+(Version 0.2.9.9), updated on 2023-02-24, [release history](https://sfcheung.github.io/semptools/news/index.html))
 
 # semptools
 
