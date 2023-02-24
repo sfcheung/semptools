@@ -1,5 +1,5 @@
-pandoc: 2.7.3
-pkgdown: 2.0.6
+pandoc: 2.19.2
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   keep_or_drop_nodes: keep_or_drop_nodes.html
@@ -8,7 +8,7 @@ articles:
   quick_start_sem: quick_start_sem.html
   second_order: second_order.html
   semptools: semptools.html
-last_built: 2022-09-04T12:45Z
+last_built: 2023-02-24T11:07Z
 urls:
   reference: https://sfcheung.github.io/semptools/reference
   article: https://sfcheung.github.io/semptools/articles

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">semptools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.9.8</span>
       </span>
     </div>
 
@@ -90,13 +90,14 @@
 
       
 
-      </header><script src="second_order_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Models with Second-Order Factors</h1>
-                        <h4 data-toc-skip class="author">Shu Fai Cheung &amp; Mark Hok Chio Lai</h4>
+                        <h4 data-toc-skip class="author">Shu Fai Cheung
+&amp; Mark Hok Chio Lai</h4>
             
-            <h4 data-toc-skip class="date">2022-09-04</h4>
+            <h4 data-toc-skip class="date">2023-02-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sfcheung/semptools/blob/HEAD/vignettes/second_order.Rmd" class="external-link"><code>vignettes/second_order.Rmd</code></a></small>
       <div class="hidden name"><code>second_order.Rmd</code></div>
@@ -108,12 +109,16 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>This article illustrates how to use <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> for a model with second-order factors. Readers are assumed to have learned how to use <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> (see <code><a href="../articles/quick_start_sem.html">vignette("quick_start_sem")</a></code>).</p>
+<p>This article illustrates how to use <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> for
+a model with second-order factors. Readers are assumed to have learned
+how to use <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> (see
+<code><a href="../articles/quick_start_sem.html">vignette("quick_start_sem")</a></code>).</p>
 </div>
 <div class="section level2">
 <h2 id="the-initial-sempaths-plot">The Initial <code>semPaths</code> Plot<a class="anchor" aria-label="anchor" href="#the-initial-sempaths-plot"></a>
 </h2>
-<p>We will use <code>sem_2nd_order_example</code>, a sample SEM dataset from semptools with 21 variables for illustration.</p>
+<p>We will use <code>sem_2nd_order_example</code>, a sample SEM dataset
+from semptools with 21 variables for illustration.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sfcheung.github.io/semptools/">semptools</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">sem_2nd_order_example</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span>
@@ -141,7 +146,7 @@
 <p>Fitting the model using <code><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">lavaan::sem()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lavaan.ugent.be" class="external-link">lavaan</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; This is lavaan 0.6-12</span></span>
+<span><span class="co">#&gt; This is lavaan 0.6-14</span></span>
 <span><span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span></span>
 <span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">sem_2nd_order_example</span><span class="op">)</span></span></code></pre></div>
 <p>This is the plot from <code>semPaths</code>:</p>
@@ -159,17 +164,27 @@
 <div class="section level2">
 <h2 id="modify-the-plot">Modify the Plot<a class="anchor" aria-label="anchor" href="#modify-the-plot"></a>
 </h2>
-<p>As described in <code>vignette("set_sem_layout")</code>, the plot can be modified by <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code>, with these special treatment:</p>
+<p>As described in <code>vignette("set_sem_layout")</code>, the plot can
+be modified by <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code>, with these special
+treatment:</p>
 <div class="section level3">
 <h3 id="special-treatment">Special Treatment<a class="anchor" aria-label="anchor" href="#special-treatment"></a>
 </h3>
 <p>To modify a plot with second order factors:</p>
 <ul>
-<li><p>The “indicators” of a second-order factor need to be included in the vector for the <code>indicator_order</code> argument.</p></li>
-<li><p>In the matrix for <code>factor_layout</code>, all factors, first or second order, should be included.</p></li>
-<li><p>Although a second-order factor has latent factors as their indicators, the direction of a second-order factor in the <code>factor_point_to</code> matrix is ignored. The position of the indicators of a second-order factor are determined by the <code>factor_layout</code> matrix.</p></li>
+<li><p>The “indicators” of a second-order factor need to be included in
+the vector for the <code>indicator_order</code> argument.</p></li>
+<li><p>In the matrix for <code>factor_layout</code>, all factors, first
+or second order, should be included.</p></li>
+<li><p>Although a second-order factor has latent factors as their
+indicators, the direction of a second-order factor in the
+<code>factor_point_to</code> matrix is ignored. The position of the
+indicators of a second-order factor are determined by the
+<code>factor_layout</code> matrix.</p></li>
 </ul>
-<p>In the example below, <code>f1</code> to <code>f6</code>, though latent factors themselves, are included in the vector for <code>indicator_order</code>.</p>
+<p>In the example below, <code>f1</code> to <code>f6</code>, though
+latent factors themselves, are included in the vector for
+<code>indicator_order</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
@@ -215,7 +230,9 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="second_order_files/figure-html/unnamed-chunk-7-1.png" width="768" style="display: block; margin: auto;"></p>
-<p>The layout is acceptable. It can be further modified by other functions described in <code><a href="../articles/semptools.html">vignette("semptools")</a></code>. For example, the residuals can be rotated:</p>
+<p>The layout is acceptable. It can be further modified by other
+functions described in <code><a href="../articles/semptools.html">vignette("semptools")</a></code>. For example,
+the residuals can be rotated:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_rotate_resid_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>f4  <span class="op">=</span>  <span class="fl">45</span>,</span>
 <span>                          f21 <span class="op">=</span>   <span class="fl">0</span>,</span>
@@ -229,7 +246,9 @@
 <div class="section level2">
 <h2 id="further-information">Further information<a class="anchor" aria-label="anchor" href="#further-information"></a>
 </h2>
-<p>Please refer to <code><a href="../articles/quick_start_sem.html">vignette("quick_start_sem")</a></code> on other options of <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> and how to use it with other functions in the package.</p>
+<p>Please refer to <code><a href="../articles/quick_start_sem.html">vignette("quick_start_sem")</a></code> on other
+options of <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> and how to use it with other
+functions in the package.</p>
 </div>
   </div>
 
@@ -250,7 +269,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
