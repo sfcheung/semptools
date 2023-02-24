@@ -89,6 +89,16 @@ set_curve <- function(semPaths_plot, curve_list = NULL) {
           edge_index(semPaths_plot, from = x$from, to = x$to)
         })
     curve_new[curve_index] <- sapply(curve_list, function(x) x$new_curve)
+
+    # Check bidirectional edges
+    curve_list2 <- curve_list[which(semPaths_plot$Edge$bidirectional[curve_index])]
+    if (length(curve_list2) > 0) {
+        curve_index2 <- sapply(curve_list2, function(x) {
+              edge_index(semPaths_plot, from = x$to, to = x$from)
+            })
+        curve_new[curve_index2] <- sapply(curve_list2, function(x) x$new_curve)
+      }
+
     semPaths_plot$graphAttributes$Edges$curve <- curve_new
     semPaths_plot
   }

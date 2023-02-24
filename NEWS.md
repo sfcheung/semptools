@@ -1,8 +1,11 @@
-# semptools 0.2.9.8
+# semptools 0.2.9.9
 
 - Added support for 2nd order factor (see `vignette("second_order")`). (0.2.9.7)
 - Fixed doc due to Roxygen updated to 7.2.1. (0.2.9.7)
-- Update the GitHub actions.
+- Update the GitHub actions. (0.2.9.8)
+- Fixed doc due to Roxygen updated to 7.2.3. (0.2.9.9)
+- Fixed `set_curve()`. It should now work for bidirectional
+  edges regardless of the order of the nodes in the specification. (0.2.9.9)
 
 # semptools 0.2.9.6
 
