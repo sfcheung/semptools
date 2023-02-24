@@ -1,7 +1,8 @@
-# semptools 0.2.9.7
+# semptools 0.2.9.8
 
-- Added support for 2nd order factor (see `vignette("second_order")`).
-- Fixed doc due to Roxygen updated to 7.2.1.
+- Added support for 2nd order factor (see `vignette("second_order")`). (0.2.9.7)
+- Fixed doc due to Roxygen updated to 7.2.1. (0.2.9.7)
+- Update the GitHub actions.
 
 # semptools 0.2.9.6
 
