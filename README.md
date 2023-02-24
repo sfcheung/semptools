@@ -1,11 +1,15 @@
 <!-- badges: start -->
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN Version](https://www.r-pkg.org/badges/version/semptools?color=blue)](https://cran.r-project.org/package=semptools)
 [![CRAN: Release Date](https://www.r-pkg.org/badges/last-release/semptools?color=blue)](https://cran.r-project.org/package=semptools)
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/semptools?color=blue)](https://r-pkg.org/pkg/semptools)
+[![Code size](https://img.shields.io/github/languages/code-size/sfcheung/semptools.svg)](https://github.com/sfcheung/semptools)
 [![Last Commit at Master](https://img.shields.io/github/last-commit/sfcheung/semptools.svg)](https://github.com/sfcheung/semptools/commits/master)
+[![R-CMD-check](https://github.com/sfcheung/semptools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sfcheung/semptools/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-(Version 0.2.9.7), updated on 2022-09-04, [release history](https://sfcheung.github.io/semptools/news/index.html))
+(Version 0.2.9.8), updated on 2023-02-24, [release history](https://sfcheung.github.io/semptools/news/index.html))
 
 # semptools
 
