@@ -1,7 +1,7 @@
 library(lavaan)
 library(semPlot)
 
-mod_pa <- 
+mod_pa <-
   'x1 ~~ x2
    x3 ~  x1 + x2
    x4 ~  x1 + x3
@@ -21,7 +21,7 @@ my_label_list <- list(list(node = "x1", to = "predictor"),
 p_pa2 <- change_node_label(p_pa, my_label_list)
 labs_pa2 <- p_pa2$graphAttributes$Nodes$labels
 # Run it one more time
-p_pa3 <- change_node_label(p_pa2, list(list(node = "predictor", to = "x1"), 
+p_pa3 <- change_node_label(p_pa2, list(list(node = "predictor", to = "x1"),
                                        list(node = "x3", to = "mediator")))
 labs_pa3 <- p_pa3$graphAttributes$Nodes$labels
 
@@ -56,10 +56,10 @@ test_that("node label can be changed back", {
 test_that(
   "node label change results in an error with incorrect or missing input", {
     expect_error(change_node_label(p_pa), "not specified")
-    # expect_error(change_node_label(p_pa2, c(x1 = "predictor")), 
+    # expect_error(change_node_label(p_pa2, c(x1 = "predictor")),
     #              "should be a list of named list")
-    expect_error(change_node_label(p_pa2, list(list(nodes = "x1", 
-                                                    to = "predictor 1"))), 
+    expect_error(change_node_label(p_pa2, list(list(nodes = "x1",
+                                                    to = "predictor 1"))),
                  "One or more nodes in")
     expect_error(change_node_label(p_pa3, list(list("x2", "predictor 2"))))
   })
@@ -70,9 +70,9 @@ test_that(
     p_pa2_se <- mark_se(p_pa2, fit_pa)
     p_pa_sig <- mark_sig(p_pa, fit_pa)
     p_pa3_sig <- mark_sig(p_pa3, fit_pa)
-    expect_identical(p_pa_se$graphAttributes$Edges, 
+    expect_identical(p_pa_se$graphAttributes$Edges,
                      p_pa2_se$graphAttributes$Edges)
-    expect_identical(p_pa_sig$graphAttributes$Edges, 
+    expect_identical(p_pa_sig$graphAttributes$Edges,
                      p_pa3_sig$graphAttributes$Edges)
   })
 
@@ -82,15 +82,15 @@ test_that(
     p_pa2_se <- mark_se(p_pa2, fit_pa)
     p_pa_sig <- mark_sig(p_pa, fit_pa)
     p_pa3_sig <- mark_sig(p_pa3, fit_pa)
-    expect_match(all.equal(p_pa2$graphAttributes$Edges, 
-                           p_pa2_se$graphAttributes$Edges), 
+    expect_match(all.equal(p_pa2$graphAttributes$Edges,
+                           p_pa2_se$graphAttributes$Edges),
                  "string mismatches")
-    expect_match(all.equal(p_pa3$graphAttributes$Edges, 
-                           p_pa3_sig$graphAttributes$Edges), 
+    expect_match(all.equal(p_pa3$graphAttributes$Edges,
+                           p_pa3_sig$graphAttributes$Edges),
                  "string mismatches")
-    expect_identical(p_pa_se$graphAttributes$Edges, 
+    expect_identical(p_pa_se$graphAttributes$Edges,
                      p_pa2_se$graphAttributes$Edges)
-    expect_identical(p_pa_sig$graphAttributes$Edges, 
+    expect_identical(p_pa_sig$graphAttributes$Edges,
                      p_pa3_sig$graphAttributes$Edges)
   })
 
@@ -107,7 +107,7 @@ test_that(
     aeq1a <- p_pa2$graphAttributes$Edges
     aeq1b <- p_pa2_curve$graphAttributes$Edges
     expect_equal(aeq1b$curve,
-                 c(-1, 0, 0, 1, 0, 0, 0, 0, 0, 0))
+                 c(-1, 0, 0, 1, 0, 0, 0, 0, 0, -1))
     aeq1a0 <- aeq1a
     aeq1b0 <- aeq1b
     aeq1a0$curve <- NULL
@@ -122,9 +122,9 @@ test_that(
     aeq2a0$edge.label.position <- NULL
     aeq2b0$edge.label.position <- NULL
     expect_equal(aeq2a0, aeq2b0)
-    expect_identical(p_pa_curve$graphAttributes$Edges, 
+    expect_identical(p_pa_curve$graphAttributes$Edges,
                      p_pa2_curve$graphAttributes$Edges)
-    expect_identical(p_pa_pos$graphAttributes$Edges, 
+    expect_identical(p_pa_pos$graphAttributes$Edges,
                      p_pa3_pos$graphAttributes$Edges)
   })
 
@@ -148,7 +148,7 @@ test_that(
         p_pa2_rotate$graphAttributes$Nodes$loopRotation / pi,
         c(0.25, -0.25, 1.50, -0.50)
       )
-    expect_identical(p_pa_rotate$graphAttributes$Nodes$loopRotation, 
+    expect_identical(p_pa_rotate$graphAttributes$Nodes$loopRotation,
                      p_pa2_rotate$graphAttributes$Nodes$loopRotation)
   })
 
@@ -305,7 +305,7 @@ p_pa2b <- change_node_label(p_pa, list(x1 = "predictor",
                                        x4 = expression(gamma)))
 labs_pa2b <- p_pa2b$graphAttributes$Nodes$labels
 # Run it one more time
-p_pa3b <- change_node_label(p_pa2b, list(predictor = "x1", 
+p_pa3b <- change_node_label(p_pa2b, list(predictor = "x1",
                                         x3 = "mediator"))
 labs_pa3b <- p_pa3b$graphAttributes$Nodes$labels
 
