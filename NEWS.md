@@ -1,3 +1,7 @@
+# semptools 0.2.9.10
+
+- Updated pkgdown site.
+
 # semptools 0.2.9.9
 
 - Added support for 2nd order factor (see `vignette("second_order")`). (0.2.9.7)
