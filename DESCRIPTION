@@ -1,6 +1,6 @@
 Package: semptools
 Title: Customizing Structural Equation Modelling Plots
-Version: 0.2.9.10
+Version: 0.2.9.11
 Authors@R: c(
     person(given = "Shu Fai",
            family = "Cheung",
@@ -26,9 +26,9 @@ LazyData: true
 Imports:
     dplyr,
     lavaan,
-    rlang
+    rlang,
+    semPlot
 Suggests:
-    semPlot,
     testthat (>= 2.1.0),
     knitr,
     rmarkdown,

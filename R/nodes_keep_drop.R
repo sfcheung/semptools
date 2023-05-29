@@ -55,6 +55,11 @@ drop_nodes <- function(object, nodes) {
     if (!inherits(object, "semPlotModel")) {
         stop("The object is not an semPlotModel object.")
       }
+    all_vars <- c(semPlot::man(object), semPlot::lat(object))
+    if (length(setdiff(nodes, all_vars)) != 0) {
+        warning("One or more variables in 'nodes' are not in the",
+                "object. They will be ignored.")
+      }
     tmp <- object@Pars
     par_ge0 <- sum(tmp$par > 0)
     tmp <- tmp[!(tmp$lhs %in% nodes | tmp$rhs %in% nodes), ]
@@ -82,6 +87,11 @@ drop_nodes <- function(object, nodes) {
 keep_nodes <- function(object, nodes) {
     if (!inherits(object, "semPlotModel")) {
         stop("The object is not an semPlotModel object.")
+      }
+    all_vars <- c(semPlot::man(object), semPlot::lat(object))
+    if (length(setdiff(nodes, all_vars)) != 0) {
+        warning("One or more variables in 'nodes' are not in the",
+                "object. They will be ignored.")
       }
     varnames <- object@Vars[, "name"]
     nodes_to_drop <- varnames[!(varnames %in% nodes)]
