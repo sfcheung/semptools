@@ -6,6 +6,8 @@
 \alias{semptools-package}
 \title{semptools: Customizing Structural Equation Modelling Plots}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Most function focus on specific ways to customize a graph. They use a 'qgraph' output as the first argument, and return a modified 'qgraph' object. This allows the functions to be chained by a pipe operator.
 }
 \seealso{
