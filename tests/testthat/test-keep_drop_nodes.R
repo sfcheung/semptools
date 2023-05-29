@@ -5,7 +5,7 @@ library(semPlot)
 
 # path model
 
-mod_pa <- 
+mod_pa <-
   'x1 ~~ x2
    x3 ~  x1 + x2
    x4 ~  x1 + x3
@@ -48,7 +48,7 @@ test_that("Correct nodes dropped", {
 
 # SEM
 
-mod <- 
+mod <-
   'f1 =~ x01 + x02 + x03
    f2 =~ x04 + x05 + x06 + x07
    f3 =~ x08 + x09 + x10
@@ -112,7 +112,7 @@ test_that("Correct nodes dropped", {
 
 # path model
 
-mod_pa <- 
+mod_pa <-
   'x1 ~~ x2
    x3 ~  x1 + x2
    x4 ~  x1 + x3
@@ -162,7 +162,7 @@ test_that("Correct nodes dropped", {
 
 # SEM
 
-mod <- 
+mod <-
   'f1 =~ x01 + x02 + x03
    f2 =~ x04 + x05 + x06 + x07
    f3 =~ x08 + x09 + x10
@@ -252,3 +252,10 @@ test_that("Correct nodes dropped for lavaanify output", {
     all(c("X", "eta_Y", "eta_M") %in% pm2_2@Vars$name)
   )
 })
+
+# Added in 0.2.9.10
+
+test_that("Nodes do no exist", {
+    expect_warning(drop_nodes(pm2, c("fs_y", "fs_m", "no_var")))
+    expect_warning(keep_nodes(pm2, c("fs_y", "fs_m", "no_var")))
+  })

@@ -1,3 +1,11 @@
+# semptools 0.2.9.11
+
+- Used the native functions of `semPlot` (`semPlot::man()` and `semPlot::lat()`)
+  to check nodes in `drop_nodes()` and `keep_nodes()`. As a consequence,
+  the `semPlot` package is now in the Import section. (More native functions
+  will be used in the future to ensure compatibility.) (0.2.9.11)
+
+
 # semptools 0.2.9.10
 
 - Updated pkgdown site.
