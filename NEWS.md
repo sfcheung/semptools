@@ -1,3 +1,7 @@
+# semptools 0.2.9.12
+
+- Add an R CMD check for noSuggests. (0.2.9.12)
+
 # semptools 0.2.9.11
 
 - Used the native functions of `semPlot` (`semPlot::man()` and `semPlot::lat()`)
