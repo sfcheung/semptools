@@ -181,7 +181,24 @@ to_from_smooth <- function(x, other = FALSE) {
   }
 #' @title Set Non-Straight Edges to Smooth Edges
 #' @noRd
-curve_smooth <- function(x, other = FALSE) {
+curve_smooth <- function(x) {
+    i <- x$curve != 0 | x$smooth
+    p <- nrow(x)
+    smooth_enabled <- rep(FALSE, p)
+    smooth_enabled[i] <- TRUE
+    smooth_type <- rep(NA, p)
+    smooth_type[i] <- ifelse(x$curve[i] < 0,
+                             "curvedCCW",
+                             "curvedCW")
+    mapply(function(xx, yy) {list(enabled = xx,
+                                  type = yy)},
+           xx = smooth_enabled,
+           yy = smooth_type,
+           SIMPLIFY = FALSE)
+  }
+#' @title Set Non-Straight Edges to Smooth Edges
+#' @noRd
+curve_smooth_old <- function(x, other = FALSE) {
     i <- x$curve != 0
     x[i, "smooth"] <- TRUE
     if (other) {
@@ -280,7 +297,7 @@ df_edges_from_qgraph <- function(p,
     df_edges <- bi_to_from(df_edges)
     df_edges <- to_from_smooth(df_edges, other = TRUE)
     df_edges <- bi_physics(df_edges, other = TRUE)
-    df_edges <- curve_smooth(df_edges)
+    df_edges$smooth <- curve_smooth(df_edges)
     df_edges <- curve_physics(df_edges)
     df_edges$length_org <- curve_to_length(p,
                                            curve_strength = curve_strength)
@@ -340,8 +357,10 @@ visNetwork_from_qgraph <- function(p,
                                       list(graph = out))
     out <- do.call(visNetwork::visPhysics, physics_args)
     options_args <- utils::modifyList(
-              list(manipulation = list(enabled = TRUE,
-                   editEdgeCols = c("length"))),
+              list(manipulation =
+                  list(enabled = TRUE,
+                       editEdgeCols = c("length",
+                                        "label"))),
               options_args)
     options_args <- utils::modifyList(options_args,
                                       list(graph = out))
@@ -350,6 +369,16 @@ visNetwork_from_qgraph <- function(p,
   }
 
 v_sem <- visNetwork_from_qgraph(p_sem)
+v_sem
+
+tmp <- list(enabled = TRUE,
+           editEdge = htmlwidgets::JS("function(data, callback) {
+                            callback(data);
+                            console.info('edit edge')
+                            }")
+          )
+v_sem <- visNetwork_from_qgraph(p_sem,
+              options_args = list(manipulation = tmp))
 v_sem
 
 v_cfa <- visNetwork_from_qgraph(p_cfa,
