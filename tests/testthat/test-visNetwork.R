@@ -275,7 +275,5 @@ v2 <- visNetwork_from_qgraph(p2)
 v2
 
 v2 <- visNetwork_from_qgraph(p2,
-        physics_args = list(maxVelocity = 5,
-                            repulsion = list(damping = 1),
-                            stabilization = list(onlyDynamicEdges = TRUE)))
+        physics_args = list(stabilization = list(onlyDynamicEdges = TRUE)))
 v2
