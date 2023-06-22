@@ -51,6 +51,84 @@ p2 <- set_curve(p2, c("f2 ~ f1" = -1,
 p2 <- mark_sig(p2, fit_sem)
 p2 <- mark_se(p2, fit_sem, sep = "\n")
 plot(p2)
+p_sem <- p2
+
+# From the example of set_cfa_layout()
+mod <-
+  'f1 =~ x01 + x02 + x03
+   f2 =~ x04 + x05 + x06 + x07
+   f3 =~ x08 + x09 + x10
+   f4 =~ x11 + x12 + x13 + x14
+  '
+fit_cfa <- lavaan::sem(mod, cfa_example)
+lavaan::parameterEstimates(fit_cfa)[, c("lhs", "op", "rhs", "est", "pvalue")]
+p <- semPaths(fit_cfa, whatLabels="est",
+        sizeMan = 2.5,
+        nCharNodes = 0, nCharEdges = 0,
+        edge.width = 0.8, node.width = 0.7,
+        edge.label.cex = 0.6,
+        style = "ram",
+        mar = c(10,10,10,10),
+        residuals = FALSE)
+indicator_order  <- c("x04", "x05", "x06", "x07", "x01", "x02", "x03", "x11",
+                       "x12", "x13", "x14", "x08", "x09", "x10")
+indicator_factor <- c( "f2",  "f2",  "f2",  "f2",  "f1",  "f1",  "f1",  "f4",
+                       "f4",  "f4",  "f4",  "f3",  "f3",  "f3")
+p2 <- set_cfa_layout(p, indicator_order,
+                          indicator_factor,
+                          fcov_curve = 1.5,
+                          loading_position = .8)
+plot(p2)
+p2 <- set_cfa_layout(p, indicator_order,
+                          indicator_factor,
+                          fcov_curve = 1.5,
+                          loading_position = .8,
+                          point_to = "left")
+plot(p2)
+p2 <- set_cfa_layout(p, indicator_order,
+                          indicator_factor,
+                          fcov_curve = 1.5,
+                          loading_position = .8,
+                          point_to = "up")
+plot(p2)
+p2 <- set_cfa_layout(p, indicator_order,
+                          indicator_factor,
+                          fcov_curve = 1.5,
+                          loading_position = .8,
+                          point_to = "right")
+plot(p2)
+p_cfa <- p2
+
+# From vignette
+
+mod_pa <-
+ 'x1 ~~ x2
+  x3 ~  x1 + x2
+  x4 ~  x1 + x3
+ '
+fit_pa <- lavaan::sem(mod_pa, pa_example)
+m <- matrix(c("x1",   NA,  NA,   NA,
+                NA, "x3",  NA, "x4",
+              "x2",   NA,  NA,   NA), byrow = TRUE, 3, 4)
+p_pa <- semPaths(fit_pa, whatLabels = "est",
+           sizeMan = 10,
+           edge.label.cex = 1.15,
+           style = "ram",
+           nCharNodes = 0, nCharEdges = 0,
+           layout = m,
+           residuals = FALSE)
+my_position_list <- c("x4 ~ x1" = .75)
+my_curve_list <- c("x2 ~ x1" = -2)
+my_rotate_resid_list <- c(x1 = 0, x2 = 180, x3 = 140, x4 = 140)
+my_position_list <- c("x4 ~ x1" = .65)
+# If R version 4.1.0 or above
+p_pa3 <- p_pa |> set_curve(my_curve_list) |>
+                  rotate_resid(my_rotate_resid_list) |>
+                  mark_sig(fit_pa) |>
+                  mark_se(fit_pa, sep = "\n") |>
+                  set_edge_label_position(my_position_list)
+plot(p_pa3)
+p_pa <- p_pa3
 
 # Helpers
 
@@ -271,8 +349,22 @@ visNetwork_from_qgraph <- function(p,
     return(out)
   }
 
-v2 <- visNetwork_from_qgraph(p2)
-v2
+v_sem <- visNetwork_from_qgraph(p_sem)
+v_sem
+
+v_cfa <- visNetwork_from_qgraph(p_cfa,
+                                curve_strength = 1)
+v_cfa
+
+v_pa <- visNetwork_from_qgraph(p_pa,
+                               margin = 15,
+                               font_base_size = 25,
+                               curve_strength = 1.5)
+v_pa |> visEdges(value = 1,
+                 scaling = list(max = 2,
+                                label = list(min = 25))) |>
+        visNodes(margin = 15)
+
 
 v2 <- visNetwork_from_qgraph(p2,
         physics_args = list(stabilization = list(onlyDynamicEdges = TRUE)))
