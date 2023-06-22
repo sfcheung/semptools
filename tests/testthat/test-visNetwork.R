@@ -241,11 +241,8 @@ visNetwork_from_qgraph <- function(p,
                                    curve_strength = 1.25,
                                    margin = 7.5,
                                    post_rate = 250,
-                                   physics_args = list(maxVelocity = 5,
-                                                       repulsion = list(damping = 1)),
-                                   options_args =
-                                      list(manipulation = list(enabled = TRUE,
-                                                               editEdgeCols = c("length"))),
+                                   physics_args = list(),
+                                   options_args = list(),
                                    ...) {
     df_edges <- df_edges_from_qgraph(p,
                                      curve_strength = curve_strength)
@@ -258,9 +255,16 @@ visNetwork_from_qgraph <- function(p,
     out <- visNetwork::visNetwork(nodes = df_nodes,
                      edges = df_edges,
                      ...)
+    physics_args <- utils::modifyList(list(maxVelocity = 5,
+                                           repulsion = list(damping = 1)),
+                                      physics_args)
     physics_args <- utils::modifyList(physics_args,
                                       list(graph = out))
     out <- do.call(visNetwork::visPhysics, physics_args)
+    options_args <- utils::modifyList(
+              list(manipulation = list(enabled = TRUE,
+                   editEdgeCols = c("length"))),
+              options_args)
     options_args <- utils::modifyList(options_args,
                                       list(graph = out))
     out <- do.call(visNetwork::visOptions, options_args)
@@ -268,4 +272,10 @@ visNetwork_from_qgraph <- function(p,
   }
 
 v2 <- visNetwork_from_qgraph(p2)
+v2
+
+v2 <- visNetwork_from_qgraph(p2,
+        physics_args = list(maxVelocity = 5,
+                            repulsion = list(damping = 1),
+                            stabilization = list(onlyDynamicEdges = TRUE)))
 v2
