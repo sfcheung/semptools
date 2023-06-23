@@ -330,7 +330,10 @@ df_nodes_from_qgraph <- function(p,
 # df_edges[7, "length"] <- 500
 # df_edges[7, "physics"] <- TRUE
 # df_edges
-visNetwork_from_qgraph <- function(p,
+visNetwork_from_qgraph <- function(graph,
+                                   edges = NULL,
+                                   nodes = NULL,
+                                   rescale = TRUE,
                                    font_base_size = 14,
                                    curve_strength = 1.25,
                                    smooth_type_all = "curved",
@@ -340,19 +343,29 @@ visNetwork_from_qgraph <- function(p,
                                    physics_args = list(),
                                    options_args = list(),
                                    ...) {
-    df_edges <- df_edges_from_qgraph(p,
-                                     curve_strength = curve_strength,
-                                     remove_residuals = remove_residuals,
-                                     smooth_type_all = smooth_type_all)
-    df_nodes <- df_nodes_from_qgraph(p,
-                                     margin = margin,
-                                     font_base_size = font_base_size)
-    df_nodes$x <- df_nodes$x_org * resize_ratio * 2
-    df_nodes$y <- df_nodes$y_org * resize_ratio * 2
-    df_edges$length <- df_edges$length_org * resize_ratio
+    if (missing(graph)) {
+        if (any(c(is.null(edges), is.null(nodes)))) {
+            stop("If graph is not supplied, both edges and nodes must be supplied.")
+          }
+        df_edges <- edges
+        df_nodes <- nodes
+      } else {
+        df_edges <- df_edges_from_qgraph(graph,
+                      curve_strength = curve_strength,
+                      remove_residuals = remove_residuals,
+                      smooth_type_all = smooth_type_all)
+        df_nodes <- df_nodes_from_qgraph(graph,
+                      margin = margin,
+                      font_base_size = font_base_size)
+      }
+    if (rescale) {
+        df_nodes$x <- df_nodes$x_org * resize_ratio * 2
+        df_nodes$y <- df_nodes$y_org * resize_ratio * 2
+        df_edges$length <- df_edges$length_org * resize_ratio
+      }
     out <- visNetwork::visNetwork(nodes = df_nodes,
-                     edges = df_edges,
-                     ...)
+                                  edges = df_edges,
+                                  ...)
     physics_args <- utils::modifyList(list(maxVelocity = 5,
                                            repulsion = list(damping = 1)),
                                       physics_args)
@@ -402,6 +415,7 @@ v_pa <- visNetwork_from_qgraph(p_pa,
                                margin = 15,
                                font_base_size = 25,
                                curve_strength = 1.5)
+v_pa
 v_pa |> visEdges(value = 1,
                  scaling = list(max = 2,
                                 label = list(min = 25))) |>
