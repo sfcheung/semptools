@@ -335,7 +335,7 @@ visNetwork_from_qgraph <- function(p,
                                    curve_strength = 1.25,
                                    smooth_type_all = "curved",
                                    margin = 7.5,
-                                   post_rate = 250,
+                                   resize_ratio = 100,
                                    remove_residuals = TRUE,
                                    physics_args = list(),
                                    options_args = list(),
@@ -347,9 +347,9 @@ visNetwork_from_qgraph <- function(p,
     df_nodes <- df_nodes_from_qgraph(p,
                                      margin = margin,
                                      font_base_size = font_base_size)
-    df_nodes$x <- df_nodes$x_org * post_rate
-    df_nodes$y <- df_nodes$y_org * post_rate
-    df_edges$length <- df_edges$length_org * post_rate / 2
+    df_nodes$x <- df_nodes$x_org * resize_ratio * 2
+    df_nodes$y <- df_nodes$y_org * resize_ratio * 2
+    df_edges$length <- df_edges$length_org * resize_ratio
     out <- visNetwork::visNetwork(nodes = df_nodes,
                      edges = df_edges,
                      ...)
@@ -361,11 +361,10 @@ visNetwork_from_qgraph <- function(p,
     out <- do.call(visNetwork::visPhysics, physics_args)
     options_args <- utils::modifyList(
               list(manipulation =
-                  list(enabled = TRUE,
+                  list(enabled = FALSE,
                        editEdgeCols = c("length",
                                         "label"),
-                       editNodeCols = c("label",
-                                        "margin"))),
+                       editNodeCols = c("label"))),
               options_args)
     options_args <- utils::modifyList(options_args,
                                       list(graph = out))
@@ -374,6 +373,10 @@ visNetwork_from_qgraph <- function(p,
   }
 
 (v_sem <- visNetwork_from_qgraph(p_sem))
+v_sem |> visOptions(manipulation = list(enabled = TRUE,
+                                        editEdgeCols = "label",
+                                        editNodeCols = "label"))
+
 (v_sem <- visNetwork_from_qgraph(p_sem,
                                  smooth_type_all = "dynamic"))
 visNetwork_from_qgraph(p_sem, width = 500, height = 500)
