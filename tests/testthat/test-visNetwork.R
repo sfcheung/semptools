@@ -23,7 +23,7 @@ p <- semPaths(fit_sem, whatLabels="est",
        edge.label.cex = 0.6,
        style = "ram",
        mar = c(10,10,10,10),
-       residuals = FALSE)
+       residuals = TRUE)
 indicator_order  <- c("x04", "x05", "x06", "x07", "x01", "x02", "x03",
                      "x11", "x12", "x13", "x14", "x08", "x09", "x10")
 indicator_factor <- c( "f2",  "f2",  "f2",  "f2",  "f1",  "f1",  "f1",
@@ -61,7 +61,6 @@ mod <-
    f4 =~ x11 + x12 + x13 + x14
   '
 fit_cfa <- lavaan::sem(mod, cfa_example)
-lavaan::parameterEstimates(fit_cfa)[, c("lhs", "op", "rhs", "est", "pvalue")]
 p <- semPaths(fit_cfa, whatLabels="est",
         sizeMan = 2.5,
         nCharNodes = 0, nCharEdges = 0,
@@ -69,28 +68,11 @@ p <- semPaths(fit_cfa, whatLabels="est",
         edge.label.cex = 0.6,
         style = "ram",
         mar = c(10,10,10,10),
-        residuals = FALSE)
+        residuals = TRUE)
 indicator_order  <- c("x04", "x05", "x06", "x07", "x01", "x02", "x03", "x11",
                        "x12", "x13", "x14", "x08", "x09", "x10")
 indicator_factor <- c( "f2",  "f2",  "f2",  "f2",  "f1",  "f1",  "f1",  "f4",
                        "f4",  "f4",  "f4",  "f3",  "f3",  "f3")
-p2 <- set_cfa_layout(p, indicator_order,
-                          indicator_factor,
-                          fcov_curve = 1.5,
-                          loading_position = .8)
-plot(p2)
-p2 <- set_cfa_layout(p, indicator_order,
-                          indicator_factor,
-                          fcov_curve = 1.5,
-                          loading_position = .8,
-                          point_to = "left")
-plot(p2)
-p2 <- set_cfa_layout(p, indicator_order,
-                          indicator_factor,
-                          fcov_curve = 1.5,
-                          loading_position = .8,
-                          point_to = "up")
-plot(p2)
 p2 <- set_cfa_layout(p, indicator_order,
                           indicator_factor,
                           fcov_curve = 1.5,
@@ -116,7 +98,7 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
            style = "ram",
            nCharNodes = 0, nCharEdges = 0,
            layout = m,
-           residuals = FALSE)
+           residuals = TRUE)
 my_position_list <- c("x4 ~ x1" = .75)
 my_curve_list <- c("x2 ~ x1" = -2)
 my_rotate_resid_list <- c(x1 = 0, x2 = 180, x3 = 140, x4 = 140)
@@ -150,7 +132,13 @@ duplicated_edges <- function(x) {
       }
     y
   }
-
+#' @title Remove Residuals
+#' @noRd
+remove_residuals <- function(x) {
+    i <- (x$from != x$to)
+    x <- x[i, , drop = FALSE]
+    return(x)
+  }
 #' @title Convert Bidirectional Edges to To-From Edges
 #' @noRd
 bi_to_from <- function(x) {
@@ -181,15 +169,20 @@ to_from_smooth <- function(x, other = FALSE) {
   }
 #' @title Set Non-Straight Edges to Smooth Edges
 #' @noRd
-curve_smooth <- function(x) {
+curve_smooth <- function(x,
+                         smooth_type_all = "curved") {
     i <- x$curve != 0 | x$smooth
     p <- nrow(x)
     smooth_enabled <- rep(FALSE, p)
     smooth_enabled[i] <- TRUE
     smooth_type <- rep(NA, p)
-    smooth_type[i] <- ifelse(x$curve[i] < 0,
-                             "curvedCCW",
-                             "curvedCW")
+    if (smooth_type_all == "curved") {
+        smooth_type[i] <- ifelse(x$curve[i] < 0,
+                                "curvedCCW",
+                                "curvedCW")
+      } else {
+        smooth_type[i] <- smooth_type_all
+      }
     mapply(function(xx, yy) {list(enabled = xx,
                                   type = yy)},
            xx = smooth_enabled,
@@ -289,7 +282,9 @@ curve_to_length <- function(x,
 #' @title Create visNetwork Edges From a 'qgraph' Object
 #' @export
 df_edges_from_qgraph <- function(p,
-                                 curve_strength = 2) {
+                                 curve_strength = 2,
+                                 remove_residuals = TRUE,
+                                 smooth_type_all = "curved") {
     df_edges <- data.frame(p$Edgelist)
     df_edges$label <- p$graphAttributes$Edges$labels
     df_edges$curve <- p$graphAttributes$Edges$curve
@@ -297,12 +292,16 @@ df_edges_from_qgraph <- function(p,
     df_edges <- bi_to_from(df_edges)
     df_edges <- to_from_smooth(df_edges, other = TRUE)
     df_edges <- bi_physics(df_edges, other = TRUE)
-    df_edges$smooth <- curve_smooth(df_edges)
+    df_edges$smooth <- curve_smooth(df_edges,
+                                    smooth_type_all = smooth_type_all)
     df_edges <- curve_physics(df_edges)
     df_edges$length_org <- curve_to_length(p,
                                            curve_strength = curve_strength)
     df_edges <- df_edges[duplicated_edges(df_edges), ,
                          drop = FALSE]
+    if (remove_residuals) {
+        df_edges <- remove_residuals(df_edges)
+      }
     df_edges
   }
 
@@ -334,13 +333,17 @@ df_nodes_from_qgraph <- function(p,
 visNetwork_from_qgraph <- function(p,
                                    font_base_size = 14,
                                    curve_strength = 1.25,
+                                   smooth_type_all = "curved",
                                    margin = 7.5,
                                    post_rate = 250,
+                                   remove_residuals = TRUE,
                                    physics_args = list(),
                                    options_args = list(),
                                    ...) {
     df_edges <- df_edges_from_qgraph(p,
-                                     curve_strength = curve_strength)
+                                     curve_strength = curve_strength,
+                                     remove_residuals = remove_residuals,
+                                     smooth_type_all = smooth_type_all)
     df_nodes <- df_nodes_from_qgraph(p,
                                      margin = margin,
                                      font_base_size = font_base_size)
@@ -360,7 +363,9 @@ visNetwork_from_qgraph <- function(p,
               list(manipulation =
                   list(enabled = TRUE,
                        editEdgeCols = c("length",
-                                        "label"))),
+                                        "label"),
+                       editNodeCols = c("label",
+                                        "margin"))),
               options_args)
     options_args <- utils::modifyList(options_args,
                                       list(graph = out))
@@ -368,8 +373,13 @@ visNetwork_from_qgraph <- function(p,
     return(out)
   }
 
-v_sem <- visNetwork_from_qgraph(p_sem)
-v_sem
+(v_sem <- visNetwork_from_qgraph(p_sem))
+(v_sem <- visNetwork_from_qgraph(p_sem,
+                                 smooth_type_all = "dynamic"))
+visNetwork_from_qgraph(p_sem, width = 500, height = 500)
+v_sem |> visConfigure(showButton = FALSE,
+                      filter = "manipulation")
+visSave(v_sem, file = "v_sem.html")
 
 tmp <- list(enabled = TRUE,
            editEdge = htmlwidgets::JS("function(data, callback) {
@@ -394,7 +404,3 @@ v_pa |> visEdges(value = 1,
                                 label = list(min = 25))) |>
         visNodes(margin = 15)
 
-
-v2 <- visNetwork_from_qgraph(p2,
-        physics_args = list(stabilization = list(onlyDynamicEdges = TRUE)))
-v2
