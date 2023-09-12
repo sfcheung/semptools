@@ -14,6 +14,8 @@ template:
     base_font: {google: "Cabin"}
     heading_font: {google: "Cabin"}
     code_font: {google: "Cousine"}
+  includes:
+    in_header: <meta name="google-site-verification" content="0VLBmFnW_UJFI-7gXnORPBsWxqZwmzuGpK-TeVRLBjQ" />
 
 navbar:
   bg: primary
