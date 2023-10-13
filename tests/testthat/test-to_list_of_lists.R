@@ -14,14 +14,14 @@ identical(y_out, y_out_test)
 
 test_that("Generated the expected list of lists: 3 elements", {
   expect_identical(
-    x_out, 
+    x_out,
     x_out_test
   )
 })
 
 test_that("Generated the expected list of lists: 2 elements", {
   expect_identical(
-    y_out, 
+    y_out,
     y_out_test
   )
 })
@@ -43,10 +43,9 @@ m <- matrix(c("x1",   NA,  NA,   NA,
 p_pa <- semPaths(fit_pa, whatLabels = "est",
            sizeMan = 10,
            edge.label.cex = 1.15,
-           style = "ram",
            nCharNodes = 0, nCharEdges = 0,
            layout = m, DoNotPlot = TRUE)
-plot(p_pa)
+# plot(p_pa)
 my_rotate_resid_list <- list(list(node = "x3", rotate =  45),
                              list(node = "x4", rotate = -45),
                              list(node = "x2", rotate = -90))
@@ -99,7 +98,6 @@ m <- matrix(c("x1",   NA,  NA,   NA,
 p_pa <- semPaths(fit_pa, whatLabels = "est",
            sizeMan = 10,
            edge.label.cex = 1.15,
-           style = "ram",
            nCharNodes = 0, nCharEdges = 0,
            layout = m, DoNotPlot = TRUE)
 
@@ -153,7 +151,6 @@ m <- matrix(c("x1",   NA,  NA,   NA,
 p_pa <- semPaths(fit_pa, whatLabels = "est",
            sizeMan = 10,
            edge.label.cex = 1.15,
-           style = "ram",
            nCharNodes = 0, nCharEdges = 0,
            layout = m, DoNotPlot = TRUE)
 
@@ -209,7 +206,6 @@ p <- semPaths(fit, whatLabels="est",
         sizeMan = 5,
         node.width = 1,
         edge.label.cex = .75,
-        style = "ram",
         mar = c(5, 5, 5, 5), DoNotPlot = TRUE)
 indicator_order  <- c("x04", "x05", "x06", "x07",
                       "x01", "x02", "x03",
@@ -251,7 +247,7 @@ p4 <- set_sem_layout(p,
                      indicator_factor = indicator_factor,
                      factor_layout = factor_layout,
                      factor_point_to = factor_point_to,
-                     indicator_push = 
+                     indicator_push =
                       to_list_of_lists(indicator_push_vector,
                                        name1 = "node",
                                        name2 = "push"))
@@ -288,7 +284,6 @@ p <- semPaths(fit, whatLabels="est",
         sizeMan = 5,
         node.width = 1,
         edge.label.cex = .75,
-        style = "ram",
         mar = c(5, 5, 5, 5), DoNotPlot = TRUE)
 indicator_order  <- c("x04", "x05", "x06", "x07",
                       "x01", "x02", "x03",
