@@ -1,8 +1,12 @@
-# semptools 0.2.9.13
+# semptools 0.2.9.14
 
 - Added an R CMD check for noSuggests. (0.2.9.12)
 - Fixed `set_cfa_layout()` to work for
   LISREL-style graphs. (0.2.9.13)
+- Fixed `set_cfa_layout()` to work for
+  a model without factor covariances
+  (e.g., `exoCov = FALSE` when calling
+  `semPlot::semPaths()`). (0.2.9.14)
 
 # semptools 0.2.9.11
 
