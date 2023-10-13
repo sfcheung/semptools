@@ -23,6 +23,10 @@ edge_index <- function(semPaths_plot, from, to) {
         # Check the names of Nodes_names
         out <- which(semPaths_plot$Edgelist$from == Nodes_id2[from] &
                      semPaths_plot$Edgelist$to == Nodes_id2[to])
-        return(out)
+        if (length(out) > 0) {
+            return(out)
+          } else {
+            return(NA)
+          }
       }
   }
