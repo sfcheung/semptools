@@ -227,12 +227,18 @@ set_cfa_layout <- function(semPaths_plot,
                                           to = fcov$rhs,
                                          MoreArgs =
                                            list(semPaths_plot = semPaths_plot))
-      curve_new[curve_index] <- -1*fcov$curve
+      curve_index <- curve_index[!is.na(curve_index)]
+      if (length(curve_index) > 0) {
+          curve_new[curve_index] <- -1*fcov$curve
+        }
       curve_index <- mapply(edge_index, from = fcov$rhs,
                                           to = fcov$lhs,
                                          MoreArgs =
                                            list(semPaths_plot = semPaths_plot))
-      curve_new[curve_index] <- fcov$curve
+      curve_index <- curve_index[!is.na(curve_index)]
+      if (length(curve_index) > 0) {
+          curve_new[curve_index] <- fcov$curve
+        }
       semPaths_plot$graphAttributes$Edges$curve <- curve_new
       }
 
