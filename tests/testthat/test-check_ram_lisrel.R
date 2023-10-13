@@ -1,5 +1,3 @@
-skip("WIP")
-
 library(lavaan)
 library(semPlot)
 
@@ -23,7 +21,9 @@ my_rotate_resid_list <- c(x3 =  45,
                           x4 = -45,
                           x2 = -90)
 p_pa3 <- rotate_resid(p_pa, my_rotate_resid_list)
-plot(p_pa3)
+test_that("LISREL", {
+    expect_no_warning(plot(p_pa3))
+  })
 
 # CFA
 
@@ -51,7 +51,10 @@ indicator_factor <- c( "f2",  "f2",  "f2",  "f2",
 p2 <- set_cfa_layout(p,
                      indicator_order,
                      indicator_factor)
-plot(p2)
+test_that("LISREL", {
+    expect_no_warning(plot(p2))
+  })
+
 
 # SEM
 
@@ -91,4 +94,6 @@ p2 <- set_sem_layout(p,
                      indicator_factor = indicator_factor,
                      factor_layout = factor_layout,
                      factor_point_to = factor_point_to)
-plot(p2)
+test_that("LISREL", {
+    expect_no_warning(plot(p_pa3))
+  })
