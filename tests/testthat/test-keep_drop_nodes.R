@@ -12,7 +12,7 @@ mod_pa <-
   '
 fit <- lavaan::sem(mod_pa, pa_example)
 
-semPaths(fit)
+# semPaths(fit)
 
 fit_no1 <- drop_nodes(semPlot::semPlotModel(fit), c("x1"))
 out_no1 <- semPaths(fit_no1, "est")
@@ -58,7 +58,7 @@ mod <-
   '
 fit <- lavaan::sem(mod, sem_example)
 
-semPaths(fit)
+# semPaths(fit)
 
 fit_no_x01 <- drop_nodes(semPlot::semPlotModel(fit), c("x01"))
 out_no_x01 <- semPaths(fit_no_x01, "est")
@@ -119,7 +119,7 @@ mod_pa <-
   '
 fit <- lavaan::sem(mod_pa, pa_example)
 
-semPaths(fit)
+# semPaths(fit)
 
 fit_no1 <- keep_nodes(semPlot::semPlotModel(fit), c("x2", "x4", "x3"))
 out_no1 <- semPaths(fit_no1, "est")
@@ -172,7 +172,7 @@ mod <-
   '
 fit <- lavaan::sem(mod, sem_example)
 
-semPaths(fit)
+# semPaths(fit)
 
 full_labels <- sort(semPaths(fit)$graphAttributes$Nodes$labels)
 

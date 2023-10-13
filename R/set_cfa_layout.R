@@ -127,9 +127,9 @@ set_cfa_layout <- function(semPaths_plot,
       Nodes_names2 <- semPaths_plot$graphAttributes$Nodes$names
     }
 
-    if (!all(Nodes_names[semPaths_plot$Edgelist$to[!semPaths_plot$Edgelist$bidirectional]] 
+    if (!all(Nodes_names[semPaths_plot$Edgelist$to[!semPaths_plot$Edgelist$bidirectional]]
              %in% indicator_order)) {
-        if (!all(Nodes_names2[semPaths_plot$Edgelist$to[!semPaths_plot$Edgelist$bidirectional]] 
+        if (!all(Nodes_names2[semPaths_plot$Edgelist$to[!semPaths_plot$Edgelist$bidirectional]]
               %in% indicator_order)) {
             warning("One or more indicators in the graph are not in indicator_order. Unexpected results may occur.")
           } else {
@@ -139,9 +139,12 @@ set_cfa_layout <- function(semPaths_plot,
             indicator_order <- tmp
           }
       }
-    if (!all(Nodes_names[semPaths_plot$Edgelist$from[!semPaths_plot$Edgelist$bidirectional]]
+    # Exclude residuals in LISREL style plots
+    tmp <- !semPaths_plot$Edgelist$bidirectional &
+            (semPaths_plot$Edgelist$from != semPaths_plot$Edgelist$to)
+    if (!all(Nodes_names[semPaths_plot$Edgelist$from[tmp]]
              %in% indicator_factor)) {
-        if (!all(Nodes_names2[semPaths_plot$Edgelist$from[!semPaths_plot$Edgelist$bidirectional]]
+        if (!all(Nodes_names2[semPaths_plot$Edgelist$from[tmp]]
              %in% indicator_factor)) {
             warning("One or more factors in the graph are not in indicator_factor. Unexpected results may occur.")
           } else {

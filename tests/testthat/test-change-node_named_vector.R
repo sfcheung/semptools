@@ -1,7 +1,7 @@
 library(lavaan)
 library(semPlot)
 
-mod_pa <- 
+mod_pa <-
   'x1 ~~ x2
    x3 ~  x1 + x2
    x4 ~  x1 + x3
@@ -22,9 +22,9 @@ p_pa2_label <- change_node_label(p_pa, my_label_list2)
 my_label_list3 <- c(x2 = "predictor2",
                     x3 = expression(gamma))
 p_pa3_label <- change_node_label(p_pa, my_label_list3)
-plot(p_pa)
-plot(p_pa2_label)
-plot(p_pa3_label)
+# plot(p_pa)
+# plot(p_pa2_label)
+# plot(p_pa3_label)
 
 test_that("Labels changed", {
   expect_equal(p_pa2_label$graphAttributes$Nodes$labels$x1,

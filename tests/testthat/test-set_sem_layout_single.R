@@ -13,7 +13,6 @@ p <- semPaths(fit_sem, whatLabels="est",
         nCharNodes = 0, nCharEdges = 0,
         edge.width = 0.8, node.width = 0.7,
         edge.label.cex = 0.6,
-        style = "ram", 
         mar = c(10,10,10,10),
         DoNotPlot = TRUE)
 indicator_order  <- c("x04", "x05", "x01", "x02", "x03",
@@ -36,7 +35,7 @@ p2 <- set_sem_layout(p,
                     indicator_spread = indicator_spread,
                     loading_position = loading_position)
 e_layout <- structure(
-    c(-1, -1, -1, -0.166666666666667, 0, 0.166666666666667, 
+    c(-1, -1, -1, -0.166666666666667, 0, 0.166666666666667,
       -0.666666666666667, 1.16666666666667, 1.16666666666667, 1.16666666666667,
       1.16666666666667, 0, -0.666666666666667, 0, 0.666666666666667,
       0, 0.5, 1, 1.5, 1.5, 1.5, -0.5, 0.2, 0.4, 0.6, 0.8, -0.5, 0.5,
@@ -61,7 +60,7 @@ p_cha2 <- set_sem_layout(p_cha,
                     indicator_spread = indicator_spread,
                     loading_position = loading_position)
 e2_layout <- structure(
-    c(-1, -1, -1, -0.166666666666667, 0, 0.166666666666667, 
+    c(-1, -1, -1, -0.166666666666667, 0, 0.166666666666667,
       -0.666666666666667, 1.16666666666667, 1.16666666666667, 1.16666666666667,
       1.16666666666667, 0, -0.666666666666667, 0, 0.666666666666667,
       0, 0.5, 1, 1.5, 1.5, 1.5, -0.5, 0.2, 0.4, 0.6, 0.8, -0.5, 0.5,

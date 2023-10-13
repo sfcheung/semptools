@@ -1,6 +1,6 @@
 library(lavaan)
 library(semPlot)
-mod <- 
+mod <-
   'f1 =~ x01 + x02 + x03
    f2 =~ x04 + x05 + x06 + x07
    f3 =~ x08 + x09 + x10
@@ -15,16 +15,15 @@ p <- semPaths(fit_sem, whatLabels="est",
         nCharNodes = 0, nCharEdges = 0,
         edge.width = 0.8, node.width = 0.7,
         edge.label.cex = 0.6,
-        style = "ram", 
         mar = c(10,10,10,10),
         DoNotPlot = TRUE)
 p2 <- change_node_label(p, list(list(node = "f1", to = "iv1"),
                                 list(node = "f3", to = "Mediator"),
                                 list(node = "f4", to = "dv"),
                                 list(node = "x01", to = "Test Item")))
-indicator_order  <- c("x04", "x05", "x06", "x07", "Test Item", "x02", "x03", 
+indicator_order  <- c("x04", "x05", "x06", "x07", "Test Item", "x02", "x03",
                       "x11", "x12", "x13", "x14", "x08", "x09", "x10")
-indicator_factor <- c( "f2",  "f2",  "f2",  "f2",  "iv1",  "iv1",  "iv1",  
+indicator_factor <- c( "f2",  "f2",  "f2",  "f2",  "iv1",  "iv1",  "iv1",
                       "dv",  "dv",  "dv",  "dv",  "Mediator",  "Mediator",  "Mediator")
 factor_layout <- matrix(c("iv1",   NA,   NA,
                             NA, "Mediator", "dv",
@@ -40,7 +39,7 @@ loading_position <- list(list(node = "iv1", position = .5),
                          list(node = "f2", position = .8),
                          list(node = "Mediator", position = .8))
 
-p3 <- set_sem_layout(p2, 
+p3 <- set_sem_layout(p2,
                        indicator_order = indicator_order,
                        indicator_factor = indicator_factor,
                        factor_layout = factor_layout,
