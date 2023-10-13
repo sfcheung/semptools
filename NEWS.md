@@ -1,6 +1,8 @@
-# semptools 0.2.9.12
+# semptools 0.2.9.13
 
-- Add an R CMD check for noSuggests. (0.2.9.12)
+- Added an R CMD check for noSuggests. (0.2.9.12)
+- Fixed `set_cfa_layout()` to work for
+  LISREL-style graphs. (0.2.9.13)
 
 # semptools 0.2.9.11
 
