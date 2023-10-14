@@ -96,10 +96,20 @@ set_cfa_layout <- function(semPaths_plot,
                              loading_position = .5,
                              point_to = "down") {
     if (is.null(indicator_order)) {
-        stop("indicator_order not specified.")
+        indicator_order <- auto_indicator_order(semPaths_plot)
+        # stop("indicator_order not specified.")
       }
     if (is.null(indicator_factor)) {
-        stop("indicator_factor not specified.")
+        if (!is.null(names(indicator_order))) {
+            indicator_factor <- names(indicator_order)
+          } else {
+            indicator_order <- tryCatch(lavaan_indicator_order(indicator_order),
+                                         error = function(e) e)
+            if (inherits(indicator_factor, "error")) {
+                stop("indicator_factor not specified or cannot be determined.")
+              }
+            indicator_factor <- names(indicator_order)
+          }
       }
     if (is.null(semPaths_plot)) {
         stop("semPaths_plot not specified.")

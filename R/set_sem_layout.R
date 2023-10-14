@@ -202,10 +202,21 @@ set_sem_layout <- function(semPaths_plot,
                              indicator_spread = NULL,
                              loading_position = .5) {
     if (is.null(indicator_order)) {
-        stop("indicator_order not specified.")
+        indicator_order <- auto_indicator_order(semPaths_plot,
+                                                 add_isolated_manifest = TRUE)
+        # stop("indicator_order not specified.")
       }
     if (is.null(indicator_factor)) {
-        stop("indicator_factor not specified.")
+        if (!is.null(names(indicator_order))) {
+            indicator_factor <- names(indicator_order)
+          } else {
+            indicator_order <- tryCatch(lavaan_indicator_order(indicator_order),
+                                         error = function(e) e)
+            if (inherits(indicator_factor, "error")) {
+                stop("indicator_factor not specified or cannot be determined.")
+              }
+            indicator_factor <- names(indicator_order)
+          }
       }
     if (is.null(factor_layout)) {
         stop("factor_layout not specified.")
@@ -220,6 +231,12 @@ set_sem_layout <- function(semPaths_plot,
             stop("semPaths_plot is not a qgraph object.")
           }
       }
+
+    tmp <- add_manifest(factor_layout = factor_layout,
+                        indicator_order = indicator_order,
+                        indicator_factor = indicator_factor)
+    indicator_order <- tmp$indicator_order
+    indicator_factor <- tmp$indicator_factor
 
     if (!is.matrix(factor_point_to) && is.vector(factor_point_to)) {
         factor_point_to <- auto_factor_point_to(factor_layout,
