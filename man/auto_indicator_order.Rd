@@ -106,5 +106,5 @@ plot(p3)
 }
 \seealso{
 \code{\link[=set_sem_layout]{set_sem_layout()}} and
-\code{\link[=se_cfa_layout]{se_cfa_layout()}}.
+\code{\link[=set_cfa_layout]{set_cfa_layout()}}.
 }

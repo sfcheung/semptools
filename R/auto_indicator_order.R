@@ -65,7 +65,7 @@
 #' variable).
 #'
 #' @seealso [set_sem_layout()] and
-#' [se_cfa_layout()].
+#' [set_cfa_layout()].
 #'
 #' @examples
 #'
