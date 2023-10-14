@@ -46,12 +46,18 @@
 #' contain NA or the name of a latent factor. The locations of all
 #' latent factors must be explicitly specified by this matrix.
 #'
-#'@param factor_point_to A matrix of the same size as `factor_layout`.
-#' This matrix specifies where the indicators of each factor are
+#'@param factor_point_to Can be a named character vector with
+#' names being the names of factors, or a matrix of the same size as `factor_layout`.
+#' If it is a matrix,
+#' this matrix specifies where the indicators of each factor are
 #' positioned. Each cell should contain NA or one of these strings:
 #' "down", "left", "up", or "right". This is the direction that the
 #' corresponding latent factor (specified in factor_layout) points to
-#' its indicators.
+#' its indicators. If it is a named character vector, the
+#' the values must be the directions, and the names the
+#' the factors. This vector will be converted internally
+#' by [auto_factor_point_to()] to create the matrix of
+#' direction.
 #'
 #'@param indicator_push (Optional) This argument is used to adjust the
 #' positions of the indicators of selected latent factors. It can be
@@ -157,6 +163,25 @@
 #'p2 <- mark_se(p2, fit_sem, sep = "\n")
 #'plot(p2)
 #'
+#'# Use named character vector for factor_point_to
+#'directions <- c(f1 = "left",
+#'                f2 = "left",
+#'                f3 = "down",
+#'                f4 = "down")
+#'p2v2 <- set_sem_layout(p,
+#'                       indicator_order = indicator_order,
+#'                       indicator_factor = indicator_factor,
+#'                       factor_layout = factor_layout,
+#'                       factor_point_to = directions,
+#'                       indicator_push = indicator_push,
+#'                       indicator_spread = indicator_spread,
+#'                       loading_position = loading_position)
+#'p2v2 <- set_curve(p2v2, c("f2 ~ f1" = -1,
+#'                          "f4 ~ f1" = 1.5))
+#'p2v2 <- mark_sig(p2v2, fit_sem)
+#'p2v2 <- mark_se(p2v2, fit_sem, sep = "\n")
+#'plot(p2v2)
+#'
 #'#Lists of named list which are equivalent to the vectors above:
 #'#indicator_push <- list(list(node = "f3", push =   2),
 #'#                       list(node = "f4", push =   1.5))
@@ -194,6 +219,11 @@ set_sem_layout <- function(semPaths_plot,
         if (!inherits(semPaths_plot, "qgraph")) {
             stop("semPaths_plot is not a qgraph object.")
           }
+      }
+
+    if (!is.matrix(factor_point_to) && is.vector(factor_point_to)) {
+        factor_point_to <- auto_factor_point_to(factor_layout,
+                                                factor_point_to)
       }
 
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
