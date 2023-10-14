@@ -45,11 +45,16 @@ reference:
   - keep_drop_nodes
 - title: Layouts
   desc:  >
-    Functions for setting the layout
+    Main functions for setting the layout
 - contents:
   - set_cfa_layout
   - set_sem_layout
+- title: Layout Helpers
+  desc:  >
+    Helpers for setting the layout
+- contents:
   - layout_matrix
+  - auto_factor_point_to
 - title: Other Helpers
 - contents:
   - is_dv_residvar
