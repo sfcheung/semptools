@@ -73,15 +73,67 @@ auto_indicator_layout <- function(semPaths_plot,
     semPaths_plot
   }
 
+
+#' @noRd
+
+node_plot <- function(semPaths_plot) {
+    nodes <- semPaths_plot$graphAttributes$Nodes
+    nodes$names
+  }
+
+#' @noRd
+
+man_plot <- function(semPaths_plot) {
+    nodes <- semPaths_plot$graphAttributes$Nodes
+    nodes$names[nodes$shape == "square"]
+  }
+
+#' @noRd
+
+lat_plot <- function(semPaths_plot) {
+    nodes <- semPaths_plot$graphAttributes$Nodes
+    nodes$names[nodes$shape == "circle"]
+  }
+
+#' @noRd
+
+indicator_plot <- function(semPaths_plot) {
+    nodes <- semPaths_plot$graphAttributes$Nodes
+    man_id <- which(nodes$shape == "square")
+    lat_id <- which(nodes$shape == "circle")
+    edges <- as.data.frame(semPaths_plot$Edgelist)
+    edges2 <- edges[edges$directed & !edges$bidirectional, ]
+    id <- (edges2$from %in% lat_id) & (edges2$to %in% man_id)
+    nodes$names[edges2$to[id]]
+  }
+
+#' @noRd
+
+loading_plot <- function(semPaths_plot) {
+    nodes <- semPaths_plot$graphAttributes$Nodes
+    man_id <- which(nodes$shape == "square")
+    lat_id <- which(nodes$shape == "circle")
+    edges <- as.data.frame(semPaths_plot$Edgelist)
+    edges2 <- edges[edges$directed & !edges$bidirectional, ]
+    id <- (edges2$from %in% lat_id) & (edges2$to %in% man_id)
+    edges3 <- edges2[id, ]
+    edges3$lhs <- nodes$names[edges3$to]
+    edges3$rhs <- nodes$names[edges3$from]
+    edges4 <- edges3[!duplicated(edges3$lhs), ]
+    out <- edges4$lhs
+    names(out) <- edges4$rhs
+    out
+  }
+
 library(lavaan)
 library(semPlot)
 
 # CFA
 
 mod <-
-  'f1 =~ x01 + x02 + x03
+  'f1 =~ x01 + x02 + x03 + x06
    f2 =~ x04 + x05 + x06 + x07
-   f3 =~ x08 + x09 + x10
+   f3 =~ x08 + x09 + x10 + x03
    f4 =~ x11 + x12 + x13 + x14
   '
 fit <- lavaan::cfa(mod, cfa_example)
