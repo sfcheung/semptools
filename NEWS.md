@@ -1,4 +1,4 @@
-# semptools 0.2.9.15
+# semptools 0.2.9.16
 
 - Added an R CMD check for noSuggests. (0.2.9.12)
 - Fixed `set_cfa_layout()` to work for
@@ -12,6 +12,7 @@
   Revised `set_sem_layout()` to allow
   users to use a named vector for
   the `factor_point_to` argument. (0.2.9.15)
+- Fixed a bug in the setting for `pkgdown`. (0.2.9.16)
 
 # semptools 0.2.9.11
 
