@@ -74,8 +74,18 @@ test_that("auto_point_to", {
   })
 
 
-# p2 <- set_sem_layout(p,
-#                      indicator_order = indicator_order,
-#                      indicator_factor = indicator_factor,
-#                      factor_layout = factor_layout,
-#                      factor_point_to = factor_point_to)
+p2 <- set_sem_layout(p,
+                     indicator_order = indicator_order,
+                     indicator_factor = indicator_factor,
+                     factor_layout = factor_layout,
+                     factor_point_to = factor_point_to)
+p2_v2 <- set_sem_layout(p,
+                        indicator_order = indicator_order,
+                        indicator_factor = indicator_factor,
+                        factor_layout = factor_layout,
+                        factor_point_to = fd)
+
+test_that("auto_factor_point_to with set_sem_layout", {
+    expect_equal(p2$layout,
+                 p2_v2$layout)
+  })
