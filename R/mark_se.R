@@ -110,7 +110,7 @@ mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L,
                                        zstat = FALSE, pvalue = FALSE)
   }
   if (inherits(semPaths_plot, "list")) {
-    if (length(semPaths_plot) != dplyr::n_distinct(ests$group)) {
+    if (length(semPaths_plot) != length(unique(ests$group))) {
       rlang::abort(paste("length of qgraph list does not match",
                          "number of groups in model fit object."))
     }
@@ -118,7 +118,7 @@ mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L,
     mapply(mark_se, semPaths_plot, ests = ests_list, SIMPLIFY = FALSE)
   } else {
     if (!missing(object) && lavaan::lavInspect(object, "ngroups") > 1) {
-      rlang::abort(paste("length of qgraph list does not match", 
+      rlang::abort(paste("length of qgraph list does not match",
                          "number of groups in model fit object."))
     }
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
@@ -136,18 +136,52 @@ mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L,
       from_names = Nodes_names[semPaths_plot$Edgelist$from],
       to_names   = Nodes_names[semPaths_plot$Edgelist$to],
       semPaths_plot$graphAttributes$Edges, stringsAsFactors = FALSE)
-    edge_labels <- dplyr::select(graphAttributes_Edges,
-                                 .data$from_names, .data$to_names, labels)
-    ests_ses <- dplyr::select(ests, .data$lhs, .data$rhs, .data$se)
-    ests_ses_rev <- dplyr::rename(ests_ses, se_rev = .data$se)
-    edge_ses <- dplyr::left_join(edge_labels, ests_ses,
-                                 by = c("from_names" = "rhs",
-                                        "to_names" = "lhs"))
-    edge_ses <- dplyr::left_join(edge_ses, ests_ses_rev,
-                                 by = c("from_names" = "lhs",
-                                        "to_names" = "rhs"))
-    edge_ses <- dplyr::mutate(edge_ses,
-                              se = pmax(.data$se, .data$se_rev, na.rm = TRUE))
+    graphAttributes_Edges$id <- as.numeric(rownames(graphAttributes_Edges))
+    edge_labels <- graphAttributes_Edges[, c("id",
+                                             "from_names",
+                                             "to_names",
+                                             "labels")]
+    ests_ses <- ests[, c("lhs", "rhs", "se")]
+    ests_ses_rev <- ests_ses
+    colnames(ests_ses_rev) <- gsub("\\<se\\>",
+                                   "se_rev",
+                                   colnames(ests_ses_rev))
+    ests_ses_tmp <- ests_ses
+    colnames(ests_ses_tmp) <- gsub("\\<rhs\\>",
+                                   "from_names",
+                                   colnames(ests_ses_tmp))
+    colnames(ests_ses_tmp) <- gsub("\\<lhs\\>",
+                                   "to_names",
+                                   colnames(ests_ses_tmp))
+    ests_ses_rev_tmp <- ests_ses_rev
+    colnames(ests_ses_rev_tmp) <- gsub("\\<rhs\\>",
+                                   "to_names",
+                                   colnames(ests_ses_rev_tmp))
+    colnames(ests_ses_rev_tmp) <- gsub("\\<lhs\\>",
+                                   "from_names",
+                                   colnames(ests_ses_rev_tmp))
+    edge_ses <- merge(x = edge_labels,
+                      y = ests_ses_tmp,
+                      by = c("from_names",
+                             "to_names"),
+                      all.x = TRUE,
+                      sort = FALSE)
+    edge_ses <- merge(x = edge_ses,
+                      y = ests_ses_rev_tmp,
+                      by = c("from_names",
+                             "to_names"),
+                      all.x = TRUE,
+                      sort = FALSE)
+    all_na <- apply(edge_ses[, c("se", "se_rev")],
+                    MARGIN = 1,
+                    FUN = function(x) all(is.na(x)))
+    edge_ses$se <- suppressWarnings(
+                      apply(edge_ses[, c("se", "se_rev")],
+                            MARGIN = 1,
+                            FUN = max,
+                            na.rm = TRUE))
+    edge_ses$se[all_na] <- NA
+    edge_ses <- edge_ses[order(edge_ses$id), ]
     labels_old <- semPaths_plot$graphAttributes$Edges$labels
     labels_new <- paste0(labels_old, sep,
                          "(", formatC(edge_ses$se, digits, format = "f"), ")")

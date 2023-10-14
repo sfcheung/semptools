@@ -106,21 +106,55 @@ mark_sig <- function(semPaths_plot, object,
       from_names = Nodes_names[semPaths_plot$Edgelist$from],
       to_names   = Nodes_names[semPaths_plot$Edgelist$to],
       semPaths_plot$graphAttributes$Edges, stringsAsFactors = FALSE)
-    edge_labels <- dplyr::select(graphAttributes_Edges,
-                      .data$from_names, .data$to_names, labels)
-    ests_pvalues <- dplyr::select(ests, .data$lhs, .data$op, .data$rhs, .data$pvalue)
-    ests_pvalues <- dplyr::rename(ests_pvalues,
-                                  from_names = .data$lhs, to_names = .data$rhs)
-    ests_pvalues_rev <- dplyr::select(ests, .data$lhs, .data$rhs, .data$pvalue)
-    ests_pvalues_rev <- dplyr::rename(ests_pvalues_rev,
-                                      from_names = .data$rhs, to_names = .data$lhs,
-                                      pvalue_rev = .data$pvalue)
-    edge_pvalues <- dplyr::left_join(edge_labels, ests_pvalues,
-                        by=c("from_names", "to_names"))
-    edge_pvalues <- dplyr::left_join(edge_pvalues, ests_pvalues_rev,
-                        by=c("from_names", "to_names"))
-    edge_pvalues <- dplyr::mutate(edge_pvalues,
-                        pvalue = pmax(.data$pvalue, .data$pvalue_rev, na.rm = TRUE))
+    graphAttributes_Edges$id <- as.numeric(rownames(graphAttributes_Edges))
+    edge_labels <- graphAttributes_Edges[, c("id",
+                                             "from_names",
+                                             "to_names",
+                                             "labels")]
+    ests_pvalues <- ests[, c("lhs",
+                             "op",
+                             "rhs",
+                             "pvalue")]
+    colnames(ests_pvalues) <- gsub("\\<lhs\\>",
+                                   "from_names",
+                                   colnames(ests_pvalues))
+    colnames(ests_pvalues) <- gsub("\\<rhs\\>",
+                                   "to_names",
+                                   colnames(ests_pvalues))
+    ests_pvalues_rev <- ests[, c("lhs",
+                                 "rhs",
+                                 "pvalue")]
+    colnames(ests_pvalues_rev) <- gsub("\\<pvalue\\>",
+                                   "pvalue_rev",
+                                   colnames(ests_pvalues_rev))
+    colnames(ests_pvalues_rev) <- gsub("\\<rhs\\>",
+                                   "from_names",
+                                   colnames(ests_pvalues_rev))
+    colnames(ests_pvalues_rev) <- gsub("\\<lhs\\>",
+                                   "to_names",
+                                   colnames(ests_pvalues_rev))
+    edge_pvalues <- merge(x = edge_labels,
+                          y = ests_pvalues,
+                          by = c("from_names",
+                                 "to_names"),
+                          all.x = TRUE,
+                          sort = FALSE)
+    edge_pvalues <- merge(x = edge_pvalues,
+                          y = ests_pvalues_rev,
+                          by = c("from_names",
+                                 "to_names"),
+                          all.x = TRUE,
+                          sort = FALSE)
+    all_na <- apply(edge_pvalues[, c("pvalue", "pvalue_rev")],
+                    MARGIN = 1,
+                    FUN = function(x) all(is.na(x)))
+    edge_pvalues$pvalue <- suppressWarnings(
+                              apply(edge_pvalues[, c("pvalue", "pvalue_rev")],
+                                    MARGIN = 1,
+                                    FUN = max,
+                                    na.rm = TRUE))
+    edge_pvalues$pvalue[all_na] <- NA
+    edge_pvalues <- edge_pvalues[order(edge_pvalues$id), ]
     sig_symbols <- sapply(edge_pvalues$pvalue, function(x) {
                       ind <- which(x < alphas_sorted)[1]
                       ifelse(is.na(ind), "", names(ind[1]))
