@@ -54,11 +54,14 @@ reference:
     Helpers for setting the layout
 - contents:
   - layout_matrix
+  - auto_indicator_order
+  - lavaan_indicator_order
   - auto_factor_point_to
 - title: Other Helpers
 - contents:
   - is_dv_residvar
   - to_list_of_lists
+  - add_object
 
 - title: Datasets
   desc: Datasets used in examples and vignettes.
