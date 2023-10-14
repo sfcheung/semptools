@@ -1,4 +1,4 @@
-# semptools 0.2.9.14
+# semptools 0.2.9.15
 
 - Added an R CMD check for noSuggests. (0.2.9.12)
 - Fixed `set_cfa_layout()` to work for
@@ -7,6 +7,11 @@
   a model without factor covariances
   (e.g., `exoCov = FALSE` when calling
   `semPlot::semPaths()`). (0.2.9.14)
+- Added `auto_factor_point_to()` for
+  creating the `factor_point_to` matrix.
+  Revised `set_sem_layout()` to allow
+  users to use a named vector for
+  the `factor_point_to` argument. (0.2.9.15)
 
 # semptools 0.2.9.11
 
