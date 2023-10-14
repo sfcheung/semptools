@@ -1,5 +1,3 @@
-skip("WIP")
-
 library(lavaan)
 library(semPlot)
 
@@ -18,11 +16,20 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
                  layout = m,
                  DoNotPlot = TRUE)
 
-p_pa_se_chk <- c("0.01 (0.10)", "0.54 (0.10)", "0.38 (0.09)", "0.11 (0.13)",
-"0.63 (0.11)", "0.87 (0.12)", "1.19 (0.17)", "0.93 (0.13)", "1.02 (0.14)",
-"0.01 (0.10)")
-p_pa_sig_chk <- c("0.01", "0.54***", "0.38***", "0.11", "0.63***", "0.87***",
-"1.19***", "0.93***", "1.02***", "0.01")
+est <- parameterEstimates(fit_pa)
+id <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 1)
+p_pa_se_chk <- paste0(formatC(est$est[id], digits = 2, format = "f"),
+                      " (",
+                      formatC(est$se[id], digits = 2, format = "f"),
+                      ")")
+alphas <- c("*" = .05, "**" = .01, "***" = .001)
+alphas_sorted <- sort(alphas, decreasing = FALSE)
+tmp <- sapply(est$pvalue[id], function(x) {
+                                  ind <- which(x < alphas_sorted)[1]
+                                  ifelse(is.na(ind), "", names(ind[1]))
+                                })
+p_pa_sig_chk <- paste0(formatC(est$est[id], digits = 2, format = "f"),
+                       tmp)
 
 test_that(
   "mark_se and mark_sig", {
