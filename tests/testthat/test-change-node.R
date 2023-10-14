@@ -14,7 +14,8 @@ m <- matrix(c("x1",   NA,  NA,   NA,
 p_pa <- semPaths(fit_pa, whatLabels = "est",
                  sizeMan = 10,
                  edge.label.cex = 1.15,
-                 layout = m)
+                 layout = m,
+                 DoNotPlot = TRUE)
 labs_pa <- p_pa$graphAttributes$Nodes$labels
 my_label_list <- list(list(node = "x1", to = "predictor"),
                       list(node = "x4", to = expression(gamma)))
@@ -144,9 +145,14 @@ test_that(
     #   ),
     #   "Mean relative difference: 1.666667"
     # )
+    # Changed due to DoNotPlot
+    # expect_equal(
+    #     p_pa2_rotate$graphAttributes$Nodes$loopRotation / pi,
+    #     c(0.25, -0.25, 1.50, -0.50)
+    #   )
     expect_equal(
         p_pa2_rotate$graphAttributes$Nodes$loopRotation / pi,
-        c(0.25, -0.25, 1.50, -0.50)
+        c(0.25, -0.25, 0, -0.50)
       )
     expect_identical(p_pa_rotate$graphAttributes$Nodes$loopRotation,
                      p_pa2_rotate$graphAttributes$Nodes$loopRotation)

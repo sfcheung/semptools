@@ -1,7 +1,7 @@
 library(lavaan)
 library(semPlot)
 
-mod_pa <- 
+mod_pa <-
   'x1 ~~ x2
    x3 ~  x1 + x2
    x4 ~  x1 + x3
@@ -14,17 +14,18 @@ m <- matrix(c("Var1",   NA,  NA,   NA,
 p_pa <- semPaths(fit_pa, whatLabels = "est",
                  sizeMan = 10,
                  edge.label.cex = 1.15,
-                 style = "ram", 
-                 nodeLabels = c("Var3", "Var4", "Var1", "Var2"), 
-                 layout = m)
+                 style = "ram",
+                 nodeLabels = c("Var3", "Var4", "Var1", "Var2"),
+                 layout = m,
+                 DoNotPlot = TRUE)
 
 test_that("use of `nodeLabels` results in an error", {
   expect_error(
-    mark_se(p_pa, fit_pa), 
+    mark_se(p_pa, fit_pa),
     "The node names in"
   )
   expect_error(
-    mark_sig(p_pa, fit_pa), 
+    mark_sig(p_pa, fit_pa),
     "The node names in"
   )
 })
