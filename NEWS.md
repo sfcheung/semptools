@@ -1,4 +1,4 @@
-# semptools 0.2.9.17
+# semptools 0.2.9.18
 
 - Added an R CMD check for noSuggests. (0.2.9.12)
 - Fixed `set_cfa_layout()` to work for
@@ -16,6 +16,16 @@
 - Add `DoNotPlot = TRUE` in all tests to
   prevent `semPlot::semPaths()` from
   plotting the graphs in the tests. (0.2.9.17)
+- Added `auto_indicator_order()` and
+  `lavaan_indicator_order()` for setting
+  indicator order in `set_sem_layout()`
+  and `set_cfa_layout()`. (0.2.9.18)
+- Revised `set_cfa_layout()` and
+  `set_sem_layout()` to set
+  `indicator_order` and
+  `indicator_factor` automatically if
+  not supplied. (0.2.9.18)
+- Added the helper `add_object()`. (0.2.9.18)
 
 
 # semptools 0.2.9.11
