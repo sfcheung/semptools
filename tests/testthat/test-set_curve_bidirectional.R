@@ -15,7 +15,8 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
            edge.label.cex = 1.15,
            nCharNodes = 0,
            nCharEdges = 0,
-           layout = m)
+           layout = m,
+           DoNotPlot = TRUE)
 
 subset(parameterEstimates(fit_pa), op == "~~")
 

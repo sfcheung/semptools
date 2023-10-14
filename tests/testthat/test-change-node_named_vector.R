@@ -14,7 +14,8 @@ m <- matrix(c("x1",   NA,  NA,   NA,
 p_pa <- semPaths(fit_pa, whatLabels = "est",
                  sizeMan = 10,
                  edge.label.cex = 1.15,
-                 layout = m)
+                 layout = m,
+                 DoNotPlot = TRUE)
 labs_pa <- p_pa$graphAttributes$Nodes$labels
 my_label_list2 <- c(x1 = "predictor",
                    x4 = "outcome")
