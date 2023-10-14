@@ -1,4 +1,4 @@
-# semptools 0.2.9.18
+# semptools 0.2.9.19
 
 - Added an R CMD check for noSuggests. (0.2.9.12)
 - Fixed `set_cfa_layout()` to work for
@@ -26,6 +26,8 @@
   `indicator_factor` automatically if
   not supplied. (0.2.9.18)
 - Added the helper `add_object()`. (0.2.9.18)
+- Removed `dplyr` functions from the code
+  and removed `dplyr` from `Imports`. (0.2.9.19)`
 
 
 # semptools 0.2.9.11
