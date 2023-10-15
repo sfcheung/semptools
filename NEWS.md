@@ -1,4 +1,4 @@
-# semptools 0.2.9.21
+# semptools 0.2.9.23
 
 - Added an R CMD check for noSuggests. (0.2.9.12)
 - Fixed `set_cfa_layout()` to work for
@@ -35,6 +35,9 @@
 - Fixed a bug in `auto_factor_point_to()`:
   Cells with no direction specified is now
   set to `NA`. (0.2.9.21)
+- Added two internal helpers to check
+  node labels (labels changed?
+  labels non-string?). (0.2.9.22)
 
 
 # semptools 0.2.9.11
