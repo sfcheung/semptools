@@ -1,21 +1,12 @@
-# semptools 0.2.9.28
+# semptools 0.2.10
 
-- Added an R CMD check for noSuggests. (0.2.9.12)
-- Fixed `set_cfa_layout()` to work for
-  LISREL-style graphs. (0.2.9.13)
-- Fixed `set_cfa_layout()` to work for
-  a model without factor covariances
-  (e.g., `exoCov = FALSE` when calling
-  `semPlot::semPaths()`). (0.2.9.14)
+## New Features
+
 - Added `auto_factor_point_to()` for
   creating the `factor_point_to` matrix.
   Revised `set_sem_layout()` to allow
   users to use a named vector for
   the `factor_point_to` argument. (0.2.9.15)
-- Fixed a bug in the setting for `pkgdown`. (0.2.9.16)
-- Add `DoNotPlot = TRUE` in all tests to
-  prevent `semPlot::semPaths()` from
-  plotting the graphs in the tests. (0.2.9.17, 0.2.9.20)
 - Added `auto_indicator_order()` and
   `lavaan_indicator_order()` for setting
   indicator order in `set_sem_layout()`
@@ -27,6 +18,29 @@
   `indicator_factor` automatically if
   not supplied. Node labels must be
   string for this option to work. (0.2.9.18, 0.2.9.23)
+- Added an `pkgdown` articles on setting
+  the layout for a model with both latent
+  factors and exogenous observed variables. (0.2.9.25)
+
+## Bug Fixes
+
+- Fixed `set_cfa_layout()` to work for
+  LISREL-style graphs. (0.2.9.13)
+- Fixed `set_cfa_layout()` to work for
+  a model without factor covariances
+  (e.g., `exoCov = FALSE` when calling
+  `semPlot::semPaths()`). (0.2.9.14)
+- Fixed a bug in `auto_factor_point_to()`:
+  Cells with no direction specified is now
+  set to `NA`. (0.2.9.21)
+
+## Miscellaneous
+
+- Added an R CMD check for noSuggests. (0.2.9.12)
+- Fixed a bug in the setting for `pkgdown`. (0.2.9.16)
+- Add `DoNotPlot = TRUE` in all tests to
+  prevent `semPlot::semPaths()` from
+  plotting the graphs in the tests. (0.2.9.17, 0.2.9.20)
 - Added the helper `add_object()`. (0.2.9.18)
 - Removed `dplyr` functions from the code
   and removed `dplyr` from `Imports`. (0.2.9.19)
@@ -34,21 +48,14 @@
   no direction specified in `auto_factor_point_to()`.
   The "factor" may be a manifest variable without
   indicators. (0.2.9.20)
-- Fixed a bug in `auto_factor_point_to()`:
-  Cells with no direction specified is now
-  set to `NA`. (0.2.9.21)
 - Added two internal helpers to check
   node labels (labels changed?
   labels non-string?). (0.2.9.22)
-- Added an `pkgdown` articles on setting
-  the layout for a model with both latent
-  factors and exogenous observed variables. (0.2.9.25)
 - Removed the mention of `change_node_label2`,
   which was not exported, from the help page. (0.2.9.26, 0.2.9.27)
 - Made the warning and error messages of
   `set_cfa_layout()` and `set_sem_layout()`
   more informative. (0.2.9.28)
-
 
 # semptools 0.2.9.11
 
