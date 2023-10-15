@@ -77,3 +77,39 @@ add_manifest <- function(factor_layout,
                 indicator_factor = indicator_factor)
     return(out)
   }
+
+#' @noRd
+
+check_node_label_string <- function(x) {
+    chk <- sapply(x, is.character)
+    if (!all(chk)) {
+        msg <- paste("Not all labels are strings.",
+                     "Please set labels after applying this function.")
+        tmp <- paste(names(x)[!chk], collapse = ", ")
+        msg <- paste(msg,
+                     "Node(s) with non-string label(s):",
+                     tmp)
+        stop(msg)
+      } else {
+        return(TRUE)
+      }
+  }
+
+#' @noRd
+
+check_node_label_changed <- function(x) {
+    check_node_label_string(x)
+    chk <- names(x) == unlist(x)
+    if (!all(chk)) {
+        msg <- paste("Not all nodes have labels identical to node names.",
+                     "Please set labels after applying this function,",
+                     "and please set nCharNodes = 0 when calling semPaths().")
+        tmp <- paste(names(x)[!chk], collapse = ", ")
+        msg <- paste(msg,
+                     "Node(s) with changed/shortened label(s):",
+                     tmp)
+        stop(msg)
+      } else {
+        return(TRUE)
+      }
+  }
