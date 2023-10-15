@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.9.19</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.9.25</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,18 +21,25 @@
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="../articles/semptools.html">Get started</a>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/quick_start_cfa.html">Quick Start To set_cfa_layout</a>
-    <a class="dropdown-item" href="../articles/quick_start_sem.html">Quick Start To set_sem_layout</a>
-    <a class="dropdown-item" href="../articles/keep_or_drop_nodes.html">Keep or Drop Selected Variables</a>
-    <a class="dropdown-item" href="../articles/layout_matrix.html">Layout Matrices</a>
-    <a class="dropdown-item" href="../articles/second_order.html">Models with Second-Order Factors</a>
+    <h6 class="dropdown-header" data-toc-skip>&lt;Quick Starts&gt;</h6>
+    <a class="dropdown-item" href="../articles/semptools.html">Main functions</a>
+    <a class="dropdown-item" href="../articles/quick_start_cfa.html">Setting the layout of a CFA model</a>
+    <a class="dropdown-item" href="../articles/quick_start_sem.html">Setting the layout of a SEM model</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>&lt;Helpers&gt;</h6>
+    <a class="dropdown-item" href="../articles/keep_or_drop_nodes.html">Keep or drop variables</a>
+    <a class="dropdown-item" href="../articles/layout_matrix.html">Layout matrices</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>&lt;Special Cases&gt;</h6>
+    <a class="dropdown-item" href="../articles/second_order.html">Second-order factors</a>
+    <a class="dropdown-item" href="../articles/sem_with_observed.html">Observed exogenous variables</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="active nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
@@ -58,17 +65,21 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.2.9.19" id="semptools-02919">semptools 0.2.9.19<a class="anchor" aria-label="anchor" href="#semptools-02919"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.2.9.25" id="semptools-02925">semptools 0.2.9.25<a class="anchor" aria-label="anchor" href="#semptools-02925"></a></h2>
 <ul><li>Added an R CMD check for noSuggests. (0.2.9.12)</li>
 <li>Fixed <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> to work for LISREL-style graphs. (0.2.9.13)</li>
 <li>Fixed <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> to work for a model without factor covariances (e.g., <code>exoCov = FALSE</code> when calling <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code>). (0.2.9.14)</li>
 <li>Added <code><a href="../reference/auto_factor_point_to.html">auto_factor_point_to()</a></code> for creating the <code>factor_point_to</code> matrix. Revised <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> to allow users to use a named vector for the <code>factor_point_to</code> argument. (0.2.9.15)</li>
 <li>Fixed a bug in the setting for <code>pkgdown</code>. (0.2.9.16)</li>
-<li>Add <code>DoNotPlot = TRUE</code> in all tests to prevent <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> from plotting the graphs in the tests. (0.2.9.17)</li>
-<li>Added <code><a href="../reference/auto_indicator_order.html">auto_indicator_order()</a></code> and <code><a href="../reference/lavaan_indicator_order.html">lavaan_indicator_order()</a></code> for setting indicator order in <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> and <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code>. (0.2.9.18)</li>
-<li>Revised <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> and <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> to set <code>indicator_order</code> and <code>indicator_factor</code> automatically if not supplied. (0.2.9.18)</li>
+<li>Add <code>DoNotPlot = TRUE</code> in all tests to prevent <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> from plotting the graphs in the tests. (0.2.9.17, 0.2.9.20)</li>
+<li>Added <code><a href="../reference/auto_indicator_order.html">auto_indicator_order()</a></code> and <code><a href="../reference/lavaan_indicator_order.html">lavaan_indicator_order()</a></code> for setting indicator order in <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> and <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code>. Can handle nodes with labels changed. (0.2.9.18, 0.2.9.24)</li>
+<li>Revised <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> and <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> to set <code>indicator_order</code> and <code>indicator_factor</code> automatically if not supplied. Node labels must be string for this option to work. (0.2.9.18, 0.2.9.23)</li>
 <li>Added the helper <code><a href="../reference/add_object.html">add_object()</a></code>. (0.2.9.18)</li>
-<li>Removed <code>dplyr</code> functions from the code and removed <code>dplyr</code> from <code>Imports</code>. (0.2.9.19)`</li>
+<li>Removed <code>dplyr</code> functions from the code and removed <code>dplyr</code> from <code>Imports</code>. (0.2.9.19)</li>
+<li>Removed the check for factors with no direction specified in <code><a href="../reference/auto_factor_point_to.html">auto_factor_point_to()</a></code>. The “factor” may be a manifest variable without indicators. (0.2.9.20)</li>
+<li>Fixed a bug in <code><a href="../reference/auto_factor_point_to.html">auto_factor_point_to()</a></code>: Cells with no direction specified is now set to <code>NA</code>. (0.2.9.21)</li>
+<li>Added two internal helpers to check node labels (labels changed? labels non-string?). (0.2.9.22)</li>
+<li>Added an <code>pkgdown</code> articles on setting the layout for a model with both latent factors and exogenous observed variables. (0.2.9.25)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.9.11" id="semptools-02911">semptools 0.2.9.11<a class="anchor" aria-label="anchor" href="#semptools-02911"></a></h2><p class="text-muted">CRAN release: 2023-05-31</p>
