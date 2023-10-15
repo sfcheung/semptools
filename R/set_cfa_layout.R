@@ -166,7 +166,13 @@ set_cfa_layout <- function(semPaths_plot,
              %in% indicator_order)) {
         if (!all(Nodes_names2[semPaths_plot$Edgelist$to[!semPaths_plot$Edgelist$bidirectional]]
               %in% indicator_order)) {
-            warning("One or more indicators in the graph are not in indicator_order. Unexpected results may occur.")
+            msg_tmp <- setdiff(Nodes_names2[semPaths_plot$Edgelist$to[!semPaths_plot$Edgelist$bidirectional]],
+                               indicator_order)
+            msg_tmp <- paste(msg_tmp,
+                             collapse = ", ")
+            warning("One or more indicators in the graph are not in indicator_order. Unexpected results may occur. ",
+                    "Indicator(s) involved: ",
+                    msg_tmp)
           } else {
             tmp <- sapply(indicator_order, function(x) {
                 Nodes_names[match(x, Nodes_names2)]

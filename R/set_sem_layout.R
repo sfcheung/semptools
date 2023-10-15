@@ -283,7 +283,15 @@ set_sem_layout <- function(semPaths_plot,
 
     if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
         if (!all(Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
-            warning("One or more indicators in the graph are not in indicator_order. Unexpected results may occur.")
+            tmp1 <- Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "square"]
+            tmp2 <- indicator_order
+            msg_tmp <- setdiff(tmp1,
+                               indicator_order)
+            msg_tmp <- paste(unlist(msg_tmp),
+                             collapse = ", ")
+            warning("One or more indicators in the graph are not in indicator_order. Unexpected results may occur. ",
+                    "Indicator(s) involved: ",
+                    msg_tmp)
           } else {
             tmp <- sapply(indicator_order, function(x) {
                 Nodes_names[match(x, Nodes_names2)]
@@ -312,10 +320,17 @@ set_sem_layout <- function(semPaths_plot,
     # if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
     #     warning("One or more factors in the graph may not be in indicator_factor. Unexpected results may occur.")
     #   }
-    if (!all(factor_layout[!is.na(factor_layout)] %in% indicator_factor)) {
-        if (!all(factor_layout[!is.na(factor_layout)] %in%
-              Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"])) {
-            stop("The position of one or more latent factors are not in factor_layout.")
+    if (!all(indicator_factor %in% factor_layout[!is.na(factor_layout)])) {
+        if (!all(Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in%
+                 factor_layout[!is.na(factor_layout)])) {
+            tmp <- Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"]
+            msg_tmp <- setdiff(tmp,
+                               factor_layout[!is.na(factor_layout)])
+            msg_tmp <- paste(unlist(msg_tmp),
+                             collapse = ", ")
+            stop("The position of one or more latent factors are not in factor_layout. ",
+                 "Factor(s) involved: ",
+                 msg_tmp)
           } else {
             tmp <- sapply(factor_layout, function(x) {
                 Nodes_names[match(x, Nodes_names2)]
@@ -336,7 +351,14 @@ set_sem_layout <- function(semPaths_plot,
 
     if (!all((!is.na(factor_layout) & !(factor_layout %in% indicator_order)) ==
                !is.na(factor_point_to))) {
-        stop("The positions of the indicators of one or more latent factors are not specified in factor_point_to.")
+        tmp1 <- !is.na(factor_layout) & !(factor_layout %in% indicator_order)
+        tmp2 <- !is.na(factor_point_to)
+        msg_tmp <- as.vector(factor_layout[tmp1 != tmp2])
+        msg_tmp <- paste(unlist(msg_tmp),
+                         collapse = ", ")
+        stop("The positions of the indicators of one or more latent factors are not specified in factor_point_to. ",
+             "Factor(s) involved: ",
+             msg_tmp)
       }
 
     # Set the estate
