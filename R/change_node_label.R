@@ -190,7 +190,7 @@ change_node_label <- function(semPaths_plot, label_list = NULL,
         semPaths_plot$plotOptions$label.norm <- label.norm
       }
 
-    semPaths_plotj
+    semPaths_plot
   }
 
 # \code{change_node_label2()} is an experimental version that takes a
