@@ -173,7 +173,8 @@ p_cfa <- semPaths(fit,
   node.width = 1,
   edge.label.cex = .75,
   style = "ram",
-  mar = c(10, 5, 10, 5)
+  mar = c(10, 5, 10, 5),
+  DoNotPlot = TRUE
 )
 
 my_label_list <- list(
@@ -234,7 +235,8 @@ p_sem <- semPaths(fit_sem,
   edge.width = 0.8, node.width = 0.7,
   edge.label.cex = 0.6,
   style = "ram",
-  mar = c(10, 10, 10, 10)
+  mar = c(10, 10, 10, 10),
+  DoNotPlot = TRUE
 )
 p_sem2 <- change_node_label(p_sem, my_label_list)
 

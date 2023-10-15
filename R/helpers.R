@@ -48,12 +48,12 @@ loading_plot <- function(semPaths_plot,
     if (add_isolated_manifest) {
         # Isolated manifest variables
         id2 <- !(man_id %in% edges2$to)
-        iso_man <- nodes$names[id2]
+        iso_man <- unlist(nodes$names)[id2]
       } else {
         iso_man <- NULL
       }
-    edges3$lhs <- nodes$names[edges3$to]
-    edges3$rhs <- nodes$names[edges3$from]
+    edges3$lhs <- unlist(nodes$names)[edges3$to]
+    edges3$rhs <- unlist(nodes$names)[edges3$from]
     edges4 <- edges3[!duplicated(edges3$lhs), ]
     out <- c(edges4$lhs, iso_man)
     names(out) <- c(edges4$rhs, iso_man)
@@ -76,4 +76,40 @@ add_manifest <- function(factor_layout,
     out <- list(indicator_order = indicator_order,
                 indicator_factor = indicator_factor)
     return(out)
+  }
+
+#' @noRd
+
+check_node_label_string <- function(x) {
+    chk <- sapply(x, is.character)
+    if (!all(chk)) {
+        msg <- paste("Not all labels are strings.",
+                     "Please set labels after applying this function.")
+        tmp <- paste(names(x)[!chk], collapse = ", ")
+        msg <- paste(msg,
+                     "Node(s) with non-string label(s):",
+                     tmp)
+        stop(msg)
+      } else {
+        return(TRUE)
+      }
+  }
+
+#' @noRd
+
+check_node_label_changed <- function(x) {
+    check_node_label_string(x)
+    chk <- names(x) == unlist(x)
+    if (!all(chk)) {
+        msg <- paste("Not all nodes have labels identical to node names.",
+                     "Please set labels after applying this function,",
+                     "and please set nCharNodes = 0 when calling semPaths().")
+        tmp <- paste(names(x)[!chk], collapse = ", ")
+        msg <- paste(msg,
+                     "Node(s) with changed/shortened label(s):",
+                     tmp)
+        stop(msg)
+      } else {
+        return(TRUE)
+      }
   }

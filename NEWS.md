@@ -1,4 +1,4 @@
-# semptools 0.2.9.19
+# semptools 0.2.9.25
 
 - Added an R CMD check for noSuggests. (0.2.9.12)
 - Fixed `set_cfa_layout()` to work for
@@ -15,19 +15,34 @@
 - Fixed a bug in the setting for `pkgdown`. (0.2.9.16)
 - Add `DoNotPlot = TRUE` in all tests to
   prevent `semPlot::semPaths()` from
-  plotting the graphs in the tests. (0.2.9.17)
+  plotting the graphs in the tests. (0.2.9.17, 0.2.9.20)
 - Added `auto_indicator_order()` and
   `lavaan_indicator_order()` for setting
   indicator order in `set_sem_layout()`
-  and `set_cfa_layout()`. (0.2.9.18)
+  and `set_cfa_layout()`. Can handle
+  nodes with labels changed. (0.2.9.18, 0.2.9.24)
 - Revised `set_cfa_layout()` and
   `set_sem_layout()` to set
   `indicator_order` and
   `indicator_factor` automatically if
-  not supplied. (0.2.9.18)
+  not supplied. Node labels must be
+  string for this option to work. (0.2.9.18, 0.2.9.23)
 - Added the helper `add_object()`. (0.2.9.18)
 - Removed `dplyr` functions from the code
-  and removed `dplyr` from `Imports`. (0.2.9.19)`
+  and removed `dplyr` from `Imports`. (0.2.9.19)
+- Removed the check for factors with
+  no direction specified in `auto_factor_point_to()`.
+  The "factor" may be a manifest variable without
+  indicators. (0.2.9.20)
+- Fixed a bug in `auto_factor_point_to()`:
+  Cells with no direction specified is now
+  set to `NA`. (0.2.9.21)
+- Added two internal helpers to check
+  node labels (labels changed?
+  labels non-string?). (0.2.9.22)
+- Added an `pkgdown` articles on setting
+  the layout for a model with both latent
+  factors and exogenous observed variables. (0.2.9.25)
 
 
 # semptools 0.2.9.11

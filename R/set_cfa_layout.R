@@ -120,6 +120,7 @@ set_cfa_layout <- function(semPaths_plot,
                              loading_position = .5,
                              point_to = "down") {
     if (is.null(indicator_order)) {
+        check_node_label_string(semPaths_plot$graphAttributes$Nodes$labels)
         indicator_order <- auto_indicator_order(semPaths_plot)
         # stop("indicator_order not specified.")
       }
