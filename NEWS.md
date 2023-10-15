@@ -1,4 +1,4 @@
-# semptools 0.2.9.27
+# semptools 0.2.9.28
 
 - Added an R CMD check for noSuggests. (0.2.9.12)
 - Fixed `set_cfa_layout()` to work for
@@ -45,6 +45,9 @@
   factors and exogenous observed variables. (0.2.9.25)
 - Removed the mention of `change_node_label2`,
   which was not exported, from the help page. (0.2.9.26, 0.2.9.27)
+- Made the warning and error messages of
+  `set_cfa_layout()` and `set_sem_layout()`
+  more informative. (0.2.9.28)
 
 
 # semptools 0.2.9.11
