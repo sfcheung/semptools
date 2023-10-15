@@ -17,19 +17,48 @@ template:
   includes:
     in_header: <meta name="google-site-verification" content="0VLBmFnW_UJFI-7gXnORPBsWxqZwmzuGpK-TeVRLBjQ" />
 
+# navbar:
+#   bg: primary
+
+# articles:
+# - title: Articles
+#   navbar: ~
+#   contents:
+#   - semptools
+#   - quick_start_cfa
+#   - quick_start_sem
+#   - keep_or_drop_nodes
+#   - layout_matrix
+#   - second_order
+
 navbar:
   bg: primary
-
-articles:
-- title: Articles
-  navbar: ~
-  contents:
-  - semptools
-  - quick_start_cfa
-  - quick_start_sem
-  - keep_or_drop_nodes
-  - layout_matrix
-  - second_order
+  structure:
+    left:  [intro, articles, reference, tutorials, news]
+    right: [search, github]
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: "<Quick Starts>"
+      - text: Main functions
+        href: articles/semptools.html
+      - text: Setting the layout of a CFA model
+        href: articles/quick_start_cfa.html
+      - text: Setting the layout of a SEM model
+        href: articles/quick_start_sem.html
+      - text: -------
+      - text: "<Helpers>"
+      - text: Keep or drop variables
+        href: articles/keep_or_drop_nodes.html
+      - text: Layout matrices
+        href: articles/layout_matrix.html
+      - text: -------
+      - text: "<Special Cases>"
+      - text: Second-order factors
+        href: articles/second_order.html
+      - text: Observed exogenous variables
+        href: articles/sem_with_observed.html
 
 reference:
 - title: Main Functions
