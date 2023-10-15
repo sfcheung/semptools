@@ -48,7 +48,7 @@ loading_plot <- function(semPaths_plot,
     if (add_isolated_manifest) {
         # Isolated manifest variables
         id2 <- !(man_id %in% edges2$to)
-        iso_man <- nodes$names[id2]
+        iso_man <- unlist(nodes$names)[id2]
       } else {
         iso_man <- NULL
       }
