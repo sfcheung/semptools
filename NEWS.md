@@ -1,4 +1,4 @@
-# semptools 0.2.9.23
+# semptools 0.2.9.24
 
 - Added an R CMD check for noSuggests. (0.2.9.12)
 - Fixed `set_cfa_layout()` to work for
@@ -19,7 +19,8 @@
 - Added `auto_indicator_order()` and
   `lavaan_indicator_order()` for setting
   indicator order in `set_sem_layout()`
-  and `set_cfa_layout()`. (0.2.9.18)
+  and `set_cfa_layout()`. Can handle
+  nodes with labels changed. (0.2.9.18, 0.2.9.24)
 - Revised `set_cfa_layout()` and
   `set_sem_layout()` to set
   `indicator_order` and

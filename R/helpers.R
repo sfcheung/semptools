@@ -52,8 +52,8 @@ loading_plot <- function(semPaths_plot,
       } else {
         iso_man <- NULL
       }
-    edges3$lhs <- nodes$names[edges3$to]
-    edges3$rhs <- nodes$names[edges3$from]
+    edges3$lhs <- unlist(nodes$names)[edges3$to]
+    edges3$rhs <- unlist(nodes$names)[edges3$from]
     edges4 <- edges3[!duplicated(edges3$lhs), ]
     out <- c(edges4$lhs, iso_man)
     names(out) <- c(edges4$rhs, iso_man)
