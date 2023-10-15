@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.9.28</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.10</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,8 +116,9 @@ them as long as results regarding these control variables are reported
 in other forms (e.g., a table of all parameter estimates), and keep only
 the main variables in the plot.</p>
 <p>Two helper functions, <code>drop_nodes</code> and
-<code>keep_nodes</code>, were developed for this purpose. When an SEM
-output object, such as the output from <code>lavaan</code>, is passed to
+<code>keep_nodes</code>, from the package <a href="https://sfcheung.github.io/semptools/">semptools</a> (<a href="https://cran.r-project.org/package=semptools" class="external-link">CRAN page</a>), were
+developed for this purpose. When an SEM output object, such as the
+output from <code>lavaan</code>, is passed to
 <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths</a></code>, it is first processed by
 <code><a href="https://rdrr.io/pkg/semPlot/man/semPlotModel.html" class="external-link">semPlot::semPlotModel</a></code>. In other words,
 <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths</a></code> itself does not interpret the SEM output.

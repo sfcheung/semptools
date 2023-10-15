@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.9.28</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.10</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,16 +109,18 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>One useful feature of <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> is using
-setting the argument <code>layout</code> to a layout matrix to specify
-the location of each node in a structural equation model. This guide
-briefly explains how to use <code>layout</code>, and then introduces the
-helper function <code><a href="../reference/layout_matrix.html">layout_matrix()</a></code> of <code>semptools</code>
-that can be used to construct a layout matrix. Last, it describes how
-<code>factor_layout</code> is used in <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> to
-specify the layout of the latent factors only, and let
-<code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> decide the positions of their
-indicators.</p>
+<p>One useful feature of <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> from the
+package <a href="https://sfcheung.github.io/semptools/">semptools</a>
+(<a href="https://cran.r-project.org/package=semptools" class="external-link">CRAN page</a>)
+is using setting the argument <code>layout</code> to a layout matrix to
+specify the location of each node in a structural equation model. This
+guide briefly explains how to use <code>layout</code>, and then
+introduces the helper function <code><a href="../reference/layout_matrix.html">layout_matrix()</a></code> of
+<code>semptools</code> that can be used to construct a layout matrix.
+Last, it describes how <code>factor_layout</code> is used in
+<code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> to specify the layout of the latent
+factors only, and let <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> decide the positions
+of their indicators.</p>
 </div>
 <div class="section level2">
 <h2 id="what-layout-does-in-semplotsempaths-">What <code>layout</code> Does in

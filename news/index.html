@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.9.28</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.10</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,24 +65,33 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.2.9.28" id="semptools-02928">semptools 0.2.9.28<a class="anchor" aria-label="anchor" href="#semptools-02928"></a></h2>
-<ul><li>Added an R CMD check for noSuggests. (0.2.9.12)</li>
-<li>Fixed <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> to work for LISREL-style graphs. (0.2.9.13)</li>
-<li>Fixed <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> to work for a model without factor covariances (e.g., <code>exoCov = FALSE</code> when calling <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code>). (0.2.9.14)</li>
-<li>Added <code><a href="../reference/auto_factor_point_to.html">auto_factor_point_to()</a></code> for creating the <code>factor_point_to</code> matrix. Revised <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> to allow users to use a named vector for the <code>factor_point_to</code> argument. (0.2.9.15)</li>
-<li>Fixed a bug in the setting for <code>pkgdown</code>. (0.2.9.16)</li>
-<li>Add <code>DoNotPlot = TRUE</code> in all tests to prevent <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> from plotting the graphs in the tests. (0.2.9.17, 0.2.9.20)</li>
+<h2 class="pkg-version" data-toc-text="0.2.10" id="semptools-0210">semptools 0.2.10<a class="anchor" aria-label="anchor" href="#semptools-0210"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-2-10">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-2-10"></a></h3>
+<ul><li>Added <code><a href="../reference/auto_factor_point_to.html">auto_factor_point_to()</a></code> for creating the <code>factor_point_to</code> matrix. Revised <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> to allow users to use a named vector for the <code>factor_point_to</code> argument. (0.2.9.15)</li>
 <li>Added <code><a href="../reference/auto_indicator_order.html">auto_indicator_order()</a></code> and <code><a href="../reference/lavaan_indicator_order.html">lavaan_indicator_order()</a></code> for setting indicator order in <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> and <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code>. Can handle nodes with labels changed. (0.2.9.18, 0.2.9.24)</li>
 <li>Revised <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> and <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> to set <code>indicator_order</code> and <code>indicator_factor</code> automatically if not supplied. Node labels must be string for this option to work. (0.2.9.18, 0.2.9.23)</li>
+<li>Added an <code>pkgdown</code> articles on setting the layout for a model with both latent factors and exogenous observed variables. (0.2.9.25)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-2-10">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-10"></a></h3>
+<ul><li>Fixed <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> to work for LISREL-style graphs. (0.2.9.13)</li>
+<li>Fixed <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> to work for a model without factor covariances (e.g., <code>exoCov = FALSE</code> when calling <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code>). (0.2.9.14)</li>
+<li>Fixed a bug in <code><a href="../reference/auto_factor_point_to.html">auto_factor_point_to()</a></code>: Cells with no direction specified is now set to <code>NA</code>. (0.2.9.21)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="miscellaneous-0-2-10">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-2-10"></a></h3>
+<ul><li>Added an R CMD check for noSuggests. (0.2.9.12)</li>
+<li>Fixed a bug in the setting for <code>pkgdown</code>. (0.2.9.16)</li>
+<li>Add <code>DoNotPlot = TRUE</code> in all tests to prevent <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> from plotting the graphs in the tests. (0.2.9.17, 0.2.9.20)</li>
 <li>Added the helper <code><a href="../reference/add_object.html">add_object()</a></code>. (0.2.9.18)</li>
 <li>Removed <code>dplyr</code> functions from the code and removed <code>dplyr</code> from <code>Imports</code>. (0.2.9.19)</li>
 <li>Removed the check for factors with no direction specified in <code><a href="../reference/auto_factor_point_to.html">auto_factor_point_to()</a></code>. The “factor” may be a manifest variable without indicators. (0.2.9.20)</li>
-<li>Fixed a bug in <code><a href="../reference/auto_factor_point_to.html">auto_factor_point_to()</a></code>: Cells with no direction specified is now set to <code>NA</code>. (0.2.9.21)</li>
 <li>Added two internal helpers to check node labels (labels changed? labels non-string?). (0.2.9.22)</li>
-<li>Added an <code>pkgdown</code> articles on setting the layout for a model with both latent factors and exogenous observed variables. (0.2.9.25)</li>
 <li>Removed the mention of <code>change_node_label2</code>, which was not exported, from the help page. (0.2.9.26, 0.2.9.27)</li>
 <li>Made the warning and error messages of <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code> and <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> more informative. (0.2.9.28)</li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.9.11" id="semptools-02911">semptools 0.2.9.11<a class="anchor" aria-label="anchor" href="#semptools-02911"></a></h2><p class="text-muted">CRAN release: 2023-05-31</p>
 <ul><li>Used the native functions of <code>semPlot</code> (<code><a href="https://rdrr.io/pkg/semPlot/man/edits.html" class="external-link">semPlot::man()</a></code> and <code><a href="https://rdrr.io/pkg/semPlot/man/edits.html" class="external-link">semPlot::lat()</a></code>) to check nodes in <code><a href="../reference/keep_drop_nodes.html">drop_nodes()</a></code> and <code><a href="../reference/keep_drop_nodes.html">keep_nodes()</a></code>. As a consequence, the <code>semPlot</code> package is now in the Import section. (More native functions will be used in the future to ensure compatibility.) (0.2.9.11)</li>
