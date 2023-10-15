@@ -231,6 +231,7 @@ set_sem_layout <- function(semPaths_plot,
                              indicator_spread = NULL,
                              loading_position = .5) {
     if (is.null(indicator_order)) {
+        check_node_label_string(semPaths_plot$graphAttributes$Nodes$labels)
         indicator_order <- auto_indicator_order(semPaths_plot,
                                                  add_isolated_manifest = TRUE)
         # stop("indicator_order not specified.")

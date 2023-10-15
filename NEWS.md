@@ -24,7 +24,8 @@
   `set_sem_layout()` to set
   `indicator_order` and
   `indicator_factor` automatically if
-  not supplied. (0.2.9.18)
+  not supplied. Node labels must be
+  string for this option to work. (0.2.9.18, 0.2.9.23)
 - Added the helper `add_object()`. (0.2.9.18)
 - Removed `dplyr` functions from the code
   and removed `dplyr` from `Imports`. (0.2.9.19)
