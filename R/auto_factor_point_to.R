@@ -79,11 +79,11 @@ auto_factor_point_to <- function(factor_layout,
     fnames <- as.vector(factor_layout)
     fnames <- fnames[!is.na(fnames)]
     tmp <- setdiff(fnames, args_names)
-    if (length(tmp) != 0) {
-        stop("Direction not specified for factor(s) ",
-             paste(tmp, collapse = ", "),
-             ".")
-      }
+    # if (length(tmp) != 0) {
+    #     stop("Direction not specified for factor(s) ",
+    #          paste(tmp, collapse = ", "),
+    #          ".")
+    #   }
     tmp <- setdiff(unlist(args),
                    valid_directions)
     if (length(tmp) != 0) {
