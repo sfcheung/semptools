@@ -1,4 +1,4 @@
-# semptools 0.2.9.25
+# semptools 0.2.9.26
 
 - Added an R CMD check for noSuggests. (0.2.9.12)
 - Fixed `set_cfa_layout()` to work for
@@ -43,6 +43,8 @@
 - Added an `pkgdown` articles on setting
   the layout for a model with both latent
   factors and exogenous observed variables. (0.2.9.25)
+- Removed the mention of `change_node_label2`,
+  which was not exported, from the help page. (0.2.9.26)
 
 
 # semptools 0.2.9.11
