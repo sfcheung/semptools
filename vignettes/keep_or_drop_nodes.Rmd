@@ -31,7 +31,11 @@ for generating the plot, it is acceptable to omit them as long as results
 regarding these control variables are reported in other forms (e.g., a table
 of all parameter estimates), and keep only the main variables in the plot.
 
-Two helper functions, `drop_nodes` and `keep_nodes`, were developed for
+Two helper functions, `drop_nodes` and `keep_nodes`,
+from the package
+[semptools](https://sfcheung.github.io/semptools/)
+([CRAN page](https://cran.r-project.org/package=semptools)),
+were developed for
 this purpose. When an SEM output object, such as the output from `lavaan`,
 is passed to `semPlot::semPaths`, it is first processed by
 `semPlot::semPlotModel`. In other words, `semPlot::semPaths` itself

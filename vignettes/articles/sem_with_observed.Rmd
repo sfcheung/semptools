@@ -24,7 +24,8 @@ knitr::opts_chunk$set(
 
 This article illustrates how to use
 `set_sem_layout()` from the package
-[semptools](https://cran.r-project.org/package=semptools)
+[semptools](https://sfcheung.github.io/semptools/)
+([CRAN page](https://cran.r-project.org/package=semptools))
 for a model with
 latent variables and one or more
 observed exogenous variables (a.k.a.,
