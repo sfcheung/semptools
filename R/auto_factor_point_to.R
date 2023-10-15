@@ -91,6 +91,7 @@ auto_factor_point_to <- function(factor_layout,
              paste(tmp, collapse = ", "))
       }
     out <- factor_layout
+    out[] <- NA
     out_c <- col(out)
     out_r <- row(out)
     for (i in seq_along(args)) {
