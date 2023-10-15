@@ -25,7 +25,11 @@ library(semptools)
 
 # Introduction
 
-One useful feature of `semPlot::semPaths()` is using setting the argument
+One useful feature of `semPlot::semPaths()`
+from the package
+[semptools](https://sfcheung.github.io/semptools/)
+([CRAN page](https://cran.r-project.org/package=semptools))
+is using setting the argument
 `layout`
 to a layout matrix to specify the location of each node in a structural
 equation model. This guide briefly explains how to use `layout`, and then

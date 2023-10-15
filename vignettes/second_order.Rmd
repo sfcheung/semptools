@@ -23,6 +23,9 @@ knitr::opts_chunk$set(
 # Introduction
 
 This article illustrates how to use `set_sem_layout()`
+from the package
+[semptools](https://sfcheung.github.io/semptools/)
+([CRAN page](https://cran.r-project.org/package=semptools))
 for a model with second-order factors. Readers
 are assumed to have learned how to use `set_sem_layout()`
 (see `vignette("quick_start_sem")`).
