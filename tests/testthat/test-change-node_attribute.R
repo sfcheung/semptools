@@ -30,7 +30,10 @@ p_pa2_label_norm <- change_node_label(p_pa, my_label_list, label.norm = "OOOOO")
 # plot(p_pa2_label_norm)
 
 test_that("options are changed", {
-  expect_equal(p_pa2_label_cex$graphAttributes$Nodes$label.cex, .2)
+  # expect_equal(p_pa2_label_cex$graphAttributes$Nodes$label.cex, .2)
+  p <- length(p_pa2_label_cex$graphAttributes$Nodes$labels)
+  # To fix a problem due to a possible bug
+  expect_equal(p_pa2_label_cex$graphAttributes$Nodes$label.cex, rep(.2, p))
   expect_equal(p_pa2_label_scale$plotOptions$label.scale, FALSE)
   expect_equal(p_pa2_label_prop$plotOptions$label.prop, rep(0.5, 4))
   expect_equal(p_pa2_label_norm$plotOptions$label.norm, "OOOOO")
