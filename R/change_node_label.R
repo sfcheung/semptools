@@ -177,8 +177,14 @@ change_node_label <- function(semPaths_plot, label_list = NULL,
     }
     semPaths_plot$graphAttributes$Nodes$names <- Nodes_names
 
+    # SF: A workaround for a possible bug with plot.qgraph() when
+    #     the labels are stored in a list.
+    p <- length(Nodes_labels)
     if (!missing(label.cex)) {
-        semPaths_plot$graphAttributes$Nodes$label.cex <- label.cex
+        semPaths_plot$graphAttributes$Nodes$label.cex <- rep(label.cex, p)
+      } else {
+        label.cex.org <- semPaths_plot$graphAttributes$Nodes$label.cex
+        semPaths_plot$graphAttributes$Nodes$label.cex <- rep(label.cex.org, p)
       }
     if (!missing(label.scale)) {
         semPaths_plot$plotOptions$label.scale <- label.scale
