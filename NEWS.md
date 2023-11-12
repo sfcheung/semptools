@@ -1,3 +1,10 @@
+# semptools 0.2.10.1
+
+- Revised `change_node_label()` to
+  address an issue with `plot.qgraph()`.
+  `label.cex` should now be used as
+  expected. (0.2.10.1)
+
 # semptools 0.2.10
 
 ## New Features

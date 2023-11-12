@@ -1,6 +1,6 @@
 Package: semptools
 Title: Customizing Structural Equation Modelling Plots
-Version: 0.2.10
+Version: 0.2.10.1
 Authors@R: c(
     person(given = "Shu Fai",
            family = "Cheung",
