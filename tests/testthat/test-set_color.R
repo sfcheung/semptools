@@ -20,18 +20,18 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 
 subset(parameterEstimates(fit_pa), op == "~~")
 
-p2 <- set_color(p_pa, c("x2~~x1" = "blue",
+p2 <- set_edge_color(p_pa, c("x2~~x1" = "blue",
                         "x3~~ x4" = rgb(0, 1, 0)))
 # plot(p2)
 
-p1 <- set_color(p_pa, c("x1 ~~x2" = "red",
+p1 <- set_edge_color(p_pa, c("x1 ~~x2" = "red",
                         "x4~~ x3" = "black",
                         "x3 ~ x1" = "white",
                         "x4 ~ x1" = "darkgreen",
                         "x4 ~ x2" = "yellow"))
 # plot(p1)
 
-test_that("set_color", {
+test_that("set_edge_color", {
     expect_equal(p2$graphAttributes$Edges$color,
                  c("blue", "#808080FF", "#808080FF", "#808080FF", "#808080FF",
                    "#808080FF", "#808080FF", "#808080FF", "#808080FF", "#00FF00",
@@ -47,11 +47,11 @@ tmp <- list(list(from = "x1",
             list(from = "x1",
                  to = "x2",
                  new_color = "blue"))
-p3 <- set_color(p_pa, tmp)
+p3 <- set_edge_color(p_pa, tmp)
 
 # plot(p3)
 
-test_that("set_color: list of lists", {
+test_that("set_edge_color: list of lists", {
     expect_equal(p3$graphAttributes$Edges$color,
                  c("blue", "#808080FF", "#808080FF", "red", "#808080FF", "#808080FF",
                    "#808080FF", "#808080FF", "#808080FF", "#808080FF", "blue", "#808080FF"))

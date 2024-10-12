@@ -9,7 +9,7 @@
   change any attribute of the edges.
   (0.2.10.2)
 
-- Added `set_color()` to
+- Added `set_edge_color()` to
   change the colors of edges.
   (0.2.10.2)
 

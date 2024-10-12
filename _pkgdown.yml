@@ -68,7 +68,7 @@ reference:
   - mark_sig
   - mark_se
   - set_curve
-  - set_color
+  - set_edge_color
   - set_edge_label_position
   - rotate_resid
   - change_node_label

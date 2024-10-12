@@ -79,18 +79,18 @@
 #' my_color_vector <- c("x2 ~~ x1" = "red",
 #'                      "x4 ~ x1" = "blue")
 #'
-#' p_pa2v <- set_color(p_pa, my_color_vector)
+#' p_pa2v <- set_edge_color(p_pa, my_color_vector)
 #' plot(p_pa2v)
 #'
 #' my_color_list <- list(list(from = "x1", to = "x2", new_color = "red"),
 #'                      list(from = "x1", to = "x4", new_color =  "blue"))
 #'
-#' p_pa2l <- set_color(p_pa, my_color_list)
+#' p_pa2l <- set_edge_color(p_pa, my_color_list)
 #' plot(p_pa2l)
 #'
 #' @export
 
-set_color <- function(semPaths_plot,
+set_edge_color <- function(semPaths_plot,
                       color_list = NULL) {
 
     if (is.null(color_list)) {

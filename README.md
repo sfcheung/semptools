@@ -69,7 +69,7 @@ These are some of the functions included so far
 
 - `set_curve()`: Change the curvature of selected paths.
 
-- `set_color()`: Change the colors of selected paths.
+- `set_edge_color()`: Change the colors of selected paths.
 
 - `set_edge_attribute()`: Change the named attributes of selected paths.
 
