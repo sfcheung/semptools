@@ -71,6 +71,9 @@
 #' list of named list. See the Details
 #' section on how to set this argument.
 #'
+#' @param attribute_name The name of
+#' the attribute to be changed.
+#'
 #' @examples
 #' mod_pa <-
 #'   'x1 ~~ x2
