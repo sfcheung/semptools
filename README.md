@@ -9,7 +9,7 @@
 [![R-CMD-check](https://github.com/sfcheung/semptools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sfcheung/semptools/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-(Version 0.2.10.2, updated on 2024-10-12, [release history](https://sfcheung.github.io/semptools/news/index.html))
+(Version 0.2.10.3, updated on 2024-10-12, [release history](https://sfcheung.github.io/semptools/news/index.html))
 
 # semptools <img src="man/figures/logo.png" align="right" height="150" />
 
@@ -76,6 +76,8 @@ These are some of the functions included so far
 - `set_edge_label_position()`: Move the parameter labels of selected paths along the paths.
 
 - `change_node_label()`: Change the labels of nodes.
+
+- `set_node_attribute()`: Change the named attributes of selected nodes.
 
 - `drop_nodes()` and `keep_nodes()`: Drop or keeps nodes (e.g., drop all control variables).
 
