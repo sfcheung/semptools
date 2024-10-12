@@ -1,9 +1,17 @@
-# semptools 0.2.10.1
+# semptools 0.2.10.2
 
 - Revised `change_node_label()` to
   address an issue with `plot.qgraph()`.
   `label.cex` should now be used as
   expected. (0.2.10.1)
+
+- Added `set_edge_attribute()` to
+  change any attribute of the edges.
+  (0.2.10.2)
+
+- Added `set_color()` to
+  change the colors of edges.
+  (0.2.10.2)
 
 # semptools 0.2.10
 
