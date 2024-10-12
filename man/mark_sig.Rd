@@ -18,7 +18,7 @@ functions.}
 \item{object}{The object used by semPaths to generate the plot. Use
 the same argument name used in semPaths to make the meaning of this
 argument obvious. Currently only object of class
-\linkS4class{lavaan} is supported.}
+\code{lavaan} is supported.}
 
 \item{alphas}{A named numeric vector. Each element is the cutoff
 (level of significance), and the name of it is the symbol to be

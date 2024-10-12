@@ -15,7 +15,7 @@ modified by other \link{semptools} functions.}
 \item{object}{The object used by semPaths to generate the plot. Use
 the same argument name used in \code{\link[semPlot]{semPaths}} to
 make the meaning of this argument obvious. Currently only object
-of class \linkS4class{lavaan} is supported.}
+of class \code{lavaan} is supported.}
 
 \item{sep}{A character string to separate the coefficient and the
 standard error (in parentheses). Default to " " (one space). Use
