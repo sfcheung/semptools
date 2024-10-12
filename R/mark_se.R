@@ -27,7 +27,7 @@
 #'@param object The object used by semPaths to generate the plot. Use
 #'   the same argument name used in \code{\link[semPlot]{semPaths}} to
 #'   make the meaning of this argument obvious. Currently only object
-#'   of class \linkS4class{lavaan} is supported.
+#'   of class `lavaan` is supported.
 #'
 #'@param sep A character string to separate the coefficient and the
 #'   standard error (in parentheses). Default to " " (one space). Use

@@ -68,10 +68,13 @@ reference:
   - mark_sig
   - mark_se
   - set_curve
+  - set_edge_color
   - set_edge_label_position
   - rotate_resid
   - change_node_label
   - keep_drop_nodes
+  - set_edge_attribute
+  - set_node_attribute
 - title: Layouts
   desc:  >
     Main functions for setting the layout

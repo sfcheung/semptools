@@ -23,7 +23,7 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Mark Hok Chio Lai \email{marklhc@gmail.com } (\href{https://orcid.org/0000-0002-9196-7406}{ORCID})
+  \item Mark Hok Chio Lai \email{marklhc@gmail.com} (\href{https://orcid.org/0000-0002-9196-7406}{ORCID})
 }
 
 }
