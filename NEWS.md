@@ -1,4 +1,4 @@
-# semptools 0.2.10.2
+# semptools 0.2.10.3
 
 - Revised `change_node_label()` to
   address an issue with `plot.qgraph()`.
@@ -12,6 +12,10 @@
 - Added `set_edge_color()` to
   change the colors of edges.
   (0.2.10.2)
+
+- Added `set_node_attribute()` to
+  change any attribute of the nodes.
+  (0.2.10.3)
 
 # semptools 0.2.10
 
