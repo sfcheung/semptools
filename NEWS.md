@@ -1,4 +1,4 @@
-# semptools 0.2.11
+# semptools 0.2.11.1
 
 ## New Features
 
@@ -13,6 +13,11 @@
 - Added `set_edge_color()` to
   change the colors of edges.
   (0.2.10.2)
+
+- Added `rescale_layout()` to expand
+  the plot to fit the rectangle bounded
+  by -1 and 1 vertically and
+  horizontally. (0.2.11.1)
 
 ## Miscellaneous
 
