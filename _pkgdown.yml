@@ -86,6 +86,7 @@ reference:
     Helpers for setting the layout
 - contents:
   - layout_matrix
+  - rescale_layout
   - auto_indicator_order
   - lavaan_indicator_order
   - auto_factor_point_to
