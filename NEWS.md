@@ -1,4 +1,4 @@
-# semptools 0.2.11.1
+# semptools 0.2.11.2
 
 ## New Features
 
@@ -18,6 +18,13 @@
   the plot to fit the rectangle bounded
   by -1 and 1 vertically and
   horizontally. (0.2.11.1)
+
+## Improvement
+
+- Updated `mark_sig()` to accept a
+  data frame with the *p*-values. Uses
+  can supply *p*-values computed by
+  other functions. (0.2.11.2)
 
 ## Miscellaneous
 
