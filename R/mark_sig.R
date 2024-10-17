@@ -23,15 +23,25 @@
 #'@param object The object used by semPaths to generate the plot. Use
 #' the same argument name used in semPaths to make the meaning of this
 #' argument obvious. Currently only object of class
-#' `lavaan` is supported. Alternatively, it can be a data
-#' frame similar to the output of the [lavaan::parameterEstimates()],
-#' with these columns: `lhs`, `op`, `rhs`, and `pvalue`.
-#' The column `pvalue` will then be used to add the marks.
+#' `lavaan` is supported.
 #'
 #'@param alphas A named numeric vector. Each element is the cutoff
 #' (level of significance), and the name of it is the symbol to be
 #' used if p-value is less than this cutoff. The default is c("*" =
 #' .05, "**" = .01, "***" = .001).
+#'
+#'@param ests A data.frame from the
+#'   \code{\link[lavaan]{parameterEstimates}} function, or
+#'   from other function with these columns:? `lhs`, `op`,
+#'   `rhs`, and `pvalue`. Only used when
+#'   \code{object} is not specified.
+#'
+#'@param std_type If standardized solution is used in the plot,
+#'   set this either to the type of standardization (e.g., `"std.all"`)
+#'   or to `TRUE`. It will be passed to [lavaan::standardizedSolution()]
+#'   to compute the standard errors for the standardized solution.
+#'   Used only if standard errors are not supplied directly
+#'   through `ests`.
 #'
 #'@examples
 #'mod_pa <-
@@ -85,35 +95,31 @@
 #' @export
 
 mark_sig <- function(semPaths_plot, object,
-                      alphas = c("*" = .05, "**" = .01, "***" = .001)) {
+                     alphas = c("*" = .05, "**" = .01, "***" = .001),
+                     ests = NULL,
+                     std_type = FALSE) {
   if ("triangle" %in% semPaths_plot$graphAttributes$Nodes$shape) {
     rlang::abort(paste("The semPaths plot seems to have one or",
                        "more intercepts. Models with intercepts",
                        "are not supported yet. Consider setting",
                        "'intercepts = FALSE' in semPaths."))
   }
-
-    alphas_sorted <- sort(alphas, decreasing = FALSE)
-
-    if (inherits(object, "lavaan")) {
-        if (object@Data@ngroups > 1) {
-          rlang::abort("Multiple-group models are not currently supported.")
-        }
-        ests <- lavaan::parameterEstimates(object)
-    } else if (inherits(object, "data.frame")) {
-      if (!is.null(object$group)) {
-        if (max(object$group) > 1) {
-          rlang::abort("Multiple-group models are not currently supported.")
-        }
-      }
-      if (!all(c("lhs", "op", "rhs", "pvalue") %in% colnames(object))) {
-        rlang::abort("The object needs to have these columns: lhs, op, rhs, and pvalue.")
-      }
-      ests <- object
-    } else {
-      rlang::abort("The object is not of a supported type.")
+    # TODO: Support for multigroup model can be implemented as in mark_se()
+    if (!missing(object) && lavaan::lavInspect(object, "ngroups") > 1) {
+      rlang::abort("Multiple-group models are not currently supported.")
     }
-
+    alphas_sorted <- sort(alphas, decreasing = FALSE)
+    if (is.null(ests)) {
+      if (isFALSE(std_type)) {
+        ests <- lavaan::parameterEstimates(object, se = TRUE, ci = FALSE,
+                                           zstat = TRUE, pvalue = TRUE)
+      } else {
+        if (isTRUE(std_type)) std_type <- "std.all"
+        ests <- lavaan::standardizedSolution(object, type = std_type,
+                                             se = TRUE, ci = FALSE,
+                                             zstat = TRUE, pvalue = TRUE)
+      }
+    }
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
     if (!is.null(names(Nodes_names))) {
       Nodes_names <- names(Nodes_names)

@@ -1,4 +1,4 @@
-# semptools 0.2.11.2
+# semptools 0.2.11.3
 
 ## New Features
 
@@ -22,9 +22,29 @@
 ## Improvement
 
 - Updated `mark_sig()` to accept a
-  data frame with the *p*-values. Uses
+  data frame with the *p*-values. Users
   can supply *p*-values computed by
-  other functions. (0.2.11.2)
+  other functions. (0.2.11.3)
+
+- Updated `mark_se()` to accept a
+  data frame with the standard errors.
+  Users can supply standard errors
+  computed by other functions. (0.2.11.3)
+
+- Updated `mark_sig()` to use the *p*-values
+  from `lavaan::standardizedSolution()`.
+  Users need to explicitly request
+  standardized solution *p*-values by
+  setting the argument `std_type`.
+  (0.2.11.3)
+
+- Updated `mark_se()` to use the
+  standard errors
+  from `lavaan::standardizedSolution()`.
+  Users need to explicitly request
+  standardized solution standard errors
+  by setting the argument `std_type`.
+  (0.2.11.3)
 
 ## Miscellaneous
 

@@ -34,7 +34,7 @@ p_pa_sig_chk <- paste0(formatC(est$est[id], digits = 2, format = "f"),
 test_that(
   "mark_sig: parameter estimate table with user p-values", {
     p_pa_sig1 <- mark_sig(p_pa, fit_pa)
-    p_pa_sig2 <- mark_sig(p_pa, parameterEstimates(fit_pa))
+    p_pa_sig2 <- mark_sig(p_pa, ests = parameterEstimates(fit_pa))
     expect_identical(p_pa_sig1$graphAttributes$Edges$labels,
                      p_pa_sig2$graphAttributes$Edges$labels)
   })

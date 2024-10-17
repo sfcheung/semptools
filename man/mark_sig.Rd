@@ -7,7 +7,9 @@
 mark_sig(
   semPaths_plot,
   object,
-  alphas = c(`*` = 0.05, `**` = 0.01, `***` = 0.001)
+  alphas = c(`*` = 0.05, `**` = 0.01, `***` = 0.001),
+  ests = NULL,
+  std_type = FALSE
 )
 }
 \arguments{
@@ -18,15 +20,25 @@ functions.}
 \item{object}{The object used by semPaths to generate the plot. Use
 the same argument name used in semPaths to make the meaning of this
 argument obvious. Currently only object of class
-\code{lavaan} is supported. Alternatively, it can be a data
-frame similar to the output of the \code{\link[lavaan:parameterEstimates]{lavaan::parameterEstimates()}},
-with these columns: \code{lhs}, \code{op}, \code{rhs}, and \code{pvalue}.
-The column \code{pvalue} will then be used to add the marks.}
+\code{lavaan} is supported.}
 
 \item{alphas}{A named numeric vector. Each element is the cutoff
 (level of significance), and the name of it is the symbol to be
 used if p-value is less than this cutoff. The default is c("\emph{" =
 .05, "\strong{" = .01, "}}" = .001).}
+
+\item{ests}{A data.frame from the
+\code{\link[lavaan]{parameterEstimates}} function, or
+from other function with these columns:? \code{lhs}, \code{op},
+\code{rhs}, and \code{pvalue}. Only used when
+\code{object} is not specified.}
+
+\item{std_type}{If standardized solution is used in the plot,
+set this either to the type of standardization (e.g., \code{"std.all"})
+or to \code{TRUE}. It will be passed to \code{\link[lavaan:standardizedSolution]{lavaan::standardizedSolution()}}
+to compute the standard errors for the standardized solution.
+Used only if standard errors are not supplied directly
+through \code{ests}.}
 }
 \value{
 A \link[qgraph:qgraph]{qgraph::qgraph} based on the original one, with marks
