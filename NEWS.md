@@ -1,4 +1,4 @@
-# semptools 0.2.11.3
+# semptools 0.2.11.4
 
 ## New Features
 
@@ -18,6 +18,11 @@
   the plot to fit the rectangle bounded
   by -1 and 1 vertically and
   horizontally. (0.2.11.1)
+
+- Added `add_rsq()` to add R-squares
+  to endogenous variables. They will
+  replace the residual variances in
+  the plot. (0.2.11.4)
 
 ## Improvement
 

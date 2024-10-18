@@ -67,6 +67,7 @@ reference:
 - contents:
   - mark_sig
   - mark_se
+  - add_rsq
   - set_curve
   - set_edge_color
   - set_edge_label_position
