@@ -1,4 +1,4 @@
-# semptools 0.2.11.4
+# semptools 0.2.11.5
 
 ## New Features
 
@@ -50,6 +50,14 @@
   standardized solution standard errors
   by setting the argument `std_type`.
   (0.2.11.3)
+
+- Functions that change the attributes
+  of an edge, such as `set_edge_label_position()`,
+  should now supports factor loadings by
+  using the `=~` operator when specifying
+  the edge. Previously, we needed to specify
+  a loading as if it were a regression
+  path (e.g., `x1 ~ f1`). (0.2.11.5)
 
 ## Miscellaneous
 
