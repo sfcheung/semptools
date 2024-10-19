@@ -47,7 +47,12 @@ to_list_of_lists <- function(input, name1 = NULL,
     if (split_name) {
         input_names_split_i <- function(x) {
             out <- lavaan::lavParseModelString(x)
-            out <- c(rhs = out$rhs, lhs = out$lhs)
+            # Handle factor loadings
+            if (identical(out$op, "=~")) {
+                out <- c(rhs = out$lhs, lhs = out$rhs)
+              } else {
+                out <- c(rhs = out$rhs, lhs = out$lhs)
+              }
           }
         input_names_split <- lapply(input_names, input_names_split_i)
         input_names_rhs <- sapply(input_names_split, getElement, name = "rhs")
@@ -69,18 +74,18 @@ to_list_of_lists <- function(input, name1 = NULL,
     input_noname <- input
     names(input_noname) <- NULL
     if (is.null(input_names_lhs)) {
-        out <- mapply(tmpfct, input_names_rhs, 
+        out <- mapply(tmpfct, input_names_rhs,
                               input_noname,
-                              MoreArgs = 
+                              MoreArgs =
                                 list(out_names = out_names),
                               SIMPLIFY = FALSE,
                               USE.NAMES = FALSE
                               )
       } else {
-        out <- mapply(tmpfct, input_names_rhs, 
-                              input_names_lhs, 
+        out <- mapply(tmpfct, input_names_rhs,
+                              input_names_lhs,
                               input_noname,
-                              MoreArgs = 
+                              MoreArgs =
                                 list(out_names = out_names),
                               SIMPLIFY = FALSE,
                               USE.NAMES = FALSE
