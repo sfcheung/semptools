@@ -1,4 +1,4 @@
-# semptools 0.2.11.5
+# semptools 0.3.0
 
 ## New Features
 
@@ -68,6 +68,9 @@
 
 - Fixed an R CMD check issue with
   some links in Rd files. (0.2.10.4)
+
+- Start to use Use 0.X.0 for each initial
+  submission to CRAN. (0.3.0)
 
 # semptools 0.2.10
 

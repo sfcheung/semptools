@@ -9,7 +9,7 @@
 [![R-CMD-check](https://github.com/sfcheung/semptools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sfcheung/semptools/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-(Version 0.2.11.5, updated on 2024-10-20, [release history](https://sfcheung.github.io/semptools/news/index.html))
+(Version 0.3.0, updated on 2024-10-21, [release history](https://sfcheung.github.io/semptools/news/index.html))
 
 # semptools <img src="man/figures/logo.png" align="right" height="150" />
 
@@ -65,6 +65,8 @@ These are some of the functions included so far
 
 - `mark_sig()`: Add asterisks ("\*", "\*\*", "\*\*\*") based on $p$-values of parameter estimates.
 
+- `add_rsq()`: Add R-squares (and remove the error variances) to endogenous variables.
+
 - `rotate_resid()`: Rotate the residuals of selected variables.
 
 - `set_curve()`: Change the curvature of selected paths.
@@ -84,6 +86,8 @@ These are some of the functions included so far
 - `set_cfa_layout()`: A function for typical confirmatory factor analysis models. It can be used for specifying the orders of the indicators and factors, specifying the positions of the factors, setting the curvatures of the interfactor covariances, set the position of all loadings, and setting the orientation of the model (down, left, up, or right).
 
 - `set_sem_layout()`: A function for typical SEM models. It can be used for specifying the orders of the indicators and factors, specifying the positions of the factors using a grid, specifying the orientation of each factor's indicators (down, left, up, right), fine tuning the positions of indicators of selected factor, setting the curvatures of selected paths, and specifying the position of all or selected loadings.
+
+- `rescale_layout()`: Rescale a plot to fit the plot area.
 
 See the [Get Started](https://sfcheung.github.io/semptools/articles/semptools.html) to learn more about these and other functions.
 
