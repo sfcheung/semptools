@@ -140,7 +140,14 @@ mark_sig <- function(semPaths_plot, object,
                                              "from_names",
                                              "to_names",
                                              "labels")]
-    ests_pvalues <- ests[, c("lhs",
+    # Remove thresholds. Not used
+    to_keep <- ests$op != "|"
+    # Remove intercepts. Not supported
+    to_keep <- to_keep & (ests$op != "~1")
+    # Remove ~*~. Not used.
+    to_keep <- to_keep & (ests$op != "~*~")
+
+    ests_pvalues <- ests[to_keep, c("lhs",
                              "op",
                              "rhs",
                              "pvalue")]
@@ -150,7 +157,7 @@ mark_sig <- function(semPaths_plot, object,
     colnames(ests_pvalues) <- gsub("\\<rhs\\>",
                                    "to_names",
                                    colnames(ests_pvalues))
-    ests_pvalues_rev <- ests[, c("lhs",
+    ests_pvalues_rev <- ests[to_keep, c("lhs",
                                  "rhs",
                                  "pvalue")]
     colnames(ests_pvalues_rev) <- gsub("\\<pvalue\\>",
@@ -167,12 +174,14 @@ mark_sig <- function(semPaths_plot, object,
                           by = c("from_names",
                                  "to_names"),
                           all.x = TRUE,
+                          all.y = FALSE,
                           sort = FALSE)
     edge_pvalues <- merge(x = edge_pvalues,
                           y = ests_pvalues_rev,
                           by = c("from_names",
                                  "to_names"),
                           all.x = TRUE,
+                          all.y = FALSE,
                           sort = FALSE)
     all_na <- apply(edge_pvalues[, c("pvalue", "pvalue_rev")],
                     MARGIN = 1,

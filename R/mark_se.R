@@ -160,7 +160,14 @@ mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L,
                                              "from_names",
                                              "to_names",
                                              "labels")]
-    ests_ses <- ests[, c("lhs", "rhs", "se")]
+    # Remove thresholds. Not used
+    to_keep <- ests$op != "|"
+    # Remove intercepts. Not supported
+    to_keep <- to_keep & (ests$op != "~1")
+    # Remove ~*~. Not used.
+    to_keep <- to_keep & (ests$op != "~*~")
+
+    ests_ses <- ests[to_keep, c("lhs", "rhs", "se")]
     ests_ses_rev <- ests_ses
     colnames(ests_ses_rev) <- gsub("\\<se\\>",
                                    "se_rev",
@@ -184,12 +191,14 @@ mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L,
                       by = c("from_names",
                              "to_names"),
                       all.x = TRUE,
+                      all.y = FALSE,
                       sort = FALSE)
     edge_ses <- merge(x = edge_ses,
                       y = ests_ses_rev_tmp,
                       by = c("from_names",
                              "to_names"),
                       all.x = TRUE,
+                      all.y = FALSE,
                       sort = FALSE)
     all_na <- apply(edge_ses[, c("se", "se_rev")],
                     MARGIN = 1,
