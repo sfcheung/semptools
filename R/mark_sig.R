@@ -99,10 +99,11 @@ mark_sig <- function(semPaths_plot, object,
                      ests = NULL,
                      std_type = FALSE) {
   if ("triangle" %in% semPaths_plot$graphAttributes$Nodes$shape) {
-    rlang::abort(paste("The semPaths plot seems to have one or",
-                       "more intercepts. Models with intercepts",
-                       "are not supported yet. Consider setting",
-                       "'intercepts = FALSE' in semPaths."))
+    rlang::inform(paste("The semPaths plot seems to have one or",
+                        "more intercepts. Support for models with",
+                        "are only experimental. If failed,",
+                        "consider setting",
+                        "'intercepts = FALSE' in semPaths."))
   }
     # TODO: Support for multigroup model can be implemented as in mark_se()
     if (!missing(object) && lavaan::lavInspect(object, "ngroups") > 1) {
@@ -124,6 +125,7 @@ mark_sig <- function(semPaths_plot, object,
     if (!is.null(names(Nodes_names))) {
       Nodes_names <- names(Nodes_names)
     }
+    ests$rhs <- ifelse(ests$op == "~1", yes = "1", no = ests$rhs)
     if (!all(Nodes_names %in% union(ests$lhs, ests$rhs))) {
       abort_nomatch(Nodes_names, union(ests$lhs, ests$rhs))
     }
@@ -142,8 +144,6 @@ mark_sig <- function(semPaths_plot, object,
                                              "labels")]
     # Remove thresholds. Not used
     to_keep <- ests$op != "|"
-    # Remove intercepts. Not supported
-    to_keep <- to_keep & (ests$op != "~1")
     # Remove ~*~. Not used.
     to_keep <- to_keep & (ests$op != "~*~")
 
