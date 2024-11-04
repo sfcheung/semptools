@@ -19,19 +19,19 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 # mark_se
 
 # Error
-test_that(
-  "mark_se detects a plot with intercepts",
-  expect_error(mark_se(p_pa, fit_pa),
-               "have one or more intercepts")
-)
+# test_that(
+#   "mark_se detects a plot with intercepts",
+#   expect_error(mark_se(p_pa, fit_pa),
+#                "have one or more intercepts")
+# )
 
 # mark_sig
 
-test_that(
-  "mark_sig detects a plot with intercepts",
-  expect_error(mark_sig(p_pa, fit_pa),
-               "have one or more intercepts")
-)
+# test_that(
+#   "mark_sig detects a plot with intercepts",
+#   expect_error(mark_sig(p_pa, fit_pa),
+#                "have one or more intercepts")
+# )
 
 
 # rotate_resid

@@ -112,10 +112,11 @@ mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L,
                     ests = NULL,
                     std_type = FALSE) {
   if ("triangle" %in% semPaths_plot$graphAttributes$Nodes$shape) {
-    rlang::abort(paste("The semPaths plot seems to have one or",
-                       "more intercepts. Models with intercepts",
-                       "are not supported yet. Consider setting",
-                       "'intercepts = FALSE' in semPaths."))
+    rlang::inform(paste("The semPaths plot seems to have one or",
+                        "more intercepts. Support for models with",
+                        "are only experimental. If failed,",
+                        "consider setting",
+                        "'intercepts = FALSE' in semPaths."))
   }
   if (is.null(ests)) {
     if (isFALSE(std_type)) {
@@ -144,6 +145,7 @@ mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L,
     if (!is.null(names(Nodes_names))) {
       Nodes_names <- names(Nodes_names)
     }
+    ests$rhs <- ifelse(ests$op == "~1", yes = "1", no = ests$rhs)
     if (!all(Nodes_names %in% union(ests$lhs, ests$rhs))) {
       abort_nomatch(Nodes_names, union(ests$lhs, ests$rhs))
     }
@@ -162,8 +164,6 @@ mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L,
                                              "labels")]
     # Remove thresholds. Not used
     to_keep <- ests$op != "|"
-    # Remove intercepts. Not supported
-    to_keep <- to_keep & (ests$op != "~1")
     # Remove ~*~. Not used.
     to_keep <- to_keep & (ests$op != "~*~")
 
