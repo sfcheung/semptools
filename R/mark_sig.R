@@ -39,8 +39,8 @@
 #'@param std_type If standardized solution is used in the plot,
 #'   set this either to the type of standardization (e.g., `"std.all"`)
 #'   or to `TRUE`. It will be passed to [lavaan::standardizedSolution()]
-#'   to compute the standard errors for the standardized solution.
-#'   Used only if standard errors are not supplied directly
+#'   to compute the *p*-values for the standardized solution.
+#'   Used only if *p*-values are not supplied directly
 #'   through `ests`.
 #'
 #'@examples
@@ -99,10 +99,11 @@ mark_sig <- function(semPaths_plot, object,
                      ests = NULL,
                      std_type = FALSE) {
   if ("triangle" %in% semPaths_plot$graphAttributes$Nodes$shape) {
-    rlang::abort(paste("The semPaths plot seems to have one or",
-                       "more intercepts. Models with intercepts",
-                       "are not supported yet. Consider setting",
-                       "'intercepts = FALSE' in semPaths."))
+    rlang::inform(paste("The semPaths plot seems to have one or",
+                        "more intercepts. Support for models with",
+                        "are only experimental. If failed,",
+                        "consider setting",
+                        "'intercepts = FALSE' in semPaths."))
   }
     # TODO: Support for multigroup model can be implemented as in mark_se()
     if (!missing(object) && lavaan::lavInspect(object, "ngroups") > 1) {
@@ -124,6 +125,7 @@ mark_sig <- function(semPaths_plot, object,
     if (!is.null(names(Nodes_names))) {
       Nodes_names <- names(Nodes_names)
     }
+    ests$rhs <- ifelse(ests$op == "~1", yes = "1", no = ests$rhs)
     if (!all(Nodes_names %in% union(ests$lhs, ests$rhs))) {
       abort_nomatch(Nodes_names, union(ests$lhs, ests$rhs))
     }
@@ -140,7 +142,12 @@ mark_sig <- function(semPaths_plot, object,
                                              "from_names",
                                              "to_names",
                                              "labels")]
-    ests_pvalues <- ests[, c("lhs",
+    # Remove thresholds. Not used
+    to_keep <- ests$op != "|"
+    # Remove ~*~. Not used.
+    to_keep <- to_keep & (ests$op != "~*~")
+
+    ests_pvalues <- ests[to_keep, c("lhs",
                              "op",
                              "rhs",
                              "pvalue")]
@@ -150,7 +157,7 @@ mark_sig <- function(semPaths_plot, object,
     colnames(ests_pvalues) <- gsub("\\<rhs\\>",
                                    "to_names",
                                    colnames(ests_pvalues))
-    ests_pvalues_rev <- ests[, c("lhs",
+    ests_pvalues_rev <- ests[to_keep, c("lhs",
                                  "rhs",
                                  "pvalue")]
     colnames(ests_pvalues_rev) <- gsub("\\<pvalue\\>",
@@ -167,12 +174,14 @@ mark_sig <- function(semPaths_plot, object,
                           by = c("from_names",
                                  "to_names"),
                           all.x = TRUE,
+                          all.y = FALSE,
                           sort = FALSE)
     edge_pvalues <- merge(x = edge_pvalues,
                           y = ests_pvalues_rev,
                           by = c("from_names",
                                  "to_names"),
                           all.x = TRUE,
+                          all.y = FALSE,
                           sort = FALSE)
     all_na <- apply(edge_pvalues[, c("pvalue", "pvalue_rev")],
                     MARGIN = 1,
