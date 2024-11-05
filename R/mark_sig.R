@@ -39,8 +39,8 @@
 #'@param std_type If standardized solution is used in the plot,
 #'   set this either to the type of standardization (e.g., `"std.all"`)
 #'   or to `TRUE`. It will be passed to [lavaan::standardizedSolution()]
-#'   to compute the standard errors for the standardized solution.
-#'   Used only if standard errors are not supplied directly
+#'   to compute the *p*-values for the standardized solution.
+#'   Used only if *p*-values are not supplied directly
 #'   through `ests`.
 #'
 #'@examples

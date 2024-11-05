@@ -36,8 +36,8 @@ from other function with these columns:? \code{lhs}, \code{op},
 \item{std_type}{If standardized solution is used in the plot,
 set this either to the type of standardization (e.g., \code{"std.all"})
 or to \code{TRUE}. It will be passed to \code{\link[lavaan:standardizedSolution]{lavaan::standardizedSolution()}}
-to compute the standard errors for the standardized solution.
-Used only if standard errors are not supplied directly
+to compute the \emph{p}-values for the standardized solution.
+Used only if \emph{p}-values are not supplied directly
 through \code{ests}.}
 }
 \value{
