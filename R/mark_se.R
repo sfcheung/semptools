@@ -112,10 +112,11 @@ mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L,
                     ests = NULL,
                     std_type = FALSE) {
   if ("triangle" %in% semPaths_plot$graphAttributes$Nodes$shape) {
-    rlang::abort(paste("The semPaths plot seems to have one or",
-                       "more intercepts. Models with intercepts",
-                       "are not supported yet. Consider setting",
-                       "'intercepts = FALSE' in semPaths."))
+    rlang::inform(paste("The semPaths plot seems to have one or",
+                        "more intercepts. Support for models with",
+                        "are only experimental. If failed,",
+                        "consider setting",
+                        "'intercepts = FALSE' in semPaths."))
   }
   if (is.null(ests)) {
     if (isFALSE(std_type)) {
@@ -144,6 +145,7 @@ mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L,
     if (!is.null(names(Nodes_names))) {
       Nodes_names <- names(Nodes_names)
     }
+    ests$rhs <- ifelse(ests$op == "~1", yes = "1", no = ests$rhs)
     if (!all(Nodes_names %in% union(ests$lhs, ests$rhs))) {
       abort_nomatch(Nodes_names, union(ests$lhs, ests$rhs))
     }
@@ -160,7 +162,12 @@ mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L,
                                              "from_names",
                                              "to_names",
                                              "labels")]
-    ests_ses <- ests[, c("lhs", "rhs", "se")]
+    # Remove thresholds. Not used
+    to_keep <- ests$op != "|"
+    # Remove ~*~. Not used.
+    to_keep <- to_keep & (ests$op != "~*~")
+
+    ests_ses <- ests[to_keep, c("lhs", "rhs", "se")]
     ests_ses_rev <- ests_ses
     colnames(ests_ses_rev) <- gsub("\\<se\\>",
                                    "se_rev",
@@ -184,12 +191,14 @@ mark_se <- function(semPaths_plot, object, sep = " ", digits = 2L,
                       by = c("from_names",
                              "to_names"),
                       all.x = TRUE,
+                      all.y = FALSE,
                       sort = FALSE)
     edge_ses <- merge(x = edge_ses,
                       y = ests_ses_rev_tmp,
                       by = c("from_names",
                              "to_names"),
                       all.x = TRUE,
+                      all.y = FALSE,
                       sort = FALSE)
     all_na <- apply(edge_ses[, c("se", "se_rev")],
                     MARGIN = 1,
