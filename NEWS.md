@@ -1,4 +1,4 @@
-# semptools 0.3.0.1
+# semptools 0.3.1
 
 ## Improvement
 
@@ -6,10 +6,13 @@
   to preliminarily support plots with
   intercepts. (0.3.0.1)
 
+- Updated `add_sig()` to support plots
+  with intercepts. (0.3.0.2)
+
 ## Bug Fixes
 
-- The function `mark_sig()` and `mark_se()`
-  now works for models with ordinal
+- The functions `mark_sig()` and `mark_se()`
+  now work for models with ordinal
   variables. (0.3.0.1)
 
 # semptools 0.3.0

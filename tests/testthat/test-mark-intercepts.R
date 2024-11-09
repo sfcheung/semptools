@@ -49,3 +49,13 @@ test_that(
     expect_identical(p_pa_sig$graphAttributes$Edges$labels[10:13],
                      p_pa_sig_chk)
   })
+
+rsq <- lavInspect(fit_pa, "rsquare")
+p_pa_rsq_chk <- paste0("R2=", formatC(rsq, digits = 2, format = "f"))
+
+test_that(
+  "add_rsq", {
+    p_pa_rsq <- add_rsq(p_pa, fit_pa)
+    expect_identical(p_pa_rsq$graphAttributes$Edges$labels[6:7],
+                     p_pa_rsq_chk)
+  })
