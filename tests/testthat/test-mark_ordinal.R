@@ -102,3 +102,31 @@ expect_identical(std$plotlabels,
 expect_identical(pse1$graphAttributes$Edges$labels,
                  pse2$graphAttributes$Edges$labels)
 })
+
+# Check add_rsq()
+
+prsq1 <- add_rsq(p,
+                 object = fit)
+prsq1$graphAttributes$Edges$labels
+if (interactive()) {
+  plot(prsq1)
+}
+
+est <- parameterEstimates(fit, rsquare = TRUE)
+est <- est[est$op == "r2", ]
+
+est$rsq_str <- formatC(est$est, digits = 2, format = "f")
+est$plotlabels <- paste0("R2=",
+                         formatC(est$est, digits = 2, format = "f"))
+est$plotlabels
+prsq1$graphAttributes$Edges$labels
+i0 <- which(prsq1$graphAttributes$Nodes$shape == "square")
+i1 <- (prsq1$Edgelist$from == prsq1$Edgelist$from) &
+       prsq1$Edgelist$bidirectional &
+       prsq1$Edgelist$from %in% i0
+i1 <- which(i1)
+
+test_that("check rsq", {
+expect_identical(est$plotlabels,
+                 prsq1$graphAttributes$Edges$labels[i1[seq_along(i0)]])
+})

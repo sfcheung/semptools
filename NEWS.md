@@ -1,10 +1,13 @@
-# semptools 0.3.0.1
+# semptools 0.3.0.2
 
 ## Improvement
 
 - Updated `mark_sig()` and `mark_se()`
   to preliminarily support plots with
   intercepts. (0.3.0.1)
+
+- Updated `add_sig()` to support plots
+  with intercepts. (0.3.0.2)
 
 ## Bug Fixes
 

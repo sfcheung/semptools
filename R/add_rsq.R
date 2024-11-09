@@ -107,12 +107,6 @@ add_rsq <- function(semPaths_plot,
                     digits = 2L,
                     rsq_string = "R2=",
                     ests = NULL) {
-  if ("triangle" %in% semPaths_plot$graphAttributes$Nodes$shape) {
-    rlang::abort(paste("The semPaths plot seems to have one or",
-                       "more intercepts. Models with intercepts",
-                       "are not supported yet. Consider setting",
-                       "'intercepts = FALSE' in semPaths."))
-  }
   if (is.null(ests)) {
     ests <- lavaan::parameterEstimates(object, se = FALSE, ci = FALSE,
                                        zstat = FALSE, pvalue = FALSE,
