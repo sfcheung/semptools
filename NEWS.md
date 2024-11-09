@@ -1,4 +1,4 @@
-# semptools 0.3.0.2
+# semptools 0.3.1
 
 ## Improvement
 
@@ -11,8 +11,8 @@
 
 ## Bug Fixes
 
-- The function `mark_sig()` and `mark_se()`
-  now works for models with ordinal
+- The functions `mark_sig()` and `mark_se()`
+  now work for models with ordinal
   variables. (0.3.0.1)
 
 # semptools 0.3.0
