@@ -105,21 +105,30 @@ mark_sig <- function(semPaths_plot, object,
                         "consider setting",
                         "'intercepts = FALSE' in semPaths."))
   }
-    # TODO: Support for multigroup model can be implemented as in mark_se()
-    if (!missing(object) && lavaan::lavInspect(object, "ngroups") > 1) {
-      rlang::abort("Multiple-group models are not currently supported.")
-    }
-    alphas_sorted <- sort(alphas, decreasing = FALSE)
-    if (is.null(ests)) {
-      if (isFALSE(std_type)) {
-        ests <- lavaan::parameterEstimates(object, se = TRUE, ci = FALSE,
+
+  alphas_sorted <- sort(alphas, decreasing = FALSE)
+  if (is.null(ests)) {
+    if (isFALSE(std_type)) {
+      ests <- lavaan::parameterEstimates(object, se = TRUE, ci = FALSE,
+                                         zstat = TRUE, pvalue = TRUE)
+    } else {
+      if (isTRUE(std_type)) std_type <- "std.all"
+      ests <- lavaan::standardizedSolution(object, type = std_type,
+                                           se = TRUE, ci = FALSE,
                                            zstat = TRUE, pvalue = TRUE)
-      } else {
-        if (isTRUE(std_type)) std_type <- "std.all"
-        ests <- lavaan::standardizedSolution(object, type = std_type,
-                                             se = TRUE, ci = FALSE,
-                                             zstat = TRUE, pvalue = TRUE)
-      }
+    }
+  }
+  if (inherits(semPaths_plot, "list")) {
+    if (length(semPaths_plot) != length(unique(ests$group))) {
+      rlang::abort(paste("length of qgraph list does not match",
+                         "number of groups in model fit object."))
+    }
+    ests_list <- split(ests, ests$group)
+    mapply(mark_sig, semPaths_plot, ests = ests_list, SIMPLIFY = FALSE)
+  } else {
+    if (!missing(object) && lavaan::lavInspect(object, "ngroups") > 1) {
+      rlang::abort(paste("length of qgraph list does not match",
+                         "number of groups in model fit object."))
     }
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
     if (!is.null(names(Nodes_names))) {
@@ -198,8 +207,8 @@ mark_sig <- function(semPaths_plot, object,
                       ifelse(is.na(ind), "", names(ind[1]))
                     })
     labels_old <- semPaths_plot$graphAttributes$Edges$labels
-    labels_new <- paste0(semPaths_plot$graphAttributes$Edges$labels, sig_symbols)
+    labels_new <- paste0(labels_old, sig_symbols)
     semPaths_plot$graphAttributes$Edges$labels <- labels_new
     semPaths_plot
   }
-
+}
