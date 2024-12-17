@@ -1,3 +1,9 @@
+# semptools 0.3.1.1
+
+- Updated `mark_sig()` and `mark_se()`
+  to support plots of multigroup models.
+  (0.3.1.1)
+
 # semptools 0.3.1
 
 ## Improvement
@@ -6,7 +12,7 @@
   to preliminarily support plots with
   intercepts. (0.3.0.1)
 
-- Updated `add_sig()` to support plots
+- Updated `add_rsq()` to support plots
   with intercepts. (0.3.0.2)
 
 ## Bug Fixes
