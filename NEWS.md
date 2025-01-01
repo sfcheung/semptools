@@ -1,8 +1,12 @@
-# semptools 0.3.1.1
+# semptools 0.3.1.2
 
 - Updated `mark_sig()` and `mark_se()`
   to support plots of multigroup models.
   (0.3.1.1)
+
+- Updated `add_rsq()` to support plots
+  with structural paths only.
+  (0.3.1.2)
 
 # semptools 0.3.1
 
