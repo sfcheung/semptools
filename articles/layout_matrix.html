@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,7 +80,7 @@
                         <h4 data-toc-skip class="author">Shu Fai Cheung
 &amp; Mark Hok Chio Lai</h4>
             
-            <h4 data-toc-skip class="date">2024-12-17</h4>
+            <h4 data-toc-skip class="date">2025-01-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sfcheung/semptools/blob/master/vignettes/layout_matrix.Rmd" class="external-link"><code>vignettes/layout_matrix.Rmd</code></a></small>
       <div class="d-none name"><code>layout_matrix.Rmd</code></div>
@@ -113,11 +113,13 @@ of their indicators.</p>
 and <code>x2</code> affects <code>x3</code>, and <code>x1</code> and
 <code>x3</code> affects <code>x4</code>. In psychology, this model is
 usually presented this way:</p>
+<pre><code><span><span class="co">#&gt; Error in get(paste0(generic, ".", class), envir = get_method_env()) : </span></span>
+<span><span class="co">#&gt;   object 'type_sum.accel' not found</span></span></code></pre>
 <p><img src="layout_matrix_files/figure-html/conceptual_diagram-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>If we fit the model by <code><a href="https://rdrr.io/pkg/lavaan/man/lavaan.html" class="external-link">lavaan::lavaan()</a></code> and use
 <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> to generate the plot without using
 <code>layout</code>, this is the resulting plot:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lavaan.ugent.be" class="external-link">lavaan</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SachaEpskamp/semPlot" class="external-link">semPlot</a></span><span class="op">)</span></span>
 <span><span class="va">mod_pa</span> <span class="op">&lt;-</span></span>
@@ -144,7 +146,7 @@ between <code>x3</code> and <code>x4</code> because we want to move
 <p>We then create a matrix of the same dimension as the grid, and
 initialize the cells by <code>NA</code>, which denoted a cell with
 <em>nothing</em>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="va">m</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
@@ -155,7 +157,7 @@ initialize the cells by <code>NA</code>, which denoted a cell with
 in a plot by <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code>) by setting the
 corresponding cell to the name of this variable as appeared in the
 <code>lavaan</code> model.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"x1"</span></span>
 <span><span class="va">m</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"x2"</span></span>
 <span><span class="va">m</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"x3"</span></span>
@@ -167,7 +169,7 @@ corresponding cell to the name of this variable as appeared in the
 <span><span class="co">#&gt; [3,] "x2" NA   NA   NA</span></span></code></pre></div>
 <p>We can then set <code>layout</code> to this matrix to tell
 <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> how to position the four variables:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p_pa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPaths</a></span><span class="op">(</span><span class="va">fit_pa</span>, whatLabels <span class="op">=</span> <span class="st">"est"</span>,</span>
 <span>           sizeMan <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>           edge.label.cex <span class="op">=</span> <span class="fl">1.15</span>,</span>
@@ -177,7 +179,7 @@ corresponding cell to the name of this variable as appeared in the
 <p><img src="layout_matrix_files/figure-html/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>Alternatively, we can type the matrix as it would appear if printed,
 and set <code>byrow = TRUE</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>,   <span class="cn">NA</span>,  <span class="cn">NA</span>,   <span class="cn">NA</span>,</span>
 <span>                <span class="cn">NA</span>, <span class="st">"x3"</span>,  <span class="cn">NA</span>, <span class="st">"x4"</span>,</span>
 <span>              <span class="st">"x2"</span>,   <span class="cn">NA</span>,  <span class="cn">NA</span>,   <span class="cn">NA</span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
@@ -208,7 +210,7 @@ variables. Instead of specifying the dimension ourselves,
 <code><a href="../reference/layout_matrix.html">layout_matrix()</a></code> will try to figure out the dimension based
 on the coordinates automatically.</p>
 <p>For example, to generate the same layout above, we can do this:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layout_matrix.html">layout_matrix</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>                    x2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>                    x3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
@@ -229,7 +231,7 @@ on the coordinates automatically.</p>
 Instead of deleting the 3rd columns of <code>NA</code>, we can just
 change the coordinates of <code>x4</code> in
 <code><a href="../reference/layout_matrix.html">layout_matrix()</a></code>:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layout_matrix.html">layout_matrix</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>                    x2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>                    x3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
@@ -275,7 +277,7 @@ above can be used. The only difference is, only the names of the
 the size of the grid only need to consider the factors.</p>
 <p>For example, suppose we have 14 indicators and four factors, and this
 is the model:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span></span>
 <span>  <span class="st">'f1 =~ x01 + x02 + x03</span></span>
 <span><span class="st">   f2 =~ x04 + x05 + x06 + x07</span></span>
@@ -286,7 +288,7 @@ is the model:</p>
 <span><span class="st">  '</span></span></code></pre></div>
 <p>If we want to draw both the factors and the indicators, the plot will
 have 18 nodes:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">cfa_example</span><span class="op">)</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPaths</a></span><span class="op">(</span><span class="va">fit</span>, whatLabels<span class="op">=</span><span class="st">"est"</span>,</span>
 <span>        sizeMan <span class="op">=</span> <span class="fl">5</span>,</span>
@@ -301,7 +303,7 @@ have 18 nodes:</p>
 example:</p>
 <p><img src="layout_matrix_files/figure-html/unnamed-chunk-11-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>Therefore, this is the matrix to be used:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m_sem</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layout_matrix.html">layout_matrix</a></span><span class="op">(</span>f1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>                    f2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>                    f3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
@@ -313,7 +315,7 @@ example:</p>
 <span><span class="co">#&gt; [3,] "f2" NA   NA</span></span></code></pre></div>
 <p>Note that <code><a href="../reference/layout_matrix.html">layout_matrix()</a></code> can also be used to set up the
 orientation of the indicators of each factor:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">point_to</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/layout_matrix.html">layout_matrix</a></span><span class="op">(</span>left <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>                          left <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,</span>
 <span>                          down <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>,</span>
@@ -321,7 +323,7 @@ orientation of the indicators of each factor:</p>
 <p>We can then use this matrix in <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> (please
 refer to <code><a href="../articles/quick_start_sem.html">vignette("quick_start_sem")</a></code> or
 <code><a href="../reference/set_sem_layout.html">?set_sem_layout</a></code> on how to specify other arguments):</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">indicator_order</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x04"</span>, <span class="st">"x05"</span>, <span class="st">"x06"</span>, <span class="st">"x07"</span>,</span>
 <span>                      <span class="st">"x01"</span>, <span class="st">"x02"</span>, <span class="st">"x03"</span>,</span>
 <span>                      <span class="st">"x11"</span>, <span class="st">"x12"</span>, <span class="st">"x13"</span>, <span class="st">"x14"</span>,</span>
