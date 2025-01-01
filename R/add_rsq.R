@@ -133,7 +133,7 @@ add_rsq <- function(semPaths_plot,
     if (!is.null(names(Nodes_names))) {
       Nodes_names <- names(Nodes_names)
     }
-    if (!all(union(ests$lhs, ests$rhs) %in% Nodes_names)) {
+    if (length(intersect(union(ests$lhs, ests$rhs), Nodes_names)) == 0) {
       abort_nomatch(union(ests$lhs, ests$rhs), Nodes_names)
     }
     Edgelist <- data.frame(
