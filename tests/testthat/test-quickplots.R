@@ -2,7 +2,6 @@ skip("WIP")
 
 library(lavaan)
 library(semPlot)
-library(lavaan)
 
 # ---- Simple Mediation Model: With Control Variables
 
@@ -13,27 +12,37 @@ mod_pa <-
 
 fit_pa <- lavaan::sem(mod_pa,
                       pa_example)
-m <- layout_matrix(x1 = c(2, 1),
-                   x3 = c(1, 2),
-                   x4 = c(2, 3))
-pm_pa <- semPlot::semPlotModel(fit_pa)
-pm_pa2 <- drop_nodes(pm_pa, c("x2"))
-semPlot::semPaths(pm_pa2,
-                  whatLabels = "est",
-                  style = "lisrel",
-                  nCharNodes = 0,
-                  nCharEdges = 0,
-                  layout = m)
+
+mod_sem <-
+'f1 =~ x01 + x02 + x03
+ f2 =~ x04 + x05 + x06 + x07
+ f3 =~ x08 + x09 + x10
+ f4 =~ x11 + x12 + x13 + x14
+ f3 ~  f1 + f2
+ f4 ~  f1 + f3
+'
+fit_sem <- lavaan::sem(mod_sem,
+                       sem_example)
+
+layout_sem <- layout_matrix(f1 = c(2, 1),
+                            f3 = c(1, 2),
+                            f4 = c(2, 3))
+ov_names <- lavNames(fit_sem,
+                     "ov")
+pm_sem <- drop_nodes(semPlot::semPlotModel(fit_sem),
+                     nodes = ov_names)
 
 # MAYDO:
 # - Can add the indirect effect (with CIs and p-value)
 #   to the plot.
 # - Can add the total effect (with CIs and p-value)
 #   to the plot (not meaningful if the model has
-#   control variables.
+#   control variables).
 # - Can keep control variables if so desired.
-# TODO:
-# - Support plotting the structural part.
+
+# NOTE:
+# - Plotting structural models is automatically supported
+#   because other nodes will be removed.
 
 quick_mediation_simple <- function(object,
                                    x,
@@ -41,10 +50,11 @@ quick_mediation_simple <- function(object,
                                    y,
                                    what = "path",
                                    whatLabels = "est",
-                                   style = c("ram", "lisrel"),
+                                   style = c("lisrel", "ram"),
                                    nCharNodes = 0,
                                    nCharEdges = 0,
                                    sizeMan = 10,
+                                   sizeLat = 10,
                                    edge.label.cex = 1.25,
                                    ...,
                                    plot_now = TRUE,
@@ -63,7 +73,8 @@ quick_mediation_simple <- function(object,
           missing(y))) {
     stop("x, m, and y must all be specified.")
   }
-  vnames <- lavaan::lavNames(object, "ov")
+  vnames <- c(lavaan::lavNames(object, "ov"),
+              lavaan::lavNames(object, "lv"))
   to_use <- c(x, m, y)
   to_exclude <- setdiff(vnames, to_use)
   layout0 <- matrix(c(NA,  m, NA,
@@ -81,6 +92,7 @@ quick_mediation_simple <- function(object,
                          nCharNodes = nCharNodes,
                          nCharEdges = nCharEdges,
                          sizeMan = sizeMan,
+                         sizeLat = sizeLat,
                          edge.label.cex = edge.label.cex,
                          layout = layout0,
                          DoNotPlot = TRUE,
@@ -149,5 +161,17 @@ p <- quick_mediation_simple(fit_pa,
                             x = "x1",
                             m = "x3",
                             y = "x4",
+                            whatLabels = "std",
+                            style = "lisrel")
+
+p <- quick_mediation_simple(fit_sem,
+                            x = "f1",
+                            m = "f3",
+                            y = "f4")
+
+p <- quick_mediation_simple(fit_sem,
+                            x = "f1",
+                            m = "f3",
+                            y = "f4",
                             whatLabels = "std",
                             style = "lisrel")
