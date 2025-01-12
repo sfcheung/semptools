@@ -44,6 +44,13 @@ pm_sem <- drop_nodes(semPlot::semPlotModel(fit_sem),
 # - Plotting structural models is automatically supported
 #   because other nodes will be removed.
 
+# TODO:
+# - Notes suppressed if there are no control variables.
+# - A simple mediation model is a special case of
+#   a parallel mediation model. How about writing a
+#   quick_mediation_simple() as a wrapper of
+#   quick_mediation_parallel()?
+
 quick_mediation_simple <- function(object,
                                    x,
                                    m,
