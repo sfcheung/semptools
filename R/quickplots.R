@@ -1,7 +1,551 @@
+#' @title Quick Plots of Common Models
+#'
+#' @description Simple-to-use functions
+#' for generating plots of common models.
+#'
+#' @details
+#' A collection of functions for
+#' generating the plots of common
+#' models. They are designed to need as
+#' few arguments as possible to have a
+#' plot that should need minimal
+#' postprocessing.
+#'
+#' Currently, functions are available
+#' for these plots:
+#'
+#' - Simple mediation models (a model
+#'   with only one mediator):
+#'   [q_simple()] or
+#'   [quick_simple_mediation()].
+#'
+#' - Parallel mediation models (a model
+#'   with one or more paths between two
+#'   variables, each path with only one
+#'   mediator): [q_parallel()] or
+#'   [quick_parallel_mediation()].
+#'
+#' - Serial mediation models (a model
+#'   with one main path between two
+#'   variables, withe one or more
+#'   mediators along the path):
+#'   [q_serial()] or
+#'   [quick_serial_mediation()].
+#'
+#' For these three functions, if the
+#' default settings are desired, users
+#' only need to supply the `lavaan`
+#' output, and specify:
+#'
+#' - The `x` variable (predictor) to
+#'   be included.
+#'
+#' - The `m` variable(s) to be included,
+#'   which is a character vector if the
+#'   model has more than one mediator.
+#'
+#' - The `y` variable to be included.
+#'
+#' These variables can be observed
+#' variables or latent factors. Indicators
+#' of latent variables will not be drawn
+#' (unless they are listed in `x`,
+#' `m`, or `y`).
+#'
+#' The layout is determined by the
+#' argument `mediators_position`, with
+#' two or more preset layouts for each
+#' model.
+#'
+#' By default, the following will be
+#' added to the plot:
+#'
+#' - Asterisks included to denote the
+#'   significance test results
+#'   (implemented by [mark_sig()]).
+#'
+#' - Standard errors included for free
+#'   parameters (implemented by
+#'   [mark_se()]).
+#'
+#' - R-squares are drawn in place of
+#'   error variances for the `m`
+#'   variable(s) and `y` variable
+#'   (implemented by [add_rsq()]).
+#'
+#' These options can be turned off if
+#' so desired.
+#'
+#' Unlike other function in `semptools`,
+#' these functions are usually used to
+#' plot a model immediately. Therefore,
+#' the resulting plot will be plotted by
+#' default. Turned this off by setting
+#' `plot_now` to `FALSE` (analogous to
+#' setting `DoNotPlot` to `FALSE` when
+#' calling [semPlot::semPaths()]).
+#'
+#' Although the plot is designed to be
+#' ready-to-plot, it can be further
+#' processed by other `semptools`
+#' functions if necessary, just like the
+#' plot of [semPlot::semPaths()].
+#'
+#' ## Variables to be drawn
+#'
+#' For readability, it is common for
+#' researchers to omit some variables
+#' when drawing a model.
+#'
+#' For example:
+#'
+#' `m ~ x + c1 + c2`
+#'
+#' `y ~ m + x + c1 + c2`
+#'
+#' If `c1` and `c2` are control variables,
+#' researchers want to draw only these\
+#' paths
+#'
+#' `m ~ x`
+#'
+#' `y ~ m + x`
+#'
+#' The quick plot functions can be used
+#' for this purpose. Only selected
+#' variables will be included in the
+#' plots.
+#'
+#' Researchers may also want to draw
+#' several plots, one for each pair of
+#' the predictor (the `x`-variable) and
+#' the outcome variable (the
+#' `y`-variable).
+#'
+#' For example,
+#'
+#' `m ~ x + c1 + c2`
+#'
+#' `y1 ~ m + x + c1 + c2`
+#'
+#' `y2 ~ m + x + c1 + c2`
+#'
+#' For this model, in addition to
+#' excluding the control variables,
+#' researchers may want to generate two
+#' diagrams, one for `y1`:
+#'
+#' `m ~ x`
+#'
+#' `y1 ~ m + x`
+#'
+#' and the other for `y2`:
+#'
+#' `m ~ x`
+#'
+#' `y2 ~ m + x`
+#'
+#' Note that all the functions will not
+#' check the models. The specification
+#' of `x`, `m`, and `y` are assumed to
+#' be valid for the fitted models.
+#'
+#' @return A [qgraph::qgraph] generated
+#' by [semPlot::semPaths()] and
+#' customized by other `semptools`
+#' functions is returned invisibly.
+#' Called for its side effect.
+#'
+#' @param object A `lavaan` object, such
+#' as the output of [lavaan::sem()].
+#'
+#' @param x The name of the `x` variable.
+#' Must have exactly one `x` variable.
+#'
+#' @param m The name(s) of the `m`
+#' variable(s). The allowed number of `m`
+#' variable(s) depends of the model to
+#' be drawn.
+#'
+#' @param y The name of the `y` variable.
+#' Must have exactly one `y` variable.
+#'
+#' @param mediators_position For a
+#' simple mediation model, it can be
+#' either `"top"` or `"bottom"`. For
+#' a parallel or serial mediation model,
+#' it can be `"top"`, `"bottom"`, or
+#' `"center"`.
+#'
+#' @param what The same argument of
+#' [semPlot::semPaths()]. What the edges
+#' (arrows) denote. Default is `"path"`,
+#' the paths drawn with equal width.
+#'
+#' @param whatLabels The same argument
+#' of [semPlot::semPaths()]. What the
+#' edge labels represent. Default is
+#' `"est"`, the parameter estimates.
+#' Can be set to `"std"` to print
+#' standardized coefficients.
+#'
+#' @param style The same argument of
+#' [semPlot::semPaths()]. How residual
+#' variances are drawn. Can be `"lisrel"`,
+#' the default, or `"ram"`.
+#'
+#' @param nCharNodes The same argument of
+#' [semPlot::semPaths()]. Default is 0,
+#' to disable abbreviation of the variable
+#' names.
+#'
+#' @param nCharEdges The same argument of
+#' [semPlot::semPaths()]. Default is 0,
+#' to disable abbreviation of the edge
+#' labels.
+#'
+#' @param sizeMan The same argument of
+#' [semPlot::semPaths()]. The size
+#' of the observed variables. Default is
+#' `NULL` and the actual size determined
+#' internally based on the number of
+#' mediators.
+#'
+#' @param sizeLat The same argument of
+#' [semPlot::semPaths()]. The size
+#' of the latent variables. Default is
+#' `NULL` and the actual size determined
+#' internally based on the number of
+#' mediators.
+#'
+#' @param edge.label.cex The same
+#' argument of [semPlot::semPaths()].
+#' The size of the edge labels
+#' (parameter estimates). Default is
+#' `NULL` and the actual size determined
+#' internally based on the number of
+#' mediators.
+#'
+#' @param ... Other arguments to be
+#' passed to to [semPlot::semPaths()].
+#'
+#' @param plot_now Logical. If `TRUE`,
+#' the default, the plot will be plotted
+#' immediately. Set it to `FALSE` if the
+#' plot will be further processed before
+#' being plotted.
+#'
+#' @param do_mark_se Logical. If `TRUE`,
+#' the default, standard errors will be
+#' added by [mark_se()]. The `lavaan`
+#' standard errors will be used if the
+#' standardized coefficients are requested
+#' (`whatLabels` set to `std`).
+#'
+#' @param do_mark_sig Logical. If
+#' `TRUE`, the default, significance
+#' test results will be marked by
+#' asterisks using [mark_sig()].
+#'
+#' @param do_rotate_resid Logical. If
+#' `TRUE`, the default, Error variances,
+#' or R-squares if `do_add_rsq` is `TRUE`,
+#' will be rotated based on the layout.
+#'
+#' @param do_add_rsq Logical. If
+#' `TRUE`, the default, Error variances
+#' will be replaced by R-squares, added
+#' by [add_rsq()].
+#'
+#' @param add_notes Logical. If
+#' `TRUE` and `plot_now` is also `TRUE`,
+#' a note will be added by [text()],
+#' using `notes`. Customization is limited.
+#' Do not use for now. Commonly used
+#' notes will be added in the future.
+#'
+#' @param notes A string, the notes to
+#' be printed if `add_notes` is `TRUE`.
+#'
+#' @name quick_sem_plot
+NULL
+
+#' @rdname quick_sem_plot
+#'
+#' @examples
+#'
+#' library(lavaan)
+#' library(semPlot)
+#'
+#' # ---- Parallel Mediation Model
+#'
+#' mod_parallel <-
+#'  'x04 ~ x01
+#'   x05 ~ x01
+#'   x06 ~ x01
+#'   x07 ~ x01
+#'   x10 ~ x04 + x05 + x06 + x07 + x01'
+#'
+#' fit_parallel <- lavaan::sem(mod_parallel,
+#'                             sem_example)
+#'
+#' q_parallel(fit_parallel,
+#'            x = "x01",
+#'            m = c("x04", "x05", "x06", "x07"),
+#'            y = "x10")
+#'
+#' q_parallel(fit_parallel,
+#'            x = "x01",
+#'            m = c("x04", "x05", "x06", "x07"),
+#'            y = "x10",
+#'            mediators_position = "top")
+#'
+#' q_parallel(fit_parallel,
+#'            x = "x01",
+#'            m = c("x04", "x05", "x06", "x07"),
+#'            y = "x10",
+#'            mediators_position = "bottom")
+#'
+#' # Suppress some elements for readability
+#'
+#' q_parallel(fit_parallel,
+#'            x = "x01",
+#'            m = c("x04", "x05", "x06", "x07"),
+#'            y = "x10",
+#'            mediators_position = "bottom",
+#'            do_mark_se = FALSE)
+#'
+#' @export
+
+quick_parallel_mediation <- function(object,
+                                     x,
+                                     m,
+                                     y,
+                                     mediators_position = c("center", "top", "bottom"),
+                                     what = "path",
+                                     whatLabels = "est",
+                                     style = c("lisrel", "ram"),
+                                     nCharNodes = 0,
+                                     nCharEdges = 0,
+                                     sizeMan = NULL,
+                                     sizeLat = NULL,
+                                     edge.label.cex = NULL,
+                                     ...,
+                                     plot_now = TRUE,
+                                     do_mark_se = TRUE,
+                                     do_mark_sig = TRUE,
+                                     do_rotate_resid = TRUE,
+                                     do_add_rsq = TRUE,
+                                     add_notes = FALSE,
+                                     notes = NULL) {
+  mediators_position <- match.arg(mediators_position)
+  style <- match.arg(style)
+  quick_mediation_general(object = object,
+                          x = x,
+                          m = m,
+                          y = y,
+                          mediators_position = mediators_position,
+                          what = what,
+                          whatLabels = whatLabels,
+                          style = style,
+                          nCharNodes = nCharNodes,
+                          nCharEdges = nCharEdges,
+                          sizeMan = sizeMan,
+                          sizeLat = sizeLat,
+                          edge.label.cex = edge.label.cex,
+                          ...,
+                          layout_function = quick_mediation_parallel_layout,
+                          rotate_resid_function = quick_mediation_parallel_rotate_resid,
+                          plot_now = plot_now,
+                          do_mark_se = do_mark_se,
+                          do_mark_sig = do_mark_sig,
+                          do_rotate_resid = do_rotate_resid,
+                          do_add_rsq = do_add_rsq,
+                          add_notes = add_notes,
+                          notes = notes)
+}
+
+#' @rdname quick_sem_plot
+#' @export
+q_parallel <- quick_parallel_mediation
+
+#' @examples
+#' # ---- Serial Mediation Model
+#'
+#' mod_serial <-
+#'  'x04 ~ x01
+#'   x05 ~ x04 + x01
+#'   x06 ~ x04 + x05 + x01
+#'   x07 ~ x04 + x05 + x06 + x01
+#'   x08 ~ x04 + x05 + x06 + x07 + x01'
+#' fit_serial <- lavaan::sem(mod_serial,
+#'                           sem_example)
+#' q_serial(fit_serial,
+#'          x = "x01",
+#'          m = c("x04", "x05", "x06", "x07"),
+#'          y = "x08")
+#'
+#' q_serial(fit_serial,
+#'          x = "x01",
+#'          m = c("x04", "x05", "x06", "x07"),
+#'          y = "x08",
+#'          mediators_position = "bottom")
+#'
+#' # Suppress some elements for readability
+#'
+#' q_serial(fit_serial,
+#'          x = "x01",
+#'          m = c("x04", "x05", "x06", "x07"),
+#'          y = "x08",
+#'          mediators_position = "bottom",
+#'          do_mark_se = FALSE)
+#'
+#' @rdname quick_sem_plot
+#' @export
+
+quick_serial_mediation <- function(object,
+                                   x,
+                                   m,
+                                   y,
+                                   mediators_position = c("top", "bottom"),
+                                   what = "path",
+                                   whatLabels = "est",
+                                   style = c("lisrel", "ram"),
+                                   nCharNodes = 0,
+                                   nCharEdges = 0,
+                                   sizeMan = NULL,
+                                   sizeLat = NULL,
+                                   edge.label.cex = NULL,
+                                   ...,
+                                   plot_now = TRUE,
+                                   do_mark_se = TRUE,
+                                   do_mark_sig = TRUE,
+                                   do_rotate_resid = TRUE,
+                                   do_add_rsq = TRUE,
+                                   add_notes = FALSE,
+                                   notes = NULL) {
+  mediators_position <- match.arg(mediators_position)
+  style <- match.arg(style)
+  quick_mediation_general(object = object,
+                          x = x,
+                          m = m,
+                          y = y,
+                          mediators_position = mediators_position,
+                          what = what,
+                          whatLabels = whatLabels,
+                          style = style,
+                          nCharNodes = nCharNodes,
+                          nCharEdges = nCharEdges,
+                          sizeMan = sizeMan,
+                          sizeLat = sizeLat,
+                          edge.label.cex = edge.label.cex,
+                          ...,
+                          layout_function = quick_mediation_serial_layout,
+                          rotate_resid_function = quick_mediation_serial_rotate_resid,
+                          plot_now = plot_now,
+                          do_mark_se = do_mark_se,
+                          do_mark_sig = do_mark_sig,
+                          do_rotate_resid = do_rotate_resid,
+                          do_add_rsq = do_add_rsq,
+                          add_notes = add_notes,
+                          notes = notes)
+}
+
+#' @rdname quick_sem_plot
+#' @export
+q_serial <- quick_serial_mediation
+
+#' @examples
+#' # ---- Simple Mediation Model: With Control Variables
+#'
+#' mod_pa <-
+#' 'x3 ~  x1 + x2
+#'  x4 ~  x3 + x1 + x2'
+#' fit_pa <- lavaan::sem(mod_pa,
+#'                       pa_example)
+#'
+#' mod_sem <-
+#' 'f1 =~ x01 + x02 + x03
+#'  f2 =~ x04 + x05 + x06 + x07
+#'  f3 =~ x08 + x09 + x10
+#'  f4 =~ x11 + x12 + x13 + x14
+#'  f3 ~  f1 + f2
+#'  f4 ~  f1 + f3'
+#' fit_sem <- lavaan::sem(mod_sem,
+#'                        sem_example)
+#' q_simple(fit_pa,
+#'          x = "x1",
+#'          m = "x3",
+#'          y = "x4")
+#'
+#' # Drawing latent factors only
+#'
+#' q_simple(fit_sem,
+#'          x = "f1",
+#'          m = "f3",
+#'          y = "f4",
+#'          whatLabels = "std",
+#'          mediators_position = "bottom")
+#'
+#' @rdname quick_sem_plot
+#' @export
+
+quick_simple_mediation <- function(object,
+                                   x,
+                                   m,
+                                   y,
+                                   mediators_position = c("top", "bottom"),
+                                   what = "path",
+                                   whatLabels = "est",
+                                   style = c("lisrel", "ram"),
+                                   nCharNodes = 0,
+                                   nCharEdges = 0,
+                                   sizeMan = NULL,
+                                   sizeLat = NULL,
+                                   edge.label.cex = NULL,
+                                   ...,
+                                   plot_now = TRUE,
+                                   do_mark_se = TRUE,
+                                   do_mark_sig = TRUE,
+                                   do_rotate_resid = TRUE,
+                                   do_add_rsq = TRUE,
+                                   add_notes = FALSE,
+                                   notes = NULL) {
+  mediators_position <- match.arg(mediators_position)
+  style <- match.arg(style)
+  quick_mediation_general(object = object,
+                          x = x,
+                          m = m,
+                          y = y,
+                          mediators_position = mediators_position,
+                          what = what,
+                          whatLabels = whatLabels,
+                          style = style,
+                          nCharNodes = nCharNodes,
+                          nCharEdges = nCharEdges,
+                          sizeMan = sizeMan,
+                          sizeLat = sizeLat,
+                          edge.label.cex = edge.label.cex,
+                          ...,
+                          layout_function = quick_mediation_simple_layout,
+                          rotate_resid_function = quick_mediation_simple_rotate_resid,
+                          plot_now = plot_now,
+                          do_mark_se = do_mark_se,
+                          do_mark_sig = do_mark_sig,
+                          do_rotate_resid = do_rotate_resid,
+                          do_add_rsq = do_add_rsq,
+                          add_notes = add_notes,
+                          notes = notes)
+}
+
+#' @rdname quick_sem_plot
+#' @export
+q_simple <- quick_simple_mediation
 
 #' @noRd
 # A generic internal quick plot function
 # for 1-many-1 plots.
+#' @importFrom graphics par text
 
 quick_mediation_general <- function(object,
                                     x,
@@ -47,22 +591,22 @@ quick_mediation_general <- function(object,
   # number of mediators
   if (is.null(sizeMan)) {
     sizeMan <- quick_scale(m = m,
-                           val_max = 10,
-                           val_min = 8,
+                           val_max = 9,
+                           val_min = 7,
                            m_p_max = 1,
                            m_p_min = 4)
   }
   if (is.null(sizeLat)) {
     sizeLat <- quick_scale(m = m,
-                           val_max = 10,
-                           val_min = 8,
+                           val_max = 9,
+                           val_min = 7,
                            m_p_max = 1,
                            m_p_min = 4)
   }
   if (is.null(edge.label.cex)) {
     edge.label.cex <- quick_scale(m = m,
-                                  val_max = 1.25,
-                                  val_min = .80,
+                                  val_max = 1.0,
+                                  val_min = .75,
                                   m_p_max = 1,
                                   m_p_min = 4)
   }
@@ -148,14 +692,14 @@ quick_mediation_general <- function(object,
       if (is.null(notes)) {
         notes <- "(Control variables not shown)"
       }
-      usr <- par("usr")
+      usr <- graphics::par("usr")
       text(x = 0,
            y = usr[3] * .9,
            notes,
            cex = 1.25)
     }
   }
-  return(p)
+  invisible(p)
 }
 
 #' @noRd
@@ -311,6 +855,56 @@ quick_mediation_parallel_rotate_resid <- function(x,
      names(to_rotate) <- c(m, y)
      to_rotate[seq(i, m_p)] <- 180
      return(to_rotate)
+  }
+  return(NULL)
+}
+
+
+#' @noRd
+
+quick_mediation_simple_layout <- function(x,
+                                          m,
+                                          y,
+                                          ptmp,
+                                          mediators_position = c("bottom",
+                                                                 "top")) {
+  if (length(m) != 1) {
+    stop("The plot must have exactly one mediator.")
+  }
+  if (mediators_position == "bottom") {
+    layout0 <- matrix(c( x, NA,  y,
+                        NA,  m, NA),
+                      nrow = 2,
+                      ncol = 3,
+                      byrow = TRUE)
+  }
+  if (mediators_position == "top") {
+    layout0 <- matrix(c(NA,  m, NA,
+                        x, NA,  y),
+                      nrow = 2,
+                      ncol = 3,
+                      byrow = TRUE)
+  }
+  return(layout0)
+}
+
+#' @noRd
+
+quick_mediation_simple_rotate_resid <- function(x,
+                                                m,
+                                                y,
+                                                mediators_position = c("bottom",
+                                                                       "top")) {
+  mediators_position <- match.arg(mediators_position)
+  if (mediators_position == "bottom") {
+    to_rotate <- c(0, 180, 0)
+    names(to_rotate) <- c(x, m, y)
+    return(to_rotate)
+  }
+  if (mediators_position == "top") {
+    to_rotate <- c(180, 0, 180)
+    names(to_rotate) <- c(x, m, y)
+    return(to_rotate)
   }
   return(NULL)
 }

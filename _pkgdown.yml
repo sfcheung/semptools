@@ -82,6 +82,11 @@ reference:
 - contents:
   - set_cfa_layout
   - set_sem_layout
+- title: Quick Plots
+  desc:  >
+    Simple-to-use functions for common models
+- contents:
+  - quick_sem_plot
 - title: Layout Helpers
   desc:  >
     Helpers for setting the layout

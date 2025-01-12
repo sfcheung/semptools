@@ -1,4 +1,4 @@
-# semptools 0.3.1.2
+# semptools 0.3.1.3
 
 - Updated `mark_sig()` and `mark_se()`
   to support plots of multigroup models.
@@ -7,6 +7,13 @@
 - Updated `add_rsq()` to support plots
   with structural paths only.
   (0.3.1.2)
+
+- Added quick plot functions for
+  common models: `q_simple()` for
+  simple mediation models, `q_serial()`
+  for serial mediation models, and
+  `q_parallel()` for parallel mediation
+  models. (0.3.1.3)
 
 # semptools 0.3.1
 
