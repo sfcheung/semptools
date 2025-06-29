@@ -24,6 +24,7 @@ quick_parallel_mediation(
   sizeMan = NULL,
   sizeLat = NULL,
   edge.label.cex = NULL,
+  intercepts = FALSE,
   ...,
   plot_now = TRUE,
   do_mark_se = TRUE,
@@ -48,6 +49,7 @@ q_parallel(
   sizeMan = NULL,
   sizeLat = NULL,
   edge.label.cex = NULL,
+  intercepts = FALSE,
   ...,
   plot_now = TRUE,
   do_mark_se = TRUE,
@@ -72,6 +74,7 @@ quick_serial_mediation(
   sizeMan = NULL,
   sizeLat = NULL,
   edge.label.cex = NULL,
+  intercepts = FALSE,
   ...,
   plot_now = TRUE,
   do_mark_se = TRUE,
@@ -96,6 +99,7 @@ q_serial(
   sizeMan = NULL,
   sizeLat = NULL,
   edge.label.cex = NULL,
+  intercepts = FALSE,
   ...,
   plot_now = TRUE,
   do_mark_se = TRUE,
@@ -120,6 +124,7 @@ quick_simple_mediation(
   sizeMan = NULL,
   sizeLat = NULL,
   edge.label.cex = NULL,
+  intercepts = FALSE,
   ...,
   plot_now = TRUE,
   do_mark_se = TRUE,
@@ -144,6 +149,7 @@ q_simple(
   sizeMan = NULL,
   sizeLat = NULL,
   edge.label.cex = NULL,
+  intercepts = FALSE,
   ...,
   plot_now = TRUE,
   do_mark_se = TRUE,
@@ -224,6 +230,16 @@ The size of the edge labels
 \code{NULL} and the actual size determined
 internally based on the number of
 mediators.}
+
+\item{intercepts}{The same
+argument of \code{\link[semPlot:semPaths]{semPlot::semPaths()}},
+determining whether intercepts will
+be plotted. Default is
+\code{FALSE}, different from
+\code{\link[semPlot:semPaths]{semPlot::semPaths()}}. It should not
+be set to \code{TRUE}, but included as
+an argument for possible features
+to be added in the future.}
 
 \item{...}{Other arguments to be
 passed to to \code{\link[semPlot:semPaths]{semPlot::semPaths()}}.}

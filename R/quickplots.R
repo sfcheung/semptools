@@ -226,6 +226,16 @@
 #' internally based on the number of
 #' mediators.
 #'
+#' @param intercepts The same
+#' argument of [semPlot::semPaths()],
+#' determining whether intercepts will
+#' be plotted. Default is
+#' `FALSE`, different from
+#' [semPlot::semPaths()]. It should not
+#' be set to `TRUE`, but included as
+#' an argument for possible features
+#' to be added in the future.
+#'
 #' @param ... Other arguments to be
 #' passed to to [semPlot::semPaths()].
 #'
@@ -330,6 +340,7 @@ quick_parallel_mediation <- function(object,
                                      sizeMan = NULL,
                                      sizeLat = NULL,
                                      edge.label.cex = NULL,
+                                     intercepts = FALSE,
                                      ...,
                                      plot_now = TRUE,
                                      do_mark_se = TRUE,
@@ -353,6 +364,7 @@ quick_parallel_mediation <- function(object,
                           sizeMan = sizeMan,
                           sizeLat = sizeLat,
                           edge.label.cex = edge.label.cex,
+                          intercepts = intercepts,
                           ...,
                           layout_function = quick_mediation_parallel_layout,
                           rotate_resid_function = quick_mediation_parallel_rotate_resid,
@@ -416,6 +428,7 @@ quick_serial_mediation <- function(object,
                                    sizeMan = NULL,
                                    sizeLat = NULL,
                                    edge.label.cex = NULL,
+                                   intercepts = FALSE,
                                    ...,
                                    plot_now = TRUE,
                                    do_mark_se = TRUE,
@@ -439,6 +452,7 @@ quick_serial_mediation <- function(object,
                           sizeMan = sizeMan,
                           sizeLat = sizeLat,
                           edge.label.cex = edge.label.cex,
+                          intercepts = intercepts,
                           ...,
                           layout_function = quick_mediation_serial_layout,
                           rotate_resid_function = quick_mediation_serial_rotate_resid,
@@ -503,6 +517,7 @@ quick_simple_mediation <- function(object,
                                    sizeMan = NULL,
                                    sizeLat = NULL,
                                    edge.label.cex = NULL,
+                                   intercepts = FALSE,
                                    ...,
                                    plot_now = TRUE,
                                    do_mark_se = TRUE,
@@ -526,6 +541,7 @@ quick_simple_mediation <- function(object,
                           sizeMan = sizeMan,
                           sizeLat = sizeLat,
                           edge.label.cex = edge.label.cex,
+                          intercepts = intercepts,
                           ...,
                           layout_function = quick_mediation_simple_layout,
                           rotate_resid_function = quick_mediation_simple_rotate_resid,
@@ -560,6 +576,7 @@ quick_mediation_general <- function(object,
                                     sizeMan = NULL,
                                     sizeLat = NULL,
                                     edge.label.cex = NULL,
+                                    intercepts = FALSE,
                                     ...,
                                     layout_function = NULL,
                                     rotate_resid_function = NULL,
@@ -631,6 +648,7 @@ quick_mediation_general <- function(object,
                             sizeMan = sizeMan,
                             sizeLat = sizeLat,
                             edge.label.cex = edge.label.cex,
+                            intercepts = intercepts,
                             DoNotPlot = TRUE,
                             ...)
 
@@ -650,6 +668,7 @@ quick_mediation_general <- function(object,
                          sizeMan = sizeMan,
                          sizeLat = sizeLat,
                          edge.label.cex = edge.label.cex,
+                         intercepts = intercepts,
                          layout = layout0,
                          DoNotPlot = TRUE,
                          ...)
