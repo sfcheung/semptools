@@ -1,4 +1,4 @@
-# semptools 0.3.1.3
+# semptools 0.3.1.4
 
 - Updated `mark_sig()` and `mark_se()`
   to support plots of multigroup models.
@@ -13,7 +13,7 @@
   simple mediation models, `q_serial()`
   for serial mediation models, and
   `q_parallel()` for parallel mediation
-  models. (0.3.1.3)
+  models. (0.3.1.3, 0.3.1.4)
 
 # semptools 0.3.1
 
