@@ -95,6 +95,31 @@ fixed_beta <- function(
 # Output:
 # - A matrix in ("non-reduced") column echelon form
 lower_e <- function(m) {
+  allnames <- colnames(m)
+  m1 <- m
+  x0 <- character(0)
+  a <- colSums(m1)
+  y0 <- colnames(m1)[a == 0]
+  i <- c(setdiff(allnames, y0), y0)
+  m1 <- m1[i, i]
+  up0 <- all((m1[upper.tri(m1)]) == 0)
+  while (length(x0) < ncol(m)) {
+    j <- setdiff(allnames, c(x0, y0))
+    if (length(j) == 0) break
+    a <- rowSums(m1[j, j, drop = FALSE])
+    x0 <- c(x0, names(a)[(a == 0)])
+    i <- c(x0, setdiff(allnames, c(x0, y0)), y0)
+    m1 <- m1[i, i, drop = FALSE]
+  }
+  m1
+}
+
+# Input:
+# - A beta matrix
+# Output:
+# - A matrix in ("non-reduced") column echelon form
+# DO NOT USE this method
+lower_e_old <- function(m) {
   # This method is not efficient,
   # but good enough for typical models.
   x <- colnames(m)[1]
@@ -581,13 +606,15 @@ fit <- lavaan::sem(mod_pa2,
 beta0 <- lavaan::lavInspect(fit,
                             "free")$beta
 
-beta1 <- fixed_beta(
-            beta0,
-            cov = c("c1", "c2", "c3"))
+lower_e(beta0)
 
 beta1 <- fixed_beta(
             beta0)
 
+beta1 <- fixed_beta(
+            beta0,
+            cov = c("c1", "c2", "c3"))
+beta1
 
 c_list <- column_list(beta1)
 
@@ -602,6 +629,10 @@ m_new <- fix_mxy(
           )
 
 pm <- semPlotModel(fit) |> drop_nodes(c("c1", "c2", "c3"))
+semPaths(
+          pm,
+          whatLabels = "est",
+          layout = layout_matrix_from_mxy(m))
 p <- semPaths(
           pm,
           whatLabels = "est",
