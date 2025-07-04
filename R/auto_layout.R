@@ -80,4 +80,45 @@
 #' @noRd
 
 auto_layout_mediation <- function(
+                            object,
+                            x = NULL,
+                            y = NULL,
+                            cov = NULL,
+                            v_pos = c("middle", "lower", "upper"),
+                            v_preference = c("upper", "lower")
+                          ) {
+  v_pos <- match.arg(v_pos)
+  v_preference <- match.arg(v_preference)
+
+  if (inherits(object, "lavaan")) {
+    beta0 <- lavaan::lavInspect(
+                object,
+                what = "free"
+              )$beta
+    if (is.null(beta0)) {
+      stop("The model has no structural paths. Is it a CFA model?")
+    }
+  } else if (inherits(object, "qgraph")) {
+    beta0 <- qgraph_to_beta(object)
+  } else {
+    stop("object is not a supported type.")
+  }
+  beta1 <- fixed_beta(
+              beta0,
+              x = x,
+              y = y,
+              cov = cov
+            )
+  c_list <- column_list(beta1)
+  m0 <- c_list_to_layout(
+              c_list,
+              v_pos = v_pos
+            )
+  m1 <- fix_mxy(
+            m = m0,
+            beta = beta1,
+            v_preference = v_preference
+          )
+  m2 <- layout_matrix_from_mxy(m1)
+  m2
 }

@@ -332,13 +332,46 @@ layout_matrix_from_mxy <- function(
   # TODO:
   # - Find a more efficient method to
   #   create a layout matrix
-  tmp <- 2 * 3 * 5 * 2 * 7 * 2 * 3
-  y <- y * -tmp + 1
+  y <- to_integer(y)
+  y <- y * -1 + 1
+  y <- tryCatch(y / gcd_k(y),
+                error = function(e) y)
   out0[, "y"] <- y
   out0 <- out0[, c("y", "x")]
   out0 <- split(out0, rownames(out0))
   do.call(layout_matrix,
           out0)
+}
+
+gcd_k <- function(x) {
+  for (i in seq_along(x[-1]) + 1) {
+    if (i == 2) {
+      out <- gcd_2(x[i], x[i])
+    } else {
+      out <- gcd_2(out, x[i])
+    }
+    out <- unname(out)
+  }
+  out
+}
+
+gcd_2 <- function(x, y) {
+  # Based on https://stackoverflow.com/a/21504113/4085819
+  r <- x %% y
+  return(ifelse(r,
+                Recall(y, r),
+                y))
+}
+
+to_integer <- function(x) {
+  ok <- isTRUE(all.equal(round(x), x))
+  k <- 1
+  while (!ok || k > 100) {
+    k <- k + 1
+    x0 <- x * k
+    ok <- isTRUE(all.equal(round(x0), x0))
+  }
+  round(x0)
 }
 
 # Input:
