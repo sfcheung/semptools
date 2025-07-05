@@ -208,6 +208,9 @@ mark_sig <- function(semPaths_plot, object,
                     })
     labels_old <- semPaths_plot$graphAttributes$Edges$labels
     labels_new <- paste0(labels_old, sig_symbols)
+    # Identify probable R-squares and do not mark them, for now
+    tmp <- is.na(suppressWarnings(as.numeric(labels_old)))
+    labels_new[tmp] <- labels_old[tmp]
     semPaths_plot$graphAttributes$Edges$labels <- labels_new
     semPaths_plot
   }
