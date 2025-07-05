@@ -21,6 +21,8 @@ fixed_beta <- function(
     i <- i[!is.na(i)]
     if (length(i) > 0) {
       beta1 <- beta_matrix[-i, -i]
+    } else {
+      beta1 <- beta_matrix
     }
   } else {
     beta1 <- beta_matrix
