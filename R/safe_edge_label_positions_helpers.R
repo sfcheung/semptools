@@ -154,9 +154,9 @@ all_lines <- function(m,
 }
 
 # Input:
-# - A x-y matrix
-# Output:
 # - A layout matrix
+# Output:
+# - A x-y matrix
 layout_to_layoutxy <- function(m) {
   vnames <- unique(m[!is.na(m)])
   y <- col(m)[!is.na(m)]
