@@ -1,8 +1,8 @@
 # Input:
 # - A beta matrix
-# - x: The x-variable
-# - y: The y-variable
-# - cov: Covariates to be excluded
+# - x: The x-variable(s)
+# - y: The y-variable(s)
+# - exclude: Variables to be excluded from the plot
 # Output:
 # - A beta-matrix with only x, y, and mediators,
 #   in ("non-reduced") column echelon form
@@ -10,12 +10,14 @@ fixed_beta <- function(
                 beta_matrix,
                 x = NULL,
                 y = NULL,
-                cov = NULL) {
+                exclude = NULL) {
 
-  # Always remove cov first, if any
+  # Always remove exclude first, if any
 
-  if (!is.null(cov)) {
-    i <- match(cov, colnames(beta_matrix))
+  if (!is.null(exclude)) {
+    check_exclude(beta_matrix = beta_matrix,
+                  exclude = exclude)
+    i <- match(exclude, colnames(beta_matrix))
     i <- i[!is.na(i)]
     if (length(i) > 0) {
       beta1 <- beta_matrix[-i, -i]
@@ -24,22 +26,26 @@ fixed_beta <- function(
     beta1 <- beta_matrix
   }
 
+  # Drop orphan variable(s)
+
+  i <- colSums(beta1)
+  j <- rowSums(beta1)
+  tmp <- (i == 0) & (j == 0)
+  beta1 <- beta1[!tmp, !tmp]
+
   if (is.null(x)) {
     # Determine x automatically
-    i <- rowSums(beta1)
-    x <- colnames(beta1)[i == 0]
+    x <- x_from_beta(beta1)
     if (length(x) == 0) {
-      stop("The model has no x-variable(x).")
+      stop("The model has no x-variable(s).")
     }
   }
 
   if (is.null(y)) {
     # Determine y automatically
-    i <- rowSums(beta1)
-    j <- colSums(beta1)
-    y <- colnames(beta1)[(j == 0) & (i > 0)]
+    y <- y_from_beta(beta1)
     if (length(y) == 0) {
-      stop("The model has no y-variable(x).")
+      stop("The model has no y-variable(s).")
     }
   }
 
@@ -328,11 +334,8 @@ layout_matrix_from_mxy <- function(
                           ) {
   out0 <- m
   y <- out0[, "y", drop = TRUE]
-  y <- y - max(y)
-  # TODO:
-  # - Find a more efficient method to
-  #   create a layout matrix
   y <- to_integer(y)
+  y <- y - max(y)
   y <- y * -1 + 1
   y <- tryCatch(y / gcd_k(y),
                 error = function(e) y)
@@ -366,6 +369,7 @@ gcd_2 <- function(x, y) {
 to_integer <- function(x) {
   ok <- isTRUE(all.equal(round(x), x))
   k <- 1
+  x0 <- x * k
   while (!ok || k > 100) {
     k <- k + 1
     x0 <- x * k
@@ -399,4 +403,55 @@ qgraph_to_beta <- function(object) {
     out[i_to[i], i_from[i]] <- 1
   }
   out
+}
+
+# Input:
+# - A beta matrix
+# Output:
+# - A character vector of "pure" x
+x_from_beta <- function(
+                beta_matrix
+              ) {
+  i <- rowSums(beta_matrix)
+  x <- colnames(beta_matrix)[i == 0]
+  x
+}
+
+# Input:
+# - A beta matrix
+# Output:
+# - A character vector of "pure" y
+y_from_beta <- function(
+                  beta_matrix
+                ) {
+  i <- rowSums(beta_matrix)
+  j <- colSums(beta_matrix)
+  y <- colnames(beta_matrix)[(j == 0) & (i > 0)]
+  y
+}
+
+# Input:
+# - A beta matrix
+# Output:
+# - A character vector of mediators
+m_from_beta <- function(
+                  beta_matrix
+                ) {
+  i <- rowSums(beta_matrix)
+  j <- colSums(beta_matrix)
+  m <- colnames(beta_matrix)[(j > 0) & (i > 0)]
+  m
+}
+
+# Input:
+# - A beta matrix
+# - A vector of variables to be dropped
+check_exclude <- function(
+                beta_matrix,
+                exclude
+              ) {
+  m0 <- m_from_beta(beta_matrix)
+  if (length(intersect(exclude, m0)) > 0) {
+    stop("One or more variables in 'exclude' is/are mediators and should not be excluded.")
+  }
 }

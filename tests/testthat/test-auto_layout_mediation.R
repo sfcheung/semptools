@@ -1,9 +1,7 @@
-skip("WIP")
-
 library(lavaan)
 library(semPlot)
 
-test_that("autop_layout_mediation", {
+test_that("auto_layout_mediation", {
 
 mod_pa <-
  'x3 ~ x1 + x2 + c3
@@ -28,8 +26,23 @@ fit <- lavaan::sem(
 
 m <- auto_layout_mediation(
         fit,
-        cov = c("c1", "c2", "c3")
+        exclude = c("c1", "c2", "c3")
       )
+
+m_chk <- structure(c("x2", NA, "x1", NA, "x3", NA, "x4", NA, NA, "x5",
+NA, NA, NA, "y", NA), dim = c(3L, 5L))
+
+expect_equal(m,
+             m_chk)
+
+mxy <- auto_layout_mediation(
+        fit,
+        exclude = c("c1", "c2", "c3"),
+        output = "xy"
+      )
+
+expect_equal(layout_matrix_from_mxy(mxy),
+             m_chk)
 
 pm <- semPlotModel(fit) |> drop_nodes(c("c1", "c2", "c3"))
 p0 <- semPaths(
@@ -42,27 +55,53 @@ m0 <- auto_layout_mediation(
         p0
       )
 
-expect_identical(m,
-                 m0)
-
-mod_pa2 <-
-"
-m11 ~ c1 + x1
-m21 ~ c2 + m11
-m2 ~ m11 + c3
-m22 ~ m11 + c3
-y ~ m2 + m21 + m22 + x1
-"
+expect_equal(m0,
+             m_chk)
 
 
-mod_pa2 <-
-"
-m11 ~ c1 + x1
-m21 ~ c2 + m11
-m22 ~ m11 + c3
-y ~ m2 + m21 + m22 + x1
-y1 ~ m2 + x1
-"
+# Check special cases
 
+m <- auto_layout_mediation(
+        fit,
+        exclude = c("y")
+      )
+
+m_chk <- structure(c("c1", NA, "c3", NA, "x2", NA, "x1", NA, NA, NA, "x3",
+NA, NA, NA, NA, "x4", NA, NA, NA, NA, NA, NA, NA, NA, "x5", NA,
+NA, NA), dim = c(7L, 4L))
+
+expect_equal(m,
+             m_chk)
+
+m <- auto_layout_mediation(
+        fit,
+        v_pos = "lower"
+      )
+
+m_chk <- structure(c("c2", NA, "c1", NA, "c3", NA, "x2", NA, "x1", NA,
+NA, NA, NA, NA, "x3", NA, NA, NA, NA, NA, NA, NA, NA, "x4", NA,
+NA, NA, NA, NA, NA, "x5", NA, NA, NA, NA, NA, "y", NA, NA, NA,
+NA, NA, NA, NA, NA), dim = c(9L, 5L))
+
+expect_equal(m,
+             m_chk)
+
+m <- auto_layout_mediation(
+        fit,
+        v_pos = "upper"
+      )
+
+m_chk <- structure(c("c2", NA, "c1", NA, "c3", NA, "x2", NA, "x1", NA,
+NA, NA, "x3", NA, NA, NA, NA, NA, NA, NA, NA, "x4", NA, NA, NA,
+NA, NA, NA, NA, NA, NA, NA, "x5", NA, NA, NA, NA, NA, NA, NA,
+NA, NA, NA, NA, "y"), dim = c(9L, 5L))
+
+expect_equal(m,
+             m_chk)
+
+expect_error(auto_layout_mediation(
+        fit,
+        exclude = c("x4")
+      ))
 
 })
