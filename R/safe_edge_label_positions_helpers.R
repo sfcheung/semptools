@@ -154,13 +154,13 @@ all_lines <- function(m,
 }
 
 # Input:
-# - A x-y matrix
-# Output:
 # - A layout matrix
+# Output:
+# - A x-y matrix
 layout_to_layoutxy <- function(m) {
   vnames <- unique(m[!is.na(m)])
-  y <- col(m)[!is.na(m)]
-  x <- row(m)[!is.na(m)]
+  x <- col(m)[!is.na(m)]
+  y <- row(m)[!is.na(m)]
   out <- cbind(x = x, y = y)
   rownames(out) <- vnames
   out[, "y"] <- max(out[, "y"]) - out[, "y"]

@@ -1,4 +1,4 @@
-# semptools 0.3.1.6
+# semptools 0.3.1.7
 
 ## New Features
 
@@ -17,6 +17,11 @@
   reposition edge labels away from the
   intersections between paths.
   (0.3.1.6)
+
+- Added `safe_resid_position()` to
+  reposition the residual (or R-square)
+  of a node away from paths connected to
+  this node. (0.3.1.7)
 
 ## Improvement
 
