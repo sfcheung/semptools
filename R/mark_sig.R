@@ -12,6 +12,26 @@
 #'
 #' Currently supports only plots based on lavaan output.
 #'
+#' ## R-squares
+#'
+#' Normally, `lavaan` does not compute
+#' *p*-values for R-squares. If
+#' R-squares are detected in the plot
+#' (based on `r2_prefix`), they will not
+#' be marked, except for the following
+#' conditions:
+#'
+#' - Users set `ests` to a data frame
+#' with R-squares (`op` = "r2") as well
+#' as their *p*-values (under `pvalue`)
+#' computed by some methods.
+#'
+#' - Users set `ests_r2` to a data frame
+#' storing only the *p*-values for
+#' R-squares computed by some methods
+#' (and let the function find the
+#' *p*-values for other parameters from
+#' `object`).
 #'
 #'@return A [qgraph::qgraph] based on the original one, with marks
 #' appended to edge labels based on their p-values.
@@ -32,7 +52,7 @@
 #'
 #'@param ests A data.frame from the
 #'   \code{\link[lavaan]{parameterEstimates}} function, or
-#'   from other function with these columns:? `lhs`, `op`,
+#'   from other function with these columns: `lhs`, `op`,
 #'   `rhs`, and `pvalue`. Only used when
 #'   \code{object} is not specified.
 #'
@@ -42,6 +62,20 @@
 #'   to compute the *p*-values for the standardized solution.
 #'   Used only if *p*-values are not supplied directly
 #'   through `ests`.
+#'
+#' @param ests_r2 A data.frame with
+#' these columns: `lhs` and `pvalue`,
+#' storing the *p*-values for R-squares
+#' of the variables listed on `lhs`. If
+#' provided, the *p*-values in this
+#' data.frame will override those in
+#' `object` or `ests`, if any. Used only
+#' when R-squares are present in the
+#' `semPaths_plot`.
+#'
+#' @param r2_prefix The prefix used to
+#' identify R-squares in `semPaths_plot`.
+#' Default is `"R2="`.
 #'
 #'@examples
 #'mod_pa <-
@@ -97,7 +131,9 @@
 mark_sig <- function(semPaths_plot, object,
                      alphas = c("*" = .05, "**" = .01, "***" = .001),
                      ests = NULL,
-                     std_type = FALSE) {
+                     std_type = FALSE,
+                     ests_r2 = NULL,
+                     r2_prefix = "R2=") {
   if ("triangle" %in% semPaths_plot$graphAttributes$Nodes$shape) {
     rlang::inform(paste("The semPaths plot seems to have one or",
                         "more intercepts. Support for models with",
@@ -118,13 +154,53 @@ mark_sig <- function(semPaths_plot, object,
                                            zstat = TRUE, pvalue = TRUE)
     }
   }
+
+  # ==== Extract r2, if exists ====
+
+  has_rsq <- isTRUE("r2" %in% ests$op) ||
+              !is.null(ests_r2)
+  has_rsq_pvalue <- FALSE
+  if (has_rsq) {
+    if (is.null(ests_r2)) {
+      i <- ests$op == "r2"
+      ests_r2 <- ests[i, , drop = FALSE]
+      rownames(ests_r2) <- ests_r2$lhs
+      ests <- ests[!i, ]
+      has_rsq_pvalue <- all(!is.na(ests_r2$pvalue))
+    } else {
+      # User ests_r2 overrides ests
+      i <- ests$op == "r2"
+      if (any(i)) {
+        ests <- ests[!i, ]
+      }
+      rownames(ests_r2) <- ests_r2$lhs
+      has_rsq_pvalue <- all(!is.na(ests_r2$pvalue))
+    }
+  } else {
+    ests_r2 <- NULL
+    has_rsq_pvalue <- FALSE
+  }
+
   if (inherits(semPaths_plot, "list")) {
     if (length(semPaths_plot) != length(unique(ests$group))) {
       rlang::abort(paste("length of qgraph list does not match",
                          "number of groups in model fit object."))
     }
     ests_list <- split(ests, ests$group)
-    mapply(mark_sig, semPaths_plot, ests = ests_list, SIMPLIFY = FALSE)
+    if (has_rsq_pvalue) {
+      ests_r2_list <- split(ests_r2, ests$group)
+    } else {
+      ests_r2_list <- lapply(ests$group,
+                             \(x) NULL)
+    }
+    mapply(mark_sig,
+           semPaths_plot,
+           ests = ests_list,
+           ests_r2 = ests_r2_list,
+           MoreArgs = list(alphas = alphas,
+                           std_type = std_type,
+                           r2_prefix = r2_prefix),
+           SIMPLIFY = FALSE)
   } else {
     if (!missing(object) && lavaan::lavInspect(object, "ngroups") > 1) {
       rlang::abort(paste("length of qgraph list does not match",
@@ -151,6 +227,7 @@ mark_sig <- function(semPaths_plot, object,
                                              "from_names",
                                              "to_names",
                                              "labels")]
+
     # Remove thresholds. Not used
     to_keep <- ests$op != "|"
     # Remove ~*~. Not used.
@@ -202,15 +279,33 @@ mark_sig <- function(semPaths_plot, object,
                                     na.rm = TRUE))
     edge_pvalues$pvalue[all_na] <- NA
     edge_pvalues <- edge_pvalues[order(edge_pvalues$id), ]
+
+    i <- grepl(r2_prefix, edge_pvalues$labels)
+    plot_has_rsq <- any(i)
+    if (plot_has_rsq) {
+
+      # ==== Import Rsq p-values, if available ====
+
+      if (has_rsq_pvalue) {
+        tmp <- edge_pvalues$from_names[i]
+        tmp2 <- ests_r2[tmp, "pvalue"]
+        edge_pvalues[i, "pvalue"] <- tmp2
+      } else {
+        edge_pvalues[i, "pvalue"] <- NA
+      }
+    }
+
     sig_symbols <- sapply(edge_pvalues$pvalue, function(x) {
                       ind <- which(x < alphas_sorted)[1]
                       ifelse(is.na(ind), "", names(ind[1]))
                     })
     labels_old <- semPaths_plot$graphAttributes$Edges$labels
     labels_new <- paste0(labels_old, sig_symbols)
-    # Identify probable R-squares and do not mark them, for now
-    tmp <- is.na(suppressWarnings(as.numeric(labels_old)))
-    labels_new[tmp] <- labels_old[tmp]
+
+    # # Identify probable R-squares and do not mark them, for now
+    # tmp <- is.na(suppressWarnings(as.numeric(labels_old)))
+    # labels_new[tmp] <- labels_old[tmp]
+
     semPaths_plot$graphAttributes$Edges$labels <- labels_new
     semPaths_plot
   }
