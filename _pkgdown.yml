@@ -73,6 +73,7 @@ reference:
   - set_edge_label_position
   - safe_edge_label_position
   - rotate_resid
+  - safe_resid_position
   - change_node_label
   - keep_drop_nodes
   - set_edge_attribute
