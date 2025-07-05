@@ -9,7 +9,9 @@ mark_sig(
   object,
   alphas = c(`*` = 0.05, `**` = 0.01, `***` = 0.001),
   ests = NULL,
-  std_type = FALSE
+  std_type = FALSE,
+  ests_r2 = NULL,
+  r2_prefix = "R2="
 )
 }
 \arguments{
@@ -29,7 +31,7 @@ used if p-value is less than this cutoff. The default is c("\emph{" =
 
 \item{ests}{A data.frame from the
 \code{\link[lavaan]{parameterEstimates}} function, or
-from other function with these columns:? \code{lhs}, \code{op},
+from other function with these columns: \code{lhs}, \code{op},
 \code{rhs}, and \code{pvalue}. Only used when
 \code{object} is not specified.}
 
@@ -39,6 +41,20 @@ or to \code{TRUE}. It will be passed to \code{\link[lavaan:standardizedSolution]
 to compute the \emph{p}-values for the standardized solution.
 Used only if \emph{p}-values are not supplied directly
 through \code{ests}.}
+
+\item{ests_r2}{A data.frame with
+these columns: \code{lhs} and \code{pvalue},
+storing the \emph{p}-values for R-squares
+of the variables listed on \code{lhs}. If
+provided, the \emph{p}-values in this
+data.frame will override those in
+\code{object} or \code{ests}, if any. Used only
+when R-squares are present in the
+\code{semPaths_plot}.}
+
+\item{r2_prefix}{The prefix used to
+identify R-squares in \code{semPaths_plot}.
+Default is \code{"R2="}.}
 }
 \value{
 A \link[qgraph:qgraph]{qgraph::qgraph} based on the original one, with marks
@@ -57,6 +73,27 @@ option is for p-values not computed by lavaan but by
 other functions.
 
 Currently supports only plots based on lavaan output.
+\subsection{R-squares}{
+
+Normally, \code{lavaan} does not compute
+\emph{p}-values for R-squares. If
+R-squares are detected in the plot
+(based on \code{r2_prefix}), they will not
+be marked, except for the following
+conditions:
+\itemize{
+\item Users set \code{ests} to a data frame
+with R-squares (\code{op} = "r2") as well
+as their \emph{p}-values (under \code{pvalue})
+computed by some methods.
+\item Users set \code{ests_r2} to a data frame
+storing only the \emph{p}-values for
+R-squares computed by some methods
+(and let the function find the
+\emph{p}-values for other parameters from
+\code{object}).
+}
+}
 }
 \examples{
 mod_pa <-
