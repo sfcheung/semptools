@@ -96,6 +96,7 @@ reference:
   - auto_indicator_order
   - lavaan_indicator_order
   - auto_factor_point_to
+  - auto_layout_mediation
 - title: Other Helpers
 - contents:
   - is_dv_residvar

@@ -1,4 +1,19 @@
-# semptools 0.3.1.4
+# semptools 0.3.1.5
+
+## New Features
+
+- Added quick plot functions for
+  common models: `q_simple()` for
+  simple mediation models, `q_serial()`
+  for serial mediation models, and
+  `q_parallel()` for parallel mediation
+  models. (0.3.1.3, 0.3.1.4)
+
+- Added `auto_layout_mediation()` for
+  generating a layout matrix automatically.
+  (0.3.1.5)
+
+## Improvement
 
 - Updated `mark_sig()` and `mark_se()`
   to support plots of multigroup models.
@@ -7,13 +22,6 @@
 - Updated `add_rsq()` to support plots
   with structural paths only.
   (0.3.1.2)
-
-- Added quick plot functions for
-  common models: `q_simple()` for
-  simple mediation models, `q_serial()`
-  for serial mediation models, and
-  `q_parallel()` for parallel mediation
-  models. (0.3.1.3, 0.3.1.4)
 
 # semptools 0.3.1
 
