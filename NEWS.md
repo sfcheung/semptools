@@ -1,4 +1,4 @@
-# semptools 0.3.1.7
+# semptools 0.3.1.8
 
 ## New Features
 
@@ -32,6 +32,10 @@
 - Updated `add_rsq()` to support plots
   with structural paths only.
   (0.3.1.2)
+
+- Updated `mark_sig()` to process
+  R-squares if *p*-values are provided
+  by users. (0.3.1.8)
 
 # semptools 0.3.1
 
