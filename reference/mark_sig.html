@@ -9,7 +9,7 @@ p-value."><meta property="og:image" content="https://sfcheung.github.io/semptool
 
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,9 @@ p-value.</p>
 <span>  <span class="va">object</span>,</span>
 <span>  alphas <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>`*` <span class="op">=</span> <span class="fl">0.05</span>, `**` <span class="op">=</span> <span class="fl">0.01</span>, `***` <span class="op">=</span> <span class="fl">0.001</span><span class="op">)</span>,</span>
 <span>  ests <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  std_type <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  std_type <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ests_r2 <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  r2_prefix <span class="op">=</span> <span class="st">"R2="</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -93,7 +95,7 @@ used if p-value is less than this cutoff. The default is c("<em>" =
 <dt id="arg-ests">ests<a class="anchor" aria-label="anchor" href="#arg-ests"></a></dt>
 <dd><p>A data.frame from the
 <code><a href="https://rdrr.io/pkg/lavaan/man/parameterEstimates.html" class="external-link">parameterEstimates</a></code> function, or
-from other function with these columns:? <code>lhs</code>, <code>op</code>,
+from other function with these columns: <code>lhs</code>, <code>op</code>,
 <code>rhs</code>, and <code>pvalue</code>. Only used when
 <code>object</code> is not specified.</p></dd>
 
@@ -105,6 +107,24 @@ or to <code>TRUE</code>. It will be passed to <code><a href="https://rdrr.io/pkg
 to compute the <em>p</em>-values for the standardized solution.
 Used only if <em>p</em>-values are not supplied directly
 through <code>ests</code>.</p></dd>
+
+
+<dt id="arg-ests-r-">ests_r2<a class="anchor" aria-label="anchor" href="#arg-ests-r-"></a></dt>
+<dd><p>A data.frame with
+these columns: <code>lhs</code> and <code>pvalue</code>,
+storing the <em>p</em>-values for R-squares
+of the variables listed on <code>lhs</code>. If
+provided, the <em>p</em>-values in this
+data.frame will override those in
+<code>object</code> or <code>ests</code>, if any. Used only
+when R-squares are present in the
+<code>semPaths_plot</code>.</p></dd>
+
+
+<dt id="arg-r-prefix">r2_prefix<a class="anchor" aria-label="anchor" href="#arg-r-prefix"></a></dt>
+<dd><p>The prefix used to
+identify R-squares in <code>semPaths_plot</code>.
+Default is <code>"R2="</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -120,7 +140,27 @@ p-values. Require either the original object used in the semPaths call,
 or a data frame with the p-values for each parameter. The latter
 option is for p-values not computed by lavaan but by
 other functions.</p>
-<p>Currently supports only plots based on lavaan output.</p>
+<p>Currently supports only plots based on lavaan output.</p><div class="section">
+<h3 id="r-squares">R-squares<a class="anchor" aria-label="anchor" href="#r-squares"></a></h3>
+
+
+<p>Normally, <code>lavaan</code> does not compute
+<em>p</em>-values for R-squares. If
+R-squares are detected in the plot
+(based on <code>r2_prefix</code>), they will not
+be marked, except for the following
+conditions:</p><ul><li><p>Users set <code>ests</code> to a data frame
+with R-squares (<code>op</code> = "r2") as well
+as their <em>p</em>-values (under <code>pvalue</code>)
+computed by some methods.</p></li>
+<li><p>Users set <code>ests_r2</code> to a data frame
+storing only the <em>p</em>-values for
+R-squares computed by some methods
+(and let the function find the
+<em>p</em>-values for other parameters from
+<code>object</code>).</p></li>
+</ul></div>
+
     </div>
 
     <div class="section level2">
