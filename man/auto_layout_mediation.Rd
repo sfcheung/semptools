@@ -121,8 +121,6 @@ mediator.
 }
 \examples{
 
-# TODO: Revise the example.
-
 library(lavaan)
 library(semPlot)
 
