@@ -5,12 +5,36 @@
 #' away from path intersections.
 #'
 #' @details
-#' (TODO)
+#' This function identify all intersection
+#' points between two paths in a model,
+#' and set the position of an edge
+#' label to the mid-point of a line segment
+#' between an intersection point and
+#' the another intersection point or
+#' the origin/destination of a path.
+#'
+#' This function is intended for having
+#' a "likely" readable graph with as
+#' little user-intervention as possible.
+#' If precise control of the edge label
+#' positions is desired, use
+#' [set_edge_label_position()].
+#'
 #'
 #' @return
-#' A named numeric vector of edge
+#' If `object` is a `lavaan`-class
+#' object, it returns
+#' a named numeric vector of edge
 #' positions to be used by
 #' [set_edge_label_position()].
+#' If `object` is a `qgraph` object
+#' and `update_plot` is `TRUE`, it
+#' returns a `qgraph` object with the
+#' adjusted edge label positions.
+#' Otherwise, it returns a named vector
+#' of the position to be adjusted, as
+#' for a `lavaan`-class object.
+#'
 #'
 #' @param object It can be the output of
 #' [lavaan::sem()] or
@@ -26,7 +50,26 @@
 #' `lavaan`-class object. Ignored if
 #' `object` is a `qgraph` object.
 #'
-#' @param default_pos
+#' @param default_pos Used if `object`
+#' is a `lavaan`-class object. The
+#' default position of an edge label.
+#' If this position is "safe" (not
+#' on the intersection between paths),
+#' it will be used. Ignored if `
+#' object` is a `qgraph` object.
+#'
+#' @param tolerance If the distance
+#' between a position and an intersection
+#' is greater than this distance, then
+#' a position is considered safe and
+#' will not be adjusted.
+#'
+#' @param update_plot Logical. Used on
+#' if `object` is a `qgraph` object. If
+#' `TRUE`, the function returns a
+#' modified `qgraph` object. If `FALSE`,
+#' the function returns a named vector
+#' of the new positions.
 #'
 #' @seealso [set_edge_label_position()]
 #' on setting the positions of edge
@@ -34,11 +77,8 @@
 #'
 #' @examples
 #'
-#' # TODO: Revise the example.
-#'
 #' library(lavaan)
 #' library(semPlot)
-#'
 #' # Create a dummy dataset
 #' mod_pa <-
 #' "
@@ -61,55 +101,44 @@
 #'           mod_pa,
 #'           dat
 #'         )
-#'
 #' # Set the layout
 #' m <- auto_layout_mediation(
 #'         fit,
 #'         exclude = c("c1", "c2", "c3")
 #'       )
+#'
+#' pos_new <- safe_edge_label_position(
+#'                 fit,
+#'                 layout = m
+#'               )
+#' pos_new
+#'
 #' pm <- semPlotModel(fit) |> drop_nodes(c("c1", "c2", "c3"))
-#' semPaths(
+#' p <- semPaths(
 #'           pm,
 #'           whatLabels = "est",
-#'           layout = m
+#'           layout = m,
+#'           DoNotPlot = TRUE
 #'         )
+#' plot(p)
 #'
-#' # v_pos = "lower"
-#' m <- auto_layout_mediation(
-#'         fit,
-#'         exclude = c("c1", "c2", "c3"),
-#'         v_pos = "lower"
-#'       )
-#' pm <- semPlotModel(fit) |> drop_nodes(c("c1", "c2", "c3"))
-#' p0 <- semPaths(
-#'           pm,
-#'           whatLabels = "est",
-#'           layout = m
-#'         )
+#' # Update the plot
+#' p_safe <- p |> safe_edge_label_position()
+#' plot(p_safe)
 #'
-#' # v_pos = "upper"
-#' m <- auto_layout_mediation(
-#'         fit,
-#'         exclude = c("c1", "c2", "c3"),
-#'         v_pos = "upper"
-#'       )
-#' pm <- semPlotModel(fit) |> drop_nodes(c("c1", "c2", "c3"))
-#' p0 <- semPaths(
-#'           pm,
-#'           whatLabels = "est",
-#'           layout = m
-#'         )
+#' # Set the position manually
+#' p_safe2 <- p |>
+#'             set_edge_label_position(pos_new)
+#' plot(p_safe2)
 #'
-#' @noRd
-# Input:
-# - A matrix of intersections
-# Output:
-# - A named vector of new positions
-safe_edge_label_positions <- function(
+#'
+#' @export
+safe_edge_label_position <- function(
                               object,
                               layout = NULL,
                               default_pos = .5,
-                              tolerance = .05
+                              tolerance = .05,
+                              update_plot = TRUE
                             ) {
 
   object_type <- NA
@@ -169,6 +198,19 @@ safe_edge_label_positions <- function(
             USE.NAMES = TRUE)
 
   out <- out[out != default_pos]
+
+  if (object_type == "qgraph") {
+    if (update_plot) {
+      if (length(out) > 0) {
+        out <- set_edge_label_position(
+                  semPaths_plot = object,
+                  position_list = out
+                )
+      } else {
+        out <- object
+      }
+    }
+  }
   out
 }
 

@@ -71,6 +71,7 @@ reference:
   - set_curve
   - set_edge_color
   - set_edge_label_position
+  - safe_edge_label_position
   - rotate_resid
   - change_node_label
   - keep_drop_nodes

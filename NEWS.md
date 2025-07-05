@@ -1,4 +1,4 @@
-# semptools 0.3.1.5
+# semptools 0.3.1.6
 
 ## New Features
 
@@ -12,6 +12,11 @@
 - Added `auto_layout_mediation()` for
   generating a layout matrix automatically.
   (0.3.1.5)
+
+- Added `safe_edge_label_position()` to
+  reposition edge labels away from the
+  intersections between paths.
+  (0.3.1.6)
 
 ## Improvement
 
