@@ -480,3 +480,19 @@ make_straight <- function(object) {
   }
   object
 }
+
+# Input:
+# - A qgraph object
+# Output:
+# - Logical
+has_intercept <- function(object) {
+  "triangle" %in% object$graphAttributes$Nodes$shape
+}
+
+# Input:
+# - A qgraph object
+# Output:
+# - Logical
+is_multigroup_qgraph <- function(object) {
+  all(sapply(object, \(x) inherits(x, "qgraph")))
+}

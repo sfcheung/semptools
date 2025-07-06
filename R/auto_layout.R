@@ -227,9 +227,19 @@ auto_layout_mediation <- function(
     }
   } else if (inherits(object, "qgraph")) {
     object_type <- "qgraph"
+    if (has_intercept(object)) {
+      stop("Does not support a plot with intercept(s).")
+    }
+    if (is_multigroup_qgraph(object)) {
+      stop("Does not support multigroup plot.")
+    }
+    # Cannot check for factor loading
+    # paths because there is no way to
+    # differentiate a path from a latent
+    # factor to an observed outcome
+    # variable from a factor loading
+    # path.
     beta0 <- qgraph_to_beta(object)
-    # TODO:
-    # - Check loadings, intercepts, etc.
   } else {
     stop("object is not a supported type.")
   }
