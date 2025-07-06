@@ -1,4 +1,4 @@
-# semptools 0.3.1.8
+# semptools 0.3.1.9
 
 ## New Features
 
@@ -11,7 +11,9 @@
 
 - Added `auto_layout_mediation()` for
   generating a layout matrix automatically.
-  (0.3.1.5)
+  It can also update an exist plot of
+  `semPlot::semPaths()`.
+  (0.3.1.5, 0.3.1.9)
 
 - Added `safe_edge_label_position()` to
   reposition edge labels away from the

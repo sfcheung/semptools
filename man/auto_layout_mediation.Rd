@@ -204,6 +204,18 @@ p0 <- semPaths(
           layout = m
         )
 
+# Can modify a qgraph
+
+pm <- semPlotModel(fit) |> drop_nodes(c("c1", "c2", "c3"))
+p <- semPaths(
+          pm,
+          whatLabels = "est"
+        )
+p2 <- auto_layout_mediation(p)
+plot(p2)
+
+
+
 }
 \seealso{
 \code{\link[=set_sem_layout]{set_sem_layout()}}. The
