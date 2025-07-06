@@ -12,7 +12,8 @@ auto_layout_mediation(
   exclude = NULL,
   v_pos = c("middle", "lower", "upper"),
   v_preference = c("upper", "lower"),
-  output = c("matrix", "xy")
+  output = c("matrix", "xy"),
+  update_plot = TRUE
 )
 }
 \arguments{
@@ -75,16 +76,34 @@ is \code{"middle"}. If \code{v_pos} is
 be forced to be \verb{"lower". If }v_pos\code{is}"upper"\verb{, then }v_preference\verb{will be forced to be}"upper".}
 
 \item{output}{The format of the
-output. If \code{"matrix"}, the output is
+output, used if \code{update_plot} is
+\code{FALSE}. If \code{"matrix"}, the output is
 a two-dimension character matrix with
 the names of the variables. If
 \code{"xy"}, the output is a two-column
 matrix of the relatived x- and
 y-positions of each variables.}
+
+\item{update_plot}{Logical. Used
+if \code{object} is a \code{qgraph} object. If
+\code{TRUE}, the function returns a
+modified \code{qgraph} object with the
+new layout. If \code{FALSE}}
 }
 \value{
-A two-dimension layout matrix of the
-position of the nodes.
+If \code{object} is a \code{lavaan}-class
+object, or if \code{update_plot} is \code{FALSE},
+it returns
+a two-dimension layout matrix of the
+position of the nodes, or a
+two-column matrix of the x-y positions
+of the nodes, depending on the
+argument \code{output}.
+
+If \code{object} is a \code{qgraph} object
+and \code{update_plot} is \code{TRUE}, it
+returns a \code{qgraph} object with the
+the modified layout.
 }
 \description{
 Set the layout of
