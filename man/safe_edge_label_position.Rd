@@ -90,10 +90,10 @@ library(semPlot)
 mod_pa <-
 "
 m11 ~ c1 + x1
-m21 ~ c2 + m11
-m2 ~ m11 + c3
-m22 ~ m11 + c3
-y ~ m2 + m21 + m22 + x1
+m12 ~ c2 + m11 + m21
+m21 ~ c1 + x1
+m22 ~ c1 + m21 + m11
+y ~ m12 + m22 + x1
 "
 fit <- lavaan::sem(
           mod_pa,
@@ -113,26 +113,24 @@ m <- auto_layout_mediation(
         fit,
         exclude = c("c1", "c2", "c3")
       )
-
 pos_new <- safe_edge_label_position(
                 fit,
                 layout = m
               )
 pos_new
-
-pm <- semPlotModel(fit) |> drop_nodes(c("c1", "c2", "c3"))
+pm <- semPlotModel(fit) |> drop_nodes(c("c1", "c2"))
 p <- semPaths(
           pm,
           whatLabels = "est",
           layout = m,
           DoNotPlot = TRUE
         )
+# Three labels overlap with each other
 plot(p)
-
 # Update the plot
 p_safe <- p |> safe_edge_label_position()
+# Three labels do not overlap in this plot
 plot(p_safe)
-
 # Set the position manually
 p_safe2 <- p |>
             set_edge_label_position(pos_new)

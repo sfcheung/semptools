@@ -181,6 +181,17 @@ fix_mxy <- function(
     m_i <- mnames[m[, "x"] == i]
     x_i <- mnames[m[, "x"] < i]
     y_i <- mnames[m[, "x"] > i]
+    tmp <- which(colnames(beta) %in% m_i)
+    beta_tmp <- beta[-tmp, -tmp]
+    x_beta <- beta_tmp[, x_i, drop = FALSE]
+    y_beta <- beta_tmp[y_i, , drop = FALSE]
+    x_i <- colnames(x_beta)[colSums(x_beta) > 0]
+    y_i <- rownames(y_beta)[rowSums(y_beta) > 0]
+    if ((length(x_i) == 0) ||
+        (length(y_i) == 0)) {
+      # No paths through m_i
+      next
+    }
     lines_i <- all_lines(
                   m = m_new,
                   from = x_i,
