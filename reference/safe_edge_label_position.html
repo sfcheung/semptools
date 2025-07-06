@@ -9,7 +9,7 @@ away from path intersections."><meta property="og:image" content="https://sfcheu
 
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1.10</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -161,10 +161,10 @@ labels.</p></div>
 <span class="r-in"><span><span class="va">mod_pa</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span><span class="st">"</span></span></span>
 <span class="r-in"><span><span class="st">m11 ~ c1 + x1</span></span></span>
-<span class="r-in"><span><span class="st">m21 ~ c2 + m11</span></span></span>
-<span class="r-in"><span><span class="st">m2 ~ m11 + c3</span></span></span>
-<span class="r-in"><span><span class="st">m22 ~ m11 + c3</span></span></span>
-<span class="r-in"><span><span class="st">y ~ m2 + m21 + m22 + x1</span></span></span>
+<span class="r-in"><span><span class="st">m12 ~ c2 + m11 + m21</span></span></span>
+<span class="r-in"><span><span class="st">m21 ~ c1 + x1</span></span></span>
+<span class="r-in"><span><span class="st">m22 ~ c1 + m21 + m11</span></span></span>
+<span class="r-in"><span><span class="st">y ~ m12 + m22 + x1</span></span></span>
 <span class="r-in"><span><span class="st">"</span></span></span>
 <span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>          <span class="va">mod_pa</span>,</span></span>
@@ -184,30 +184,28 @@ labels.</p></div>
 <span class="r-in"><span>        <span class="va">fit</span>,</span></span>
 <span class="r-in"><span>        exclude <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>      <span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">pos_new</span> <span class="op">&lt;-</span> <span class="fu">safe_edge_label_position</span><span class="op">(</span></span></span>
 <span class="r-in"><span>                <span class="va">fit</span>,</span></span>
 <span class="r-in"><span>                layout <span class="op">=</span> <span class="va">m</span></span></span>
 <span class="r-in"><span>              <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">pos_new</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    y~x1 m21~m11 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.275   0.275 </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">pm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPlotModel.html" class="external-link">semPlotModel</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="keep_drop_nodes.html">drop_nodes</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    y~x1 m12~m21 m22~m11 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.275   0.275   0.275 </span>
+<span class="r-in"><span><span class="va">pm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPlotModel.html" class="external-link">semPlotModel</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="keep_drop_nodes.html">drop_nodes</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPaths</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>          <span class="va">pm</span>,</span></span>
 <span class="r-in"><span>          whatLabels <span class="op">=</span> <span class="st">"est"</span>,</span></span>
 <span class="r-in"><span>          layout <span class="op">=</span> <span class="va">m</span>,</span></span>
 <span class="r-in"><span>          DoNotPlot <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span>        <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Three labels overlap with each other</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="safe_edge_label_position-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Update the plot</span></span></span>
 <span class="r-in"><span><span class="va">p_safe</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">|&gt;</span> <span class="fu">safe_edge_label_position</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Three labels do not overlap in this plot</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p_safe</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="safe_edge_label_position-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Set the position manually</span></span></span>
 <span class="r-in"><span><span class="va">p_safe2</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>            <span class="fu"><a href="set_edge_label_position.html">set_edge_label_position</a></span><span class="op">(</span><span class="va">pos_new</span><span class="op">)</span></span></span>
