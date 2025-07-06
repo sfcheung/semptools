@@ -342,6 +342,14 @@ layout_matrix_from_mxy <- function(
   y <- tryCatch(y / gcd_k(y),
                 error = function(e) y)
   out0[, "y"] <- y
+
+  x <- out0[, "x", drop = TRUE]
+  x <- to_integer(x)
+  x <- x - min(x) + 1
+  x <- tryCatch(x / gcd_k(x),
+                error = function(e) x)
+  out0[, "x"] <- x
+
   out0 <- out0[, c("y", "x")]
   out0 <- split(out0, rownames(out0))
   do.call(layout_matrix,
@@ -456,4 +464,35 @@ check_exclude <- function(
   if (length(intersect(exclude, m0)) > 0) {
     stop("One or more variables in 'exclude' is/are mediators and should not be excluded.")
   }
+}
+
+# Input:
+# - A qgraph object
+# Output:
+# - A qgraph object with all directed paths no curvature
+make_straight <- function(object) {
+  e2 <- object$Edgelist
+  i1 <- !e2$bidirectional
+  i2 <- (e2$from != e2$to)
+  i <- i1 & i2
+  if (any(i)) {
+    object$graphAttributes$Edges$curve[i] <- 0
+  }
+  object
+}
+
+# Input:
+# - A qgraph object
+# Output:
+# - Logical
+has_intercept <- function(object) {
+  "triangle" %in% object$graphAttributes$Nodes$shape
+}
+
+# Input:
+# - A qgraph object
+# Output:
+# - Logical
+is_multigroup_qgraph <- function(object) {
+  all(sapply(object, \(x) inherits(x, "qgraph")))
 }
