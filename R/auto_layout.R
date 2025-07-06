@@ -273,8 +273,6 @@ auto_layout_mediation <- function(
           )
   if ((object_type == "qgraph") &&
       update_plot) {
-    # TODO:
-    # - Force all directed path to be a straight line
     object_layout <- qgraph_to_layoutxy(object)
     m2 <- m1[rownames(object_layout), ]
     m2 <- rescale_layout_matrix(m2)
