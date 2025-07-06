@@ -36,8 +36,20 @@
 #'   mediator.
 #'
 #' @return
-#' A two-dimension layout matrix of the
-#' position of the nodes.
+#'
+#' If `object` is a `lavaan`-class
+#' object, or if `update_plot` is `FALSE`,
+#' it returns
+#' a two-dimension layout matrix of the
+#' position of the nodes, or a
+#' two-column matrix of the x-y positions
+#' of the nodes, depending on the
+#' argument `output`.
+#'
+#' If `object` is a `qgraph` object
+#' and `update_plot` is `TRUE`, it
+#' returns a `qgraph` object with the
+#' the modified layout.
 #'
 #' @param object It can be the output of
 #' [lavaan::sem()] or
@@ -100,12 +112,19 @@
 #' will be forced to be `"upper".
 #'
 #' @param output The format of the
-#' output. If `"matrix"`, the output is
+#' output, used if `update_plot` is
+#' `FALSE`. If `"matrix"`, the output is
 #' a two-dimension character matrix with
 #' the names of the variables. If
 #' `"xy"`, the output is a two-column
 #' matrix of the relatived x- and
 #' y-positions of each variables.
+#'
+#' @param update_plot Logical. Used
+#' if `object` is a `qgraph` object. If
+#' `TRUE`, the function returns a
+#' modified `qgraph` object with the
+#' new layout. If `FALSE`
 #'
 #' @seealso [set_sem_layout()]. The
 #' output of [auto_layout_mediation()]
@@ -177,6 +196,18 @@
 #'           layout = m
 #'         )
 #'
+#' # Can modify a qgraph
+#'
+#' pm <- semPlotModel(fit) |> drop_nodes(c("c1", "c2", "c3"))
+#' p <- semPaths(
+#'           pm,
+#'           whatLabels = "est"
+#'         )
+#' p2 <- auto_layout_mediation(p)
+#' plot(p2)
+#'
+#'
+#'
 #' @export
 
 auto_layout_mediation <- function(
@@ -186,13 +217,16 @@ auto_layout_mediation <- function(
                             exclude = NULL,
                             v_pos = c("middle", "lower", "upper"),
                             v_preference = c("upper", "lower"),
-                            output = c("matrix", "xy")
+                            output = c("matrix", "xy"),
+                            update_plot = TRUE
                           ) {
   v_pos <- match.arg(v_pos)
   v_preference <- match.arg(v_preference)
   output <- match.arg(output)
 
+  object_type <- NA
   if (inherits(object, "lavaan")) {
+    object_type <- "lavaan"
     if (lavaan::lavTech(object, "ngroups") != 1) {
       stop("Multigroup models not supported.")
     }
@@ -204,6 +238,19 @@ auto_layout_mediation <- function(
       stop("The model has no structural paths. Is it a CFA model?")
     }
   } else if (inherits(object, "qgraph")) {
+    object_type <- "qgraph"
+    if (has_intercept(object)) {
+      stop("Does not support a plot with intercept(s).")
+    }
+    if (is_multigroup_qgraph(object)) {
+      stop("Does not support multigroup plot.")
+    }
+    # Cannot check for factor loading
+    # paths because there is no way to
+    # differentiate a path from a latent
+    # factor to an observed outcome
+    # variable from a factor loading
+    # path.
     beta0 <- qgraph_to_beta(object)
   } else {
     stop("object is not a supported type.")
@@ -224,9 +271,21 @@ auto_layout_mediation <- function(
             beta = beta1,
             v_preference = v_preference
           )
-  m2 <- switch(output,
-               matrix = layout_matrix_from_mxy(m1),
-               xy = m1)
-  m2
+  if ((object_type == "qgraph") &&
+      update_plot) {
+    # TODO:
+    # - Force all directed path to be a straight line
+    object_layout <- qgraph_to_layoutxy(object)
+    m2 <- m1[rownames(object_layout), ]
+    m2 <- rescale_layout_matrix(m2)
+    out <- object
+    out$layout <- m2
+    out <- make_straight(out)
+  } else {
+    out <- switch(output,
+                matrix = layout_matrix_from_mxy(m1),
+                xy = m1)
+  }
+  out
 }
 

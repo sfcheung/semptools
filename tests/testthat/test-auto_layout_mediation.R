@@ -52,7 +52,8 @@ p0 <- semPaths(
         )
 
 m0 <- auto_layout_mediation(
-        p0
+        p0,
+        update_plot = FALSE
       )
 
 expect_equal(m0,
