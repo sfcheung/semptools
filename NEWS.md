@@ -1,4 +1,4 @@
-# semptools 0.3.1.10
+# semptools 0.3.1.11
 
 ## New Features
 
@@ -38,6 +38,11 @@
 - Updated `mark_sig()` to process
   R-squares if *p*-values are provided
   by users. (0.3.1.8)
+
+## Miscellaneous
+
+- Update to depend on R 4.1.0 or above.
+  (0.3.1.11)
 
 # semptools 0.3.1
 
