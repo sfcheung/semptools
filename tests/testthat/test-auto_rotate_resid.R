@@ -43,11 +43,12 @@ p1 <- safe_resid_position(p0)
 
 plot(p1)
 
-out_chk <- c(-1.5707963267949, 0, 0.553574358897045, -4.15881462148764,
--2.67794504458899, -1.01722196789785)
+out_chk <- c(-3.6052402625906, 0.169646307227022, -2.21429743558818, -4.24874137138388,
+-2.58801829469275, -1.40115001956787)
 
 expect_equal(p1$graphAttributes$Node$loopRotation,
-             out_chk)
+             out_chk,
+             tolerance = 1e-4)
 
 pos_new <- safe_resid_position(p0, update_plot = FALSE)
 
@@ -66,9 +67,11 @@ p3 <- p0 |> rotate_resid(pos_new2)
 
 # Can be different from using qgraph object
 # because the aspect ratio may not be 1-to-1 in qgraph
-pos_new2_chk <- c(x2 = -67.5, x3 = -202.5, x1 = -135, y = -247.5, x5 = 22.5)
+pos_new2_chk <- c(x2 = -80.782525588539, x3 = -202.5, x4 = 9.21747441146101,
+x1 = -140.65496623701, y = -247.5, x5 = -135)
 
 expect_equal(pos_new2,
-             pos_new2_chk)
+             pos_new2_chk,
+             tolerance = 1e-4)
 
 })

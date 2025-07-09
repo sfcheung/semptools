@@ -6,17 +6,17 @@
 all_paths <- function(
                       beta,
                       m) {
-  all_paths <- mapply(
+  out <- mapply(
                   \(x, y) {list(from = x, to = y)},
                   x = colnames(beta)[col(beta)[beta > 0]],
                   y = rownames(beta)[row(beta)[beta > 0]],
                   SIMPLIFY = FALSE,
                   USE.NAMES = FALSE
                 )
-  all_paths <- lapply(all_paths,
+  out <- lapply(out,
                       to_bezier,
                       m = m)
-  all_paths
+  out
 }
 
 
@@ -100,57 +100,6 @@ to_bezier <- function(
        to_xy = c(x = to_x, y = to_y),
        coef_x = c(a = ax, b = bx),
        coef_y = c(a = ay, b = by))
-}
-
-
-# Input:
-# - m_i: The names of the mediators
-# - m: The layout matrix in x-y form
-# - lines_i: The a, b, c for the lines that may pass through m_i
-# Output:
-#- A list of vectors. If 0, a mediator is on a line.
-check_pass_thru <- function(
-                      m_i,
-                      m,
-                      lines_i) {
-  out <- vector("list", length(m_i))
-  names(out) <- m_i
-  for (mm in m_i) {
-    chk <- sapply(
-              lines_i,
-              function(xx) {
-                xx["a"] * m[mm, "x"] +
-                xx["b"] * m[mm, "y"] +
-                xx["c"]
-              })
-    out[[mm]] <- chk
-  }
-  out
-}
-
-
-# Input:
-# - m: Layout matrix
-# - from: Lines from
-# - to: Lines to
-# Output:
-# - A list of equations
-all_lines <- function(m,
-                      from,
-                      to) {
-  out <- vector("list", length(from) * length(to))
-  i <- 1
-  for (p1 in from) {
-    for (p2 in to) {
-      a <- m[p1, "y"] - m[p2, "y"]
-      b <- m[p2, "x"] - m[p1, "x"]
-      c <- m[p1, "x"] * m[p2, "y"] -
-           m[p2, "x"] * m[p1, "y"]
-      out[[i]] <- c(a = a, b = b, c = c)
-      i <- i + 1
-    }
-  }
-  out
 }
 
 # Input:
