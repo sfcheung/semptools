@@ -1,4 +1,4 @@
-# semptools 0.3.1.11
+# semptools 0.3.1.12
 
 ## New Features
 

@@ -195,8 +195,19 @@ fix_mxy <- function(
     lines_i <- all_lines(
                   m = m_new,
                   from = x_i,
-                  to = y_i
+                  to = y_i,
+                  beta = beta
                 )
+    # lines_i_to <- all_lines(
+    #               m = m_new,
+    #               from = x_i,
+    #               to = m_i
+    #             )
+    # lines_i_from <- all_lines(
+    #               m = m_new,
+    #               from = m_i,
+    #               to = y_i
+    #             )
     k0 <- length(m_i)
     # m_i_lower and m_i_upper used
     # when v_pos = "middle"
@@ -265,7 +276,25 @@ fix_mxy <- function(
                           m = m_new,
                           lines_i = lines_i
                         )
-          ok <- all(unlist(chk) != 0)
+          lines_i_to <- all_lines(
+                        m = m_new,
+                        from = x_i,
+                        to = m_ij,
+                        beta = beta
+                      )
+          chk_to <- lapply(
+                          x_i,
+                          check_pass_thru,
+                          m = m_new,
+                          lines_i = lines_i_to)
+          # chk_from <- lapply(
+          #                 y_i,
+          #                 check_pass_thru,
+          #                 m = m_new,
+          #                 lines_i = lines_i_from)
+          tmp <- unlist(c(chk, chk_to))
+          tmp <- tmp[!is.na(tmp)]
+          ok <- all(tmp != 0)
         }
       }
     } else {
@@ -283,7 +312,25 @@ fix_mxy <- function(
                         m = m_new,
                         lines_i = lines_i
                       )
-        ok <- all(unlist(chk) != 0)
+        lines_i_to <- all_lines(
+                      m = m_new,
+                      from = x_i,
+                      to = m_i,
+                      beta = beta
+                    )
+        chk_to <- lapply(
+                        x_i,
+                        check_pass_thru,
+                        m = m_new,
+                        lines_i = lines_i_to)
+        # chk_from <- lapply(
+        #                 y_i,
+        #                 check_pass_thru,
+        #                 m = m_new,
+        #                 lines_i = lines_i_from)
+        tmp <- unlist(c(chk, chk_to))
+        tmp <- tmp[!is.na(tmp)]
+        ok <- all(tmp != 0)
       }
     }
   }
@@ -294,23 +341,39 @@ fix_mxy <- function(
 # - m: Layout x-y matrix
 # - from: Lines from
 # - to: Lines to
+# - The beta matrix
 # Output:
 # - A list of equations
 all_lines <- function(m,
                       from,
-                      to) {
+                      to,
+                      beta) {
   out <- vector("list", length(from) * length(to))
-  i <- 1
+  i <- 0
+  if (missing(beta)) {
+    beta <- matrix(1,
+                   ncol = length(from),
+                   nrow = length(to))
+    colnames(beta) <- from
+    rownames(beta) <- to
+  }
   for (p1 in from) {
     for (p2 in to) {
-      a <- m[p1, "y"] - m[p2, "y"]
-      b <- m[p2, "x"] - m[p1, "x"]
-      c <- m[p1, "x"] * m[p2, "y"] -
-           m[p2, "x"] * m[p1, "y"]
-      out[[i]] <- c(a = a, b = b, c = c)
-      i <- i + 1
+      if ((p1 != p2) &&
+          (beta[p2, p1] > 0)) {
+        i <- i + 1
+        a <- m[p1, "y"] - m[p2, "y"]
+        b <- m[p2, "x"] - m[p1, "x"]
+        c <- m[p1, "x"] * m[p2, "y"] -
+            m[p2, "x"] * m[p1, "y"]
+        tmp <- c(a = a, b = b, c = c)
+        attr(tmp, "from") <- p1
+        attr(tmp, "to") <- p2
+        out[[i]] <- tmp
+      }
     }
   }
+  out <- out[seq_len(i)]
   out
 }
 
@@ -330,10 +393,34 @@ check_pass_thru <- function(
     chk <- sapply(
               lines_i,
               function(xx) {
-                xx["a"] * m[mm, "x"] +
-                xx["b"] * m[mm, "y"] +
-                xx["c"]
+                if (all(xx == 0)) {
+                  return(-1)
+                } else {
+                  m_x <- m[mm, "x"]
+                  m_y <- m[mm, "y"]
+                  tmp <- xx["a"] * m_x +
+                         xx["b"] * m_y +
+                         xx["c"]
+                  tmp <- round(tmp, 4)
+                  if (tmp == 0) {
+                    to <- attr(xx, "to")
+                    from <- attr(xx, "from")
+                    x_range <- range(m[c(from, to), "x"])
+                    y_range <- range(m[c(from, to), "y"])
+                    if (m_x <= max(x_range) && m_x >= min(x_range) &&
+                        m_y <= max(y_range) && m_y >= min(y_range)) {
+                      return(0)
+                    } else {
+                      return(1)
+                    }
+                  }
+                  tmp
+                }
               })
+    in_to <- (mm == sapply(lines_i, attr, which = "to"))
+    in_from <- (mm == sapply(lines_i, attr, which = "from"))
+    chk[in_to] <- -1
+    chk[in_from] <- -1
     out[[mm]] <- chk
   }
   out
@@ -506,4 +593,30 @@ has_intercept <- function(object) {
 # - Logical
 is_multigroup_qgraph <- function(object) {
   all(sapply(object, \(x) inherits(x, "qgraph")))
+}
+
+# Input:
+# - A qgraph object
+# Output:
+# - Whether any path passes through any node
+check_graph_pass_thru <- function(object) {
+
+  m <- qgraph_to_layoutxy(object)
+  beta <- qgraph_to_beta(object)
+  vnames <- colnames(beta)
+
+  lines_i <- all_lines(
+                m,
+                from = vnames,
+                to = vnames,
+                beta = beta
+              )
+  chk <- lapply(
+          vnames,
+          check_pass_thru,
+          m = m,
+          lines_i = lines_i)
+  chk <- unlist(chk)
+  chk <- chk[!is.na(chk)]
+  all(chk != 0)
 }
