@@ -29,11 +29,22 @@ m <- auto_layout_mediation(
         exclude = c("c1", "c2", "c3")
       )
 
-m_chk <- structure(c("x2", NA, "x1", NA, "x3", NA, "x4", NA, NA, "x5",
-NA, NA, NA, "y", NA), dim = c(3L, 5L))
+
+m_chk <-structure(c(NA, "x2", NA, "x1", NA, NA, "x3", NA, "x4", NA, NA,
+NA, NA, "x5", NA, NA, NA, NA, "y", NA), dim = 4:5)
 
 expect_equal(m,
              m_chk)
+
+pm <- semPlotModel(fit) |> drop_nodes(c("c1", "c2", "c3"))
+p0 <- semPaths(
+          pm,
+          whatLabels = "est",
+          layout = m,
+          DoNotPlot = TRUE
+        )
+# plot(p0)
+expect_true(check_graph_pass_thru(p0))
 
 mxy <- auto_layout_mediation(
         fit,
@@ -67,21 +78,15 @@ m <- auto_layout_mediation(
         exclude = c("y")
       )
 
-m_chk <- structure(c("c1", NA, "c3", NA, "x2", NA, "x1", NA, NA, NA, "x3",
-NA, NA, NA, NA, NA, NA, "x4", NA, NA, NA, NA, NA, NA, "x5", NA,
-NA, NA), dim = c(7L, 4L))
-
-expect_equal(m,
-             m_chk)
-
-# pm <- semPlotModel(fit) |> drop_nodes(c("y", "c2"))
-# p0 <- semPaths(
-#           pm,
-#           whatLabels = "est",
-#           layout = m,
-#           exoCov = FALSE,
-#           DoNotPlot = TRUE
-#         )
+pm <- semPlotModel(fit) |> drop_nodes(c("y", "c2"))
+p0 <- semPaths(
+          pm,
+          whatLabels = "est",
+          layout = m,
+          exoCov = FALSE,
+          DoNotPlot = TRUE
+        )
+expect_true(check_graph_pass_thru(p0))
 # plot(p0)
 
 m <- auto_layout_mediation(
@@ -89,22 +94,15 @@ m <- auto_layout_mediation(
         v_pos = "lower"
       )
 
-m_chk <- structure(c("c2", NA, "c1", NA, "c3", NA, "x2", NA, "x1", NA,
-NA, "x3", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "x4", NA,
-NA, NA, NA, NA, NA, "x5", NA, NA, NA, NA, NA, "y", NA, NA, NA,
-NA, NA, NA, NA, NA), dim = c(9L, 5L))
-
-expect_equal(m,
-             m_chk)
-
-# pm <- semPlotModel(fit)
-# p0 <- semPaths(
-#           pm,
-#           whatLabels = "est",
-#           layout = m,
-#           exoCov = FALSE,
-#           DoNotPlot = TRUE
-#         )
+pm <- semPlotModel(fit)
+p0 <- semPaths(
+          pm,
+          whatLabels = "est",
+          layout = m,
+          exoCov = FALSE,
+          DoNotPlot = TRUE
+        )
+expect_true(check_graph_pass_thru(p0))
 # plot(p0)
 
 m <- auto_layout_mediation(
@@ -112,22 +110,15 @@ m <- auto_layout_mediation(
         v_pos = "upper"
       )
 
-m_chk <- structure(c("c2", NA, "c1", NA, "c3", NA, "x2", NA, "x1", NA,
-NA, NA, NA, NA, NA, "x3", NA, NA, NA, NA, NA, "x4", NA, NA, NA,
-NA, NA, NA, NA, NA, NA, NA, "x5", NA, NA, NA, NA, NA, NA, NA,
-NA, NA, NA, NA, "y"), dim = c(9L, 5L))
-
-expect_equal(m,
-             m_chk)
-
-# pm <- semPlotModel(fit)
-# p0 <- semPaths(
-#           pm,
-#           whatLabels = "est",
-#           layout = m,
-#           exoCov = FALSE,
-#           DoNotPlot = TRUE
-#         )
+pm <- semPlotModel(fit)
+p0 <- semPaths(
+          pm,
+          whatLabels = "est",
+          layout = m,
+          exoCov = FALSE,
+          DoNotPlot = TRUE
+        )
+expect_true(check_graph_pass_thru(p0))
 # plot(p0)
 
 expect_error(auto_layout_mediation(
