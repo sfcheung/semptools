@@ -99,6 +99,7 @@ reference:
   - lavaan_indicator_order
   - auto_factor_point_to
   - auto_layout_mediation
+  - move_node
 - title: Other Helpers
 - contents:
   - is_dv_residvar
