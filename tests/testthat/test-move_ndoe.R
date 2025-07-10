@@ -1,5 +1,3 @@
-skip("WIP")
-
 test_that("move_node", {
 
 library(lavaan)

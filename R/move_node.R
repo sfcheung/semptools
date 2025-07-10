@@ -8,7 +8,10 @@
 #' [semPlot::semPaths] and move selected
 #' nodes.
 #'
-#' (TODO: How to use it)
+#' The change assumes that the layout
+#' is defined with 0 as the center,
+#' -1 to 1 from left to right, and
+#' from bottom to top.
 #'
 #' @return A [qgraph::qgraph] based on
 #' the original one, with the selected
@@ -20,12 +23,25 @@
 #' qgraph object modified by other
 #' [semptools] functions.
 #'
-#' @param values A named vector or a
-#' list of named list. See the Details
-#' section on how to set this argument.
-#'
-#' @param attribute_name The name of
-#' the attribute to be changed.
+#' @param move_by A named list. The
+#' names are the names of nodes to be
+#' moved. Each element of the list can
+#' be either a named numeric vector or
+#' an unnamed vector of two numbers. If
+#' a named vector, `x` is the horizontal
+#' change in the position (e.g., .25
+#' means moving to the right by .25, and
+#' -.5 means moving to the left by .5),
+#' and `y` is the vertical change (e.g.,
+#' .5 means moving up by .5, and -.1
+#' means moving down by .1). If unnamed,
+#' then the vector must have two numbers,
+#' the first for the horizontal move (`x`)
+#' and the second for the vertical move.
+#' The value is interpreted based on
+#' the unit of the plot, usually from
+#' -1 to 1 for `x` and `y`, with 0 being
+#' the center of the plot.
 #'
 #' @examples
 #' mod_pa <-
@@ -43,9 +59,12 @@
 #'             nCharNodes = 0, nCharEdges = 0,
 #'             layout = m)
 #'
-#' # TODO: Update the example
+#' p_changed <- move_node(p_pa,
+#'                        list(x3 = c(x = -.25, y = -.25),
+#'                             x4 = c(y = .5)))
+#' plot(p_changed)
 #'
-#' @noRd
+#' @export
 
 move_node <- function(
               semPaths_plot,
@@ -61,15 +80,6 @@ move_node <- function(
             stop("semPaths_plot is not a qgraph object.")
           }
       }
-
-    # Convert a named vector to a named list
-    # This should not be needed as move_by is always a list
-    # if (!is.list(move_by)) {
-    #     move_by_org <- move_by
-    #     values <- to_list_of_lists(move_by,
-    #                                name1 = "node",
-    #                                name2 = "new_value")
-    #   }
 
     # Check nodes
     Nodes_in <- names(move_by)
