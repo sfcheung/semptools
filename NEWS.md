@@ -26,7 +26,7 @@
   this node. (0.3.1.7)
 
 - Added `move_node()` to move a node
-  in a plot, for adjusted the layout
+  in a plot, for adjusting the layout
   of a plot after it has been generated.
   (0.3.1.13)
 
