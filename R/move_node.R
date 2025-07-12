@@ -106,10 +106,10 @@ move_node <- function(
         new_y <- move_by_i["y"]
       }
       if (!is.na(new_x)) {
-        layout_new[x, "x"] <- layout_new[x, "x"] + new_x
+        layout_new[Nodes_id[x], "x"] <- layout_new[Nodes_id[x], "x"] + new_x
       }
       if (!is.na(new_y)) {
-        layout_new[x, "y"] <- layout_new[x, "y"] + new_y
+        layout_new[Nodes_id[x], "y"] <- layout_new[Nodes_id[x], "y"] + new_y
       }
     }
 
