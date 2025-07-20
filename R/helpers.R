@@ -9,22 +9,22 @@ node_plot <- function(semPaths_plot) {
 
 man_plot <- function(semPaths_plot) {
     nodes <- semPaths_plot$graphAttributes$Nodes
-    nodes$names[nodes$shape == "square"]
+    nodes$names[nodes$shape == "square"] | nodes$names[nodes$shape == "rectangle"]
   }
 
 #' @noRd
 
 lat_plot <- function(semPaths_plot) {
     nodes <- semPaths_plot$graphAttributes$Nodes
-    nodes$names[nodes$shape == "circle"]
+    nodes$names[nodes$shape == "circle"] | nodes$names[nodes$shape == "ellipse"]
   }
 
 #' @noRd
 
 indicator_plot <- function(semPaths_plot) {
     nodes <- semPaths_plot$graphAttributes$Nodes
-    man_id <- which(nodes$shape == "square")
-    lat_id <- which(nodes$shape == "circle")
+    man_id <- which((nodes$shape == "square") | (nodes$shape == "rectangle"))
+    lat_id <- which((nodes$shape == "circle") | (nodes$shape == "ellipse"))
     edges <- as.data.frame(semPaths_plot$Edgelist)
     edges2 <- edges[edges$directed & !edges$bidirectional, ]
     id <- (edges2$from %in% lat_id) & (edges2$to %in% man_id)
@@ -39,8 +39,8 @@ loading_plot <- function(semPaths_plot,
     # Assume that:
     #   squares are manifest variables
     #   circles are latent variables
-    man_id <- which(nodes$shape == "square")
-    lat_id <- which(nodes$shape == "circle")
+    man_id <- which((nodes$shape == "square") | (nodes$shape == "rectangle"))
+    lat_id <- which((nodes$shape == "circle") | (nodes$shape == "ellipse"))
     edges <- as.data.frame(semPaths_plot$Edgelist)
     edges2 <- edges[edges$directed & !edges$bidirectional, ]
     id <- (edges2$from %in% lat_id) & (edges2$to %in% man_id)

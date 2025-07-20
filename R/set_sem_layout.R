@@ -280,10 +280,11 @@ set_sem_layout <- function(semPaths_plot,
       } else {
         Nodes_names2 <- NA
       }
-
-    if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
-        if (!all(Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "square"] %in% indicator_order)) {
-            tmp1 <- Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "square"]
+    tmp0 <- semPaths_plot$graphAttributes$Nodes$shape == "square" |
+            semPaths_plot$graphAttributes$Nodes$shape == "rectangle"
+    if (!all(Nodes_names[tmp0] %in% indicator_order)) {
+        if (!all(Nodes_names2[tmp0] %in% indicator_order)) {
+            tmp1 <- Nodes_names2[tmp0]
             tmp2 <- indicator_order
             msg_tmp <- setdiff(tmp1,
                                indicator_order)
@@ -299,8 +300,10 @@ set_sem_layout <- function(semPaths_plot,
             indicator_order <- tmp
           }
       }
-    if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
-        if (!all(Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
+    tmp0 <- (semPaths_plot$graphAttributes$Nodes$shape == "circle") |
+            (semPaths_plot$graphAttributes$Nodes$shape == "ellipse")
+    if (!all(Nodes_names[tmp0] %in% indicator_factor)) {
+        if (!all(Nodes_names2[tmp0] %in% indicator_factor)) {
             warning("One or more factors in the graph are not in indicator_factor. Unexpected results may occur.")
           } else {
             tmp <- sapply(indicator_factor, function(x) {
@@ -320,10 +323,12 @@ set_sem_layout <- function(semPaths_plot,
     # if (!all(Nodes_names[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in% indicator_factor)) {
     #     warning("One or more factors in the graph may not be in indicator_factor. Unexpected results may occur.")
     #   }
+    tmp0 <- (semPaths_plot$graphAttributes$Nodes$shape == "circle") |
+            (semPaths_plot$graphAttributes$Nodes$shape == "ellipse")
     if (!all(indicator_factor %in% factor_layout[!is.na(factor_layout)])) {
-        if (!all(Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"] %in%
+        if (!all(Nodes_names2[tmp0] %in%
                  factor_layout[!is.na(factor_layout)])) {
-            tmp <- Nodes_names2[semPaths_plot$graphAttributes$Nodes$shape == "circle"]
+            tmp <- Nodes_names2[tmp0]
             msg_tmp <- setdiff(tmp,
                                factor_layout[!is.na(factor_layout)])
             msg_tmp <- paste(unlist(msg_tmp),

@@ -1,3 +1,12 @@
+# semptools 0.3.2.1
+
+## Improvement
+
+- Updated to treat rectangles as
+  manifest variables and ellipses as
+  latent variables
+  (0.3.2.1)
+
 # semptools 0.3.2
 
 ## New Features
