@@ -50,6 +50,20 @@ test_that(
                      p_sig_chk)
   })
 
+p_ci_chk <- paste0(formatC(std$est.std[id], digits = 2, format = "f"),
+                   " (",
+                   formatC(est$ci.lower[id], digits = 2, format = "f"),
+                   ", ",
+                   formatC(est$ci.upper[id], digits = 2, format = "f"),
+                   ")")
+
+test_that(
+  "mark_ci", {
+    p2s_ci <- mark_ci(p1s, object = fit)
+    expect_identical(p2s_ci[[2]]$graphAttributes$Edges$labels[1:9],
+                     p_ci_chk)
+  })
+
 # Multigroup Path Model
 
 n <- nrow(pa_example)
@@ -95,4 +109,18 @@ test_that(
                      p_pa_se_chk)
     expect_identical(p_pa_sig[[2]]$graphAttributes$Edges$labels,
                      p_pa_sig_chk)
+  })
+
+p_pa_ci_chk <- paste0(formatC(est$est[id], digits = 2, format = "f"),
+                      " (",
+                      formatC(est$ci.lower[id], digits = 2, format = "f"),
+                      ", ",
+                      formatC(est$ci.upper[id], digits = 2, format = "f"),
+                      ")")
+
+test_that(
+  "mark_ci", {
+    p_pa_ci <- mark_ci(p_pa, fit_pa)
+    expect_identical(p_pa_ci[[2]]$graphAttributes$Edges$labels,
+                     p_pa_ci_chk)
   })
