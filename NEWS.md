@@ -1,4 +1,9 @@
-# semptools 0.3.2.1
+# semptools 0.3.2.2
+
+## New Features
+
+- Added `mark_ci()` for adding confidence
+  intervals to a plot. (0.3.2.2)
 
 ## Improvement
 
