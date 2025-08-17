@@ -43,9 +43,10 @@ appended standard errors. Default is 2L.}
 
 \item{ests}{A data.frame from the
 \code{\link[lavaan]{parameterEstimates}} function, or
-from other function with these columns:? \code{lhs}, \code{op},
-\code{rhs}, and \code{se}. Only used when
-\code{object} is not specified.}
+from other function with these columns: \code{lhs}, \code{op},
+\code{rhs}, \code{se} (for SE), and \code{ci.lower} and
+\code{ci.upper} (for CI). Only used when \code{object} is
+not specified.}
 
 \item{std_type}{If standardized solution is used in the plot,
 set this either to the type of standardization (e.g., \code{"std.all"})

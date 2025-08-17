@@ -32,8 +32,17 @@ tmp <- sapply(est$pvalue[id], function(x) {
 p_pa_sig_chk <- paste0(formatC(est$est[id], digits = 2, format = "f"),
                        tmp)
 
+p_pa_ci_chk <- paste0(
+  formatC(est$est[id], digits = 2, format = "f"),
+  " (",
+  formatC(est$ci.lower[id], digits = 2, format = "f"),
+  ", ",
+  formatC(est$ci.upper[id], digits = 2, format = "f"),
+  ")"
+)
+
 test_that(
-  "mark_se and mark_sig: Standardized solution", {
+  "mark_se, mark_ci, and mark_sig: Standardized solution", {
     p_pa_se1 <- mark_se(p_pa, fit_pa)
     p_pa_se2 <- mark_se(p_pa, est = est)
     p_pa_se3 <- mark_se(p_pa, fit_pa, std_type = TRUE)
@@ -58,4 +67,16 @@ test_that(
                      p_pa_sig_chk)
     expect_identical(p_pa_sig4$graphAttributes$Edges$labels,
                      p_pa_sig_chk)
+    p_pa_ci1 <- mark_ci(p_pa, fit_pa)
+    p_pa_ci2 <- mark_ci(p_pa, est = est)
+    p_pa_ci3 <- mark_ci(p_pa, fit_pa, std_type = TRUE)
+    p_pa_ci4 <- mark_ci(p_pa, fit_pa, std_type = "std.all")
+    expect_false(isTRUE(all.equal(p_pa_ci1$graphAttributes$Edges$labels,
+                                  p_pa_ci_chk)))
+    expect_identical(p_pa_ci2$graphAttributes$Edges$labels,
+                     p_pa_ci_chk)
+    expect_identical(p_pa_ci3$graphAttributes$Edges$labels,
+                     p_pa_ci_chk)
+    expect_identical(p_pa_ci4$graphAttributes$Edges$labels,
+                     p_pa_ci_chk)
   })

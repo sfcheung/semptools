@@ -41,9 +41,10 @@
 #'
 #' @param ests A data.frame from the
 #'   \code{\link[lavaan]{parameterEstimates}} function, or
-#'   from other function with these columns:? `lhs`, `op`,
-#'   `rhs`, and `se`. Only used when
-#'   \code{object} is not specified.
+#'   from other function with these columns: `lhs`, `op`,
+#'   `rhs`, `se` (for SE), and `ci.lower` and
+#'   `ci.upper` (for CI). Only used when \code{object} is 
+#'   not specified.
 #'
 #' @param std_type If standardized solution is used in the plot,
 #'   set this either to the type of standardization (e.g., `"std.all"`)
