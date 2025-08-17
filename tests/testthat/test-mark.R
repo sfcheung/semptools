@@ -40,3 +40,17 @@ test_that(
     expect_identical(p_pa_sig$graphAttributes$Edges$labels,
                      p_pa_sig_chk)
   })
+
+p_pa_ci_chk <- paste0(formatC(est$est[id], digits = 2, format = "f"),
+                      " (",
+                      formatC(est$ci.lower[id], digits = 2, format = "f"),
+                      ", ",
+                      formatC(est$ci.upper[id], digits = 2, format = "f"),
+                      ")")
+
+test_that(
+  "mark_ci", {
+    p_pa_ci <- mark_ci(p_pa, fit_pa)
+    expect_identical(p_pa_ci$graphAttributes$Edges$labels,
+                     p_pa_ci_chk)
+  })

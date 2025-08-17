@@ -145,6 +145,13 @@ p_pa2 <- mark_se(p_pa, fit_pa, sep = "\n")
 plot(p_pa2)
 ```
 
+Similarly, one can use `mark_ci()` to add confidence intervals:
+
+```{r}
+p_pa2_ci <- mark_ci(p_pa, fit_pa, sep = "\n")
+plot(p_pa2_ci)
+```
+
 # Rotate the residuals of selected variables: `rotate_resid`
 
 Let us consider a simple path analysis model:
