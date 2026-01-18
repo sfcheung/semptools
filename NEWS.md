@@ -1,4 +1,4 @@
-# semptools 0.3.2.2
+# semptools 0.3.2.3
 
 ## New Features
 
@@ -11,6 +11,12 @@
   manifest variables and ellipses as
   latent variables
   (0.3.2.1)
+
+- Updated `set_edge_label_position()`
+  to handle bidirectional edges specified
+  in an order different from that
+  in `lavaan`'s parameter table.
+  (0.3.2.3)
 
 # semptools 0.3.2
 

@@ -61,6 +61,8 @@
 #'@export
 
 set_edge_label_position <- function(semPaths_plot, position_list = NULL) {
+    # TODO:
+    # - Update to use set_edge_attribute().
     if (is.null(position_list)) {
         stop("position_list not specified.")
       }
@@ -90,6 +92,16 @@ set_edge_label_position <- function(semPaths_plot, position_list = NULL) {
           edge_index(semPaths_plot, from = x$from, to = x$to)
         })
     position_new[position_index] <- sapply(position_list, function(x) x$new_position)
+
+    # Check bidirectional edges
+    position_list2 <- position_list[which(semPaths_plot$Edge$bidirectional[position_index])]
+    if (length(position_list2) > 0) {
+      position_index2 <- sapply(position_list2, function(x) {
+            edge_index(semPaths_plot, from = x$to, to = x$from)
+         })
+      position_new[position_index2] <- sapply(position_list2, function(x) x$new_position)
+    }
+
     semPaths_plot$graphAttributes$Edges$edge.label.position <- position_new
     semPaths_plot
   }
