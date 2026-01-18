@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
                         <h4 data-toc-skip class="author">Shu Fai Cheung
 &amp; Mark Hok Chio Lai</h4>
             
-            <h4 data-toc-skip class="date">2025-08-17</h4>
+            <h4 data-toc-skip class="date">2026-01-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sfcheung/semptools/blob/master/vignettes/quick_start_sem.Rmd" class="external-link"><code>vignettes/quick_start_sem.Rmd</code></a></small>
       <div class="d-none name"><code>quick_start_sem.Rmd</code></div>
@@ -134,7 +134,7 @@ illustration.</p>
 <p>Fitting the model using <code><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">lavaan::sem()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lavaan.ugent.be" class="external-link">lavaan</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; This is lavaan 0.6-19</span></span>
+<span><span class="co">#&gt; This is lavaan 0.6-21</span></span>
 <span><span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span></span>
 <span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">lavaan</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">sem</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">cfa_example</span><span class="op">)</span></span></code></pre></div>
 <p>This is the plot from <code>semPaths</code>:</p>
@@ -146,7 +146,7 @@ illustration.</p>
 <span>        edge.label.cex <span class="op">=</span> <span class="fl">.75</span>,</span>
 <span>        style <span class="op">=</span> <span class="st">"ram"</span>,</span>
 <span>        mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="quick_start_sem_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="quick_start_sem_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>
 <p>We will see how <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code> can be used to do the
 following tasks to <em>post-process</em> the graph:</p>
 <ul>
@@ -285,7 +285,7 @@ graph:</p>
 <span>                     factor_layout <span class="op">=</span> <span class="va">factor_layout</span>,</span>
 <span>                     factor_point_to <span class="op">=</span> <span class="va">factor_point_to</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="quick_start_sem_files/figure-html/unnamed-chunk-12-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="quick_start_sem_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="move-indicators">Move Indicators<a class="anchor" aria-label="anchor" href="#move-indicators"></a>
@@ -319,7 +319,7 @@ indicators will be “pulled” towards their factors.</p>
 <span>                     factor_point_to <span class="op">=</span> <span class="va">factor_point_to</span>,</span>
 <span>                     indicator_push <span class="op">=</span> <span class="va">indicator_push</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="quick_start_sem_files/figure-html/unnamed-chunk-14-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="quick_start_sem_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="spread-out-the-indicators">“Spread” out the indicators<a class="anchor" aria-label="anchor" href="#spread-out-the-indicators"></a>
@@ -347,7 +347,7 @@ towards each others.</p>
 <span>                     indicator_push <span class="op">=</span> <span class="va">indicator_push</span>,</span>
 <span>                     indicator_spread <span class="op">=</span> <span class="va">indicator_spread</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="quick_start_sem_files/figure-html/unnamed-chunk-16-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="quick_start_sem_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div class="section level2">
@@ -378,7 +378,7 @@ from .50 to other values. For example:</p>
 <span>                     indicator_spread <span class="op">=</span> <span class="va">indicator_spread</span>,</span>
 <span>                     loading_position <span class="op">=</span> <span class="va">loading_position</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="quick_start_sem_files/figure-html/unnamed-chunk-18-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="quick_start_sem_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="pipe">Pipe<a class="anchor" aria-label="anchor" href="#pipe"></a>
@@ -408,7 +408,7 @@ change the orientation of <code>f4</code> to <code>up</code>):</p>
 <span>                    <span class="fu"><a href="../reference/mark_sig.html">mark_sig</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Loading required package: magrittr</span></span></code></pre>
-<p><img src="quick_start_sem_files/figure-html/unnamed-chunk-20-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="quick_start_sem_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" alt="" width="768" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
@@ -429,7 +429,7 @@ supported.</li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
