@@ -1,6 +1,6 @@
 Package: semptools
 Title: Customizing Structural Equation Modelling Plots
-Version: 0.3.2.2
+Version: 0.3.2.3
 Authors@R: c(
     person(given = "Shu Fai",
            family = "Cheung",
@@ -33,5 +33,5 @@ Suggests:
     rmarkdown,
     magrittr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 VignetteBuilder: knitr
