@@ -1,6 +1,6 @@
 # Changelog
 
-## semptools 0.3.2.3
+## semptools 0.3.3
 
 ### New Features
 
