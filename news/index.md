@@ -2,6 +2,8 @@
 
 ## semptools 0.3.3
 
+CRAN release: 2026-03-17
+
 ### New Features
 
 - Added

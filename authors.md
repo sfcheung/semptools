@@ -11,7 +11,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/sfcheung/semptools/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/sfcheung/semptools/blob/v0.3.3/DESCRIPTION)
 
 Cheung S, Lai M (2026). *semptools: Customizing Structural Equation
 Modelling Plots*. R package version 0.3.3,
