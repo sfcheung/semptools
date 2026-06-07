@@ -1,3 +1,10 @@
+# semptools 0.3.3.1
+
+## Miscellaneous
+
+- Updated to `roxygen2` 8.0.0.
+  (0.3.3.1)
+
 # semptools 0.3.3
 
 ## New Features
