@@ -153,7 +153,12 @@ set_edge_attribute <- function(semPaths_plot,
     attr_index <- sapply(values, function(x) {
           edge_index(semPaths_plot, from = x$from, to = x$to)
         })
-    attr_new[attr_index] <- sapply(values, function(x) x$new_value)
+    # 2026-06-07: Edges not in the plot will
+    #             now be skipped. No error message.
+    i <- !is.na(attr_index)
+    if (any(i)) {
+      attr_new[attr_index[i]] <- sapply(values[i], function(x) x$new_value)
+    }
 
     # Check bidirectional edges
     values2 <- values[which(semPaths_plot$Edge$bidirectional[attr_index])]
@@ -161,7 +166,12 @@ set_edge_attribute <- function(semPaths_plot,
         attr_index2 <- sapply(values2, function(x) {
               edge_index(semPaths_plot, from = x$to, to = x$from)
             })
-        attr_new[attr_index2] <- sapply(values2, function(x) x$new_value)
+        # 2026-06-07: Edges not in the plot will
+        #             now be skipped. No error message.
+        i <- !is.na(attr_index2)
+        if (any(i)) {
+          attr_new[attr_index2[i]] <- sapply(values2[i], function(x) x$new_value)
+        }
       }
 
     semPaths_plot$graphAttributes$Edges[[attribute_name]] <- attr_new

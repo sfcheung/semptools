@@ -34,6 +34,25 @@ p1 <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
 
 # plot(p1)
 
+# An edge not in the model will be skipped
+
+p2b <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
+                                 "x4~~ x3" = "black",
+                                 "x3 ~ x1" = "white",
+                                 "x1 ~ x4" = "blue",
+                                 "x4 ~ x2" = "yellow"),
+                         attribute_name = "color")
+# plot(p2b)
+
+p2c <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
+                                 "x4~~ x3" = "black",
+                                 "x3 ~ x1" = "white",
+                                 "x1 ~~ x4" = "blue",
+                                 "x4 ~ x2" = "yellow"),
+                         attribute_name = "color")
+# plot(p2c)
+
+
 test_that("set_edge_attribute: color", {
     expect_equal(p2$graphAttributes$Edges$color,
                  c("blue", "#808080FF", "#808080FF", "#808080FF", "#808080FF",
@@ -41,6 +60,12 @@ test_that("set_edge_attribute: color", {
                    "blue", "#00FF00"))
     expect_equal(p1$graphAttributes$Edges$color,
                  c("red", "white", "#808080FF", "darkgreen", "yellow", "#808080FF",
+                   "#808080FF", "#808080FF", "#808080FF", "black", "red", "black"))
+    expect_equal(p2b$graphAttributes$Edges$color,
+                 c("red", "white", "#808080FF", "#808080FF", "yellow", "#808080FF",
+                   "#808080FF", "#808080FF", "#808080FF", "black", "red", "black"))
+    expect_equal(p2c$graphAttributes$Edges$color,
+                 c("red", "white", "#808080FF", "#808080FF", "yellow", "#808080FF",
                    "#808080FF", "#808080FF", "#808080FF", "black", "red", "black"))
   })
 
