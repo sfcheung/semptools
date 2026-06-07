@@ -1,4 +1,4 @@
-# semptools 0.3.3.2
+# semptools 0.3.3.3
 
 ## Miscellaneous
 
@@ -14,6 +14,15 @@
   `set_edge_label_position()`,
   to use `set_edge_attribute()` internally.
   (0.3.3.2)
+
+- Added the argument `check_direction`
+  to `set_edge_attribute()` and related
+  functions. If set to `FALSE`, then
+  the direction of an edge will be ignored.
+  That is, both `y ~ x` and `y ~~ x` will
+  denote edges
+  `y <- x`, `y -> x`, and `y <-> x`.
+  (0.3.3.3)
 
 # semptools 0.3.3
 
