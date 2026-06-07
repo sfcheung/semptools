@@ -1,4 +1,4 @@
-# semptools 0.3.3.5
+# semptools 0.3.3.6
 
 ## Improvement
 
@@ -30,6 +30,12 @@
   that the output always has at least
   three columns.
   (0.3.3.5)
+
+- Updated `set_node_attributes()` to
+  set the attributes of all nodes using
+  one value.
+  (0.3.3.6)
+
 
 ## Miscellaneous
 
