@@ -1,4 +1,16 @@
-# semptools 0.3.3.3
+# semptools 0.3.3.4
+
+## Improvement
+
+- Updated `add_rsq()`, `mark_se()`,
+  `mark_ci()`, and `mark_sig()` to store
+  the fit object in the plot. When `object`
+  is not set but has been stored in a plot,
+  these functions will retrieve the stored
+  fit object. This makes it not necessary
+  to supply the same fit object in all
+  calls to these functions.
+  (0.3.3.4)
 
 ## Miscellaneous
 
