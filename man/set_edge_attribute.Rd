@@ -4,7 +4,12 @@
 \alias{set_edge_attribute}
 \title{Set the Attributes of Selected Edges}
 \usage{
-set_edge_attribute(semPaths_plot, values = NULL, attribute_name = NULL)
+set_edge_attribute(
+  semPaths_plot,
+  values = NULL,
+  attribute_name = NULL,
+  check_direction = TRUE
+)
 }
 \arguments{
 \item{semPaths_plot}{A
@@ -19,6 +24,14 @@ section on how to set this argument.}
 
 \item{attribute_name}{The name of
 the attribute to be changed.}
+
+\item{check_direction}{If \code{FALSE},
+the direction of an edge is ignored.
+For example, both \code{y ~ x} and \code{x ~ y}
+will affect \code{y ~ x}, \code{x ~ y}, and
+\code{y ~~ x}. Useful when we want to
+change an edge regardless of its
+direction and whether it is directional.}
 }
 \value{
 A \link[qgraph:qgraph]{qgraph::qgraph} based on
@@ -45,7 +58,7 @@ values are valid for the named
 attribute.
 \subsection{Setting the value of \code{values}}{
 
-This argument can be set in two ways.
+This argument can be set in three ways.
 
 For a named vector, the name of an
 element should be the path as
@@ -80,6 +93,11 @@ attribute of the edge from \code{from} to
 The second approach is no longer
 recommended, though kept for backward
 compatibility.
+
+The last approach is setting \code{values}
+to a one-element vector with \emph{no} \emph{name}.
+All edges in plot will then have the
+selected attributes set to this value.
 }
 }
 \examples{

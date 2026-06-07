@@ -18,7 +18,7 @@ Defaultis \code{NULL}.}
 \item{name3}{The name for the third element in the list-in-list.
 Default is \code{NULL}. If this argument is not \code{NULL}, the names of the
 vector elements will be split using \code{lavaan} syntax (by calling
-\code{\link[lavaan:model.syntax]{lavaan::lavParseModelString()}}), and the right-hand side (\code{rhs})
+\code{\link[lavaan:lavParseModelString]{lavaan::lavParseModelString()}}), and the right-hand side (\code{rhs})
 and left-hand side (\code{lhs}) of each element will be assigned to
 \code{name1} and \code{name2}, respectively.}
 }

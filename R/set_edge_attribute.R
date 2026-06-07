@@ -19,7 +19,7 @@
 #'
 #' ## Setting the value of `values`
 #'
-#' This argument can be set in two ways.
+#' This argument can be set in three ways.
 #'
 #' For a named vector, the name of an
 #' element should be the path as
@@ -57,6 +57,11 @@
 #' recommended, though kept for backward
 #' compatibility.
 #'
+#' The last approach is setting `values`
+#' to a one-element vector with *no* *name*.
+#' All edges in plot will then have the
+#' selected attributes set to this value.
+#'
 #' @return A [qgraph::qgraph] based on
 #' the original one, with the selected
 #' attributes of selected edges changed.
@@ -73,6 +78,14 @@
 #'
 #' @param attribute_name The name of
 #' the attribute to be changed.
+#'
+#' @param check_direction If `FALSE`,
+#' the direction of an edge is ignored.
+#' For example, both `y ~ x` and `x ~ y`
+#' will affect `y ~ x`, `x ~ y`, and
+#' `y ~~ x`. Useful when we want to
+#' change an edge regardless of its
+#' direction and whether it is directional.
 #'
 #' @examples
 #' mod_pa <-
@@ -111,7 +124,8 @@
 
 set_edge_attribute <- function(semPaths_plot,
                                values = NULL,
-                               attribute_name = NULL) {
+                               attribute_name = NULL,
+                               check_direction = TRUE) {
     if (is.null(values)) {
         stop("values not specified.")
       }
@@ -127,12 +141,20 @@ set_edge_attribute <- function(semPaths_plot,
       }
 
     # Convert a named vector to a named list
+    set_all_edges <- FALSE
     if (!is.list(values)) {
         values_org <- values
-        values <- to_list_of_lists(values,
-                                   name1 = "from",
-                                   name2 = "to",
-                                   name3 = "new_value")
+        if (is.null(names(values))) {
+          # If not a named vector, the first value will be
+          # applied to all edges
+          value_for_all <- values[1]
+          set_all_edges <- TRUE
+        } else {
+          values <- to_list_of_lists(values,
+                                    name1 = "from",
+                                    name2 = "to",
+                                    name3 = "new_value")
+        }
       }
 
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
@@ -150,10 +172,38 @@ set_edge_attribute <- function(semPaths_plot,
       }
 
     attr_new <- attr_old
+
+    # ==== One value for all edges ====
+
+    if (set_all_edges) {
+      # Intentionally not using []
+      attr_new[seq_along(attr_new)] <- value_for_all
+      semPaths_plot$graphAttributes$Edges[[attribute_name]] <- attr_new
+      return(semPaths_plot)
+    }
+
+    # ==== Set selected edges ====
+
     attr_index <- sapply(values, function(x) {
           edge_index(semPaths_plot, from = x$from, to = x$to)
         })
-    attr_new[attr_index] <- sapply(values, function(x) x$new_value)
+    # 2026-06-07: Edges not in the plot will
+    #             now be skipped. No error message.
+    i <- !is.na(attr_index)
+    if (any(i)) {
+      attr_new[attr_index[i]] <- sapply(values[i], function(x) x$new_value)
+    }
+
+    if (!check_direction) {
+      # ==== Ignore the direction of an edge ====
+      attr_index3 <- sapply(values, function(x) {
+            edge_index(semPaths_plot, from = x$to, to = x$from)
+          })
+      i <- !is.na(attr_index3)
+      if (any(i)) {
+        attr_new[attr_index3[i]] <- sapply(values[i], function(x) x$new_value)
+      }
+    }
 
     # Check bidirectional edges
     values2 <- values[which(semPaths_plot$Edge$bidirectional[attr_index])]
@@ -161,7 +211,12 @@ set_edge_attribute <- function(semPaths_plot,
         attr_index2 <- sapply(values2, function(x) {
               edge_index(semPaths_plot, from = x$to, to = x$from)
             })
-        attr_new[attr_index2] <- sapply(values2, function(x) x$new_value)
+        # 2026-06-07: Edges not in the plot will
+        #             now be skipped. No error message.
+        i <- !is.na(attr_index2)
+        if (any(i)) {
+          attr_new[attr_index2[i]] <- sapply(values2[i], function(x) x$new_value)
+        }
       }
 
     semPaths_plot$graphAttributes$Edges[[attribute_name]] <- attr_new
@@ -194,7 +249,7 @@ to_new_value <- function(object,
         j <- length(object)
         for (k in seq_len(j)) {
             tmp <- names(object[[k]])
-            tmp[which(tmp == "new_color")] <- "new_value"
+            tmp[which(tmp == original_name)] <- "new_value"
             names(object[[k]]) <- tmp
           }
       } else {

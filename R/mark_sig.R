@@ -128,7 +128,8 @@
 #' @importFrom rlang .data
 #' @export
 
-mark_sig <- function(semPaths_plot, object,
+mark_sig <- function(semPaths_plot,
+                     object = NULL,
                      alphas = c("*" = .05, "**" = .01, "***" = .001),
                      ests = NULL,
                      std_type = FALSE,
@@ -144,6 +145,12 @@ mark_sig <- function(semPaths_plot, object,
 
   alphas_sorted <- sort(alphas, decreasing = FALSE)
   if (is.null(ests)) {
+    if (is.null(object)) {
+      object <- attr(semPaths_plot, "semptools_fit_object")
+      if (is.null(object)) {
+        rlang::abort(paste("ests and object cannot be both null"))
+      }
+    }
     if (isFALSE(std_type)) {
       ests <- lavaan::parameterEstimates(object, se = TRUE, ci = FALSE,
                                          zstat = TRUE, pvalue = TRUE)
@@ -193,7 +200,7 @@ mark_sig <- function(semPaths_plot, object,
       ests_r2_list <- lapply(ests$group,
                              \(x) NULL)
     }
-    mapply(mark_sig,
+    out <- mapply(mark_sig,
            semPaths_plot,
            ests = ests_list,
            ests_r2 = ests_r2_list,
@@ -202,7 +209,7 @@ mark_sig <- function(semPaths_plot, object,
                            r2_prefix = r2_prefix),
            SIMPLIFY = FALSE)
   } else {
-    if (!missing(object) && lavaan::lavInspect(object, "ngroups") > 1) {
+    if (!is.null(object) && lavaan::lavInspect(object, "ngroups") > 1) {
       rlang::abort(paste("length of qgraph list does not match",
                          "number of groups in model fit object."))
     }
@@ -308,5 +315,14 @@ mark_sig <- function(semPaths_plot, object,
 
     semPaths_plot$graphAttributes$Edges$labels <- labels_new
     semPaths_plot
+
+    out <- semPaths_plot
+    # Store the fit object.
+    # NULL remains NULL.
+    out <- add_object(
+      out,
+      object
+    )
   }
+  out
 }

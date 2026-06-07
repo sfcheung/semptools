@@ -19,7 +19,7 @@
 #'
 #' ## Setting the value of `values`
 #'
-#' This argument can be set in two ways.
+#' This argument can be set in three ways.
 #'
 #' For a named vector, the name of an
 #' element should be the nodes for which
@@ -47,6 +47,11 @@
 #' The second approach is no longer
 #' recommended, though kept for backward
 #' compatibility.
+#'
+#' The last approach is setting `values`
+#' to a one-element vector with *no* *name*.
+#' All nodes in plot will then have the
+#' selected attributes set to this value.
 #'
 #' @return A [qgraph::qgraph] based on
 #' the original one, with the selected
@@ -112,9 +117,16 @@ set_node_attribute <- function(semPaths_plot,
           }
       }
 
+    Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
+
     # Convert a named vector to a named list
     if (!is.list(values)) {
         values_org <- values
+        if (is.null(names(values))) {
+          # If not a named vector, the first value will be applied to all nodes
+          values <- rep(values[1], length(Nodes_names))
+          names(values) <- Nodes_names
+        }
         values <- to_list_of_lists(values,
                                    name1 = "node",
                                    name2 = "new_value")
@@ -122,7 +134,6 @@ set_node_attribute <- function(semPaths_plot,
 
     # Check nodes
     Nodes_in <- sapply(values, function(x) x$node)
-    Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
     if (!is.null(names(Nodes_names))) {
       Nodes_names <- names(Nodes_names)
     }

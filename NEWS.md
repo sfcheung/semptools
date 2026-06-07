@@ -1,3 +1,56 @@
+# semptools 0.3.3.7
+
+## Improvement
+
+- Updated `set_edge_attribute()` to
+  skip edges not in a plot, without
+  throwing an error.
+  (0.3.3.2)
+
+- Added the argument `check_direction`
+  to `set_edge_attribute()` and related
+  functions. If set to `FALSE`, then
+  the direction of an edge will be ignored.
+  That is, both `y ~ x` and `y ~~ x` will
+  denote edges
+  `y <- x`, `y -> x`, and `y <-> x`.
+  (0.3.3.3)
+
+- Updated `add_rsq()`, `mark_se()`,
+  `mark_ci()`, and `mark_sig()` to store
+  the fit object in the plot. When `object`
+  is not set but has been stored in a plot,
+  these functions will retrieve the stored
+  fit object. This makes it not necessary
+  to supply the same fit object in all
+  calls to these functions.
+  (0.3.3.4)
+
+- Updated `layout_matrix()` to ensure
+  that the output always has at least
+  three columns.
+  (0.3.3.5)
+
+- Updated `set_node_attribute()` to
+  set the attributes of all nodes using
+  one value.
+  (0.3.3.6)
+
+- Updated `set_edge_attribute()` to
+  set the attributes of all nodes using
+  one value.
+  (0.3.3.7)
+
+## Miscellaneous
+
+- Updated to `roxygen2` 8.0.0.
+  (0.3.3.1)
+
+- Updated `set_curve()` and
+  `set_edge_label_position()`,
+  to use `set_edge_attribute()` internally.
+  (0.3.3.2)
+
 # semptools 0.3.3
 
 ## New Features
