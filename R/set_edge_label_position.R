@@ -61,6 +61,41 @@
 #'@export
 
 set_edge_label_position <- function(semPaths_plot, position_list = NULL) {
+  # An option to use 0.3.3 version, just in case
+  mimic_033 <- getOption("semptools.mimic_033", FALSE)
+  if (isTRUE(mimic_033)) {
+    return(set_edge_label_position_old(
+      semPaths_plot = semPaths_plot,
+      position_list = position_list
+    ))
+  }
+  # This version use set_edge_attribute()
+
+  if (is.null(position_list)) {
+    stop("position_list not specified.")
+  }
+  if (is.null(semPaths_plot)) {
+    stop("semPaths_plot not specified.")
+  } else {
+    if (!inherits(semPaths_plot, "qgraph")) {
+      stop("semPaths_plot is not a qgraph object.")
+    }
+  }
+
+  # Fix the names
+  position_list_fixed <- to_new_value(
+    position_list,
+    original_name = "new_position"
+  )
+  out <- set_edge_attribute(semPaths_plot = semPaths_plot,
+                            values = position_list_fixed,
+                            attribute_name = "edge.label.position")
+
+  out
+}
+
+#' @noRd
+set_edge_label_position_old <- function(semPaths_plot, position_list = NULL) {
     # TODO:
     # - Update to use set_edge_attribute().
     if (is.null(position_list)) {
