@@ -103,11 +103,17 @@
 #'@export
 
 add_rsq <- function(semPaths_plot,
-                    object,
+                    object = NULL,
                     digits = 2L,
                     rsq_string = "R2=",
                     ests = NULL) {
+  if (is.null(object)) {
+    object <- attr(semPaths_plot, "semptools_fit_object")
+  }
   if (is.null(ests)) {
+    if (is.null(object)) {
+      stop("Both object and ests not supplied, and objet not stored in semPaths_plot.")
+    }
     ests <- lavaan::parameterEstimates(object, se = FALSE, ci = FALSE,
                                        zstat = FALSE, pvalue = FALSE,
                                        rsquare = TRUE)
@@ -123,9 +129,9 @@ add_rsq <- function(semPaths_plot,
                          "number of groups in model fit object."))
     }
     ests_list <- split(ests, ests$group)
-    mapply(add_rsq, semPaths_plot, ests = ests_list, SIMPLIFY = FALSE)
+    out <- mapply(add_rsq, semPaths_plot, ests = ests_list, SIMPLIFY = FALSE)
   } else {
-    if (!missing(object) && lavaan::lavInspect(object, "ngroups") > 1) {
+    if (!is.null(object) && lavaan::lavInspect(object, "ngroups") > 1) {
       rlang::abort(paste("length of qgraph list does not match",
                          "number of groups in model fit object."))
     }
@@ -178,6 +184,13 @@ add_rsq <- function(semPaths_plot,
                                                      format = "f"))
     edge_to_add <- edge_to_add[order(edge_to_add$id), ]
     semPaths_plot$graphAttributes$Edges$labels <- edge_to_add$labels
-    semPaths_plot
+    out <- semPaths_plot
   }
+  # ==== Update the fit object ====
+  # NULL remains NULL. Can run even if object is NULL
+  out <- add_object(
+    out,
+    object
+  )
+  out
 }

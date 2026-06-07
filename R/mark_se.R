@@ -160,6 +160,12 @@ mark_ci <- function(semPaths_plot, object = NULL, sep = " ", digits = 2L,
                         "'intercepts = FALSE' in semPaths."))
   }
   if (is.null(ests)) {
+    if (is.null(object)) {
+      object <- attr(semPaths_plot, "semptools_fit_object")
+      if (is.null(object)) {
+        rlang::abort(paste("ests and object cannot be both null"))
+      }
+    }
     if (isFALSE(std_type)) {
       ests <- lavaan::parameterEstimates(object, se = TRUE, ci = what == "ci",
                                          zstat = FALSE, pvalue = FALSE)
@@ -176,7 +182,7 @@ mark_ci <- function(semPaths_plot, object = NULL, sep = " ", digits = 2L,
                          "number of groups in model fit object."))
     }
     argg$ests <- split(ests, ests$group)
-    .mapply(.mark_se_ci, dots = argg[c("semPaths_plot", "ests")],
+    out <- .mapply(.mark_se_ci, dots = argg[c("semPaths_plot", "ests")],
             MoreArgs = argg[
               setdiff(names(argg), c("semPaths_plot", "object", "ests"))
             ])
@@ -293,6 +299,13 @@ mark_ci <- function(semPaths_plot, object = NULL, sep = " ", digits = 2L,
     labels_new <- paste0(labels_old, sep,
                          "(", to_add, ")")
     semPaths_plot$graphAttributes$Edges$labels <- labels_new
-    semPaths_plot
+    out <- semPaths_plot
+    # Store the fit object.
+    # NULL remains NULL.
+    out <- add_object(
+      out,
+      object
+    )
   }
+  out
 }

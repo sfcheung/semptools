@@ -6,7 +6,7 @@
 \usage{
 mark_sig(
   semPaths_plot,
-  object,
+  object = NULL,
   alphas = c(`*` = 0.05, `**` = 0.01, `***` = 0.001),
   ests = NULL,
   std_type = FALSE,
