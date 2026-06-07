@@ -40,9 +40,20 @@ pc4 <- p_pa |>
         safe_resid_position()
 if (!is_testing()) plot(pc4)
 
+my_flow <- \(x) mark_se(x, fit_pa) |>
+                mark_sig() |>
+                add_rsq() |>
+                safe_resid_position()
+
+pd4 <- p_pa |> my_flow()
+
+if (!is_testing()) plot(pc4)
+
 expect_equal(pa4$graphAttributes$Edges$labels[1:5],
              pb4$graphAttributes$Edges$labels[1:5])
 expect_equal(pb4$graphAttributes$Edges$labels,
              pc4$graphAttributes$Edges$labels)
+expect_equal(pb4$graphAttributes$Edges$labels,
+             pd4$graphAttributes$Edges$labels)
 
 })
