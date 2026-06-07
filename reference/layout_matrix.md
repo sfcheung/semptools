@@ -33,6 +33,14 @@ accepts a matrix with node labels as the elements, and `NA` for empty
 cells. This function allows user to create the matrix using a list of
 coordinates for the node labels.
 
+Note that
+[`semPlot::semPaths()`](https://rdrr.io/pkg/semPlot/man/semPaths.html)
+only treat a matrix as a layout matrix as a matrix of grid if it has
+three or more columns. Therefore, if the resulting matrix has only one
+or two columns, it will be converted to a matrix with three columns, by
+inserting a column of `NA`s for a two-column matrix, and inserting the
+resulting matrix between two columns of `NA`s for a one-column matrix.
+
 ## Examples
 
 ``` r

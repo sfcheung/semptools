@@ -415,6 +415,7 @@ of `x`, `m`, and `y` are assumed to be valid for the fitted models.
 ## Examples
 
 ``` r
+
 library(lavaan)
 library(semPlot)
 

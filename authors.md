@@ -11,16 +11,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/sfcheung/semptools/blob/v0.3.3/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/sfcheung/semptools/blob/master/DESCRIPTION)
 
 Cheung S, Lai M (2026). *semptools: Customizing Structural Equation
-Modelling Plots*. R package version 0.3.3,
+Modelling Plots*. R package version 0.3.3.7,
 <https://sfcheung.github.io/semptools/>.
 
     @Manual{,
       title = {semptools: Customizing Structural Equation Modelling Plots},
       author = {Shu Fai Cheung and Mark Hok Chio Lai},
       year = {2026},
-      note = {R package version 0.3.3},
+      note = {R package version 0.3.3.7},
       url = {https://sfcheung.github.io/semptools/},
     }

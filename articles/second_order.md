@@ -18,6 +18,7 @@ We will use `sem_2nd_order_example`, a sample SEM dataset from semptools
 with 21 variables for illustration.
 
 ``` r
+
 library(semptools)
 head(round(sem_2nd_order_example, 3), 3)
 #>     x01    x02   x03   x04    x05    x06    x07    x08    x09    x10    x11
@@ -33,6 +34,7 @@ head(round(sem_2nd_order_example, 3), 3)
 This is the SEM model to be fitted:
 
 ``` r
+
 mod <-
   'f1 =~ x01 + x02 + x03
    f2 =~ x04 + x05 + x06 + x07
@@ -50,6 +52,7 @@ Fitting the model using
 [`lavaan::sem()`](https://rdrr.io/pkg/lavaan/man/sem.html):
 
 ``` r
+
 library(lavaan)
 #> This is lavaan 0.6-21
 #> lavaan is FREE software! Please report any bugs.
@@ -59,6 +62,7 @@ fit <- lavaan::sem(mod, sem_2nd_order_example)
 This is the plot from `semPaths`:
 
 ``` r
+
 library(semPlot)
 p <- semPaths(fit, whatLabels = "est",
               sizeMan = 5,
@@ -99,6 +103,7 @@ are included in the vector for `indicator_order`.
 ### Example
 
 ``` r
+
 indicator_order  <- c("x01", "x03", "x02",
                       "x05", "x06", "x04", "x07",
                       "x08", "x09", "x10",
@@ -140,6 +145,7 @@ p2 <- set_sem_layout(p,
 This is the result:
 
 ``` r
+
 plot(p2)
 ```
 
@@ -151,6 +157,7 @@ described in
 For example, the residuals can be rotated:
 
 ``` r
+
 my_rotate_resid_list <- c(f4  =  45,
                           f21 =   0,
                           f22 =   0,

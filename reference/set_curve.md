@@ -5,7 +5,7 @@ Set the curve attributes of selected edges.
 ## Usage
 
 ``` r
-set_curve(semPaths_plot, curve_list = NULL)
+set_curve(semPaths_plot, curve_list = NULL, check_direction = TRUE)
 ```
 
 ## Arguments
@@ -37,6 +37,13 @@ set_curve(semPaths_plot, curve_list = NULL)
   of named lists, each named list should have three named values:
   `from`, `to`, and `new_curve`. The curve attribute of the edge from
   `from` to `to` will be set to `new_curve`.
+
+- check_direction:
+
+  If `FALSE`, the direction of an edge is ignored. For example, both
+  `y ~ x` and `x ~ y` will affect `y ~ x`, `x ~ y`, and `y ~~ x`. Useful
+  when we want to change an edge regardless of its direction and whether
+  it is directional.
 
 ## Value
 

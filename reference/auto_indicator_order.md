@@ -74,6 +74,7 @@ and
 ## Examples
 
 ``` r
+
 library(lavaan)
 library(semPlot)
 

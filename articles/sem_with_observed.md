@@ -26,6 +26,7 @@ provided in the package `semptools`. It is fitted by
 [`lavaan::sem()`](https://rdrr.io/pkg/lavaan/man/sem.html):
 
 ``` r
+
 library(semptools)
 library(lavaan)
 #> This is lavaan 0.6-21
@@ -66,6 +67,7 @@ We generate the basic diagram by
 first:
 
 ``` r
+
 library(semPlot)
 library(semptools)
 p <- semPaths(fit_sem,
@@ -85,6 +87,7 @@ These are the vectors for `indicator_order` and `indicator_factor`. Note
 that `x04` and `x05` appear on both vectors.
 
 ``` r
+
 indicator_order  <- c("x04", "x05", "x01", "x02", "x03",
                       "x11", "x12", "x13", "x14", "x08", "x09", "x10")
 indicator_factor <- c("x04", "x05", "f1",  "f1",  "f1",
@@ -95,6 +98,7 @@ This is the matrix for `factor_layout`, created by
 [`layout_matrix()`](https://sfcheung.github.io/semptools/reference/layout_matrix.md):
 
 ``` r
+
 factor_layout <- layout_matrix(f1 = c(1, 1),
                                f3 = c(1, 2),
                                f4 = c(1, 3),
@@ -112,6 +116,7 @@ This is the matrix for `factor_point_to`, created by
 created manually by [`matrix()`](https://rdrr.io/r/base/matrix.html).\]
 
 ``` r
+
 factor_point_to <- auto_factor_point_to(factor_layout,
                                         f1 = "up",
                                         f3 = "up",
@@ -125,10 +130,12 @@ factor_point_to
 Last, we created more vectors to further modify the diagram:
 
 ``` r
+
 indicator_spread <- c(f4 = 1.5)
 ```
 
 ``` r
+
 p2 <- set_sem_layout(p,
                      indicator_order = indicator_order,
                      indicator_factor = indicator_factor,

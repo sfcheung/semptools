@@ -35,6 +35,7 @@ sample data, `pa_example_3covs`, is in the package `semptools`.
 This is the analysis in `lavaan`:
 
 ``` r
+
 library(lavaan)
 #> This is lavaan 0.6-21
 #> lavaan is FREE software! Please report any bugs.
@@ -52,6 +53,7 @@ variables (please refer to the vignette on `layou_matrix` on how to do
 this):
 
 ``` r
+
 library(semPlot)
 library(semptools)
 m <- layout_matrix(x1 = c(1, 1),
@@ -79,6 +81,7 @@ directly, and modify it by `keep_nodes` or `drop_nodes`.
 We can *drop* `cov1`, `cov2`, and `cov3` by `drop_nodes`:
 
 ``` r
+
 pm_no_covs <- semptools::drop_nodes(
                 object = semPlotModel(fit),
                 nodes = c("cov1", "cov2", "cov3"))
@@ -96,6 +99,7 @@ the variables to be dropped.
 With just two arguments, the argument names can be omitted:
 
 ``` r
+
 pm_no_covs <- semptools::drop_nodes(
                 semPlotModel(fit),
                 c("cov1", "cov2", "cov3"))
@@ -106,6 +110,7 @@ We can then use
 plot this modified model:
 
 ``` r
+
 m_no_covs <- layout_matrix(x1 = c(1, 1),
                            x2 = c(3, 1),
                            x3 = c(2, 2),
@@ -132,6 +137,7 @@ specified in `nodes` will be kept, and all variables *not specified*
 will be removed.
 
 ``` r
+
 pm_only_xs <- semptools::keep_nodes(
                 semPlotModel(fit),
                 c("x1", "x2", "x3", "x4"))

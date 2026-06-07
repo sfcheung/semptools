@@ -5,7 +5,7 @@ Set the colors of selected edges.
 ## Usage
 
 ``` r
-set_edge_color(semPaths_plot, color_list = NULL)
+set_edge_color(semPaths_plot, color_list = NULL, check_direction = TRUE)
 ```
 
 ## Arguments
@@ -23,6 +23,13 @@ set_edge_color(semPaths_plot, color_list = NULL)
 
   A named vector or a list of named list. See the Details section on how
   to set this argument.
+
+- check_direction:
+
+  If `FALSE`, the direction of an edge is ignored. For example, both
+  `y ~ x` and `x ~ y` will affect `y ~ x`, `x ~ y`, and `y ~~ x`. Useful
+  when we want to change an edge regardless of its direction and whether
+  it is directional.
 
 ## Value
 

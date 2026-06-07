@@ -55,6 +55,7 @@ to create a diagram.
 ## Examples
 
 ``` r
+
 library(lavaan)
 #> This is lavaan 0.6-21
 #> lavaan is FREE software! Please report any bugs.

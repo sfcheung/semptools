@@ -17,6 +17,7 @@ elements repeated, such that each of them can be read individually.
 Let us consider a simple path analysis model:
 
 ``` r
+
 library(lavaan)
 #> This is lavaan 0.6-21
 #> lavaan is FREE software! Please report any bugs.
@@ -42,6 +43,7 @@ parameterEstimates(fit_pa)
 This is the plot from `semPaths`.
 
 ``` r
+
 library(semPlot)
 m <- matrix(c("x1",   NA,  NA,   NA,
                 NA, "x3",  NA, "x4",
@@ -66,6 +68,7 @@ does not do this. We can use
 to add asterisks based on the p-values of the free parameters.
 
 ``` r
+
 library(semptools)
 p_pa2 <- mark_sig(p_pa, fit_pa)
 plot(p_pa2)
@@ -85,6 +88,7 @@ This can be changed by the argument `alpha` (this must be named as the
 it is not the second argument). E.g.:
 
 ``` r
+
 p_pa3 <- mark_sig(p_pa, fit_pa, alpha = c("(n.s.)" = 1.00, "*" = .01))
 plot(p_pa3)
 ```
@@ -96,6 +100,7 @@ plot(p_pa3)
 Let us consider a simple path analysis model:
 
 ``` r
+
 library(lavaan)
 mod_pa <-
   'x1 ~~ x2
@@ -120,6 +125,7 @@ This is the plot from
 [`semPlot::semPaths()`](https://rdrr.io/pkg/semPlot/man/semPaths.html).
 
 ``` r
+
 library(semPlot)
 m <- matrix(c("x1",   NA,  NA,   NA,
                 NA, "x3",  NA, "x4",
@@ -139,6 +145,7 @@ We can use
 to add the standard errors for the parameter estimates:
 
 ``` r
+
 library(semptools)
 p_pa2 <- mark_se(p_pa, fit_pa)
 plot(p_pa2)
@@ -159,6 +166,7 @@ the standard errors will be displayed below the corresponding parameter
 estimates.
 
 ``` r
+
 p_pa2 <- mark_se(p_pa, fit_pa, sep = "\n")
 plot(p_pa2)
 ```
@@ -170,6 +178,7 @@ Similarly, one can use
 to add confidence intervals:
 
 ``` r
+
 p_pa2_ci <- mark_ci(p_pa, fit_pa, sep = "\n")
 plot(p_pa2_ci)
 ```
@@ -181,6 +190,7 @@ plot(p_pa2_ci)
 Let us consider a simple path analysis model:
 
 ``` r
+
 library(lavaan)
 mod_pa <-
  'x1 ~~ x2
@@ -194,6 +204,7 @@ This is the plot from
 [`semPlot::semPaths()`](https://rdrr.io/pkg/semPlot/man/semPaths.html).
 
 ``` r
+
 library(semPlot)
 m <- matrix(c("x1",   NA,  NA,   NA,
                 NA, "x3",  NA, "x4",
@@ -237,6 +248,7 @@ rotation. For example, to achieve the results described above, the
 vector is `c(x3 = 45, x4 = -45, x2 = -90)`:
 
 ``` r
+
 library(semptools)
 my_rotate_resid_list <- c(x3 =  45,
                           x4 = -45,
@@ -257,6 +269,7 @@ on how to use lists of named list.)
 Let us consider a simple path analysis model:
 
 ``` r
+
 library(lavaan)
 mod_pa <-
  'x1 ~~ x2
@@ -269,6 +282,7 @@ fit_pa <- lavaan::sem(mod_pa, pa_example)
 This is the plot from `semPaths`.
 
 ``` r
+
 library(semPlot)
 m <- matrix(c("x1",   NA,  NA,   NA,
                 NA, "x3",  NA, "x4",
@@ -309,6 +323,7 @@ To achieve the changes described above, we can use
 `c("x2 ~~ x1" = -3, "x4 ~ x1" = 2)`, as shown below:
 
 ``` r
+
 my_curve_list <- c("x2 ~~ x1" = -3,
                    "x4  ~ x1" =  2)
 p_pa3 <- set_curve(p_pa, my_curve_list)
@@ -338,6 +353,7 @@ on how to use lists of named list.)
 Let us consider a simple path analysis model:
 
 ``` r
+
 library(lavaan)
 mod_pa <-
  'x1 ~~ x2
@@ -351,6 +367,7 @@ This is the plot from
 [`semPlot::semPaths()`](https://rdrr.io/pkg/semPlot/man/semPaths.html).
 
 ``` r
+
 library(semPlot)
 m <- matrix(c("x1",   NA,  NA,   NA,
                 NA, "x3",  NA, "x4",
@@ -394,6 +411,7 @@ Therefore, the changes described above can be specified by
 `c("x2 ~~ x1" = -3, "x4 ~ x1" = 2)`, as shown below:
 
 ``` r
+
 library(semptools)
 my_position_list <- c("x3 ~ x1" = .25,
                       "x3 ~ x2" = .25,
@@ -433,6 +451,7 @@ Let us consider a simple path analysis model in which we use
 `marg_sig()` to add asterisks to denote significant parameters:
 
 ``` r
+
 library(lavaan)
 library(semPlot)
 library(semptools)
@@ -456,6 +475,7 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 ![](semptools_files/figure-html/unnamed-chunk-19-1.png)
 
 ``` r
+
 p_pa2 <- mark_sig(p_pa, fit_pa, alpha = c("(n.s.)" = 1.00, "*" = .01))
 plot(p_pa2)
 ```
@@ -469,6 +489,7 @@ above, by
 as below:
 
 ``` r
+
 p_pa3 <- change_node_label(p_pa2,
                            c(x1 = "Attitude",
                              x2 = "SbjNorm",
@@ -497,6 +518,7 @@ native pipe operator `|>` available since R 4.1.x. Therefore, we can
 chain the post-processing.
 
 ``` r
+
 library(lavaan)
 mod_pa <-
  'x1 ~~ x2
@@ -509,6 +531,7 @@ fit_pa <- lavaan::sem(mod_pa, pa_example)
 This is the initial plot:
 
 ``` r
+
 library(semPlot)
 m <- matrix(c("x1",   NA,  NA,   NA,
                 NA, "x3",  NA, "x4",
@@ -536,6 +559,7 @@ We will do this:
 - Move the parameter estimate of the `x4 ~ x1` path closer to `x4`.
 
 ``` r
+
 my_position_list <- c("x4 ~ x1" = .75)
 my_curve_list <- c("x2 ~ x1" = -2)
 my_rotate_resid_list <- c(x1 = 0, x2 = 180, x3 = 140, x4 = 140)

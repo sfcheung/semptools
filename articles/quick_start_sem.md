@@ -26,6 +26,7 @@ Let us consider an SEM model. We will use `sem_example`, a sample CFA
 dataset from semptools with 14 variables for illustration.
 
 ``` r
+
 library(semptools)
 head(round(sem_example, 3), 3)
 #>      x01    x02    x03    x04    x05    x06    x07    x08    x09    x10   x11
@@ -41,6 +42,7 @@ head(round(sem_example, 3), 3)
 This is the SEM model to be fitted:
 
 ``` r
+
 mod <-
   'f1 =~ x01 + x02 + x03
    f2 =~ x04 + x05 + x06 + x07
@@ -55,6 +57,7 @@ Fitting the model using
 [`lavaan::sem()`](https://rdrr.io/pkg/lavaan/man/sem.html):
 
 ``` r
+
 library(lavaan)
 #> This is lavaan 0.6-21
 #> lavaan is FREE software! Please report any bugs.
@@ -64,6 +67,7 @@ fit <- lavaan::sem(mod, cfa_example)
 This is the plot from `semPaths`:
 
 ``` r
+
 library(semPlot)
 p <- semPaths(fit, whatLabels="est",
         sizeMan = 5,
@@ -118,6 +122,7 @@ To do this, we create two vectors, one for the argument
   this:
 
 ``` r
+
 indicator_order  <- c("x04", "x05", "x06", "x07",
                       "x01", "x02", "x03",
                       "x11", "x12", "x13", "x14",
@@ -129,6 +134,7 @@ indicator_order  <- c("x04", "x05", "x06", "x07",
   denoting which factor each indicator will be assigned to:
 
 ``` r
+
 indicator_factor <- c( "f2",  "f2",  "f2",  "f2",
                        "f1",  "f1",  "f1",
                        "f4",  "f4",  "f4",  "f4",
@@ -142,6 +148,7 @@ To specify the locations of the factors, we need two more arguments,
 name of a factor. For example:
 
 ``` r
+
 factor_layout <- matrix(c("f1",   NA,   NA,
                            NA, "f3", "f4",
                          "f2",   NA,   NA), byrow = TRUE, 3, 3)
@@ -162,6 +169,7 @@ on how to use
 [`layout_matrix()`](https://sfcheung.github.io/semptools/reference/layout_matrix.md)):
 
 ``` r
+
 factor_layout <- layout_matrix(f1 = c(1, 1),
                                f2 = c(3, 1),
                                f3 = c(2, 2),
@@ -179,6 +187,7 @@ indicate the direction that a factor “points to” its indicator. For
 example:
 
 ``` r
+
 factor_point_to <- matrix(c("left",     NA,      NA,
                                 NA, "down", "down",
                             "left",     NA,      NA), byrow = TRUE, 3, 3)
@@ -191,6 +200,7 @@ factor_point_to <- matrix(c("left",     NA,      NA,
 can also be used to create this matrix:
 
 ``` r
+
 factor_point_to <- layout_matrix(left = c(1, 1),
                                  left = c(3, 1),
                                  down = c(2, 2),
@@ -224,6 +234,7 @@ We now use
 to post-process the graph:
 
 ``` r
+
 p2 <- set_sem_layout(p,
                      indicator_order = indicator_order,
                      indicator_factor = indicator_factor,
@@ -248,6 +259,7 @@ factor of which the indictors will be “pushed”, and the value is how
 the indicators. For example:
 
 ``` r
+
 indicator_push <- c(f3 = 2,
                     f4 = 1.5,
                     f1 = 1.5,
@@ -260,6 +272,7 @@ their factors, and multiply the distance between the indicators of `f4`,
 indicators will be “pulled” towards their factors.
 
 ``` r
+
 p2 <- set_sem_layout(p,
                      indicator_order = indicator_order,
                      indicator_factor = indicator_factor,
@@ -280,6 +293,7 @@ indicators will be spread out. The value is the multiplier to the
 distance between neighboring indicators. For example:
 
 ``` r
+
 indicator_spread <- c(f1 = 2,
                       f2 = 1.5,
                       f4 = 1.5)
@@ -291,6 +305,7 @@ indicators by 1.5. If `spread` is less than 1, the indicators will be
 squeezed towards each others.
 
 ``` r
+
 p2 <- set_sem_layout(p,
                      indicator_order = indicator_order,
                      indicator_factor = indicator_factor,
@@ -319,12 +334,14 @@ is .50. We only need to specify the positions for factors to be changed
 from .50 to other values. For example:
 
 ``` r
+
 loading_position <- c(f2 = .7,
                       f3 = .8,
                       f4 = .8)
 ```
 
 ``` r
+
 p2 <- set_sem_layout(p,
                      indicator_order = indicator_order,
                      indicator_factor = indicator_factor,
@@ -354,6 +371,7 @@ to change the curvature of `f1 ~~ f2` covariances and `f4 ~ f1` paths
 change the orientation of `f4` to `up`):
 
 ``` r
+
 # If R version >= 4.1.0
 p2 <- set_sem_layout(p,
                     indicator_order = indicator_order,

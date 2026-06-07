@@ -5,7 +5,12 @@ Set arbitrary attributes of selected edges.
 ## Usage
 
 ``` r
-set_edge_attribute(semPaths_plot, values = NULL, attribute_name = NULL)
+set_edge_attribute(
+  semPaths_plot,
+  values = NULL,
+  attribute_name = NULL,
+  check_direction = TRUE
+)
 ```
 
 ## Arguments
@@ -28,6 +33,13 @@ set_edge_attribute(semPaths_plot, values = NULL, attribute_name = NULL)
 
   The name of the attribute to be changed.
 
+- check_direction:
+
+  If `FALSE`, the direction of an edge is ignored. For example, both
+  `y ~ x` and `x ~ y` will affect `y ~ x`, `x ~ y`, and `y ~~ x`. Useful
+  when we want to change an edge regardless of its direction and whether
+  it is directional.
+
 ## Value
 
 A [qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) based on
@@ -48,7 +60,7 @@ attribute.
 
 ### Setting the value of `values`
 
-This argument can be set in two ways.
+This argument can be set in three ways.
 
 For a named vector, the name of an element should be the path as
 specified by
@@ -74,6 +86,10 @@ values: `from`, `to`, and `new_value`. The attribute of the edge from
 
 The second approach is no longer recommended, though kept for backward
 compatibility.
+
+The last approach is setting `values` to a one-element vector with *no*
+*name*. All edges in plot will then have the selected attributes set to
+this value.
 
 ## Examples
 

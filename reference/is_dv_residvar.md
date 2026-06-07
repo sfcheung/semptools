@@ -29,6 +29,7 @@ dependent variable. Indicators of a latent variable will be excluded.
 ## Examples
 
 ``` r
+
 mod <-
  'x1 ~~ x2
   x3 ~  x1 + x2

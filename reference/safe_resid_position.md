@@ -84,6 +84,7 @@ on rotating a residual.
 ## Examples
 
 ``` r
+
 library(lavaan)
 library(semPlot)
 # Create a dummy dataset

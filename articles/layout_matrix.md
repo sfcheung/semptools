@@ -31,6 +31,7 @@ If we fit the model by
 to generate the plot without using `layout`, this is the resulting plot:
 
 ``` r
+
 library(lavaan)
 library(semPlot)
 mod_pa <-
@@ -64,6 +65,7 @@ We then create a matrix of the same dimension as the grid, and
 initialize the cells by `NA`, which denoted a cell with *nothing*.
 
 ``` r
+
 m <- matrix(NA, 3, 4)
 m
 #>      [,1] [,2] [,3] [,4]
@@ -79,6 +81,7 @@ by setting the corresponding cell to the name of this variable as
 appeared in the `lavaan` model.
 
 ``` r
+
 m[1, 1] <- "x1"
 m[3, 1] <- "x2"
 m[2, 2] <- "x3"
@@ -95,6 +98,7 @@ We can then set `layout` to this matrix to tell
 how to position the four variables:
 
 ``` r
+
 p_pa <- semPaths(fit_pa, whatLabels = "est",
            sizeMan = 10,
            edge.label.cex = 1.15,
@@ -109,6 +113,7 @@ Alternatively, we can type the matrix as it would appear if printed, and
 set `byrow = TRUE`:
 
 ``` r
+
 m <- matrix(c("x1",   NA,  NA,   NA,
                 NA, "x3",  NA, "x4",
               "x2",   NA,  NA,   NA), byrow = TRUE, 3, 4)
@@ -146,6 +151,7 @@ automatically.
 For example, to generate the same layout above, we can do this:
 
 ``` r
+
 m2 <- layout_matrix(x1 = c(1, 1),
                     x2 = c(3, 1),
                     x3 = c(2, 2),
@@ -170,6 +176,7 @@ columns of `NA`, we can just change the coordinates of `x4` in
 [`layout_matrix()`](https://sfcheung.github.io/semptools/reference/layout_matrix.md):
 
 ``` r
+
 m3 <- layout_matrix(x1 = c(1, 1),
                     x2 = c(3, 1),
                     x3 = c(2, 2),
@@ -225,6 +232,7 @@ For example, suppose we have 14 indicators and four factors, and this is
 the model:
 
 ``` r
+
 mod <-
   'f1 =~ x01 + x02 + x03
    f2 =~ x04 + x05 + x06 + x07
@@ -239,6 +247,7 @@ If we want to draw both the factors and the indicators, the plot will
 have 18 nodes:
 
 ``` r
+
 fit <- lavaan::sem(mod, cfa_example)
 p <- semPaths(fit, whatLabels="est",
         sizeMan = 5,
@@ -261,6 +270,7 @@ Again, we decide the grid to use, which is 3 by 3 in this example:
 Therefore, this is the matrix to be used:
 
 ``` r
+
 m_sem <- layout_matrix(f1 = c(1, 1),
                     f2 = c(3, 1),
                     f3 = c(2, 2),
@@ -278,6 +288,7 @@ can also be used to set up the orientation of the indicators of each
 factor:
 
 ``` r
+
 point_to <- layout_matrix(left = c(1, 1),
                           left = c(3, 1),
                           down = c(2, 2),
@@ -293,6 +304,7 @@ or
 on how to specify other arguments):
 
 ``` r
+
 indicator_order  <- c("x04", "x05", "x06", "x07",
                       "x01", "x02", "x03",
                       "x11", "x12", "x13", "x14",

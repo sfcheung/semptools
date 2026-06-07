@@ -45,6 +45,7 @@ and
 ## Examples
 
 ``` r
+
 mod <-
   'f1 =~ x01 + x02 + x03 + x06
    f4 =~ x11 + x12 + x13 + x14

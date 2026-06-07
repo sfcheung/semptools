@@ -44,6 +44,7 @@ does.
 ## Examples
 
 ``` r
+
 library(lavaan)
 library(semPlot)
 mod <-

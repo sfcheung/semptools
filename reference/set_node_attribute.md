@@ -48,7 +48,7 @@ attribute.
 
 ### Setting the value of `values`
 
-This argument can be set in two ways.
+This argument can be set in three ways.
 
 For a named vector, the name of an element should be the nodes for which
 their attributes are to be changed. The names need to the *displayed*
@@ -65,6 +65,10 @@ For a list of named lists, each named list should have two named values:
 
 The second approach is no longer recommended, though kept for backward
 compatibility.
+
+The last approach is setting `values` to a one-element vector with *no*
+*name*. All nodes in plot will then have the selected attributes set to
+this value.
 
 ## Examples
 

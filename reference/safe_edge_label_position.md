@@ -79,6 +79,7 @@ on setting the positions of edge labels.
 ## Examples
 
 ``` r
+
 library(lavaan)
 library(semPlot)
 # Create a dummy dataset

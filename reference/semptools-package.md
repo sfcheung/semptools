@@ -19,5 +19,8 @@ Useful links:
 
 Authors:
 
+- Shu Fai Cheung <shufai.cheung@gmail.com>
+  ([ORCID](https://orcid.org/0000-0002-9871-9448))
+
 - Mark Hok Chio Lai <marklhc@gmail.com>
   ([ORCID](https://orcid.org/0000-0002-9196-7406))

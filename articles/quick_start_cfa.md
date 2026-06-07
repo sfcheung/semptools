@@ -23,6 +23,7 @@ Let us consider a CFA model. We will use `cfa_example`, a sample CFA
 dataset from `semptools` with 14 variables for illustration.
 
 ``` r
+
 library(semptools)
 head(round(cfa_example, 3), 3)
 #>      x01    x02    x03    x04    x05    x06    x07   x08   x09    x10    x11
@@ -38,6 +39,7 @@ head(round(cfa_example, 3), 3)
 This is the CFA model to be fitted:
 
 ``` r
+
 mod <-
   'f1 =~ x01 + x02 + x03
    f2 =~ x04 + x05 + x06 + x07
@@ -50,6 +52,7 @@ Fitting the model by
 [`lavaan::cfa()`](https://rdrr.io/pkg/lavaan/man/cfa.html)
 
 ``` r
+
 library(lavaan)
 #> This is lavaan 0.6-21
 #> lavaan is FREE software! Please report any bugs.
@@ -60,6 +63,7 @@ This is the plot from
 [`semPlot::semPaths()`](https://rdrr.io/pkg/semPlot/man/semPaths.html):
 
 ``` r
+
 library(semPlot)
 p <- semPaths(fit, whatLabels="est",
         sizeMan = 3.25,
@@ -116,6 +120,7 @@ To do this, we create two vectors, one for the argument
   like this:
 
 ``` r
+
 indicator_order  <- c("x04", "x05", "x06", "x07",
                       "x01", "x02", "x03",
                       "x11", "x12", "x13", "x14",
@@ -128,6 +133,7 @@ indicator_order  <- c("x04", "x05", "x06", "x07",
   to place the latent factors:
 
 ``` r
+
 indicator_factor <- c( "f2",  "f2",  "f2",  "f2",
                        "f1",  "f1",  "f1",
                        "f4",  "f4",  "f4",  "f4",
@@ -152,6 +158,7 @@ We now use
 to post-process the graph:
 
 ``` r
+
 p2 <- set_cfa_layout(p,
                      indicator_order,
                      indicator_factor)
@@ -168,6 +175,7 @@ the curvatures of the covariances, we can use the argument `fcov_curve`.
 The default is .4. Let us increase it to 1.75.
 
 ``` r
+
 p2 <- set_cfa_layout(p,
                      indicator_order,
                      indicator_factor,
@@ -192,6 +200,7 @@ closer to the indicators, and increase the distance between them in the
 process.
 
 ``` r
+
 p2 <- set_cfa_layout(p,
                      indicator_order,
                      indicator_factor,
@@ -213,6 +222,7 @@ be set to one of these four directions: down (default), left, up, and
 right. This is done by the argument `point_to`.
 
 ``` r
+
 p2 <- set_cfa_layout(p,
                      indicator_order,
                      indicator_factor,
@@ -235,6 +245,7 @@ results for the free parameters using
 [`mark_sig()`](https://sfcheung.github.io/semptools/reference/mark_sig.md):
 
 ``` r
+
 # If R version >= 4.1.0
 p2 <- set_cfa_layout(p,
                      indicator_order,

@@ -5,7 +5,11 @@ Set the positions of edge labels of selected edges.
 ## Usage
 
 ``` r
-set_edge_label_position(semPaths_plot, position_list = NULL)
+set_edge_label_position(
+  semPaths_plot,
+  position_list = NULL,
+  check_direction = TRUE
+)
 ```
 
 ## Arguments
@@ -40,6 +44,13 @@ set_edge_label_position(semPaths_plot, position_list = NULL)
   `new_position`. For example,
   `list(list(from = "x1", to = "y", new_position = .2), list(from = "x2", to = "y", new_position = .7))`
   is equivalent to the named vector above.
+
+- check_direction:
+
+  If `FALSE`, the direction of an edge is ignored. For example, both
+  `y ~ x` and `x ~ y` will affect `y ~ x`, `x ~ y`, and `y ~~ x`. Useful
+  when we want to change an edge regardless of its direction and whether
+  it is directional.
 
 ## Value
 

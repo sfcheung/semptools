@@ -118,6 +118,7 @@ The output of `auto_layout_mediation()` can be used by
 ## Examples
 
 ``` r
+
 library(lavaan)
 library(semPlot)
 

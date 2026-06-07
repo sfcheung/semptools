@@ -7,7 +7,13 @@ object.
 ## Usage
 
 ``` r
-add_rsq(semPaths_plot, object, digits = 2L, rsq_string = "R2=", ests = NULL)
+add_rsq(
+  semPaths_plot,
+  object = NULL,
+  digits = 2L,
+  rsq_string = "R2=",
+  ests = NULL
+)
 ```
 
 ## Arguments
