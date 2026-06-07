@@ -204,7 +204,7 @@ to_new_value <- function(object,
         j <- length(object)
         for (k in seq_len(j)) {
             tmp <- names(object[[k]])
-            tmp[which(tmp == "new_color")] <- "new_value"
+            tmp[which(tmp == original_name)] <- "new_value"
             names(object[[k]]) <- tmp
           }
       } else {
