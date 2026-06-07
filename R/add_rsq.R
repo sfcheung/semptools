@@ -186,13 +186,11 @@ add_rsq <- function(semPaths_plot,
     semPaths_plot$graphAttributes$Edges$labels <- edge_to_add$labels
     out <- semPaths_plot
   }
-  if (is.null(object)) {
-    # ==== Update the fit object ====
-    # NULL remains NULL
-    out <- add_object(
-      out,
-      object
-    )
-  }
+  # ==== Update the fit object ====
+  # NULL remains NULL. Can run even if object is NULL
+  out <- add_object(
+    out,
+    object
+  )
   out
 }
