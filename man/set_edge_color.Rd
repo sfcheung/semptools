@@ -4,7 +4,7 @@
 \alias{set_edge_color}
 \title{Set the Colors of Selected Edges}
 \usage{
-set_edge_color(semPaths_plot, color_list = NULL)
+set_edge_color(semPaths_plot, color_list = NULL, check_direction = TRUE)
 }
 \arguments{
 \item{semPaths_plot}{A
@@ -16,6 +16,14 @@ qgraph object modified by other
 \item{color_list}{A named vector or a
 list of named list. See the Details
 section on how to set this argument.}
+
+\item{check_direction}{If \code{FALSE},
+the direction of an edge is ignored.
+For example, both \code{y ~ x} and \code{x ~ y}
+will affect \code{y ~ x}, \code{x ~ y}, and
+\code{y ~~ x}. Useful when we want to
+change an edge regardless of its
+direction and whether it is directional.}
 }
 \value{
 A \link[qgraph:qgraph]{qgraph::qgraph} based on
