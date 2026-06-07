@@ -27,6 +27,18 @@ The layout argument in \code{\link[semPlot:semPaths]{semPlot::semPaths()}} accep
 matrix with node labels as the elements, and \code{NA} for empty cells.
 This function allows user to create the matrix using a list of
 coordinates for the node labels.
+
+Note that \code{\link[semPlot:semPaths]{semPlot::semPaths()}} only
+treat a matrix as a layout matrix as
+a matrix of grid if it has three or
+more columns. Therefore, if the resulting
+matrix has only one or two columns, it
+will be converted to a matrix with
+three columns, by inserting a column
+of \code{NA}s for a two-column matrix, and
+inserting the resulting matrix between
+two columns of \code{NA}s for a one-column
+matrix.
 }
 \examples{
 # Suppose this is the layout to be created:
