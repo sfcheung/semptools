@@ -19,7 +19,7 @@
 #'
 #' ## Setting the value of `values`
 #'
-#' This argument can be set in two ways.
+#' This argument can be set in three ways.
 #'
 #' For a named vector, the name of an
 #' element should be the path as
@@ -56,6 +56,11 @@
 #' The second approach is no longer
 #' recommended, though kept for backward
 #' compatibility.
+#'
+#' The last approach is setting `values`
+#' to a one-element vector with *no* *name*.
+#' All edges in plot will then have the
+#' selected attributes set to this value.
 #'
 #' @return A [qgraph::qgraph] based on
 #' the original one, with the selected
@@ -136,12 +141,20 @@ set_edge_attribute <- function(semPaths_plot,
       }
 
     # Convert a named vector to a named list
+    set_all_edges <- FALSE
     if (!is.list(values)) {
         values_org <- values
-        values <- to_list_of_lists(values,
-                                   name1 = "from",
-                                   name2 = "to",
-                                   name3 = "new_value")
+        if (is.null(names(values))) {
+          # If not a named vector, the first value will be
+          # applied to all edges
+          value_for_all <- values[1]
+          set_all_edges <- TRUE
+        } else {
+          values <- to_list_of_lists(values,
+                                    name1 = "from",
+                                    name2 = "to",
+                                    name3 = "new_value")
+        }
       }
 
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
@@ -159,6 +172,18 @@ set_edge_attribute <- function(semPaths_plot,
       }
 
     attr_new <- attr_old
+
+    # ==== One value for all edges ====
+
+    if (set_all_edges) {
+      # Intentionally not using []
+      attr_new[seq_along(attr_new)] <- value_for_all
+      semPaths_plot$graphAttributes$Edges[[attribute_name]] <- attr_new
+      return(semPaths_plot)
+    }
+
+    # ==== Set selected edges ====
+
     attr_index <- sapply(values, function(x) {
           edge_index(semPaths_plot, from = x$from, to = x$to)
         })

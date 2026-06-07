@@ -100,4 +100,16 @@ p4 <- set_edge_attribute(p_pa, c("x1 ~~x2" = 2,
 test_that("set_edge_attribute: label.cex", {
     expect_equal(p4$graphAttributes$Edges$label.cex,
                  c(2, 5, 1.15, 1.15, 1.15, 1.15, 1.15, 1.15, 1.15, 1.15, 2, 1.15))
-  })
+})
+
+# Sell all edges
+
+p5 <- set_edge_attribute(p_pa,
+                         5,
+                         attribute_name = "label.cex")
+
+test_that("set_edge_attribute: label.cex", {
+    expect_equal(p5$graphAttributes$Edges$label.cex,
+                 rep(5, 12))
+})
+

@@ -58,7 +58,7 @@ values are valid for the named
 attribute.
 \subsection{Setting the value of \code{values}}{
 
-This argument can be set in two ways.
+This argument can be set in three ways.
 
 For a named vector, the name of an
 element should be the path as
@@ -93,6 +93,11 @@ attribute of the edge from \code{from} to
 The second approach is no longer
 recommended, though kept for backward
 compatibility.
+
+The last approach is setting \code{values}
+to a one-element vector with \emph{no} \emph{name}.
+All edges in plot will then have the
+selected attributes set to this value.
 }
 }
 \examples{
