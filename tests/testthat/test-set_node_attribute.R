@@ -77,4 +77,19 @@ p_pa5a <- set_node_attribute(p_pa,
 test_that("set_node_attribute: color", {
 expect_identical(p_pa5a$graphAttributes$Nodes$color,
                 c("red", "blue", "#FFFFFFFF", "#FFFFFFFF"))
+
+# Change all nodes
+
+p_pa6a <- set_node_attribute(p_pa,
+                             "red",
+                             attribute_name = "color")
+expect_identical(p_pa6a$graphAttributes$Nodes$color,
+                c("red", "red", "red", "red"))
+
+p_pa6b <- set_node_attribute(p_pa,
+                             c("red", "blue"),
+                             attribute_name = "color")
+expect_identical(p_pa6b$graphAttributes$Nodes$color,
+                c("red", "red", "red", "red"))
+
 })
