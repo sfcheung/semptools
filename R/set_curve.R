@@ -60,6 +60,41 @@
 #'@export
 
 set_curve <- function(semPaths_plot, curve_list = NULL) {
+  # An option to use 0.3.3 version, just in case
+  mimic_033 <- getOption("semptools.mimic_033", FALSE)
+  if (isTRUE(mimic_033)) {
+    return(set_curve_old(
+      semPaths_plot = semPaths_plot,
+      curve_list = curve_list
+    ))
+  }
+  # This version use set_edge_attribute()
+
+  if (is.null(curve_list)) {
+    stop("curve_list not specified.")
+  }
+  if (is.null(semPaths_plot)) {
+    stop("semPaths_plot not specified.")
+  } else {
+    if (!inherits(semPaths_plot, "qgraph")) {
+      stop("semPaths_plot is not a qgraph object.")
+    }
+  }
+
+  # Fix the names
+  curve_list_fixed <- to_new_value(
+    curve_list,
+    original_name = "new_curve"
+  )
+  out <- set_edge_attribute(semPaths_plot = semPaths_plot,
+                            values = curve_list_fixed,
+                            attribute_name = "curve")
+
+  out
+}
+
+#' @noRd
+set_curve_old <- function(semPaths_plot, curve_list = NULL) {
     if (is.null(curve_list)) {
         stop("curve_list not specified.")
       }
