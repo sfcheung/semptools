@@ -1,9 +1,19 @@
-# semptools 0.3.3.1
+# semptools 0.3.3.2
 
 ## Miscellaneous
 
 - Updated to `roxygen2` 8.0.0.
   (0.3.3.1)
+
+- Updated `set_edge_attribute()` to
+  skip edges not in a plot, without
+  throwing an error.
+  (0.3.3.2)
+
+- Updated `set_curve()` and
+  `set_edge_label_position()`,
+  to use `set_edge_attribute()` internally.
+  (0.3.3.2)
 
 # semptools 0.3.3
 
