@@ -1,4 +1,4 @@
-# semptools 0.3.3.6
+# semptools 0.3.3.7
 
 ## Improvement
 
@@ -31,11 +31,15 @@
   three columns.
   (0.3.3.5)
 
-- Updated `set_node_attributes()` to
+- Updated `set_node_attribute()` to
   set the attributes of all nodes using
   one value.
   (0.3.3.6)
 
+- Updated `set_edge_attribute()` to
+  set the attributes of all nodes using
+  one value.
+  (0.3.3.7)
 
 ## Miscellaneous
 
