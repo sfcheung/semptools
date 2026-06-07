@@ -74,6 +74,14 @@
 #' @param attribute_name The name of
 #' the attribute to be changed.
 #'
+#' @param check_direction If `FALSE`,
+#' the direction of an edge is ignored.
+#' For example, both `y ~ x` and `x ~ y`
+#' will affect `y ~ x`, `x ~ y`, and
+#' `y ~~ x`. Useful when we want to
+#' change an edge regardless of its
+#' direction and whether it is directional.
+#'
 #' @examples
 #' mod_pa <-
 #'   'x1 ~~ x2
@@ -111,7 +119,8 @@
 
 set_edge_attribute <- function(semPaths_plot,
                                values = NULL,
-                               attribute_name = NULL) {
+                               attribute_name = NULL,
+                               check_direction = TRUE) {
     if (is.null(values)) {
         stop("values not specified.")
       }
@@ -158,6 +167,17 @@ set_edge_attribute <- function(semPaths_plot,
     i <- !is.na(attr_index)
     if (any(i)) {
       attr_new[attr_index[i]] <- sapply(values[i], function(x) x$new_value)
+    }
+
+    if (!check_direction) {
+      # ==== Ignore the direction of an edge ====
+      attr_index3 <- sapply(values, function(x) {
+            edge_index(semPaths_plot, from = x$to, to = x$from)
+          })
+      i <- !is.na(attr_index3)
+      if (any(i)) {
+        attr_new[attr_index3[i]] <- sapply(values[i], function(x) x$new_value)
+      }
     }
 
     # Check bidirectional edges

@@ -52,6 +52,15 @@ p2c <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
                          attribute_name = "color")
 # plot(p2c)
 
+# Direction ignored
+p2d <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
+                                 "x4~~ x3" = "black",
+                                 "x3 ~~ x1" = "white",
+                                 "x4 ~~ x1" = "darkgreen",
+                                 "x4 ~~ x2" = "yellow"),
+                         attribute_name = "color",
+                         check_direction = FALSE)
+# plot(p2d)
 
 test_that("set_edge_attribute: color", {
     expect_equal(p2$graphAttributes$Edges$color,
@@ -67,6 +76,8 @@ test_that("set_edge_attribute: color", {
     expect_equal(p2c$graphAttributes$Edges$color,
                  c("red", "white", "#808080FF", "#808080FF", "yellow", "#808080FF",
                    "#808080FF", "#808080FF", "#808080FF", "black", "red", "black"))
+    expect_equal(p2d$graphAttributes$Edges$color,
+                 p1$graphAttributes$Edges$color)
   })
 
 p3 <- set_edge_attribute(p_pa, c("x1 ~~x2" = -3,
