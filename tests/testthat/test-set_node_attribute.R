@@ -57,26 +57,47 @@ expect_identical(p_pa3b$graphAttributes$Nodes$loopRotation,
                  p_pa3a$graphAttributes$Nodes$loopRotation)
 })
 
+test_that("set_node_attribute: label.cex", {
+
 my_node_label_cex <- c(x3 = 2, x4 = 3)
 p_pa4a <- set_node_attribute(p_pa,
                              my_node_label_cex,
                              attribute_name = "label.cex")
 # plot(p_pa4a)
-
-test_that("set_node_attribute: lable.cex", {
 expect_identical(p_pa4a$graphAttributes$Nodes$label.cex,
                  c(2, 3, 1, 1))
+
+p_pa4b <- set_node_label_size(p_pa,
+                             c(x2 = 10, x1 = 3))
+# plot(p_pa4b)
+expect_identical(p_pa4b$graphAttributes$Nodes$label.cex,
+                 c(1, 1, 3, 10))
+
+p_pa4c <- set_node_label_color(p_pa,
+                             c(x2 = "blue", x1 = "green"))
+# plot(p_pa4c)
+expect_identical(p_pa4c$graphAttributes$Nodes$label.color,
+                 c("black", "black", "green", "blue"))
+
 })
+
+test_that("set_node_attribute: color", {
 
 my_node_color <- c(x3 = "red", x4 = "blue")
 p_pa5a <- set_node_attribute(p_pa,
                              my_node_color,
                              attribute_name = "color")
 # plot(p_pa5a)
-
-test_that("set_node_attribute: color", {
 expect_identical(p_pa5a$graphAttributes$Nodes$color,
                 c("red", "blue", "#FFFFFFFF", "#FFFFFFFF"))
+
+p_pa5b <- set_node_color(
+  p_pa,
+  c(x3 = "blue", x1 = "red")
+)
+# plot(p_pa5b)
+expect_identical(p_pa5b$graphAttributes$Nodes$color,
+                c("blue", "#FFFFFFFF", "red", "#FFFFFFFF"))
 
 # Change all nodes
 
@@ -91,5 +112,55 @@ p_pa6b <- set_node_attribute(p_pa,
                              attribute_name = "color")
 expect_identical(p_pa6b$graphAttributes$Nodes$color,
                 c("red", "red", "red", "red"))
+
+p_pa6c <- set_node_color(
+  p_pa,
+  "green"
+)
+# plot(p_pa6c)
+expect_equal(unique(p_pa6c$graphAttributes$Nodes$color),
+             "green")
+
+})
+
+test_that("set_node_attribute: size", {
+
+p_pa7a <- set_node_size(
+  p_pa,
+  c(x1 = 5, x3 = 20)
+)
+# plot(p_pa7a)
+expect_identical(p_pa7a$graphAttributes$Nodes$height,
+                c(20, 10, 5, 10))
+expect_identical(p_pa7a$graphAttributes$Nodes$width,
+                c(20, 10, 5, 10))
+
+p_pa7b <- set_node_width(
+  p_pa,
+  c(x3 = 20, x1 = 5)
+)
+# plot(p_pa7p)
+expect_identical(p_pa7b$graphAttributes$Nodes$height,
+                c(10, 10, 10, 10))
+expect_identical(p_pa7b$graphAttributes$Nodes$width,
+                c(20, 10, 5, 10))
+
+p_pa7c <- set_node_height(
+  p_pa,
+  c(x3 = 20, x1 = 5)
+)
+# plot(p_pa7c)
+expect_identical(p_pa7c$graphAttributes$Nodes$height,
+                c(20, 10, 5, 10))
+expect_identical(p_pa7c$graphAttributes$Nodes$width,
+                c(10, 10, 10, 10))
+
+p_pa7d <- set_node_shape(
+  p_pa,
+  c(x3 = "ellipse", x1 = "diamond")
+)
+# plot(p_pa7d)
+expect_identical(p_pa7d$graphAttributes$Nodes$shape,
+                c("ellipse", "square", "diamond", "square"))
 
 })
