@@ -1,6 +1,6 @@
 # Changelog
 
-## semptools 0.3.3.7
+## semptools 0.3.3.8
 
 ### Improvement
 
@@ -36,6 +36,16 @@
 - Updated
   [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md)
   to set the attributes of all nodes using one value. (0.3.3.7)
+
+- Added
+  [`set_node_color()`](https://sfcheung.github.io/semptools/reference/set_node_color.md),
+  [`set_node_height()`](https://sfcheung.github.io/semptools/reference/set_node_size.md),
+  [`set_node_label_color()`](https://sfcheung.github.io/semptools/reference/set_node_label.md),
+  [`set_node_label_size()`](https://sfcheung.github.io/semptools/reference/set_node_label.md),
+  [`set_node_shape()`](https://sfcheung.github.io/semptools/reference/set_node_size.md),
+  `set_node_sizes()`,
+  [`set_node_width()`](https://sfcheung.github.io/semptools/reference/set_node_size.md).
+  (0.3.3.8)
 
 ### Miscellaneous
 

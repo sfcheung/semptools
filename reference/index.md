@@ -18,6 +18,16 @@ Functions for processing a plot
   : Set the Colors of Selected Edges
 - [`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_position.md)
   : Set the positions of edge labels of selected edges
+- [`set_node_color()`](https://sfcheung.github.io/semptools/reference/set_node_color.md)
+  : Set the Colors of Selected Nodes
+- [`set_node_size()`](https://sfcheung.github.io/semptools/reference/set_node_size.md)
+  [`set_node_width()`](https://sfcheung.github.io/semptools/reference/set_node_size.md)
+  [`set_node_height()`](https://sfcheung.github.io/semptools/reference/set_node_size.md)
+  [`set_node_shape()`](https://sfcheung.github.io/semptools/reference/set_node_size.md)
+  : Set the Sizes of Selected Nodes
+- [`set_node_label_size()`](https://sfcheung.github.io/semptools/reference/set_node_label.md)
+  [`set_node_label_color()`](https://sfcheung.github.io/semptools/reference/set_node_label.md)
+  : Set Label Attributes of Selected Nodes
 - [`safe_edge_label_position()`](https://sfcheung.github.io/semptools/reference/safe_edge_label_position.md)
   : Adjust Edge Label Positions to Avoid Overlapping Labels
 - [`rotate_resid()`](https://sfcheung.github.io/semptools/reference/rotate_resid.md)
