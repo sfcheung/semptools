@@ -95,6 +95,10 @@
 #' p_pa2l <- set_node_label_color(p_pa, "red")
 #' plot(p_pa2l)
 #'
+#' @name set_node_label
+NULL
+
+#' @rdname set_node_label
 #' @export
 set_node_label_size <- function(
   semPaths_plot,
@@ -126,7 +130,7 @@ set_node_label_size <- function(
 
 }
 
-#' @rdname set_node_size
+#' @rdname set_node_label
 #' @export
 set_node_label_color <- function(
   semPaths_plot,
