@@ -1,4 +1,4 @@
-# semptools 0.3.3.7
+# semptools 0.3.3.8
 
 ## Improvement
 
@@ -40,6 +40,12 @@
   set the attributes of all nodes using
   one value.
   (0.3.3.7)
+
+- Added `set_node_color()`, `set_node_height()`,
+  `set_node_label_color()`, `set_node_label_size()`,
+  `set_node_shape()`, `set_node_sizes()`,
+  `set_node_width()`.
+  (0.3.3.8)
 
 ## Miscellaneous
 
