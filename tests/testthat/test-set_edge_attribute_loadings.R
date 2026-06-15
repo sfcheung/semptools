@@ -1,6 +1,10 @@
 library(lavaan)
 library(semPlot)
 
+# set_edge_color works with both names and abbreviated names
+# set_edge_attribute works with both names and abbreviated names
+# set_edge_label_position works with both names and abbreviated names
+
 # CFA
 
 mod <-
@@ -23,7 +27,7 @@ p <- semPaths(fit,
               DoNotPlot = TRUE)
 p2 <- set_cfa_layout(p)
 plot(p2)
-# set_edge_attribute() works on *node* *labels*
+
 p3 <- set_edge_attribute(p2, c("Th4 =~ x11" = "red"),
                          attribute_name = "color") |>
       set_edge_attribute(c("Th4 =~ x11" = 5),
@@ -31,10 +35,10 @@ p3 <- set_edge_attribute(p2, c("Th4 =~ x11" = "red"),
       set_edge_attribute(c("Th4 =~ x11" = .2),
                          attribute_name = "edge.label.position")
 plot(p3)
-# set_edge_color() works on *node* *labels*
+
 p3_chk <- set_edge_label_position(p2,
                                   position_list = c("x11 ~ Th4" = .2)) |>
-          set_edge_color(c("x11 ~ Th4" = "red"))
+          set_edge_color(c("x11 ~ Thef4" = "red"))
 plot(p3_chk)
 
 test_that("set_edge_attribute: loadings", {
