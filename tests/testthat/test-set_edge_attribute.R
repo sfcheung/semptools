@@ -1,6 +1,8 @@
 library(lavaan)
 library(semPlot)
 
+# set_edge_attribute works with both names and abbreviated names
+
 dat <- pa_example
 colnames(dat) <- gsub("x3", "TheX3", colnames(dat))
 
