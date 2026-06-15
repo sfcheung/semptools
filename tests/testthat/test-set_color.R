@@ -1,7 +1,7 @@
 library(lavaan)
 library(semPlot)
 
-# set_edge_color works only with abbreviated names
+# set_edge_color works with names and abbreviated names (but cannot be mixed)
 
 dat <- pa_example
 colnames(dat) <- gsub("x3", "TheX3", colnames(dat))
@@ -28,7 +28,7 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 subset(parameterEstimates(fit_pa), op == "~~")
 
 p2 <- set_edge_color(p_pa, c("x2~~x1" = "blue",
-                        "TX3~~ TX4" = rgb(0, 1, 0)))
+                        "TheX3~~ TheX4" = rgb(0, 1, 0)))
 # plot(p2)
 
 p1 <- set_edge_color(p_pa, c("x1 ~~x2" = "red",

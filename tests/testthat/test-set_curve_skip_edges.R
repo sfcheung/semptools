@@ -1,23 +1,24 @@
 library(lavaan)
 library(semPlot)
 
-# set_curve works with both names and abbreviated names
-# set_edge_attribute works with both names and abbreviated names
+# set_curve works with both names and abbreviated names, but cannot mix them.
+# set_edge_attribute works with both names and abbreviated names, but cannot mix them.
 
 test_that("set_curve: skip edges", {
 
 dat <- pa_example
 colnames(dat) <- gsub("x3", "TheX3", colnames(dat))
+colnames(dat) <- gsub("x4", "TheX4", colnames(dat))
 
 mod_pa <-
  'x1 ~~ x2
   TheX3 ~  x1 + x2
-  x4 ~  x1 + x2
+  TheX4 ~  x1 + x2
  '
 fit_pa <- lavaan::sem(mod_pa, dat)
 
 m <- matrix(c("x1",  NA, "TX3",
-              "x2",  NA, "x4"), byrow = TRUE, 2, 3)
+              "x2",  NA, "TX4"), byrow = TRUE, 2, 3)
 p_pa <- semPaths(fit_pa, whatLabels = "est",
            sizeMan = 10,
            edge.label.cex = 1.15,
@@ -29,7 +30,7 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 p1 <- set_edge_attribute(
         p_pa,
         c("x2~~x1" = 2,
-          "TX3~~ x4" = -1),
+          "TX3~~ TX4" = -1),
         attribute_name = "curve"
       )
 # plot(p1)
@@ -37,7 +38,7 @@ p1 <- set_edge_attribute(
 p1b <- set_curve(
         p_pa,
         c("x2~~x1" = 2,
-          "TheX3~~ x4" = -1)
+          "TheX3~~ TheX4" = -1)
       )
 # plot(p1b)
 
@@ -45,8 +46,8 @@ p1b <- set_curve(
 p1c <- set_curve(
         p_pa,
         c("x2~~x1" = 2,
-          "TX3~~ x4" = -1,
-          "x1 ~ x4" = 2)
+          "TX3~~ TX4" = -1,
+          "x1 ~ TheX4" = 2)
       )
 # plot(p1c)
 
@@ -55,15 +56,15 @@ p1c <- set_curve(
 p1d <- set_curve(
         p_pa,
         c("x2~~x1" = 2,
-          "TheX3 ~ x4" = -1,
-          "x1 ~ x4" = 2)
+          "TheX3 ~ TheX4" = -1,
+          "x1 ~ TX4" = 2)
       )
 # plot(p1d)
 p1d2 <- set_curve(
         p_pa,
         c("x2~~x1" = 2,
-          "x4 ~ TX3" = -1,
-          "x1 ~ x4" = 2)
+          "TX4 ~ TX3" = -1,
+          "x1 ~ TheX4" = 2)
       )
 # plot(p1d2)
 
@@ -72,7 +73,7 @@ p1d2 <- set_curve(
 p1e <- set_curve(
         p_pa,
         c("x2~~x1" = 2,
-          "TX3 ~ x4" = -1,
+          "TX3 ~ TX4" = -1,
           "x1 ~~ TheX3" = 2)
       )
 # plot(p1e)
@@ -81,7 +82,7 @@ p1e <- set_curve(
 p1f <- set_curve(
         p_pa,
         c("x2~~x1" = 2,
-          "TX3 ~ x4" = -1,
+          "TX3 ~ TX4" = -1,
           "TheX3 ~~ x1" = 2)
       )
 # plot(p1f)
