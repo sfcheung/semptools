@@ -139,8 +139,7 @@ set_node_attribute <- function(semPaths_plot,
       Nodes_names <- names(Nodes_names)
     }
 
-    if (!all(Nodes_in %in% Nodes_names) &&
-        !all(Nodes_in %in% Nodes_labels)) {
+    if (!all(Nodes_in %in% union(Nodes_names, Nodes_labels))) {
         stop("One or more nodes not in semPaths_plot.")
       }
     Nodes_id <- seq_len(length(Nodes_names))
