@@ -6,10 +6,13 @@ library(semPlot)
 mod <-
   'f1 =~ x01 + x02 + x03
    f2 =~ x04 + x05 + x06 + x07
-   f3 =~ x08 + x09 + x10
-   f4 =~ x11 + x12 + x13 + x14
+   f3 =~ x08 + x09 + Thex10
+   Thef4 =~ x11 + x12 + x13 + x14
   '
-fit <- lavaan::cfa(mod, cfa_example, orthogonal = TRUE)
+dat <- cfa_example
+colnames(dat) <- gsub("x10", "Thex10", colnames(dat))
+
+fit <- lavaan::cfa(mod, dat, orthogonal = TRUE)
 p <- semPaths(fit,
               whatLabels = "est",
               sizeMan = 3.25,
@@ -20,16 +23,18 @@ p <- semPaths(fit,
               DoNotPlot = TRUE)
 p2 <- set_cfa_layout(p)
 plot(p2)
-p3 <- set_edge_attribute(p2, c("f4 =~ x11" = "red"),
+# set_edge_attribute() works on *node* *labels*
+p3 <- set_edge_attribute(p2, c("Th4 =~ x11" = "red"),
                          attribute_name = "color") |>
-      set_edge_attribute(c("f4 =~ x11" = 5),
+      set_edge_attribute(c("Th4 =~ x11" = 5),
                          attribute_name = "width") |>
-      set_edge_attribute(c("f4 =~ x11" = .2),
+      set_edge_attribute(c("Th4 =~ x11" = .2),
                          attribute_name = "edge.label.position")
 plot(p3)
+# set_edge_color() works on *node* *labels*
 p3_chk <- set_edge_label_position(p2,
-                                  position_list = c("x11 ~ f4" = .2)) |>
-          set_edge_color(c("x11 ~ f4" = "red"))
+                                  position_list = c("x11 ~ Th4" = .2)) |>
+          set_edge_color(c("x11 ~ Th4" = "red"))
 plot(p3_chk)
 
 test_that("set_edge_attribute: loadings", {
