@@ -119,6 +119,9 @@ set_node_attribute <- function(semPaths_plot,
 
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
     Nodes_labels <- semPaths_plot$graphAttributes$Nodes$labels
+    if (is.null(names(Nodes_labels))) {
+      names(Nodes_labels) <- Nodes_names
+    }
 
     # Convert a named vector to a named list
     if (!is.list(values)) {
