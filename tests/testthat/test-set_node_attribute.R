@@ -38,7 +38,7 @@ my_rotate_resid_list_a <- list(list(node = "TX3", new_value =  45 * pi / 180),
                                list(node = "TheX4", new_value = -45 * pi / 180),
                                list(node = "x2", new_value = -90 * pi / 180))
 my_rotate_resid_list_b <- list(list(node = "TheX3", rotate =  45),
-                               list(node = "TheX4", rotate = -45),
+                               list(node = "TX4", rotate = -45),
                                list(node = "x2", rotate = -90))
 my_rotate_resid_list_c <- c("TheX3" =  45 * pi / 180,
                             "TX4" = -45 * pi / 180,

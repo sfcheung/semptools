@@ -57,7 +57,84 @@
 #'
 #'@export
 
-rotate_resid <- function(semPaths_plot, rotate_resid_list = NULL) {
+rotate_resid <- function(
+  semPaths_plot,
+  rotate_resid_list = NULL
+) {
+  # Adapt the code from change_node_label()
+
+  if (is.null(rotate_resid_list)) {
+    stop("rotate_resid_list not specified.")
+  }
+  if (is.null(semPaths_plot)) {
+    stop("semPaths_plot not specified.")
+  } else {
+    if (!inherits(semPaths_plot, "qgraph")) {
+      stop("semPaths_plot is not a qgraph object.")
+    }
+  }
+
+  # Convert a named vector to a named list
+  if (!is.list(rotate_resid_list) && is.numeric(rotate_resid_list)) {
+    rotate_resid_list_org <- rotate_resid_list
+    rotate_resid_list <- to_list_of_lists(rotate_resid_list,
+                                          name1 = "node",
+                                          name2 = "rotate")
+  }
+
+  Nodes_in <- sapply(rotate_resid_list, function(x) x$node)
+
+  Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
+  Nodes_labels <- semPaths_plot$graphAttributes$Nodes$labels
+
+  if (!is.list(Nodes_names)) {
+    Nodes_names <- as.list(Nodes_names)
+  }
+  Nodes_names_org <- as.list(names(Nodes_names))
+  if (length(Nodes_names_org) == 0) {
+    Nodes_names_org <- lapply(
+      Nodes_names,
+      function(x) as.character(x)
+    )
+    Nodes_names_org <- unname(Nodes_names_org)
+  }
+  if (!is.list(Nodes_labels)) {
+    Nodes_labels <- as.list(Nodes_labels)
+  }
+
+  tmp <- Nodes_in %in% Nodes_labels |
+         Nodes_in %in% Nodes_names |
+         Nodes_in %in% Nodes_names_org
+  if (!all(tmp)) {
+    stop("One or more nodes not in semPaths_plot.")
+  }
+
+  # Use Mark's approach
+  loopRotation_old <- semPaths_plot$graphAttributes$Nodes$loopRotation
+  loopRotation_new <- loopRotation_old
+  new_rotate <- sapply(
+                  rotate_resid_list,
+                  function(x) x$rotate * pi / 180
+                )
+  Nodes_pos <- sapply(
+    Nodes_in,
+    function(x) {
+      tmp1 <- match(x, Nodes_labels)
+      tmp2 <- match(x, Nodes_names)
+      tmp3 <- match(x, Nodes_names_org)
+      if (!is.na(tmp1)) return(tmp1)
+      if (!is.na(tmp2)) return(tmp2)
+      if (!is.na(tmp3)) return(tmp3)
+    }
+  )
+  loopRotation_new[Nodes_pos] <- new_rotate
+
+  semPaths_plot$graphAttributes$Nodes$loopRotation <- loopRotation_new
+  semPaths_plot
+}
+
+#' @noRd
+rotate_resid_old <- function(semPaths_plot, rotate_resid_list = NULL) {
     if (is.null(rotate_resid_list)) {
         stop("rotate_resid_list not specified.")
       }
