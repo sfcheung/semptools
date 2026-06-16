@@ -1,4 +1,4 @@
-# semptools 0.3.3.9
+# semptools 0.3.3.10
 
 ## Improvement
 
@@ -54,6 +54,14 @@
   names of nodes and their display
   names, which may be abbreviated.
   (0.3.3.9)
+
+- Updated `set_node_attribute()` to use
+  new helpers, so that it is easier to
+  work with original node names,
+  processed (e.g., abbreviated) node
+  names, and labels (converted to string,
+  if necessary).
+  (0.3.3.10)
 
 ## Miscellaneous
 
