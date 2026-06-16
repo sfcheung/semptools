@@ -1,4 +1,4 @@
-# semptools 0.3.3.8
+# semptools 0.3.3.10
 
 ## Improvement
 
@@ -46,6 +46,22 @@
   `set_node_shape()`, `set_node_sizes()`,
   `set_node_width()`.
   (0.3.3.8)
+
+- Removed `nChar = 0` in some tests to
+  allow testing functions with abbreviated
+  names. Also revised some functions to
+  make them work for both the original
+  names of nodes and their display
+  names, which may be abbreviated.
+  (0.3.3.9)
+
+- Updated `set_node_attribute()` to use
+  new helpers, so that it is easier to
+  work with original node names,
+  processed (e.g., abbreviated) node
+  names, and labels (converted to string,
+  if necessary).
+  (0.3.3.10)
 
 ## Miscellaneous
 

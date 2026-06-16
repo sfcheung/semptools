@@ -1,14 +1,17 @@
 library(lavaan)
 library(semPlot)
 
+dat <- pa_example
+colnames(dat) <- gsub("x3", "TheX3", colnames(dat))
+
 mod_pa <-
   'x1 ~~ x2
-   x3 ~  x1 + x2
-   x4 ~  x1 + x3
+   TheX3 ~  x1 + x2
+   x4 ~  x1 + TheX3
   '
-fit_pa <- lavaan::sem(mod_pa, pa_example)
+fit_pa <- lavaan::sem(mod_pa, dat)
 m <- matrix(c("x1",   NA,  NA,   NA,
-              NA, "x3",  NA, "x4",
+              NA, "TX3",  NA, "x4",
               "x2",   NA,  NA,   NA), byrow = TRUE, 3, 4)
 p_pa <- semPaths(fit_pa, whatLabels = "est",
                  sizeMan = 10,
@@ -61,23 +64,27 @@ test_that(
 
 # Test a structure-only diagram
 
+dat <- sem_example
+colnames(dat) <- gsub("x02", "TheX0", colnames(dat))
+
 mod <-
   'f1 =~ x01 + x02 + x03
-   f2 =~ x04 + x05 + x06 + x07
+   Thef2 =~ x04 + x05 + x06 + x07
    f3 =~ x08 + x09 + x10
-   f4 =~ x11 + x12 + x13 + x14
-   f3 ~  f1 + f2
-   f4 ~  f1 + f3
+   Thef4 =~ x11 + x12 + x13 + x14
+   f3 ~  f1 + Thef2
+   Thef4 ~  f1 + f3
   '
 fit_sem <- lavaan::sem(mod, sem_example)
 est <- lavaan::parameterEstimates(fit_sem, rsquare = TRUE)[, c("lhs", "op", "rhs", "est", "pvalue")]
 m <- layout_matrix(f1 = c(1, 1),
-                   f2 = c(3, 1),
+                   Th2 = c(3, 1),
                    f3 = c(2, 2),
-                   f4 = c(2, 3))
+                   Th4 = c(2, 3))
 p <- semPaths(fit_sem, whatLabels="est",
         sizeMan = 5,
-        nCharNodes = 0, nCharEdges = 0,
+        # nCharNodes = 0,
+        nCharEdges = 0,
         edge.width = 0.8, node.width = 0.7,
         edge.label.cex = 0.6,
         mar = c(10,10,10,10),
@@ -85,7 +92,7 @@ p <- semPaths(fit_sem, whatLabels="est",
         structural = TRUE,
         style = "lisrel",
         DoNotPlot = TRUE)
-p2_std_chk <- est[(est$op == "r2") & (est$lhs %in% c("f3", "f4")), "est"]
+p2_std_chk <- est[(est$op == "r2") & (est$lhs %in% c("f3", "Thef4")), "est"]
 p2_std_chk <- paste0("R2=", formatC(p2_std_chk, 2, format = "f"))
 test_that(
   "add_rsq: structural", {

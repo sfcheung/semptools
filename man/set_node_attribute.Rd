@@ -4,7 +4,12 @@
 \alias{set_node_attribute}
 \title{Set the Attributes of Selected Nodes}
 \usage{
-set_node_attribute(semPaths_plot, values = NULL, attribute_name = NULL)
+set_node_attribute(
+  semPaths_plot,
+  values = NULL,
+  attribute_name = NULL,
+  check_nodes = TRUE
+)
 }
 \arguments{
 \item{semPaths_plot}{A
@@ -19,6 +24,10 @@ section on how to set this argument.}
 
 \item{attribute_name}{The name of
 the attribute to be changed.}
+
+\item{check_nodes}{Logical. If \code{TRUE}
+and at least one node specified in
+\code{values} are not in \code{semPaths_plot}.}
 }
 \value{
 A \link[qgraph:qgraph]{qgraph::qgraph} based on

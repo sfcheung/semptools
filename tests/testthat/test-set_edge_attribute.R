@@ -1,19 +1,25 @@
 library(lavaan)
 library(semPlot)
 
+# set_edge_attribute works with both names and abbreviated names, but cannot mix them.
+
+dat <- pa_example
+colnames(dat) <- gsub("x3", "TheX3", colnames(dat))
+colnames(dat) <- gsub("x4", "TheX4", colnames(dat))
+
 mod_pa <-
  'x1 ~~ x2
-  x3 ~  x1 + x2
-  x4 ~  x1 + x2
+  TheX3 ~  x1 + x2
+  TheX4 ~  x1 + x2
  '
-fit_pa <- lavaan::sem(mod_pa, pa_example)
+fit_pa <- lavaan::sem(mod_pa, dat)
 
-m <- matrix(c("x1",  NA, "x3",
-              "x2",  NA, "x4"), byrow = TRUE, 2, 3)
+m <- matrix(c("x1",  NA, "TX3",
+              "x2",  NA, "TX4"), byrow = TRUE, 2, 3)
 p_pa <- semPaths(fit_pa, whatLabels = "est",
            sizeMan = 10,
            edge.label.cex = 1.15,
-           nCharNodes = 0,
+#           nCharNodes = 0,
            nCharEdges = 0,
            layout = m,
            DoNotPlot = TRUE)
@@ -21,15 +27,24 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 subset(parameterEstimates(fit_pa), op == "~~")
 
 p2 <- set_edge_attribute(p_pa, c("x2~~x1" = "blue",
-                                 "x3~~ x4" = rgb(0, 1, 0)),
+                                 "TX3~~ TX4" = rgb(0, 1, 0)),
                          attribute_name = "color")
-# plot(p2)
+p2b <- set_edge_attribute(p_pa, c("x2~~x1" = "blue",
+                                 "TheX3~~ TheX4" = rgb(0, 1, 0)),
+                         attribute_name = "color")
+
+expect_equal(
+  p2$graphAttributes$Edges$color,
+  p2b$graphAttributes$Edges$color
+)
+
+# plot(p2b)
 
 p1 <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
-                                 "x4~~ x3" = "black",
-                                 "x3 ~ x1" = "white",
-                                 "x4 ~ x1" = "darkgreen",
-                                 "x4 ~ x2" = "yellow"),
+                                 "TX4~~ TX3" = "black",
+                                 "TX3 ~ x1" = "white",
+                                 "TheX4 ~ x1" = "darkgreen",
+                                 "TX4 ~ x2" = "yellow"),
                          attribute_name = "color")
 
 # plot(p1)
@@ -37,27 +52,27 @@ p1 <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
 # An edge not in the model will be skipped
 
 p2b <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
-                                 "x4~~ x3" = "black",
-                                 "x3 ~ x1" = "white",
-                                 "x1 ~ x4" = "blue",
-                                 "x4 ~ x2" = "yellow"),
+                                 "TX4~~ TX3" = "black",
+                                 "TX3 ~ x1" = "white",
+                                 "x1 ~ TheX4" = "blue",
+                                 "TX4 ~ x2" = "yellow"),
                          attribute_name = "color")
 # plot(p2b)
 
 p2c <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
-                                 "x4~~ x3" = "black",
-                                 "x3 ~ x1" = "white",
-                                 "x1 ~~ x4" = "blue",
-                                 "x4 ~ x2" = "yellow"),
+                                 "TX4~~ TX3" = "black",
+                                 "TX3 ~ x1" = "white",
+                                 "x1 ~~ TheX4" = "blue",
+                                 "TheX4 ~ x2" = "yellow"),
                          attribute_name = "color")
 # plot(p2c)
 
 # Direction ignored
 p2d <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
-                                 "x4~~ x3" = "black",
-                                 "x3 ~~ x1" = "white",
-                                 "x4 ~~ x1" = "darkgreen",
-                                 "x4 ~~ x2" = "yellow"),
+                                 "TX4~~ TX3" = "black",
+                                 "TheX3 ~~ x1" = "white",
+                                 "TX4 ~~ x1" = "darkgreen",
+                                 "TheX4 ~~ x2" = "yellow"),
                          attribute_name = "color",
                          check_direction = FALSE)
 # plot(p2d)
@@ -81,7 +96,7 @@ test_that("set_edge_attribute: color", {
   })
 
 p3 <- set_edge_attribute(p_pa, c("x1 ~~x2" = -3,
-                                 "x3 ~ x1" = 4),
+                                 "TX3 ~ x1" = 4),
                          attribute_name = "curve")
 
 # plot(p3)
@@ -92,7 +107,7 @@ test_that("set_edge_attribute: curve", {
   })
 
 p4 <- set_edge_attribute(p_pa, c("x1 ~~x2" = 2,
-                                 "x3 ~ x1" = 5),
+                                 "TX3 ~ x1" = 5),
                          attribute_name = "label.cex")
 
 # plot(p4)
