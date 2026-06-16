@@ -35,6 +35,29 @@ expect_in(c("x1", "x2", "TheX3", "TheX4"),
           out$names_original)
 expect_in(c("x1", "x2", "TX3", "TX4"),
           out$labels)
+out1 <- match_nodes(
+  c("x2", "TX4", "TheX3"),
+  out
+)
+expect_equal(
+  out1,
+  c(4, 2, 1)
+)
+expect_error(
+  match_nodes(
+    c("x2", "No", "TheX3"),
+    out
+  )
+)
+out1 <- match_nodes(
+  c("x2", "TX4", "No"),
+  out,
+  check_nodes = FALSE
+)
+expect_equal(
+  out1,
+  c(4, 2, NA)
+)
 
 m_no_abbr <- matrix(
              c("x1",   NA,  NA,   NA,
@@ -58,6 +81,30 @@ expect_in(c("x1", "x2", "TheX3", "TheX4"),
           out$names_original)
 expect_in(c("x1", "x2", "TheX3", "TheX4"),
           out$labels)
+out1 <- match_nodes(
+  c("x2"),
+  out
+)
+expect_equal(
+  out1,
+  4
+)
+expect_error(
+  match_nodes(
+    c("x2", "No", "TheX3"),
+    out
+  )
+)
+out1 <- match_nodes(
+  c("x2", "TX4", "No"),
+  out,
+  check_nodes = FALSE
+)
+expect_equal(
+  out1,
+  c(4, NA, NA)
+)
+
 
 m_labels <- matrix(
              c("X1",   NA,  NA,   NA,
@@ -81,6 +128,29 @@ expect_in(c("X1", "X2", "XX3", "TheLongX4"),
           out$names_original)
 expect_in(c("X1", "X2", "XX3", "TheLongX4"),
           out$labels)
+out1 <- match_nodes(
+  c("TheLongX4", "XX3"),
+  out
+)
+expect_equal(
+  out1,
+  c(2, 1)
+)
+expect_error(
+  match_nodes(
+    c("x2", "No", "TheX3"),
+    out
+  )
+)
+out1 <- match_nodes(
+  c("x2", "TheLongX4", "No"),
+  out,
+  check_nodes = FALSE
+)
+expect_equal(
+  out1,
+  c(NA, 2, NA)
+)
 
 p_pa_labels_expression <- semPaths(
   fit_pa,
@@ -104,4 +174,28 @@ expect_identical(
  out$labels[[2]],
  as.symbol("gamma")
 )
+out1 <- match_nodes(
+  c("gamma", "XX3"),
+  out
+)
+expect_equal(
+  out1,
+  c(2, 1)
+)
+expect_error(
+  match_nodes(
+    c("x2", "No", "TheX3"),
+    out
+  )
+)
+out1 <- match_nodes(
+  c("X2", "gamma", "No"),
+  out,
+  check_nodes = FALSE
+)
+expect_equal(
+  out1,
+  c(4, 2, NA)
+)
+
 })

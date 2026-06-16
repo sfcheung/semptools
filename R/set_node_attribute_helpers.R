@@ -22,3 +22,21 @@ node_names_list <- function(
   out
 }
 
+#' @noRd
+match_nodes <- function(
+  x,
+  node_names,
+  check_nodes = TRUE
+) {
+  i1 <- match(x, node_names$names_original)
+  i2 <- match(x, node_names$names)
+  i3 <- match(x, node_names$labels)
+  out <- i1
+  out[!is.na(i2)] <- i2[!is.na(i2)]
+  out[!is.na(i3)] <- i3[!is.na(i3)]
+  if (check_nodes &&
+      any(is.na(out))) {
+    stop("Not all nodes are in the plot.")
+  }
+  out
+}
