@@ -1,14 +1,5 @@
 # Test set_node_attribute
 
-# set_node_attribute works with both names and abbreviated names
-# set_node_color works like set_node_attribute
-# set_node_label_size works like set_node_attribute
-# set_node_label_color works like set_node_attribute
-# set_node_shape works like set_node_attribute
-# set_node_size and friends works like set_node_attribute
-
-# rotate_resid works only with original names
-
 dat <- pa_example
 colnames(dat) <- gsub("x3", "TheX3", colnames(dat))
 colnames(dat) <- gsub("x4", "TheX4", colnames(dat))
