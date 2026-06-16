@@ -1,15 +1,19 @@
 library(lavaan)
 library(semPlot)
 
+dat <- pa_example
+colnames(dat) <- gsub("x3", "TheX3", colnames(dat))
+colnames(dat) <- gsub("x4", "TheX4", colnames(dat))
+
 mod_pa <-
   'x1 ~~ x2
-   x3 ~  x1 + x2
-   x4 ~  x1 + x3
+   TheX3 ~  x1 + x2
+   TheX4 ~  x1 + TheX3
   '
-fit_pa <- lavaan::sem(mod_pa, pa_example)
+fit_pa <- lavaan::sem(mod_pa, dat)
 # Use custom labels
 m <- matrix(c("x1",   NA,  NA,   NA,
-              NA, "x3",  NA, "x4",
+              NA, "TX3",  NA, "TX4",
               "x2",   NA,  NA,   NA), byrow = TRUE, 3, 4)
 p_pa <- semPaths(fit_pa, whatLabels = "est",
                  sizeMan = 10,
@@ -18,12 +22,12 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
                  DoNotPlot = TRUE)
 labs_pa <- p_pa$graphAttributes$Nodes$labels
 my_label_list <- list(list(node = "x1", to = "predictor"),
-                      list(node = "x4", to = expression(gamma)))
+                      list(node = "TX4", to = expression(gamma)))
 p_pa2 <- change_node_label(p_pa, my_label_list)
 labs_pa2 <- p_pa2$graphAttributes$Nodes$labels
 # Run it one more time
 p_pa3 <- change_node_label(p_pa2, list(list(node = "predictor", to = "x1"),
-                                       list(node = "x3", to = "mediator")))
+                                       list(node = "TX3", to = "mediator")))
 labs_pa3 <- p_pa3$graphAttributes$Nodes$labels
 
 test_that("changed node labels are named list", {
@@ -43,14 +47,14 @@ test_that("changing node labels only affects node attributes", {
 
 test_that("node labels are changed successfully", {
   expect_identical(labs_pa2["x1"], list(x1 = "predictor"))
-  expect_identical(labs_pa2[["x4"]], quote(gamma))
-  expect_identical(labs_pa3["x3"], list(x3 = "mediator"))
+  expect_identical(labs_pa2[["TheX4"]], quote(gamma))
+  expect_identical(labs_pa3["TheX3"], list(TheX3 = "mediator"))
   expect_identical(sum(labs_pa == labs_pa2), 2L)
 })
 
 test_that("node label can be changed back", {
   expect_identical(labs_pa3["x1"], list(x1 = "x1"))
-  expect_identical(labs_pa2[["x4"]], quote(gamma))
+  expect_identical(labs_pa2[["TheX4"]], quote(gamma))
   expect_identical(sum(labs_pa == labs_pa2), 2L)
 })
 
@@ -98,11 +102,11 @@ test_that(
 test_that(
   "Curve and edge label position can be changed after changing labels", {
     my_curve_list <- list(list(from = "x1", to = "x2", new_curve = -1),
-                          list(from = "x1", to = "x4", new_curve =  1))
+                          list(from = "x1", to = "TheX4", new_curve =  1))
     p_pa_curve <- set_curve(p_pa, curve_list = my_curve_list)
     p_pa2_curve <- set_curve(p_pa2, curve_list = my_curve_list)
-    my_position_list <- list(list(from = "x2", to = "x3", new_position =  .25),
-                             list(from = "x1", to = "x4", new_position =  .75))
+    my_position_list <- list(list(from = "x2", to = "TheX3", new_position =  .25),
+                             list(from = "x1", to = "TheX4", new_position =  .75))
     p_pa_pos <- set_edge_label_position(p_pa, my_position_list)
     p_pa3_pos <- set_edge_label_position(p_pa3, my_position_list)
     aeq1a <- p_pa2$graphAttributes$Edges
@@ -132,8 +136,8 @@ test_that(
 test_that(
   "Error arrows rotation work after changing labels", {
     my_rotate_resid_list <- list(
-      list(node = "x3", rotate = 45),
-      list(node = "x4", rotate = -45),
+      list(node = "TheX3", rotate = 45),
+      list(node = "TheX4", rotate = -45),
       list(node = "x2", rotate = -90)
     )
     p_pa_rotate <- rotate_resid(p_pa, rotate_resid_list = my_rotate_resid_list)
@@ -310,11 +314,11 @@ test_that(
 # Use a named list instead of a list of named list
 
 p_pa2b <- change_node_label(p_pa, list(x1 = "predictor",
-                                       x4 = expression(gamma)))
+                                       TX4 = expression(gamma)))
 labs_pa2b <- p_pa2b$graphAttributes$Nodes$labels
 # Run it one more time
 p_pa3b <- change_node_label(p_pa2b, list(predictor = "x1",
-                                        x3 = "mediator"))
+                                        TX3 = "mediator"))
 labs_pa3b <- p_pa3b$graphAttributes$Nodes$labels
 
 test_that(

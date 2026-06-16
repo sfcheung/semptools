@@ -118,6 +118,10 @@ set_node_attribute <- function(semPaths_plot,
       }
 
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
+    Nodes_labels <- semPaths_plot$graphAttributes$Nodes$labels
+    if (is.null(names(Nodes_labels))) {
+      names(Nodes_labels) <- Nodes_names
+    }
 
     # Convert a named vector to a named list
     if (!is.list(values)) {
@@ -137,7 +141,8 @@ set_node_attribute <- function(semPaths_plot,
     if (!is.null(names(Nodes_names))) {
       Nodes_names <- names(Nodes_names)
     }
-    if (!all(Nodes_in %in% Nodes_names)) {
+
+    if (!all(Nodes_in %in% union(Nodes_names, Nodes_labels))) {
         stop("One or more nodes not in semPaths_plot.")
       }
     Nodes_id <- seq_len(length(Nodes_names))
@@ -153,6 +158,13 @@ set_node_attribute <- function(semPaths_plot,
     if (isTRUE(length(attr_old) == 1)) {
         attr_old <- rep(attr_old, p)
       }
+
+    # Convert labels to names
+    for (i in seq_along(Nodes_in)) {
+      if (Nodes_in[i] %in% Nodes_labels) {
+        Nodes_in[i] <- names(Nodes_labels)[which(Nodes_labels == Nodes_in[i])]
+      }
+    }
 
     attr_new <- attr_old
     attr_new[Nodes_id[Nodes_in]] <- sapply(values,
