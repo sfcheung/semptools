@@ -92,7 +92,7 @@ move_node <- function(
       Nodes_names <- names(Nodes_names2)
     }
 
-    if (!all(Nodes_in %in% union(Nodes_names, Nodes_names2, Nodes_labels))) {
+    if (!all(Nodes_in %in% unique(c(Nodes_names, Nodes_names2, Nodes_labels)))) {
         stop("One or more nodes not in semPaths_plot.")
       }
     Nodes_id <- seq_len(length(Nodes_names))
