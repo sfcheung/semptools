@@ -27,7 +27,7 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 # plot(p_pa)
 
 my_move_by <- list(TheX3 = c(0, -.5),
-                   TheX4 = c(-.25, .5))
+                   TX4 = c(-.25, .5))
 
 p1 <- move_node(p_pa,
                 my_move_by)

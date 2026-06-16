@@ -82,17 +82,32 @@ move_node <- function(
       }
 
     # Check nodes
+    # move_by can only be a named list
     Nodes_in <- names(move_by)
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
-    if (!is.null(names(Nodes_names))) {
-      Nodes_names <- names(Nodes_names)
+    Nodes_labels <- semPaths_plot$graphAttributes$Nodes$labels
+
+    Nodes_names2 <- Nodes_names
+    if (!is.null(names(Nodes_names2))) {
+      Nodes_names <- names(Nodes_names2)
     }
-    if (!all(Nodes_in %in% Nodes_names)) {
+
+    if (!all(Nodes_in %in% union(Nodes_names, Nodes_labels))) {
         stop("One or more nodes not in semPaths_plot.")
       }
     Nodes_id <- seq_len(length(Nodes_names))
-    names(Nodes_id) <- Nodes_names
+    names(Nodes_id) <- Nodes_names2
 
+    # Convert labels to names2
+    for (i in seq_along(Nodes_in)) {
+      tmp <- match(Nodes_in[i], Nodes_names)
+      if (!is.na(tmp)) {
+        Nodes_in[i] <- Nodes_names2[tmp]
+      }
+    }
+    names(move_by) <- Nodes_in
+
+    # The names are Node$names
     layout_org <- qgraph_to_layoutxy(semPaths_plot)
 
     layout_new <- layout_org
