@@ -1,6 +1,6 @@
 test_that("move_node", {
 
-# move_node works only on original names
+# move_node works with both names and abbreviated names
 
 library(lavaan)
 library(semPlot)
