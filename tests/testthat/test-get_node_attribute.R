@@ -1,5 +1,3 @@
-skip("WIP")
-
 test_that("Test get_node_attribute", {
 
 dat <- pa_example
@@ -28,6 +26,17 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 # plot(p_pa)
 
 p_pa$graphAttributes$Node$names
+
+out <- get_node_attribute(
+        p_pa,
+        attribute_name = "names"
+      )
+chk <- p_pa$graphAttributes$Node$names
+expect_equal(
+  out,
+  chk,
+  check.attributes = TRUE
+)
 
 out <- get_node_attribute(
         p_pa,

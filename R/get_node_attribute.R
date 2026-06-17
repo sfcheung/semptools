@@ -20,7 +20,9 @@
 #' @inheritParams set_node_attribute
 #'
 #' @param nodes A character vector of
-#' the names of nodes.
+#' the names of nodes. If `NULL`, then
+#' the values of all nodes will be
+#' retrieved.
 #'
 #' @param attribute_name The name of
 #' the attribute from which the values
@@ -42,8 +44,15 @@
 #'             nCharNodes = 0, nCharEdges = 0,
 #'             layout = m)
 #'
-#' get_node_attribute(p_pa, "color")
-#' get_node_attribute(p_pa, "label.cex")
+#' get_node_attribute(
+#'    p_pa,
+#'    nodes = c("x1", "x3"),
+#'    attribute_name = "color"
+#' )
+#' get_node_attribute(
+#'    p_pa,
+#'    attribute_name = "label.cex"
+#' )
 #'
 #' @export
 
@@ -54,9 +63,6 @@ get_node_attribute <- function(
   check_nodes = TRUE
 ) {
 
-  if (is.null(nodes)) {
-    stop("nodes not specified.")
-  }
   if (is.null(attribute_name)) {
     stop("attribute_name not specified.")
   }
@@ -65,6 +71,10 @@ get_node_attribute <- function(
   }
 
   Nodes_names <- node_names_list(semPaths_plot)
+
+  if (is.null(nodes)) {
+    nodes <- unname(Nodes_names$names_original)
+  }
 
   Nodes_in <- nodes
   Nodes_in_id <- match_nodes(
