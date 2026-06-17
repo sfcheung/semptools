@@ -1,8 +1,6 @@
 library(lavaan)
 library(semPlot)
 
-# set_curve works with both names and abbreviated names, but cannot mix them
-
 dat <- pa_example
 colnames(dat) <- gsub("x3", "TheX3", colnames(dat))
 colnames(dat) <- gsub("x4", "TheX4", colnames(dat))
@@ -28,7 +26,7 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 subset(parameterEstimates(fit_pa), op == "~~")
 
 p2 <- set_curve(p_pa, c("x2~~x1" = -2,
-                        "TX3~~ TX4" = 2))
+                        "TX3~~ TheX4" = 2))
 # plot(p2)
 
 p1 <- set_curve(p_pa, c("x1 ~~x2" = 2,

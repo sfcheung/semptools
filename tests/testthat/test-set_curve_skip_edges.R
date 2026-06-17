@@ -1,9 +1,6 @@
 library(lavaan)
 library(semPlot)
 
-# set_curve works with both names and abbreviated names, but cannot mix them.
-# set_edge_attribute works with both names and abbreviated names, but cannot mix them.
-
 test_that("set_curve: skip edges", {
 
 dat <- pa_example

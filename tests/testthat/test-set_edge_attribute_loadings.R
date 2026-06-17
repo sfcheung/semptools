@@ -1,10 +1,6 @@
 library(lavaan)
 library(semPlot)
 
-# set_edge_color works with both names and abbreviated names, but cannot mix them.
-# set_edge_attribute works with both names and abbreviated names, but cannot mix them.
-# set_edge_label_position works with both names and abbreviated names, but cannot mix them.
-
 # CFA
 
 mod <-
