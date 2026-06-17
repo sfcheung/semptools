@@ -2,6 +2,11 @@
 node_names_list <- function(
   object
 ) {
+
+  if (!inherits(object, "qgraph")) {
+    stop("The first argument value is not a qgraph object.")
+  }
+
   # Work on both lists and vectors
   node_names <- as.list(object$graphAttributes$Node$names)
   node_labels <- as.list(object$graphAttributes$Node$labels)

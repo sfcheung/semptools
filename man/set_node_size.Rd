@@ -7,13 +7,13 @@
 \alias{set_node_shape}
 \title{Set the Sizes of Selected Nodes}
 \usage{
-set_node_size(semPaths_plot, values = NULL)
+set_node_size(semPaths_plot, values = NULL, check_nodes = TRUE)
 
-set_node_width(semPaths_plot, values = NULL)
+set_node_width(semPaths_plot, values = NULL, check_nodes = TRUE)
 
-set_node_height(semPaths_plot, values = NULL)
+set_node_height(semPaths_plot, values = NULL, check_nodes = TRUE)
 
-set_node_shape(semPaths_plot, values = NULL)
+set_node_shape(semPaths_plot, values = NULL, check_nodes = TRUE)
 }
 \arguments{
 \item{semPaths_plot}{A
@@ -25,6 +25,10 @@ qgraph object modified by other
 \item{values}{A named vector or a
 list of named list. See the Details
 section on how to set this argument.}
+
+\item{check_nodes}{Logical. If \code{TRUE}
+and at least one node specified in
+\code{values} are not in \code{semPaths_plot}.}
 }
 \value{
 A \link[qgraph:qgraph]{qgraph::qgraph} based on
