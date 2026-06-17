@@ -65,12 +65,8 @@ rotate_resid <- function(
   if (is.null(rotate_resid_list)) {
     stop("rotate_resid_list not specified.")
   }
-  if (is.null(semPaths_plot)) {
+  if (missing(semPaths_plot)) {
     stop("semPaths_plot not specified.")
-  } else {
-    if (!inherits(semPaths_plot, "qgraph")) {
-      stop("semPaths_plot is not a qgraph object.")
-    }
   }
 
   # Fix the names

@@ -68,14 +68,10 @@ move_node <- function(
               check_nodes = TRUE) {
 
     if (is.null(move_by)) {
-        stop("values not specified.")
+        stop("move_by not specified.")
       }
     if (missing(semPaths_plot)) {
         stop("semPaths_plot not specified.")
-      } else {
-        if (!inherits(semPaths_plot, "qgraph")) {
-            stop("semPaths_plot is not a qgraph object.")
-          }
       }
 
     Nodes_names <- node_names_list(semPaths_plot)
