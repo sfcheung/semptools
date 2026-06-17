@@ -4,7 +4,7 @@
 \alias{move_node}
 \title{Move Nodes in a Plot}
 \usage{
-move_node(semPaths_plot, move_by = NULL)
+move_node(semPaths_plot, move_by = NULL, check_nodes = TRUE)
 }
 \arguments{
 \item{semPaths_plot}{A
@@ -32,6 +32,10 @@ The value is interpreted based on
 the unit of the plot, usually from
 -1 to 1 for \code{x} and \code{y}, with 0 being
 the center of the plot.}
+
+\item{check_nodes}{Logical. If \code{TRUE}
+and at least one node specified in
+\code{values} are not in \code{semPaths_plot}.}
 }
 \value{
 A \link[qgraph:qgraph]{qgraph::qgraph} based on
