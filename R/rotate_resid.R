@@ -89,7 +89,8 @@ rotate_resid <- function(
   out <- set_node_attribute(
             semPaths_plot,
             rotate_resid_list_fixed,
-            attribute_name = "loopRotation"
+            attribute_name = "loopRotation",
+            check_nodes = check_nodes
           )
   out
 
