@@ -66,6 +66,8 @@
 #' qgraph object modified by other
 #' [semptools] functions.
 #'
+#' @inheritParams set_node_attribute
+#'
 #' @param values A named vector or a
 #' list of named list. See the Details
 #' section on how to set this argument.
@@ -94,7 +96,8 @@
 #' @export
 set_node_size <- function(
   semPaths_plot,
-  values = NULL
+  values = NULL,
+  check_nodes = TRUE
 ) {
 
   if (is.null(values)) {
@@ -102,10 +105,6 @@ set_node_size <- function(
   }
   if (missing(semPaths_plot)) {
     stop("semPaths_plot not specified.")
-  } else {
-    if (!inherits(semPaths_plot, "qgraph")) {
-        stop("semPaths_plot is not a qgraph object.")
-      }
   }
 
   # Fix the names
@@ -113,15 +112,18 @@ set_node_size <- function(
                         values,
                         original_name = "values"
                       )
+
   out <- set_node_attribute(
             semPaths_plot,
             values_fixed,
-            attribute_name = "width"
+            attribute_name = "width",
+            check_nodes = check_nodes
           )
   out <- set_node_attribute(
             out,
             values_fixed,
-            attribute_name = "height"
+            attribute_name = "height",
+            check_nodes = check_nodes
           )
   out
 
@@ -131,7 +133,8 @@ set_node_size <- function(
 #' @export
 set_node_width <- function(
   semPaths_plot,
-  values = NULL
+  values = NULL,
+  check_nodes = TRUE
 ) {
 
   if (is.null(values)) {
@@ -139,10 +142,6 @@ set_node_width <- function(
   }
   if (missing(semPaths_plot)) {
     stop("semPaths_plot not specified.")
-  } else {
-    if (!inherits(semPaths_plot, "qgraph")) {
-        stop("semPaths_plot is not a qgraph object.")
-      }
   }
 
   # Fix the names
@@ -153,7 +152,8 @@ set_node_width <- function(
   out <- set_node_attribute(
             semPaths_plot,
             values_fixed,
-            attribute_name = "width"
+            attribute_name = "width",
+            check_nodes = check_nodes
           )
   out
 
@@ -163,7 +163,8 @@ set_node_width <- function(
 #' @export
 set_node_height <- function(
   semPaths_plot,
-  values = NULL
+  values = NULL,
+  check_nodes = TRUE
 ) {
 
   if (is.null(values)) {
@@ -171,10 +172,6 @@ set_node_height <- function(
   }
   if (missing(semPaths_plot)) {
     stop("semPaths_plot not specified.")
-  } else {
-    if (!inherits(semPaths_plot, "qgraph")) {
-        stop("semPaths_plot is not a qgraph object.")
-      }
   }
 
   # Fix the names
@@ -185,7 +182,8 @@ set_node_height <- function(
   out <- set_node_attribute(
             semPaths_plot,
             values_fixed,
-            attribute_name = "height"
+            attribute_name = "height",
+            check_nodes = check_nodes
           )
   out
 
@@ -195,7 +193,8 @@ set_node_height <- function(
 #' @export
 set_node_shape <- function(
   semPaths_plot,
-  values = NULL
+  values = NULL,
+  check_nodes = TRUE
 ) {
 
   if (is.null(values)) {
@@ -203,10 +202,6 @@ set_node_shape <- function(
   }
   if (missing(semPaths_plot)) {
     stop("semPaths_plot not specified.")
-  } else {
-    if (!inherits(semPaths_plot, "qgraph")) {
-        stop("semPaths_plot is not a qgraph object.")
-      }
   }
 
   # Fix the names
@@ -217,7 +212,8 @@ set_node_shape <- function(
   out <- set_node_attribute(
             semPaths_plot,
             values_fixed,
-            attribute_name = "shape"
+            attribute_name = "shape",
+            check_nodes = check_nodes
           )
   out
 
