@@ -1,4 +1,4 @@
-# semptools 0.3.3.11
+# semptools 0.3.3.12
 
 ## Improvement
 
@@ -66,6 +66,9 @@
 - Updated node functions to use
   `set_node_attribute()` as applicable.
   (0.3.3.11)
+
+- Added `get_node_attribute()`.
+  (0.3.3.12)
 
 ## Miscellaneous
 
