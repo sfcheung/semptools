@@ -1,4 +1,4 @@
-# semptools 0.3.3.10
+# semptools 0.3.3.11
 
 ## Improvement
 
@@ -63,6 +63,10 @@
   if necessary).
   (0.3.3.10)
 
+- Updated node functions to use
+  `set_node_attribute()` as applicable.
+  (0.3.3.11)
+
 ## Miscellaneous
 
 - Updated to `roxygen2` 8.0.0.
@@ -72,6 +76,7 @@
   `set_edge_label_position()`,
   to use `set_edge_attribute()` internally.
   (0.3.3.2)
+
 
 # semptools 0.3.3
 

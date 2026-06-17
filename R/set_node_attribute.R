@@ -155,9 +155,6 @@ set_node_attribute <- function(
     values <- values[!is.na(Nodes_in_id)]
   }
 
-  Nodes_id <- seq_along(Nodes_names)
-  names(Nodes_id) <- Nodes_names
-
   p <- n_nodes(semPaths_plot)
   attr_old <- semPaths_plot$graphAttributes$Nodes[[attribute_name]]
   if (is.null(attr_old)) {
