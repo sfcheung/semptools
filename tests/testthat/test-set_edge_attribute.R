@@ -1,8 +1,6 @@
 library(lavaan)
 library(semPlot)
 
-# set_edge_attribute works with both names and abbreviated names, but cannot mix them.
-
 dat <- pa_example
 colnames(dat) <- gsub("x3", "TheX3", colnames(dat))
 colnames(dat) <- gsub("x4", "TheX4", colnames(dat))
@@ -30,7 +28,7 @@ p2 <- set_edge_attribute(p_pa, c("x2~~x1" = "blue",
                                  "TX3~~ TX4" = rgb(0, 1, 0)),
                          attribute_name = "color")
 p2b <- set_edge_attribute(p_pa, c("x2~~x1" = "blue",
-                                 "TheX3~~ TheX4" = rgb(0, 1, 0)),
+                                 "TheX3~~ TX4" = rgb(0, 1, 0)),
                          attribute_name = "color")
 
 expect_equal(
