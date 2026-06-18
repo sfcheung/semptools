@@ -1,4 +1,4 @@
-# semptools 0.3.3.12
+# semptools 0.3.3.13
 
 ## Improvement
 
@@ -69,6 +69,9 @@
 
 - Added `get_node_attribute()`.
   (0.3.3.12)
+
+- Added `get_edge_attribute()`.
+  (0.3.3.13)
 
 ## Miscellaneous
 
