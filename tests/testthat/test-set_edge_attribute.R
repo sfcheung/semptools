@@ -1,6 +1,8 @@
 library(lavaan)
 library(semPlot)
 
+test_that("get_edge_attribute", {
+
 dat <- pa_example
 colnames(dat) <- gsub("x3", "TheX3", colnames(dat))
 colnames(dat) <- gsub("x4", "TheX4", colnames(dat))
@@ -24,105 +26,69 @@ p_pa <- semPaths(fit_pa, whatLabels = "est",
 
 subset(parameterEstimates(fit_pa), op == "~~")
 
-p2 <- set_edge_attribute(p_pa, c("x2~~x1" = "blue",
-                                 "TX3~~ TX4" = rgb(0, 1, 0)),
-                         attribute_name = "color")
-p2b <- set_edge_attribute(p_pa, c("x2~~x1" = "blue",
-                                 "TheX3~~ TX4" = rgb(0, 1, 0)),
+p2 <- set_edge_attribute(p_pa, c("TX3 ~~ x1" = "blue",
+                                 "TX3~~ TX4" = "red"),
                          attribute_name = "color")
 
-expect_equal(
-  p2$graphAttributes$Edges$color,
-  p2b$graphAttributes$Edges$color
+out <- get_edge_attribute(
+  p2,
+  edges = c("TX3 ~~ TheX4", "TX3 ~ x1", "No1 ~~ No2"),
+  attribute_name = "color"
 )
 
-# plot(p2b)
+expect_equal(
+  unname(out),
+  c("red", "blue", NA)
+)
 
-p1 <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
-                                 "TX4~~ TX3" = "black",
-                                 "TX3 ~ x1" = "white",
-                                 "TheX4 ~ x1" = "darkgreen",
-                                 "TX4 ~ x2" = "yellow"),
-                         attribute_name = "color")
+# Wrong direction
+out <- get_edge_attribute(
+  p2,
+  edges = c("TX3 ~~ TheX4", "x1 ~ TX3", "No1 ~~ No2"),
+  attribute_name = "color"
+)
 
-# plot(p1)
+expect_equal(
+  unname(out),
+  c("red", NA, NA)
+)
 
-# An edge not in the model will be skipped
+# Don't check direction
+out <- get_edge_attribute(
+  p2,
+  edges = c("TX3 ~~ TheX4", "x1 ~ TX3", "No1 ~~ No2"),
+  attribute_name = "color",
+  check_direction = FALSE
+)
 
-p2b <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
-                                 "TX4~~ TX3" = "black",
-                                 "TX3 ~ x1" = "white",
-                                 "x1 ~ TheX4" = "blue",
-                                 "TX4 ~ x2" = "yellow"),
-                         attribute_name = "color")
-# plot(p2b)
+expect_equal(
+  unname(out),
+  c("red", "blue", NA)
+)
 
-p2c <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
-                                 "TX4~~ TX3" = "black",
-                                 "TX3 ~ x1" = "white",
-                                 "x1 ~~ TheX4" = "blue",
-                                 "TheX4 ~ x2" = "yellow"),
-                         attribute_name = "color")
-# plot(p2c)
+p2 <- set_edge_attribute(p_pa, c("TX3 ~~ x1" = 2,
+                                 "TX3~~ TX4" = 3),
+                         attribute_name = "width")
 
-# Direction ignored
-p2d <- set_edge_attribute(p_pa, c("x1 ~~x2" = "red",
-                                 "TX4~~ TX3" = "black",
-                                 "TheX3 ~~ x1" = "white",
-                                 "TX4 ~~ x1" = "darkgreen",
-                                 "TheX4 ~~ x2" = "yellow"),
-                         attribute_name = "color",
-                         check_direction = FALSE)
-# plot(p2d)
+out <- get_edge_attribute(
+  p2,
+  edges = c("TX3 ~~ TheX4", "TX3 ~ x1", "No1 ~~ No2"),
+  attribute_name = "width"
+)
 
-test_that("set_edge_attribute: color", {
-    expect_equal(p2$graphAttributes$Edges$color,
-                 c("blue", "#808080FF", "#808080FF", "#808080FF", "#808080FF",
-                   "#808080FF", "#808080FF", "#808080FF", "#808080FF", "#00FF00",
-                   "blue", "#00FF00"))
-    expect_equal(p1$graphAttributes$Edges$color,
-                 c("red", "white", "#808080FF", "darkgreen", "yellow", "#808080FF",
-                   "#808080FF", "#808080FF", "#808080FF", "black", "red", "black"))
-    expect_equal(p2b$graphAttributes$Edges$color,
-                 c("red", "white", "#808080FF", "#808080FF", "yellow", "#808080FF",
-                   "#808080FF", "#808080FF", "#808080FF", "black", "red", "black"))
-    expect_equal(p2c$graphAttributes$Edges$color,
-                 c("red", "white", "#808080FF", "#808080FF", "yellow", "#808080FF",
-                   "#808080FF", "#808080FF", "#808080FF", "black", "red", "black"))
-    expect_equal(p2d$graphAttributes$Edges$color,
-                 p1$graphAttributes$Edges$color)
-  })
+expect_equal(
+  unname(out),
+  c(3, 2, NA)
+)
 
-p3 <- set_edge_attribute(p_pa, c("x1 ~~x2" = -3,
-                                 "TX3 ~ x1" = 4),
-                         attribute_name = "curve")
+out <- get_edge_attribute(
+  p2,
+  attribute_name = "lty"
+)
 
-# plot(p3)
+expect_true(
+  all(out == 1)
+)
 
-test_that("set_edge_attribute: curve", {
-    expect_equal(p3$graphAttributes$Edges$curve,
-                 c(-3, 4, 0, 0, 0, 0, 0, 0, 0, 0, -3, 0))
-  })
-
-p4 <- set_edge_attribute(p_pa, c("x1 ~~x2" = 2,
-                                 "TX3 ~ x1" = 5),
-                         attribute_name = "label.cex")
-
-# plot(p4)
-
-test_that("set_edge_attribute: label.cex", {
-    expect_equal(p4$graphAttributes$Edges$label.cex,
-                 c(2, 5, 1.15, 1.15, 1.15, 1.15, 1.15, 1.15, 1.15, 1.15, 2, 1.15))
-})
-
-# Sell all edges
-
-p5 <- set_edge_attribute(p_pa,
-                         5,
-                         attribute_name = "label.cex")
-
-test_that("set_edge_attribute: label.cex", {
-    expect_equal(p5$graphAttributes$Edges$label.cex,
-                 rep(5, 12))
 })
 
