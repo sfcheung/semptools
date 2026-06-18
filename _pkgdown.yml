@@ -80,6 +80,7 @@ reference:
   - change_node_label
   - keep_drop_nodes
   - set_edge_attribute
+  - get_edge_attribute
   - set_node_attribute
   - get_node_attribute
 - title: Layouts
