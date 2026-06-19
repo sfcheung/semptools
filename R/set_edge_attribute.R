@@ -156,6 +156,14 @@ set_edge_attribute <- function(semPaths_plot,
 
       my_call <- match.call()
       my_args <- as.list(my_call)[-1]
+      my_args$semPaths_plot <- NULL
+      for (i in seq_along(my_args)) {
+        my_args[[i]] <- eval(
+                          my_args[[i]],
+                          envir = parent.frame(),
+                          enclos = parent.frame()
+                        )
+      }
       out <- lapply(
         semPaths_plot,
         function(x) {
