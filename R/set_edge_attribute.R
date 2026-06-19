@@ -144,10 +144,35 @@ set_edge_attribute <- function(semPaths_plot,
     if (missing(semPaths_plot)) {
         stop("semPaths_plot not specified.")
       } else {
-        if (!inherits(semPaths_plot, "qgraph")) {
-            stop("semPaths_plot is not a qgraph object.")
-          }
+        plot_type <- qgraph_type(semPaths_plot)
+        if (is.na(plot_type)) {
+          stop("semPaths is neither a qgraph or a list of qgraphs.")
+        }
       }
+
+    if (plot_type == "qgraph_list") {
+
+      # ==== For a list of qgraphs =====
+
+      my_call <- match.call()
+      my_args <- as.list(my_call)[-1]
+      out <- lapply(
+        semPaths_plot,
+        function(x) {
+          args <- my_args
+          args$semPaths_plot <- x
+          do.call(
+            set_edge_attribute,
+            args
+          )
+        }
+      )
+
+    }
+
+    if (plot_type == "qgraph") {
+
+    # ==== For one qgraph =====
 
     # Convert a named vector to a named list
     set_all_edges <- FALSE
@@ -273,7 +298,20 @@ set_edge_attribute <- function(semPaths_plot,
 
 
     semPaths_plot$graphAttributes$Edges[[attribute_name]] <- attr_new
-    semPaths_plot
+
+    return(semPaths_plot)
+
+    }
+
+    # ==== Return a list of qgraphs ====
+
+    out <- copy_class_and_attributes(
+      out,
+      semPaths_plot
+    )
+
+    return(out)
+
   }
 
 #' @title The number of edges
@@ -310,3 +348,47 @@ to_new_value <- function(object,
       }
     return(object)
   }
+
+#' @noRd
+qgraph_type <- function(
+  semPaths_plot
+) {
+  if (inherits(semPaths_plot, "qgraph")) {
+    return("qgraph")
+  } else {
+    if (inherits(semPaths_plot, "list")) {
+      tmp <- sapply(
+        semPaths_plot,
+        inherits,
+        what = "qgraph"
+      )
+      if (all(tmp)) {
+        return("qgraph_list")
+      }
+    } else {
+      return(NA)
+    }
+  }
+}
+
+#' @noRd
+copy_class_and_attributes <- function(
+  new_object,
+  old_object,
+  attr_to_exclude = NULL
+) {
+
+  attr_to_copy <- setdiff(
+    names(attributes(old_object)),
+    NULL
+  )
+
+  for (x in attr_to_copy) {
+    attr(new_object, x) <-
+      attr(old_object, x)
+  }
+
+  class(new_object) <- class(old_object)
+
+  new_object
+}
