@@ -141,7 +141,8 @@ test_that("set_node_attribute: size", {
 
 p_pa7a <- set_node_size(
   p_pa,
-  c(TheX4 = 5, TX3 = 20)
+  c(TheX4 = 5, TX3 = 20),
+  how = "value"
 )
 # plot(p_pa7a)
 expect_identical(p_pa7a$graphAttributes$Nodes$height,
@@ -151,7 +152,8 @@ expect_identical(p_pa7a$graphAttributes$Nodes$width,
 
 p_pa7b <- set_node_width(
   p_pa,
-  c(TheX3 = 20, x1 = 5)
+  c(TheX3 = 20, x1 = 5),
+  how = "value"
 )
 # plot(p_pa7p)
 expect_identical(p_pa7b$graphAttributes$Nodes$height,
@@ -161,7 +163,8 @@ expect_identical(p_pa7b$graphAttributes$Nodes$width,
 
 p_pa7c <- set_node_height(
   p_pa,
-  c(TheX3 = 20, x1 = 5)
+  c(TheX3 = 20, x1 = 5),
+  how = "value"
 )
 # plot(p_pa7c)
 expect_identical(p_pa7c$graphAttributes$Nodes$height,
@@ -176,5 +179,48 @@ p_pa7d <- set_node_shape(
 # plot(p_pa7d)
 expect_identical(p_pa7d$graphAttributes$Nodes$shape,
                 c("ellipse", "square", "diamond", "square"))
+
+p_pa7a <- set_node_size(
+  p_pa,
+  c(TheX4 = 5, TX3 = 20)
+)
+# plot(p_pa7a)
+expect_identical(p_pa7a$graphAttributes$Nodes$height,
+                 p_pa$graphAttributes$Nodes$height * c(20, 5, 1, 1))
+expect_identical(p_pa7a$graphAttributes$Nodes$width,
+                 p_pa$graphAttributes$Nodes$width * c(20, 5, 1, 1))
+
+p_pa7b <- set_node_width(
+  p_pa,
+  c(TheX3 = 20, x1 = 5),
+  how = "ratio"
+)
+# plot(p_pa7p)
+expect_identical(p_pa7b$graphAttributes$Nodes$height,
+                c(10, 10, 10, 10))
+expect_identical(p_pa7b$graphAttributes$Nodes$width,
+                 p_pa$graphAttributes$Nodes$width * c(20, 1, 5, 1))
+
+p_pa7c <- set_node_height(
+  p_pa,
+  c(TheX3 = 20, x1 = 5),
+  how = "ratio"
+)
+# plot(p_pa7c)
+expect_identical(p_pa7c$graphAttributes$Nodes$height,
+                 p_pa$graphAttributes$Nodes$height * c(20, 1, 5, 1))
+expect_identical(p_pa7c$graphAttributes$Nodes$width,
+                c(10, 10, 10, 10))
+
+p_pa7d <- set_node_height(
+  p_pa,
+  2,
+  how = "ratio"
+)
+expect_identical(p_pa7d$graphAttributes$Nodes$height,
+                 p_pa$graphAttributes$Nodes$height * 2)
+expect_identical(p_pa7d$graphAttributes$Nodes$height,
+                 p_pa$graphAttributes$Nodes$height * 2)
+
 
 })
