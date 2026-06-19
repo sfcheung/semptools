@@ -60,6 +60,9 @@ navbar:
       - text: Observed exogenous variables
         href: articles/sem_with_observed.html
 
+redirects:
+  - ["reference/set_edge_label_position.html", "reference/set_edge_common_attributes.html"]
+
 reference:
 - title: Main Functions
   desc:  >
