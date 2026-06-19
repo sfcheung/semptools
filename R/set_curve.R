@@ -6,6 +6,14 @@
 #' [semPlot::semPaths] and change the curve attributes of selected
 #' edges.
 #'
+#' If `how` is set to `"ratio"`, then the
+#' new curve value is equal to the
+#' old curve value multiplied by the
+#' supplied value. This mode lets users
+#' increase or decrease the curvature
+#' of a curve without knowing the original
+#' value.
+#'
 #'@return A [qgraph::qgraph] based on the original one, with curve
 #' attributes for selected edges changed.
 #'
@@ -60,6 +68,7 @@
 set_curve <- function(
   semPaths_plot,
   curve_list = NULL,
+  how = c("value", "ratio"),
   check_direction = TRUE
 ) {
   # An option to use 0.3.3 version, just in case
@@ -70,6 +79,9 @@ set_curve <- function(
       curve_list = curve_list
     ))
   }
+
+  how <- match.arg(how)
+
   # This version use set_edge_attribute()
 
   if (is.null(curve_list)) {
@@ -87,6 +99,7 @@ set_curve <- function(
   out <- set_edge_attribute(semPaths_plot = semPaths_plot,
                             values = curve_list_fixed,
                             attribute_name = "curve",
+                            how = how,
                             check_direction = check_direction)
 
   out
