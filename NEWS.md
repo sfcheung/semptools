@@ -1,4 +1,4 @@
-# semptools 0.3.3.14
+# semptools 0.3.3.15
 
 ## Improvement
 
@@ -97,6 +97,11 @@
 - Added `set_node_border_width()`,
   and `set_node_border_color()`.
   (0.3.3.14)
+
+- Added `set_graph_margins()`,
+  `node_labels_equal_scale()`,
+  and `set_node_labels_equal_scale()`.
+  (0.3.3.15)
 
 ## Miscellaneous
 
