@@ -51,7 +51,7 @@
 #' applied to all edges.
 #'
 #' @return A [qgraph::qgraph] based on
-#' the original one, with colors for
+#' the original one, with widths for
 #' selected edges changed.
 #'
 #'
