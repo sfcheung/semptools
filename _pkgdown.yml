@@ -72,6 +72,7 @@ reference:
   - mark_se
   - add_rsq
   - set_curve
+  - set_edge_line_type
   - set_edge_color
   - set_edge_label_attributes
   - set_node_color
