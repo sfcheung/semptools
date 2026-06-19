@@ -53,7 +53,7 @@ safe_edge_label_position(
 
 If `object` is a `lavaan`-class object, it returns a named numeric
 vector of edge positions to be used by
-[`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_position.md).
+[`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md).
 If `object` is a `qgraph` object and `update_plot` is `TRUE`, it returns
 a `qgraph` object with the adjusted edge label positions. Otherwise, it
 returns a named vector of the position to be adjusted, as for a
@@ -69,11 +69,11 @@ or the origin/destination of a path.
 This function is intended for having a "likely" readable graph with as
 little user-intervention as possible. If precise control of the edge
 label positions is desired, use
-[`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_position.md).
+[`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md).
 
 ## See also
 
-[`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_position.md)
+[`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md)
 on setting the positions of edge labels.
 
 ## Examples

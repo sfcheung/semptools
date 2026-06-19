@@ -391,7 +391,7 @@ Suppose we want to move the parameter estimates this way:
 - For the `x3 ~ x2` path, move the parameter estimates closer to `x2`.
 
 We can use
-[`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_position.md)
+[`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md)
 to post-process the
 [`semPlot::semPaths`](https://rdrr.io/pkg/semPlot/man/semPaths.html)
 output. The first argument, `semPaths_plot`, is the
@@ -424,7 +424,7 @@ plot(p_pa3)
 
 (Note: This function accept named vectors since version 0.2.8. Lists of
 named list are still supported but not suggested. Please see
-[`?set_edge_label_position`](https://sfcheung.github.io/semptools/reference/set_edge_label_position.md)
+[`?set_edge_label_position`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md)
 on how to use lists of named list.)
 
 ## Change one or more node labels: `change_node_label`

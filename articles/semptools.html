@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3.15</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
                         <h4 data-toc-skip class="author">Shu Fai Cheung
 &amp; Mark Hok Chio Lai</h4>
             
-            <h4 data-toc-skip class="date">2026-06-14</h4>
+            <h4 data-toc-skip class="date">2026-06-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sfcheung/semptools/blob/master/vignettes/semptools.Rmd" class="external-link"><code>vignettes/semptools.Rmd</code></a></small>
       <div class="d-none name"><code>semptools.Rmd</code></div>
@@ -392,7 +392,7 @@ closer to <code>x1</code>.</p></li>
 <li><p>For the <code>x3 ~ x2</code> path, move the parameter estimates
 closer to <code>x2</code>.</p></li>
 </ul>
-<p>We can use <code><a href="../reference/set_edge_label_position.html">set_edge_label_position()</a></code> to post-process the
+<p>We can use <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_position()</a></code> to post-process the
 <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths</a></code> output. The first argument,
 <code>semPaths_plot</code>, is the <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code>
 output. The second argument, <code>position_list</code>, is the list to
@@ -412,12 +412,12 @@ the element is <code>"y ~ x" = -3</code>. Note that whether
 <span><span class="va">my_position_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x3 ~ x1"</span> <span class="op">=</span> <span class="fl">.25</span>,</span>
 <span>                      <span class="st">"x3 ~ x2"</span> <span class="op">=</span> <span class="fl">.25</span>,</span>
 <span>                      <span class="st">"x4 ~ x1"</span> <span class="op">=</span> <span class="fl">.75</span><span class="op">)</span></span>
-<span><span class="va">p_pa3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_edge_label_position.html">set_edge_label_position</a></span><span class="op">(</span><span class="va">p_pa</span>, <span class="va">my_position_list</span><span class="op">)</span></span>
+<span><span class="va">p_pa3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_edge_label_attributes.html">set_edge_label_position</a></span><span class="op">(</span><span class="va">p_pa</span>, <span class="va">my_position_list</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p_pa3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="semptools_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 <p>(Note: This function accept named vectors since version 0.2.8. Lists
 of named list are still supported but not suggested. Please see
-<code><a href="../reference/set_edge_label_position.html">?set_edge_label_position</a></code> on how to use lists of named
+<code><a href="../reference/set_edge_label_attributes.html">?set_edge_label_position</a></code> on how to use lists of named
 list.)</p>
 </div>
 <div class="section level2">
@@ -534,7 +534,7 @@ closer to <code>x4</code>.</p></li>
 <span>                  <span class="fu"><a href="../reference/rotate_resid.html">rotate_resid</a></span><span class="op">(</span><span class="va">my_rotate_resid_list</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>                  <span class="fu"><a href="../reference/mark_sig.html">mark_sig</a></span><span class="op">(</span><span class="va">fit_pa</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>                  <span class="fu"><a href="../reference/mark_se.html">mark_se</a></span><span class="op">(</span><span class="va">fit_pa</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>                  <span class="fu"><a href="../reference/set_edge_label_position.html">set_edge_label_position</a></span><span class="op">(</span><span class="va">my_position_list</span><span class="op">)</span></span>
+<span>                  <span class="fu"><a href="../reference/set_edge_label_attributes.html">set_edge_label_position</a></span><span class="op">(</span><span class="va">my_position_list</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p_pa3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Loading required package: magrittr</span></span></code></pre>
 <p><img src="semptools_files/figure-html/unnamed-chunk-24-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>

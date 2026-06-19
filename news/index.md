@@ -1,6 +1,6 @@
 # Changelog
 
-## semptools 0.3.3.8
+## semptools 0.3.3.15
 
 ### Improvement
 
@@ -47,6 +47,66 @@
   [`set_node_width()`](https://sfcheung.github.io/semptools/reference/set_node_size.md).
   (0.3.3.8)
 
+- Removed `nChar = 0` in some tests to allow testing functions with
+  abbreviated names. Also revised some functions to make them work for
+  both the original names of nodes and their display names, which may be
+  abbreviated. (0.3.3.9)
+
+- Updated
+  [`set_node_attribute()`](https://sfcheung.github.io/semptools/reference/set_node_attribute.md)
+  to use new helpers, so that it is easier to work with original node
+  names, processed (e.g., abbreviated) node names, and labels (converted
+  to string, if necessary). (0.3.3.10)
+
+- Updated node functions to use
+  [`set_node_attribute()`](https://sfcheung.github.io/semptools/reference/set_node_attribute.md)
+  as applicable. (0.3.3.11)
+
+- Added
+  [`get_node_attribute()`](https://sfcheung.github.io/semptools/reference/get_node_attribute.md).
+  (0.3.3.12)
+
+- Added
+  [`get_edge_attribute()`](https://sfcheung.github.io/semptools/reference/get_edge_attribute.md).
+  (0.3.3.13)
+
+- Added
+  [`set_edge_label()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md)
+  and
+  [`set_edge_label_bg()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md).
+  (0.3.3.14)
+
+- Added
+  [`set_edge_line_type()`](https://sfcheung.github.io/semptools/reference/set_edge_line_type.md).
+  (0.3.3.14)
+
+- Added the `how` argument to
+  [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md),
+  [`set_node_attribute()`](https://sfcheung.github.io/semptools/reference/set_node_attribute.md),
+  and friends (if applicable). The default mode is `how = "ratio"` if
+  applicable. (0.3.3.14)
+
+- Added
+  [`set_edge_line_width()`](https://sfcheung.github.io/semptools/reference/set_edge_line_width.md).
+  (0.3.3.14)
+
+- Added
+  [`set_edge_label_size()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md).
+  (0.3.3.14)
+
+- Added
+  [`set_node_border_width()`](https://sfcheung.github.io/semptools/reference/set_node_border.md),
+  and
+  [`set_node_border_color()`](https://sfcheung.github.io/semptools/reference/set_node_border.md).
+  (0.3.3.14)
+
+- Added
+  [`set_graph_margins()`](https://sfcheung.github.io/semptools/reference/set_graph_attributes.md),
+  [`node_labels_equal_scale()`](https://sfcheung.github.io/semptools/reference/set_graph_attributes.md),
+  and
+  [`set_node_labels_equal_scale()`](https://sfcheung.github.io/semptools/reference/set_graph_attributes.md).
+  (0.3.3.15)
+
 ### Miscellaneous
 
 - Updated to `roxygen2` 8.0.0. (0.3.3.1)
@@ -54,7 +114,7 @@
 - Updated
   [`set_curve()`](https://sfcheung.github.io/semptools/reference/set_curve.md)
   and
-  [`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_position.md),
+  [`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md),
   to use
   [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md)
   internally. (0.3.3.2)
@@ -75,7 +135,7 @@ CRAN release: 2026-03-17
   latent variables (0.3.2.1)
 
 - Updated
-  [`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_position.md)
+  [`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md)
   to handle bidirectional edges specified in an order different from
   that in `lavaan`’s parameter table. (0.3.2.3)
 
@@ -214,7 +274,7 @@ CRAN release: 2024-10-21
   by setting the argument `std_type`. (0.2.11.3)
 
 - Functions that change the attributes of an edge, such as
-  [`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_position.md),
+  [`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md),
   should now supports factor loadings by using the `=~` operator when
   specifying the edge. Previously, we needed to specify a loading as if
   it were a regression path (e.g., `x1 ~ f1`). (0.2.11.5)

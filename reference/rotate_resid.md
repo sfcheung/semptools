@@ -5,7 +5,7 @@ Rotate the residuals of selected nodes.
 ## Usage
 
 ``` r
-rotate_resid(semPaths_plot, rotate_resid_list = NULL)
+rotate_resid(semPaths_plot, rotate_resid_list = NULL, check_nodes = TRUE)
 ```
 
 ## Arguments
@@ -33,6 +33,11 @@ rotate_resid(semPaths_plot, rotate_resid_list = NULL)
   will be placed at `rotate`, in degree. For example,
   `list(list(node = "x3", rotate = 45), list(node = "x4", rotate = -45))`
   is equivalent to `c(x3 = 45, x4 = -45)`.
+
+- check_nodes:
+
+  Logical. If `TRUE` and at least one node specified in `values` are not
+  in `semPaths_plot`.
 
 ## Value
 

@@ -9,7 +9,7 @@ of selected nodes."><meta property="og:image" content="https://sfcheung.github.i
 
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3.15</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,13 +57,28 @@ of selected nodes.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">set_node_size</span><span class="op">(</span><span class="va">semPaths_plot</span>, values <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">set_node_size</span><span class="op">(</span></span>
+<span>  <span class="va">semPaths_plot</span>,</span>
+<span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  how <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ratio"</span>, <span class="st">"value"</span><span class="op">)</span>,</span>
+<span>  check_nodes <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">set_node_width</span><span class="op">(</span><span class="va">semPaths_plot</span>, values <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">set_node_width</span><span class="op">(</span></span>
+<span>  <span class="va">semPaths_plot</span>,</span>
+<span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  how <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ratio"</span>, <span class="st">"value"</span><span class="op">)</span>,</span>
+<span>  check_nodes <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">set_node_height</span><span class="op">(</span><span class="va">semPaths_plot</span>, values <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">set_node_height</span><span class="op">(</span></span>
+<span>  <span class="va">semPaths_plot</span>,</span>
+<span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  how <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ratio"</span>, <span class="st">"value"</span><span class="op">)</span>,</span>
+<span>  check_nodes <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">set_node_shape</span><span class="op">(</span><span class="va">semPaths_plot</span>, values <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">set_node_shape</span><span class="op">(</span><span class="va">semPaths_plot</span>, values <span class="op">=</span> <span class="cn">NULL</span>, check_nodes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -82,6 +97,21 @@ qgraph object modified by other
 <dd><p>A named vector or a
 list of named list. See the Details
 section on how to set this argument.</p></dd>
+
+
+<dt id="arg-how">how<a class="anchor" aria-label="anchor" href="#arg-how"></a></dt>
+<dd><p>How the width will be changed.
+If <code>"ratio"</code>, then the new width is
+the original width
+multiplied by the supplied value.
+If <code>"value"</code>, then the new width is
+set to the supplied value.</p></dd>
+
+
+<dt id="arg-check-nodes">check_nodes<a class="anchor" aria-label="anchor" href="#arg-check-nodes"></a></dt>
+<dd><p>Logical. If <code>TRUE</code>
+and at least one node specified in
+<code>values</code> are not in <code>semPaths_plot</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -144,6 +174,27 @@ value of <code>width</code> is used to determine
 the size of the node.</p>
 </div>
 
+<div class="section">
+<h3 id="note-on-changing-a-value">Note on Changing a Value<a class="anchor" aria-label="anchor" href="#note-on-changing-a-value"></a></h3>
+
+
+<p>There are also two modes for changing
+an attribute. If <code>how = "ratio"</code>,
+then the new value, such as size,
+is equal to
+the original value multiplied
+by the supplied value. For example,
+if the supplied value is 2, and the
+original size is 5, the new
+size is 10.</p>
+<p>If <code>how = "value"</code>, then the new
+value is set to the user
+supplied value. For example, if the
+supplied value is 15, then the new
+value is 15, regardless of the
+original value.</p>
+</div>
+
     </div>
 
     <div class="section level2">
@@ -163,13 +214,23 @@ the size of the node.</p>
 <span class="r-in"><span>            layout <span class="op">=</span> <span class="va">m</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="set_node_size-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">p_pa2v</span> <span class="op">&lt;-</span> <span class="fu">set_node_size</span><span class="op">(</span><span class="va">p_pa</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">5</span>, x2 <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p_pa2v</span> <span class="op">&lt;-</span> <span class="fu">set_node_size</span><span class="op">(</span></span></span>
+<span class="r-in"><span> <span class="va">p_pa</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">5</span>, x2 <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> how <span class="op">=</span> <span class="st">"value"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p_pa2v</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="set_node_size-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">p_pa2v2</span> <span class="op">&lt;-</span> <span class="fu">set_node_size</span><span class="op">(</span></span></span>
+<span class="r-in"><span> <span class="va">p_pa</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fl">0.5</span>, x2 <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> how <span class="op">=</span> <span class="st">"ratio"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p_pa2v2</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="set_node_size-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p_pa2l</span> <span class="op">&lt;-</span> <span class="fu">set_node_shape</span><span class="op">(</span><span class="va">p_pa</span>, <span class="st">"circle"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">p_pa2l</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="set_node_size-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="set_node_size-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

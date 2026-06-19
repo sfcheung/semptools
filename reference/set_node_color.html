@@ -9,7 +9,7 @@ of selected nodes."><meta property="og:image" content="https://sfcheung.github.i
 
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3.15</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@ of selected nodes.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">set_node_color</span><span class="op">(</span><span class="va">semPaths_plot</span>, colors <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">set_node_color</span><span class="op">(</span><span class="va">semPaths_plot</span>, colors <span class="op">=</span> <span class="cn">NULL</span>, check_nodes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -76,6 +76,12 @@ qgraph object modified by other
 <dd><p>A named vector or a
 list of named list. See the Details
 section on how to set this argument.</p></dd>
+
+
+<dt id="arg-check-nodes">check_nodes<a class="anchor" aria-label="anchor" href="#arg-check-nodes"></a></dt>
+<dd><p>Logical. If <code>TRUE</code>
+and at least one node specified in
+<code>values</code> are not in <code>semPaths_plot</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

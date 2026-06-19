@@ -5,7 +5,7 @@ Set the colors of selected nodes.
 ## Usage
 
 ``` r
-set_node_color(semPaths_plot, colors = NULL)
+set_node_color(semPaths_plot, colors = NULL, check_nodes = TRUE)
 ```
 
 ## Arguments
@@ -23,6 +23,11 @@ set_node_color(semPaths_plot, colors = NULL)
 
   A named vector or a list of named list. See the Details section on how
   to set this argument.
+
+- check_nodes:
+
+  Logical. If `TRUE` and at least one node specified in `values` are not
+  in `semPaths_plot`.
 
 ## Value
 

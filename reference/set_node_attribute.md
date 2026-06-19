@@ -5,7 +5,13 @@ Set arbitrary attributes of selected nodes
 ## Usage
 
 ``` r
-set_node_attribute(semPaths_plot, values = NULL, attribute_name = NULL)
+set_node_attribute(
+  semPaths_plot,
+  values = NULL,
+  attribute_name = NULL,
+  how = c("value", "ratio"),
+  check_nodes = TRUE
+)
 ```
 
 ## Arguments
@@ -27,6 +33,17 @@ set_node_attribute(semPaths_plot, values = NULL, attribute_name = NULL)
 - attribute_name:
 
   The name of the attribute to be changed.
+
+- how:
+
+  How the width will be changed. If `"ratio"`, then the new width is the
+  original width multiplied by the supplied value. If `"value"`, then
+  the new width is set to the supplied value.
+
+- check_nodes:
+
+  Logical. If `TRUE` and at least one node specified in `values` are not
+  in `semPaths_plot`.
 
 ## Value
 

@@ -9,6 +9,7 @@ set_edge_attribute(
   semPaths_plot,
   values = NULL,
   attribute_name = NULL,
+  how = c("value", "ratio"),
   check_direction = TRUE
 )
 ```
@@ -32,6 +33,12 @@ set_edge_attribute(
 - attribute_name:
 
   The name of the attribute to be changed.
+
+- how:
+
+  How the width will be changed. If `"ratio"`, then the new width is the
+  original width multiplied by the supplied value. If `"value"`, then
+  the new width is set to the supplied value.
 
 - check_direction:
 

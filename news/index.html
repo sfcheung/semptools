@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3.15</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,9 +48,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.3.3.8" id="semptools-0338">semptools 0.3.3.8<a class="anchor" aria-label="anchor" href="#semptools-0338"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.3.3.15" id="semptools-03315">semptools 0.3.3.15<a class="anchor" aria-label="anchor" href="#semptools-03315"></a></h2>
 <div class="section level3">
-<h3 id="improvement-0-3-3-8">Improvement<a class="anchor" aria-label="anchor" href="#improvement-0-3-3-8"></a></h3>
+<h3 id="improvement-0-3-3-15">Improvement<a class="anchor" aria-label="anchor" href="#improvement-0-3-3-15"></a></h3>
 <ul><li><p>Updated <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> to skip edges not in a plot, without throwing an error. (0.3.3.2)</p></li>
 <li><p>Added the argument <code>check_direction</code> to <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> and related functions. If set to <code>FALSE</code>, then the direction of an edge will be ignored. That is, both <code>y ~ x</code> and <code>y ~~ x</code> will denote edges <code>y &lt;- x</code>, <code>y -&gt; x</code>, and <code>y &lt;-&gt; x</code>. (0.3.3.3)</p></li>
 <li><p>Updated <code><a href="../reference/add_rsq.html">add_rsq()</a></code>, <code><a href="../reference/mark_se.html">mark_se()</a></code>, <code><a href="../reference/mark_se.html">mark_ci()</a></code>, and <code><a href="../reference/mark_sig.html">mark_sig()</a></code> to store the fit object in the plot. When <code>object</code> is not set but has been stored in a plot, these functions will retrieve the stored fit object. This makes it not necessary to supply the same fit object in all calls to these functions. (0.3.3.4)</p></li>
@@ -58,11 +58,23 @@
 <li><p>Updated <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code> to set the attributes of all nodes using one value. (0.3.3.6)</p></li>
 <li><p>Updated <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> to set the attributes of all nodes using one value. (0.3.3.7)</p></li>
 <li><p>Added <code><a href="../reference/set_node_color.html">set_node_color()</a></code>, <code><a href="../reference/set_node_size.html">set_node_height()</a></code>, <code><a href="../reference/set_node_label.html">set_node_label_color()</a></code>, <code><a href="../reference/set_node_label.html">set_node_label_size()</a></code>, <code><a href="../reference/set_node_size.html">set_node_shape()</a></code>, <code>set_node_sizes()</code>, <code><a href="../reference/set_node_size.html">set_node_width()</a></code>. (0.3.3.8)</p></li>
+<li><p>Removed <code>nChar = 0</code> in some tests to allow testing functions with abbreviated names. Also revised some functions to make them work for both the original names of nodes and their display names, which may be abbreviated. (0.3.3.9)</p></li>
+<li><p>Updated <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code> to use new helpers, so that it is easier to work with original node names, processed (e.g., abbreviated) node names, and labels (converted to string, if necessary). (0.3.3.10)</p></li>
+<li><p>Updated node functions to use <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code> as applicable. (0.3.3.11)</p></li>
+<li><p>Added <code><a href="../reference/get_node_attribute.html">get_node_attribute()</a></code>. (0.3.3.12)</p></li>
+<li><p>Added <code><a href="../reference/get_edge_attribute.html">get_edge_attribute()</a></code>. (0.3.3.13)</p></li>
+<li><p>Added <code><a href="../reference/set_edge_label_attributes.html">set_edge_label()</a></code> and <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_bg()</a></code>. (0.3.3.14)</p></li>
+<li><p>Added <code><a href="../reference/set_edge_line_type.html">set_edge_line_type()</a></code>. (0.3.3.14)</p></li>
+<li><p>Added the <code>how</code> argument to <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code>, <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code>, and friends (if applicable). The default mode is <code>how = "ratio"</code> if applicable. (0.3.3.14)</p></li>
+<li><p>Added <code><a href="../reference/set_edge_line_width.html">set_edge_line_width()</a></code>. (0.3.3.14)</p></li>
+<li><p>Added <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_size()</a></code>. (0.3.3.14)</p></li>
+<li><p>Added <code><a href="../reference/set_node_border.html">set_node_border_width()</a></code>, and <code><a href="../reference/set_node_border.html">set_node_border_color()</a></code>. (0.3.3.14)</p></li>
+<li><p>Added <code><a href="../reference/set_graph_attributes.html">set_graph_margins()</a></code>, <code><a href="../reference/set_graph_attributes.html">node_labels_equal_scale()</a></code>, and <code><a href="../reference/set_graph_attributes.html">set_node_labels_equal_scale()</a></code>. (0.3.3.15)</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="miscellaneous-0-3-3-8">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-3-3-8"></a></h3>
+<h3 id="miscellaneous-0-3-3-15">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-3-3-15"></a></h3>
 <ul><li><p>Updated to <code>roxygen2</code> 8.0.0. (0.3.3.1)</p></li>
-<li><p>Updated <code><a href="../reference/set_curve.html">set_curve()</a></code> and <code><a href="../reference/set_edge_label_position.html">set_edge_label_position()</a></code>, to use <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> internally. (0.3.3.2)</p></li>
+<li><p>Updated <code><a href="../reference/set_curve.html">set_curve()</a></code> and <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_position()</a></code>, to use <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> internally. (0.3.3.2)</p></li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -74,7 +86,7 @@
 <div class="section level3">
 <h3 id="improvement-0-3-3">Improvement<a class="anchor" aria-label="anchor" href="#improvement-0-3-3"></a></h3>
 <ul><li><p>Updated to treat rectangles as manifest variables and ellipses as latent variables (0.3.2.1)</p></li>
-<li><p>Updated <code><a href="../reference/set_edge_label_position.html">set_edge_label_position()</a></code> to handle bidirectional edges specified in an order different from that in <code>lavaan</code>’s parameter table. (0.3.2.3)</p></li>
+<li><p>Updated <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_position()</a></code> to handle bidirectional edges specified in an order different from that in <code>lavaan</code>’s parameter table. (0.3.2.3)</p></li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -126,7 +138,7 @@
 <li><p>Updated <code><a href="../reference/mark_se.html">mark_se()</a></code> to accept a data frame with the standard errors. Users can supply standard errors computed by other functions. (0.2.11.3)</p></li>
 <li><p>Updated <code><a href="../reference/mark_sig.html">mark_sig()</a></code> to use the <em>p</em>-values from <code><a href="https://rdrr.io/pkg/lavaan/man/standardizedSolution.html" class="external-link">lavaan::standardizedSolution()</a></code>. Users need to explicitly request standardized solution <em>p</em>-values by setting the argument <code>std_type</code>. (0.2.11.3)</p></li>
 <li><p>Updated <code><a href="../reference/mark_se.html">mark_se()</a></code> to use the standard errors from <code><a href="https://rdrr.io/pkg/lavaan/man/standardizedSolution.html" class="external-link">lavaan::standardizedSolution()</a></code>. Users need to explicitly request standardized solution standard errors by setting the argument <code>std_type</code>. (0.2.11.3)</p></li>
-<li><p>Functions that change the attributes of an edge, such as <code><a href="../reference/set_edge_label_position.html">set_edge_label_position()</a></code>, should now supports factor loadings by using the <code>=~</code> operator when specifying the edge. Previously, we needed to specify a loading as if it were a regression path (e.g., <code>x1 ~ f1</code>). (0.2.11.5)</p></li>
+<li><p>Functions that change the attributes of an edge, such as <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_position()</a></code>, should now supports factor loadings by using the <code>=~</code> operator when specifying the edge. Previously, we needed to specify a loading as if it were a regression path (e.g., <code>x1 ~ f1</code>). (0.2.11.5)</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="miscellaneous-0-3-0">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-3-0"></a></h3>
