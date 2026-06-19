@@ -50,6 +50,18 @@
 #' *unnamed* value. This value will be
 #' applied to all edges.
 #'
+#' ## Supported Line Type
+#'
+#' The supported line types are the
+#' same line types supported by
+#' the `lty` argument of [par()]:
+#' `"blank"` (0), `"solid"` (1),
+#' `"dashed"` (2), `"dotted"` (3),
+#' `"dotdash"` (4), `"longdash"` (5),
+#' and `"twodash"` (6). The new line
+#' type can be specified in either
+#' strings or integers, but not both.
+#'
 #' @return A [qgraph::qgraph] based on
 #' the original one, with widths for
 #' selected edges changed.

@@ -83,6 +83,19 @@ The third approach is one single
 \emph{unnamed} value. This value will be
 applied to all edges.
 }
+
+\subsection{Supported Line Type}{
+
+The supported line types are the
+same line types supported by
+the \code{lty} argument of \code{\link[=par]{par()}}:
+\code{"blank"} (0), \code{"solid"} (1),
+\code{"dashed"} (2), \code{"dotted"} (3),
+\code{"dotdash"} (4), \code{"longdash"} (5),
+and \code{"twodash"} (6). The new line
+type can be specified in either
+strings or integers, but not both.
+}
 }
 \examples{
 mod_pa <-
