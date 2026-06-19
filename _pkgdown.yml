@@ -80,6 +80,7 @@ reference:
   - set_node_size
   - set_node_label
   - set_node_border
+  - set_graph_attributes
   - safe_edge_label_position
   - rotate_resid
   - safe_resid_position
