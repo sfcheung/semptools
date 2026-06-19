@@ -56,6 +56,25 @@
 #' value of `width` is used to determine
 #' the size of the node.
 #'
+#' ## Note on Changing a Value
+#'
+#' There are also two modes for changing
+#' an attribute. If `how = "ratio"`,
+#' then the new value, such as size,
+#' is equal to
+#' the original value multiplied
+#' by the supplied value. For example,
+#' if the supplied value is 2, and the
+#' original size is 5, the new
+#' size is 10.
+#'
+#' If `how = "value"`, then the new
+#' value is set to the user
+#' supplied value. For example, if the
+#' supplied value is 15, then the new
+#' value is 15, regardless of the
+#' original value.
+#'
 #' @return A [qgraph::qgraph] based on
 #' the original one, with the sizes
 #' of selected nodes changed.
@@ -87,8 +106,17 @@
 #'             nCharNodes = 0, nCharEdges = 0,
 #'             layout = m)
 #'
-#' p_pa2v <- set_node_size(p_pa, c(x1 = 5, x2 = 10))
+#' p_pa2v <- set_node_size(
+#'  p_pa, c(x1 = 5, x2 = 10),
+#'  how = "value"
+#' )
 #' plot(p_pa2v)
+#'
+#' p_pa2v2 <- set_node_size(
+#'  p_pa, c(x1 = 0.5, x2 = 2),
+#'  how = "ratio"
+#' )
+#' plot(p_pa2v2)
 #'
 #' p_pa2l <- set_node_shape(p_pa, "circle")
 #' plot(p_pa2l)
@@ -97,8 +125,11 @@
 set_node_size <- function(
   semPaths_plot,
   values = NULL,
+  how = c("ratio", "value"),
   check_nodes = TRUE
 ) {
+
+  how <- match.arg(how)
 
   if (is.null(values)) {
     stop("values not specified.")
@@ -117,12 +148,14 @@ set_node_size <- function(
             semPaths_plot,
             values_fixed,
             attribute_name = "width",
+            how = how,
             check_nodes = check_nodes
           )
   out <- set_node_attribute(
             out,
             values_fixed,
             attribute_name = "height",
+            how = how,
             check_nodes = check_nodes
           )
   out
@@ -134,8 +167,11 @@ set_node_size <- function(
 set_node_width <- function(
   semPaths_plot,
   values = NULL,
+  how = c("ratio", "value"),
   check_nodes = TRUE
 ) {
+
+  how <- match.arg(how)
 
   if (is.null(values)) {
     stop("values not specified.")
@@ -153,6 +189,7 @@ set_node_width <- function(
             semPaths_plot,
             values_fixed,
             attribute_name = "width",
+            how = how,
             check_nodes = check_nodes
           )
   out
@@ -164,8 +201,11 @@ set_node_width <- function(
 set_node_height <- function(
   semPaths_plot,
   values = NULL,
+  how = c("ratio", "value"),
   check_nodes = TRUE
 ) {
+
+  how <- match.arg(how)
 
   if (is.null(values)) {
     stop("values not specified.")
@@ -183,6 +223,7 @@ set_node_height <- function(
             semPaths_plot,
             values_fixed,
             attribute_name = "height",
+            how = how,
             check_nodes = check_nodes
           )
   out

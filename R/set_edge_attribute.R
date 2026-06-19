@@ -79,6 +79,13 @@
 #' @param attribute_name The name of
 #' the attribute to be changed.
 #'
+#' @param how How the width will be changed.
+#' If `"ratio"`, then the new width is
+#' the original width
+#' multiplied by the supplied value.
+#' If `"value"`, then the new width is
+#' set to the supplied value.
+#'
 #' @param check_direction If `FALSE`,
 #' the direction of an edge is ignored.
 #' For example, both `y ~ x` and `x ~ y`
@@ -125,7 +132,9 @@
 set_edge_attribute <- function(semPaths_plot,
                                values = NULL,
                                attribute_name = NULL,
+                               how = c("value", "ratio"),
                                check_direction = TRUE) {
+    how <- match.arg(how)
     if (is.null(values)) {
         stop("values not specified.")
       }
@@ -177,7 +186,11 @@ set_edge_attribute <- function(semPaths_plot,
 
     if (set_all_edges) {
       # Intentionally not using []
-      attr_new[seq_along(attr_new)] <- value_for_all
+      attr_new[seq_along(attr_new)] <- switch(
+          how,
+          ratio = attr_new[seq_along(attr_new)] * value_for_all,
+          value = value_for_all
+        )
       semPaths_plot$graphAttributes$Edges[[attribute_name]] <- attr_new
       return(semPaths_plot)
     }
@@ -191,7 +204,45 @@ set_edge_attribute <- function(semPaths_plot,
     #             now be skipped. No error message.
     i <- !is.na(attr_index)
     if (any(i)) {
-      attr_new[attr_index[i]] <- sapply(values[i], function(x) x$new_value)
+      if (how == "ratio") {
+        attr_new[attr_index[i]] <-
+          sapply(values[i], function(x) x$new_value) *
+          attr_new[attr_index[i]]
+      }
+      if (how == "value") {
+        attr_new[attr_index[i]] <-
+          sapply(values[i], function(x) x$new_value)
+      }
+    }
+
+    # Check bidirectional edges
+
+    if (any(!is.na(attr_index))) {
+      values2 <- values[which(semPaths_plot$Edge$bidirectional[attr_index])]
+      values2 <- values
+      if (length(values2) > 0) {
+          attr_index2 <- sapply(values2, function(x) {
+                edge_index(semPaths_plot, from = x$to, to = x$from)
+              })
+          # 2026-06-07: Edges not in the plot will
+          #             now be skipped. No error message.
+          # Skip processed edges
+          j <- attr_index2 != attr_index
+          i <- !is.na(attr_index2)
+          i <- i & j
+          i[is.na(i)] <- FALSE
+          if (any(i)) {
+            if (how == "ratio") {
+              attr_new[attr_index2[i]] <-
+                sapply(values2[i], function(x) x$new_value) *
+                attr_new[attr_index2[i]]
+            }
+            if (how == "value") {
+              attr_new[attr_index2[i]] <-
+                sapply(values2[i], function(x) x$new_value)
+            }
+          }
+        }
     }
 
     if (!check_direction) {
@@ -199,25 +250,27 @@ set_edge_attribute <- function(semPaths_plot,
       attr_index3 <- sapply(values, function(x) {
             edge_index(semPaths_plot, from = x$to, to = x$from)
           })
+      # Skip processed edges
+      j1 <- attr_index != attr_index3
+      j2 <- attr_index2 != attr_index3
       i <- !is.na(attr_index3)
+      i <- i & j1 & j2
+      i[is.na(i)] <- FALSE
       if (any(i)) {
-        attr_new[attr_index3[i]] <- sapply(values[i], function(x) x$new_value)
-      }
-    }
-
-    # Check bidirectional edges
-    values2 <- values[which(semPaths_plot$Edge$bidirectional[attr_index])]
-    if (length(values2) > 0) {
-        attr_index2 <- sapply(values2, function(x) {
-              edge_index(semPaths_plot, from = x$to, to = x$from)
-            })
-        # 2026-06-07: Edges not in the plot will
-        #             now be skipped. No error message.
-        i <- !is.na(attr_index2)
-        if (any(i)) {
-          attr_new[attr_index2[i]] <- sapply(values2[i], function(x) x$new_value)
+        if (how == "ratio") {
+          attr_new[attr_index3[i]] <-
+            sapply(values[i], function(x) x$new_value) *
+            attr_new[attr_index3[i]]
+        }
+        if (how == "value") {
+          attr_new[attr_index3[i]] <-
+            sapply(values[i], function(x) x$new_value)
         }
       }
+    } else {
+      attr_index3 <- rep(NA, length(values))
+    }
+
 
     semPaths_plot$graphAttributes$Edges[[attribute_name]] <- attr_new
     semPaths_plot

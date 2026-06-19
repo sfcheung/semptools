@@ -60,6 +60,9 @@ navbar:
       - text: Observed exogenous variables
         href: articles/sem_with_observed.html
 
+redirects:
+  - ["reference/set_edge_label_position.html", "reference/set_edge_common_attributes.html"]
+
 reference:
 - title: Main Functions
   desc:  >
@@ -69,11 +72,14 @@ reference:
   - mark_se
   - add_rsq
   - set_curve
+  - set_edge_line_type
+  - set_edge_line_width
   - set_edge_color
-  - set_edge_label_position
+  - set_edge_label_attributes
   - set_node_color
   - set_node_size
   - set_node_label
+  - set_node_border
   - safe_edge_label_position
   - rotate_resid
   - safe_resid_position

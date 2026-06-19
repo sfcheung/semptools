@@ -7,11 +7,26 @@
 \alias{set_node_shape}
 \title{Set the Sizes of Selected Nodes}
 \usage{
-set_node_size(semPaths_plot, values = NULL, check_nodes = TRUE)
+set_node_size(
+  semPaths_plot,
+  values = NULL,
+  how = c("ratio", "value"),
+  check_nodes = TRUE
+)
 
-set_node_width(semPaths_plot, values = NULL, check_nodes = TRUE)
+set_node_width(
+  semPaths_plot,
+  values = NULL,
+  how = c("ratio", "value"),
+  check_nodes = TRUE
+)
 
-set_node_height(semPaths_plot, values = NULL, check_nodes = TRUE)
+set_node_height(
+  semPaths_plot,
+  values = NULL,
+  how = c("ratio", "value"),
+  check_nodes = TRUE
+)
 
 set_node_shape(semPaths_plot, values = NULL, check_nodes = TRUE)
 }
@@ -25,6 +40,13 @@ qgraph object modified by other
 \item{values}{A named vector or a
 list of named list. See the Details
 section on how to set this argument.}
+
+\item{how}{How the width will be changed.
+If \code{"ratio"}, then the new width is
+the original width
+multiplied by the supplied value.
+If \code{"value"}, then the new width is
+set to the supplied value.}
 
 \item{check_nodes}{Logical. If \code{TRUE}
 and at least one node specified in
@@ -93,6 +115,26 @@ are \code{"square"}, \code{"rectangle"},
 value of \code{width} is used to determine
 the size of the node.
 }
+
+\subsection{Note on Changing a Value}{
+
+There are also two modes for changing
+an attribute. If \code{how = "ratio"},
+then the new value, such as size,
+is equal to
+the original value multiplied
+by the supplied value. For example,
+if the supplied value is 2, and the
+original size is 5, the new
+size is 10.
+
+If \code{how = "value"}, then the new
+value is set to the user
+supplied value. For example, if the
+supplied value is 15, then the new
+value is 15, regardless of the
+original value.
+}
 }
 \examples{
 mod_pa <-
@@ -109,8 +151,17 @@ p_pa <- semPlot::semPaths(fit_pa, whatLabels="est",
             nCharNodes = 0, nCharEdges = 0,
             layout = m)
 
-p_pa2v <- set_node_size(p_pa, c(x1 = 5, x2 = 10))
+p_pa2v <- set_node_size(
+ p_pa, c(x1 = 5, x2 = 10),
+ how = "value"
+)
 plot(p_pa2v)
+
+p_pa2v2 <- set_node_size(
+ p_pa, c(x1 = 0.5, x2 = 2),
+ how = "ratio"
+)
+plot(p_pa2v2)
 
 p_pa2l <- set_node_shape(p_pa, "circle")
 plot(p_pa2l)

@@ -42,3 +42,15 @@ test_that("set_curve with double-headed arrows", {
     expect_equal(p1$graphAttributes$Edges$curve,
                  c(2, 2, 0, 3, -2, 0, 0, 0, 0, -2, 2, -2))
   })
+
+p2 <- set_curve(p1, c("x1 ~~x2" = 1,
+                      "TX4~~ TX3" = 0,
+                      "TheX3 ~ x1" = -2),
+                how = "ratio")
+
+expect_equal(
+  p1$graphAttributes$Edges$curve[c(1, 2, 10)] * c(1, -2, 0),
+  p2$graphAttributes$Edges$curve[c(1, 2, 10)]
+)
+
+

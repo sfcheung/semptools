@@ -70,6 +70,13 @@
 #' @param attribute_name The name of
 #' the attribute to be changed.
 #'
+#' @param how How the width will be changed.
+#' If `"ratio"`, then the new width is
+#' the original width
+#' multiplied by the supplied value.
+#' If `"value"`, then the new width is
+#' set to the supplied value.
+#'
 #' @param check_nodes Logical. If `TRUE`
 #' and at least one node specified in
 #' `values` are not in `semPaths_plot`.
@@ -107,8 +114,11 @@ set_node_attribute <- function(
   semPaths_plot,
   values = NULL,
   attribute_name = NULL,
+  how = c("value", "ratio"),
   check_nodes = TRUE
 ) {
+
+  how <- match.arg(how)
 
   if (is.null(values)) {
     stop("values not specified.")
@@ -167,10 +177,20 @@ set_node_attribute <- function(
   }
 
   attr_new <- attr_old
-  attr_new[Nodes_in_id] <- sapply(
-                            values,
-                            function(x) x$new_value
-                          )
+  if (how == "value") {
+    attr_new[Nodes_in_id] <- sapply(
+                              values,
+                              function(x) x$new_value
+                            )
+  }
+  if (how == "ratio") {
+    attr_new[Nodes_in_id] <- sapply(
+                              values,
+                              function(x) x$new_value
+                            ) *
+                             attr_new[Nodes_in_id]
+  }
+
   semPaths_plot$graphAttributes$Nodes[[attribute_name]] <- attr_new
   semPaths_plot
 }
