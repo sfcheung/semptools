@@ -74,6 +74,47 @@ move_node <- function(
         stop("semPaths_plot not specified.")
       }
 
+    if (missing(semPaths_plot)) {
+      stop("semPaths_plot not specified.")
+    } else {
+      plot_type <- qgraph_type(semPaths_plot)
+      if (is.na(plot_type)) {
+        stop("semPaths is neither a qgraph or a list of qgraphs.")
+      }
+    }
+
+    if (plot_type == "qgraph_list") {
+
+      # ==== For a list of qgraphs =====
+
+      my_call <- match.call()
+      my_args <- as.list(my_call)[-1]
+      my_args$semPaths_plot <- NULL
+      for (i in seq_along(my_args)) {
+        my_args[[i]] <- eval(
+                          my_args[[i]],
+                          envir = parent.frame(),
+                          enclos = parent.frame()
+                        )
+      }
+      out <- lapply(
+        semPaths_plot,
+        function(x) {
+          args <- my_args
+          args$semPaths_plot <- x
+          do.call(
+            move_node,
+            args
+          )
+        }
+      )
+
+    }
+
+    if (plot_type == "qgraph") {
+
+    # ==== For one qgraph =====
+
     Nodes_names <- node_names_list(semPaths_plot)
 
     # Check nodes
@@ -118,5 +159,17 @@ move_node <- function(
     rownames(layout_final) <- colnames(layout_final) <- NULL
     semPaths_plot$layout <- layout_final
 
-    semPaths_plot
+    return(semPaths_plot)
+
+    }
+
+    # ==== Return a list of qgraphs ====
+
+    out <- copy_class_and_attributes(
+      out,
+      semPaths_plot
+    )
+
+    return(out)
+
   }

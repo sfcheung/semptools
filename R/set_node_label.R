@@ -110,12 +110,7 @@ set_node_label_size <- function(
   }
   if (missing(semPaths_plot)) {
     stop("semPaths_plot not specified.")
-  } else {
-    if (!inherits(semPaths_plot, "qgraph")) {
-        stop("semPaths_plot is not a qgraph object.")
-      }
   }
-
   # Fix the names
   values_fixed <- to_new_value(
                         values,
@@ -142,10 +137,6 @@ set_node_label_color <- function(
   }
   if (missing(semPaths_plot)) {
     stop("semPaths_plot not specified.")
-  } else {
-    if (!inherits(semPaths_plot, "qgraph")) {
-        stop("semPaths_plot is not a qgraph object.")
-      }
   }
 
   # Fix the names

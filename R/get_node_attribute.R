@@ -67,7 +67,19 @@ get_node_attribute <- function(
     stop("attribute_name not specified.")
   }
   if (missing(semPaths_plot)) {
-    stop("semPaths_plot not specified.")
+      stop("semPaths_plot not specified.")
+  } else {
+    plot_type <- qgraph_type(semPaths_plot)
+    if (is.na(plot_type)) {
+      stop("semPaths is neither a qgraph or a list of qgraphs.")
+    }
+  }
+
+  # TODO:
+  # - Should we support a list of qgraphs?
+  #   For now, only the first qgraphs will be retrieved.
+  if (plot_type == "qgraph_list") {
+    semPaths_plot <- semPaths_plot[[1]]
   }
 
   Nodes_names <- node_names_list(semPaths_plot)

@@ -407,4 +407,317 @@ expect_equal(
   p1[[2]]$graphAttributes$Edges$width
 )
 
+# ==== set_node_border_color ====
+
+p1 <- set_node_border_color(
+  p_pa2,
+  c(x1 = "blue", x2 = "green")
+)
+
+p1_chk <- set_node_border_color(
+  p_pa2[[2]],
+  c(x1 = "blue", x2 = "green")
+)
+
+# plot(p1[[1]])
+# plot(p1[[2]])
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Nodes$border.color,
+  p1[[2]]$graphAttributes$Nodes$border.color
+)
+
+# ==== set_node_border_width ====
+
+p1 <- set_node_border_width(
+  p_pa2,
+  c(x1 = 2, x2 = 3)
+)
+
+p1_chk <- set_node_border_width(
+  p_pa2[[2]],
+  c(x1 = 2, x2 = 3)
+)
+
+# plot(p1[[1]])
+# plot(p1[[2]])
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Nodes$border.width,
+  p1[[2]]$graphAttributes$Nodes$border.width
+)
+
+# ==== set_node_color ====
+
+p1 <- set_node_color(
+  p_pa2,
+  c(x1 = "cyan", x2 = "yellow")
+)
+
+p1_chk <- set_node_color(
+  p_pa2[[2]],
+  c(x1 = "cyan", x2 = "yellow")
+)
+
+# plot(p1[[1]])
+# plot(p1[[2]])
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Nodes$color,
+  p1[[2]]$graphAttributes$Nodes$color
+)
+
+
+# ==== set_node_height ====
+
+p1 <- set_node_height(
+  p_pa2,
+  c(x1 = 2, x2 = .5)
+)
+
+p1_chk <- set_node_height(
+  p_pa2[[2]],
+  c(x1 = 2, x2 = .5)
+)
+
+# plot(p1[[1]])
+# plot(p1[[2]])
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Nodes$height,
+  p1[[2]]$graphAttributes$Nodes$height
+)
+
+
+# ==== set_node_label_color ====
+
+p1 <- set_node_label_color(
+  p_pa2,
+  c(x1 = "cyan", x2 = "yellow")
+)
+
+p1_chk <- set_node_label_color(
+  p_pa2[[2]],
+  c(x1 = "cyan", x2 = "yellow")
+)
+
+# plot(p1[[1]])
+# plot(p1[[2]])
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Nodes$label.color,
+  p1[[2]]$graphAttributes$Nodes$label.color
+)
+
+
+# ==== set_node_label_size ====
+
+p1 <- set_node_label_size(
+  p_pa2,
+  c(x1 = 2, x2 = .5)
+)
+
+p1_chk <- set_node_label_size(
+  p_pa2[[2]],
+  c(x1 = 2, x2 = .5)
+)
+
+# plot(p1[[1]])
+# plot(p1[[2]])
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Nodes$label.cex,
+  p1[[2]]$graphAttributes$Nodes$label.cex
+)
+
+
+# ==== set_node_shape ====
+
+p1 <- set_node_shape(
+  p_pa2,
+  c(x1 = "circle", x2 = "diamond")
+)
+
+p1_chk <- set_node_shape(
+  p_pa2[[2]],
+  c(x1 = "circle", x2 = "diamond")
+)
+
+# plot(p1[[1]])
+# plot(p1[[2]])
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Nodes$shape,
+  p1[[2]]$graphAttributes$Nodes$shape
+)
+
+
+# ==== set_node_size ====
+
+p1 <- set_node_size(
+  p_pa2,
+  c(x1 = 3, x2 = .5)
+)
+
+p1_chk <- set_node_size(
+  p_pa2[[2]],
+  c(x1 = 3, x2 = .5)
+)
+
+# plot(p1[[1]])
+# plot(p1[[2]])
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Nodes$height,
+  p1[[2]]$graphAttributes$Nodes$height
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Nodes$width,
+  p1[[2]]$graphAttributes$Nodes$width
+)
+
+
+# ==== set_node_width ====
+
+p1 <- set_node_width(
+  p_pa2,
+  c(x1 = 3, x2 = .5)
+)
+
+p1_chk <- set_node_width(
+  p_pa2[[2]],
+  c(x1 = 3, x2 = .5)
+)
+
+# plot(p1[[1]])
+# plot(p1[[2]])
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Nodes$width,
+  p1[[2]]$graphAttributes$Nodes$width
+)
+
+# ==== move_node ====
+
+p1 <- move_node(
+  p_pa2,
+  list(x1 = c(.25, -.5),
+       x4 = c(-.25, .5))
+)
+
+p1_chk <- move_node(
+  p_pa2[[2]],
+  list(x1 = c(.25, -.5),
+       x4 = c(-.25, .5))
+)
+
+# plot(p1[[1]])
+# plot(p1[[2]])
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$layout,
+  p1[[2]]$layout
+)
+
 })
