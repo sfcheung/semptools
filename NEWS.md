@@ -1,4 +1,4 @@
-# semptools 0.3.3.13
+# semptools 0.3.3.14
 
 ## Improvement
 
@@ -72,6 +72,31 @@
 
 - Added `get_edge_attribute()`.
   (0.3.3.13)
+
+- Added `set_edge_label()` and
+  `set_edge_label_bg()`.
+  (0.3.3.14)
+
+- Added `set_edge_line_type()`.
+  (0.3.3.14)
+
+- Added the `how` argument to
+  `set_edge_attribute()`,
+  `set_node_attribute()`,
+  and friends (if applicable).
+  The default mode is `how = "ratio"`
+  if applicable.
+  (0.3.3.14)
+
+- Added `set_edge_line_width()`.
+  (0.3.3.14)
+
+- Added `set_edge_label_size()`.
+  (0.3.3.14)
+
+- Added `set_node_border_width()`,
+  and `set_node_border_color()`.
+  (0.3.3.14)
 
 ## Miscellaneous
 
