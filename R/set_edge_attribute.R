@@ -215,12 +215,47 @@ set_edge_attribute <- function(semPaths_plot,
       }
     }
 
+    # Check bidirectional edges
+
+    if (any(!is.na(attr_index))) {
+      values2 <- values[which(semPaths_plot$Edge$bidirectional[attr_index])]
+      values2 <- values
+      if (length(values2) > 0) {
+          attr_index2 <- sapply(values2, function(x) {
+                edge_index(semPaths_plot, from = x$to, to = x$from)
+              })
+          # 2026-06-07: Edges not in the plot will
+          #             now be skipped. No error message.
+          # Skip processed edges
+          j <- attr_index2 != attr_index
+          i <- !is.na(attr_index2)
+          i <- i & j
+          i[is.na(i)] <- FALSE
+          if (any(i)) {
+            if (how == "ratio") {
+              attr_new[attr_index2[i]] <-
+                sapply(values2[i], function(x) x$new_value) *
+                attr_new[attr_index2[i]]
+            }
+            if (how == "value") {
+              attr_new[attr_index2[i]] <-
+                sapply(values2[i], function(x) x$new_value)
+            }
+          }
+        }
+    }
+
     if (!check_direction) {
       # ==== Ignore the direction of an edge ====
       attr_index3 <- sapply(values, function(x) {
             edge_index(semPaths_plot, from = x$to, to = x$from)
           })
+      # Skip processed edges
+      j1 <- attr_index != attr_index3
+      j2 <- attr_index2 != attr_index3
       i <- !is.na(attr_index3)
+      i <- i & j1 & j2
+      i[is.na(i)] <- FALSE
       if (any(i)) {
         if (how == "ratio") {
           attr_new[attr_index3[i]] <-
@@ -232,29 +267,10 @@ set_edge_attribute <- function(semPaths_plot,
             sapply(values[i], function(x) x$new_value)
         }
       }
+    } else {
+      attr_index3 <- rep(NA, length(values))
     }
 
-    # Check bidirectional edges
-    values2 <- values[which(semPaths_plot$Edge$bidirectional[attr_index])]
-    if (length(values2) > 0) {
-        attr_index2 <- sapply(values2, function(x) {
-              edge_index(semPaths_plot, from = x$to, to = x$from)
-            })
-        # 2026-06-07: Edges not in the plot will
-        #             now be skipped. No error message.
-        i <- !is.na(attr_index2)
-        if (any(i)) {
-          if (how == "ratio") {
-            attr_new[attr_index2[i]] <-
-              sapply(values2[i], function(x) x$new_value) *
-              attr_new[attr_index2[i]]
-          }
-          if (how == "value") {
-            attr_new[attr_index2[i]] <-
-              sapply(values2[i], function(x) x$new_value)
-          }
-        }
-      }
 
     semPaths_plot$graphAttributes$Edges[[attribute_name]] <- attr_new
     semPaths_plot
