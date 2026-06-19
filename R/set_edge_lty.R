@@ -119,6 +119,8 @@ set_edge_line_type <- function(
     stop("semPaths_plot not specified.")
   }
 
+  set_all_edges <- is.null(names(line_type_list))
+
   # Fix the names
   line_type_list_fixed <- to_new_value(
       line_type_list,
@@ -180,6 +182,10 @@ set_edge_line_type <- function(
     }
   } else {
     stop("Something's wrong. mode not supported in lty.")
+  }
+
+  if (set_all_edges) {
+    line_type_list_fixed <- unname(line_type_list_fixed)
   }
 
   out <- set_edge_attribute(

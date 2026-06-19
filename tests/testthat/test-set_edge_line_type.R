@@ -68,5 +68,15 @@ expect_error(
         tmp)
 )
 
+p3 <- set_edge_line_type(
+        p_pa,
+        "blank")
+
+# plot(p3)
+
+expect_true(
+  all(p3$graphAttributes$Edges$lty == 0)
+)
+
 })
 
