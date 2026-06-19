@@ -4,7 +4,13 @@
 \alias{set_node_attribute}
 \title{Set the Attributes of Selected Nodes}
 \usage{
-set_node_attribute(semPaths_plot, values = NULL, attribute_name = NULL)
+set_node_attribute(
+  semPaths_plot,
+  values = NULL,
+  attribute_name = NULL,
+  how = c("value", "ratio"),
+  check_nodes = TRUE
+)
 }
 \arguments{
 \item{semPaths_plot}{A
@@ -19,6 +25,17 @@ section on how to set this argument.}
 
 \item{attribute_name}{The name of
 the attribute to be changed.}
+
+\item{how}{How the width will be changed.
+If \code{"ratio"}, then the new width is
+the original width
+multiplied by the supplied value.
+If \code{"value"}, then the new width is
+set to the supplied value.}
+
+\item{check_nodes}{Logical. If \code{TRUE}
+and at least one node specified in
+\code{values} are not in \code{semPaths_plot}.}
 }
 \value{
 A \link[qgraph:qgraph]{qgraph::qgraph} based on

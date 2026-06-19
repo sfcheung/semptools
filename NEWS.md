@@ -1,4 +1,4 @@
-# semptools 0.3.3.8
+# semptools 0.3.3.15
 
 ## Improvement
 
@@ -47,6 +47,62 @@
   `set_node_width()`.
   (0.3.3.8)
 
+- Removed `nChar = 0` in some tests to
+  allow testing functions with abbreviated
+  names. Also revised some functions to
+  make them work for both the original
+  names of nodes and their display
+  names, which may be abbreviated.
+  (0.3.3.9)
+
+- Updated `set_node_attribute()` to use
+  new helpers, so that it is easier to
+  work with original node names,
+  processed (e.g., abbreviated) node
+  names, and labels (converted to string,
+  if necessary).
+  (0.3.3.10)
+
+- Updated node functions to use
+  `set_node_attribute()` as applicable.
+  (0.3.3.11)
+
+- Added `get_node_attribute()`.
+  (0.3.3.12)
+
+- Added `get_edge_attribute()`.
+  (0.3.3.13)
+
+- Added `set_edge_label()` and
+  `set_edge_label_bg()`.
+  (0.3.3.14)
+
+- Added `set_edge_line_type()`.
+  (0.3.3.14)
+
+- Added the `how` argument to
+  `set_edge_attribute()`,
+  `set_node_attribute()`,
+  and friends (if applicable).
+  The default mode is `how = "ratio"`
+  if applicable.
+  (0.3.3.14)
+
+- Added `set_edge_line_width()`.
+  (0.3.3.14)
+
+- Added `set_edge_label_size()`.
+  (0.3.3.14)
+
+- Added `set_node_border_width()`,
+  and `set_node_border_color()`.
+  (0.3.3.14)
+
+- Added `set_graph_margins()`,
+  `node_labels_equal_scale()`,
+  and `set_node_labels_equal_scale()`.
+  (0.3.3.15)
+
 ## Miscellaneous
 
 - Updated to `roxygen2` 8.0.0.
@@ -56,6 +112,7 @@
   `set_edge_label_position()`,
   to use `set_edge_attribute()` internally.
   (0.3.3.2)
+
 
 # semptools 0.3.3
 

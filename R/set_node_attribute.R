@@ -70,6 +70,17 @@
 #' @param attribute_name The name of
 #' the attribute to be changed.
 #'
+#' @param how How the width will be changed.
+#' If `"ratio"`, then the new width is
+#' the original width
+#' multiplied by the supplied value.
+#' If `"value"`, then the new width is
+#' set to the supplied value.
+#'
+#' @param check_nodes Logical. If `TRUE`
+#' and at least one node specified in
+#' `values` are not in `semPaths_plot`.
+#'
 #' @examples
 #' mod_pa <-
 #'   'x1 ~~ x2
@@ -99,7 +110,101 @@
 #'
 #' @export
 
-set_node_attribute <- function(semPaths_plot,
+set_node_attribute <- function(
+  semPaths_plot,
+  values = NULL,
+  attribute_name = NULL,
+  how = c("value", "ratio"),
+  check_nodes = TRUE
+) {
+
+  how <- match.arg(how)
+
+  if (is.null(values)) {
+    stop("values not specified.")
+  }
+  if (is.null(attribute_name)) {
+    stop("attribute_name not specified.")
+  }
+  if (missing(semPaths_plot)) {
+    stop("semPaths_plot not specified.")
+  } else {
+    if (!inherits(semPaths_plot, "qgraph")) {
+      stop("semPaths_plot is not a qgraph object.")
+    }
+  }
+
+  Nodes_names <- node_names_list(semPaths_plot)
+
+  # Convert a named vector to a named list
+  if (!is.list(values)) {
+    if (is.null(names(values))) {
+      # If not a named vector, the first value will be applied to all nodes
+      values <- rep(values[1],
+                    length(Nodes_names$names_original))
+      names(values) <- Nodes_names$names_original
+    }
+    values <- to_list_of_lists(
+                values,
+                name1 = "node",
+                name2 = "new_value"
+              )
+  }
+
+  # Check nodes
+  Nodes_in <- sapply(values, function(x) x$node)
+  Nodes_in_id <- match_nodes(
+    Nodes_in,
+    Nodes_names,
+    check_nodes = check_nodes
+  )
+  if (all(is.na(Nodes_in_id))) {
+    # No valid nodes
+    return(semPaths_plot)
+  } else if (any(is.na(Nodes_in_id))) {
+    values <- values[!is.na(Nodes_in_id)]
+  }
+
+  p <- n_nodes(semPaths_plot)
+  attr_old <- semPaths_plot$graphAttributes$Nodes[[attribute_name]]
+  if (is.null(attr_old)) {
+      stop("attribute_name not a valid attribute of the nodes a qgraph object.")
+    }
+
+  # Expand if necessary
+  if (isTRUE(length(attr_old) == 1)) {
+    attr_old <- rep(attr_old, p)
+  }
+
+  attr_new <- attr_old
+  if (how == "value") {
+    attr_new[Nodes_in_id] <- sapply(
+                              values,
+                              function(x) x$new_value
+                            )
+  }
+  if (how == "ratio") {
+    attr_new[Nodes_in_id] <- sapply(
+                              values,
+                              function(x) x$new_value
+                            ) *
+                             attr_new[Nodes_in_id]
+  }
+
+  semPaths_plot$graphAttributes$Nodes[[attribute_name]] <- attr_new
+  semPaths_plot
+}
+
+#' @title The number of nodes
+#' @noRd
+
+n_nodes <- function(object) {
+    object$graphAttributes$Graph$nNodes
+  }
+
+#' @noRd
+
+set_node_attribute_old <- function(semPaths_plot,
                                values = NULL,
                                attribute_name = NULL) {
 
@@ -118,6 +223,10 @@ set_node_attribute <- function(semPaths_plot,
       }
 
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
+    Nodes_labels <- semPaths_plot$graphAttributes$Nodes$labels
+    if (is.null(names(Nodes_labels))) {
+      names(Nodes_labels) <- Nodes_names
+    }
 
     # Convert a named vector to a named list
     if (!is.list(values)) {
@@ -137,7 +246,8 @@ set_node_attribute <- function(semPaths_plot,
     if (!is.null(names(Nodes_names))) {
       Nodes_names <- names(Nodes_names)
     }
-    if (!all(Nodes_in %in% Nodes_names)) {
+
+    if (!all(Nodes_in %in% union(Nodes_names, Nodes_labels))) {
         stop("One or more nodes not in semPaths_plot.")
       }
     Nodes_id <- seq_len(length(Nodes_names))
@@ -154,16 +264,16 @@ set_node_attribute <- function(semPaths_plot,
         attr_old <- rep(attr_old, p)
       }
 
+    # Convert labels to names
+    for (i in seq_along(Nodes_in)) {
+      if (Nodes_in[i] %in% Nodes_labels) {
+        Nodes_in[i] <- names(Nodes_labels)[which(Nodes_labels == Nodes_in[i])]
+      }
+    }
+
     attr_new <- attr_old
     attr_new[Nodes_id[Nodes_in]] <- sapply(values,
                                            function(x) x$new_value)
     semPaths_plot$graphAttributes$Nodes[[attribute_name]] <- attr_new
     semPaths_plot
-  }
-
-#' @title The number of nodes
-#' @noRd
-
-n_nodes <- function(object) {
-    object$graphAttributes$Graph$nNodes
   }
