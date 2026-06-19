@@ -5,6 +5,7 @@
 \alias{set_edge_label_position}
 \alias{set_edge_label}
 \alias{set_edge_label_bg}
+\alias{set_edge_label_size}
 \title{Set Edge Label Attributes of
 Selected Edges}
 \usage{
@@ -17,6 +18,13 @@ set_edge_label_position(
 set_edge_label(semPaths_plot, label_list = NULL, check_direction = TRUE)
 
 set_edge_label_bg(semPaths_plot, label_bg_list = NULL, check_direction = TRUE)
+
+set_edge_label_size(
+  semPaths_plot,
+  label_size_list = NULL,
+  how = c("ratio", "value"),
+  check_direction = TRUE
+)
 }
 \arguments{
 \item{semPaths_plot}{A
@@ -52,6 +60,21 @@ how to set this argument. If a list
 of named list is used, the element
 for new background color should be
 named \code{new_label_bg}.}
+
+\item{label_size_list}{How the
+label sizes are to be changed.
+See 'Details' on
+how to set this argument. If a list
+of named list is used, the element
+for new background color should be
+named \code{new_label_size}.}
+
+\item{how}{How the width will be changed.
+If \code{"ratio"}, then the new width is
+the original width
+multiplied by the supplied value.
+If \code{"value"}, then the new width is
+set to the supplied value.}
 }
 \description{
 Set the attributes of
@@ -71,6 +94,7 @@ are supported:
 \item Edge label position.
 \item Edge label content.
 \item Edge label background color.
+\item Edge label size.
 }
 \subsection{How to specify the values}{
 
@@ -123,6 +147,19 @@ example). For example, \code{c("y ~ x1" = .2, "y ~ x2" = .7)} moves the path
 coefficient from \code{x1} to \code{y} closer
 to \code{x}, and the path coefficient from
 \code{x2} to \code{y} closer to \code{y}.
+}
+
+\subsection{Setting Label Size}{
+
+The function \code{\link[=set_edge_label_size]{set_edge_label_size()}}
+works in two modes. With \code{how = "ratio"},
+the new label size is the original
+size multiplied by the supplied value.
+For example, if the value is 2, the size
+of a label is doubled. With \code{how = "value"},
+the new size is set to be equal to the
+supplied value. For example, if the value is
+2, the size of a label is set to 2.
 
 label positions for selected edges
 changed.
@@ -235,6 +272,38 @@ p_pa4l <- set_edge_label_bg(
              my_label_bg_list
            )
 plot(p_pa4l)
+
+
+
+# ==== set_edge_label_size ====
+
+my_label_size_vector <- c(
+  "x3 ~ x2" = 2,
+  "x4 ~ x1" = 3
+)
+p_pa5v <- set_edge_label_size(
+             p_pa,
+             my_label_size_vector
+           )
+plot(p_pa5v)
+
+# This approach is no longer recommended
+my_label_size_list <- list(
+                     list(
+                       from = "x2",
+                       to = "x3",
+                       new_label_size = 2
+                      ),
+                     list(
+                       from = "x1",
+                       to = "x4",
+                       new_label_size = 3)
+                     )
+p_pa5l <- set_edge_label_size(
+             p_pa,
+             my_label_size_list
+           )
+plot(p_pa5l)
 
 
 }

@@ -83,3 +83,15 @@ test_that("set_edge_label", {
   expect_true(p3b$graphAttributes$Edges$labels[1] !=
               p_pa$graphAttributes$Edges$labels[1])
 })
+
+p3 <- set_edge_label_size(
+        p_pa,
+        c("x1~~x2" = 2,
+          "TX3~~ TX3" = .5))
+
+test_that("set_edge_label_size", {
+  expect_equal(
+    p_pa$graphAttributes$Edges$label.cex[c(1, 1)] * c(2, .5),
+    p3$graphAttributes$Edges$label.cex[c(1, 6)]
+  )
+})

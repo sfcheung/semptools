@@ -20,6 +20,8 @@
 #'
 #' - Edge label background color.
 #'
+#' - Edge label size.
+#'
 #' ## How to specify the values
 #'
 #' There are three approach to
@@ -73,6 +75,18 @@
 #' coefficient from `x1` to `y` closer
 #' to `x`, and the path coefficient from
 #' `x2` to `y` closer to `y`.
+#'
+#' ## Setting Label Size
+#'
+#' The function [set_edge_label_size()]
+#' works in two modes. With `how = "ratio"`,
+#' the new label size is the original
+#' size multiplied by the supplied value.
+#' For example, if the value is 2, the size
+#' of a label is doubled. With `how = "value"`,
+#' the new size is set to be equal to the
+#' supplied value. For example, if the value is
+#' 2, the size of a label is set to 2.
 #'
 #  @return A [qgraph::qgraph] based on
 #  the original one, with edge
@@ -312,6 +326,81 @@ set_edge_label_bg <- function(
   out
 }
 
+
+#' @param label_size_list How the
+#' label sizes are to be changed.
+#' See 'Details' on
+#' how to set this argument. If a list
+#' of named list is used, the element
+#' for new background color should be
+#' named `new_label_size`.
+#'
+#' @examples
+#'
+#' # ==== set_edge_label_size ====
+#'
+#' my_label_size_vector <- c(
+#'   "x3 ~ x2" = 2,
+#'   "x4 ~ x1" = 3
+#' )
+#' p_pa5v <- set_edge_label_size(
+#'              p_pa,
+#'              my_label_size_vector
+#'            )
+#' plot(p_pa5v)
+#'
+#' # This approach is no longer recommended
+#' my_label_size_list <- list(
+#'                      list(
+#'                        from = "x2",
+#'                        to = "x3",
+#'                        new_label_size = 2
+#'                       ),
+#'                      list(
+#'                        from = "x1",
+#'                        to = "x4",
+#'                        new_label_size = 3)
+#'                      )
+#' p_pa5l <- set_edge_label_size(
+#'              p_pa,
+#'              my_label_size_list
+#'            )
+#' plot(p_pa5l)
+#'
+#'
+#' @rdname set_edge_label_attributes
+#' @export
+set_edge_label_size <- function(
+  semPaths_plot,
+  label_size_list = NULL,
+  how = c("ratio", "value"),
+  check_direction = TRUE
+) {
+
+  how <- match.arg(how)
+
+  # This version use set_edge_attribute()
+
+  if (is.null(label_size_list)) {
+    stop("label_size_list not specified.")
+  }
+  if (is.null(semPaths_plot)) {
+    stop("semPaths_plot not specified.")
+  }
+
+  # Fix the names
+  label_size_list_fixed <- to_new_value(
+    label_size_list,
+    original_name = "new_label_size"
+  )
+  out <- set_edge_attribute(semPaths_plot = semPaths_plot,
+                            values = label_size_list_fixed,
+                            attribute_name = "label.cex",
+                            how = how,
+                            check_direction = check_direction)
+
+  out
+}
 
 #' @noRd
 set_edge_label_position_old <- function(semPaths_plot, position_list = NULL) {
