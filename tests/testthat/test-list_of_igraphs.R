@@ -1,5 +1,3 @@
-skip("WIP")
-
 library(lavaan)
 library(semPlot)
 
@@ -204,6 +202,209 @@ expect_setequal(
 expect_equal(
   p1_chk$graphAttributes$Edges$curve,
   p1[[2]]$graphAttributes$Edges$curve
+)
+
+# ==== set_edge_color ====
+
+p1 <- set_edge_color(
+  p_pa2,
+  c("x4 ~ x3" = "red",
+    "x2 ~~ x1" = "blue")
+)
+# plot(p1[[2]])
+p1_chk <- set_edge_color(
+  p_pa2[[2]],
+  c("x4 ~ x3" = "red",
+    "x2 ~~ x1" = "blue")
+)
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Edges$color,
+  p1[[2]]$graphAttributes$Edges$color
+)
+
+# ==== set_edge_label ====
+
+p1 <- set_edge_label(
+  p_pa2,
+  c("x4 ~ x3" = "Edge A",
+    "x2 ~~ x1" = "Edge B")
+)
+# plot(p1[[2]])
+p1_chk <- set_edge_label(
+  p_pa2[[2]],
+  c("x4 ~ x3" = "Edge A",
+    "x2 ~~ x1" = "Edge B")
+)
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Edges$labels,
+  p1[[2]]$graphAttributes$Edges$labels
+)
+
+# ==== set_edge_label_bg ====
+
+p1 <- set_edge_label_bg(
+  p_pa2,
+  c("x4 ~ x3" = "blue",
+    "x2 ~~ x1" = "cyan")
+)
+# plot(p1[[2]])
+p1_chk <- set_edge_label_bg(
+  p_pa2[[2]],
+  c("x4 ~ x3" = "blue",
+    "x2 ~~ x1" = "cyan")
+)
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Edges$label.bg,
+  p1[[2]]$graphAttributes$Edges$label.bg
+)
+
+# ==== set_edge_label_position ====
+
+p1 <- set_edge_label_position(
+  p_pa2,
+  c("x4 ~ x3" = .2,
+    "x2 ~~ x1" = .7)
+)
+# plot(p1[[2]])
+p1_chk <- set_edge_label_position(
+  p_pa2[[2]],
+  c("x4 ~ x3" = .2,
+    "x2 ~~ x1" = .7)
+)
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Edges$edge.label.position,
+  p1[[2]]$graphAttributes$Edges$edge.label.position
+)
+
+# ==== set_edge_label_size ====
+
+p1 <- set_edge_label_size(
+  p_pa2,
+  c("x4 ~ x3" = 2,
+    "x2 ~~ x1" = 3)
+)
+# plot(p1[[2]])
+p1_chk <- set_edge_label_size(
+  p_pa2[[2]],
+  c("x4 ~ x3" = 2,
+    "x2 ~~ x1" = 3)
+)
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Edges$edge.label.cex,
+  p1[[2]]$graphAttributes$Edges$edge.label.cex
+)
+
+# ==== set_edge_line_type ====
+
+p1 <- set_edge_line_type(
+  p_pa2,
+  c("x4 ~ x3" = 2,
+    "x2 ~~ x1" = 3)
+)
+# plot(p1[[2]])
+p1_chk <- set_edge_line_type(
+  p_pa2[[2]],
+  c("x4 ~ x3" = "dashed",
+    "x2 ~~ x1" = "dotted")
+)
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Edges$lty,
+  p1[[2]]$graphAttributes$Edges$lty
+)
+
+# ==== set_edge_line_width ====
+
+p1 <- set_edge_line_width(
+  p_pa2,
+  c("x4 ~ x3" = 2,
+    "x2 ~~ x1" = 3)
+)
+# plot(p1[[2]])
+p1_chk <- set_edge_line_width(
+  p_pa2[[2]],
+  c("x4 ~ x3" = 2,
+    "x2 ~~ x1" = 3)
+)
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$graphAttributes$Edges$width,
+  p1[[2]]$graphAttributes$Edges$width
 )
 
 })

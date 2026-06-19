@@ -144,39 +144,3 @@ set_edge_line_width <- function(
 
   out
 }
-
-#' @noRd
-lty_character_to_integer <- function(
-  x
-) {
-  out <- switch(
-    x,
-    blank = 0L,
-    solid = 1L,
-    dashed = 2L,
-    dotted = 3L,
-    dotdash = 4L,
-    longdash = 5L,
-    twodash = 6L,
-    NA_integer_
-  )
-  return(out)
-}
-
-#' @noRd
-lty_integer_to_character <- function(
-  x
-) {
-  out <- switch(
-    x,
-    `0` = "blank",
-    `1` = "solid",
-    `2` = "dashed",
-    `3` = "dotted",
-    `4` = "dotdash",
-    `5` = "longdash",
-    `6` = "twodash",
-    NA_character_
-  )
-  return(out)
-}
