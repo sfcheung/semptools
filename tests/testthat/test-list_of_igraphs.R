@@ -720,4 +720,58 @@ expect_equal(
   p1[[2]]$layout
 )
 
+# ==== node_labels_equal_scale ====
+
+p1 <- node_labels_equal_scale(
+  p_pa2,
+  equal_scale = TRUE
+)
+
+p1_chk <- node_labels_equal_scale(
+  p_pa2[[2]],
+  equal_scale = TRUE
+)
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$plotOptions$label.scale.equal,
+  p1[[2]]$plotOptions$label.scale.equal
+)
+
+p1 <- node_labels_equal_scale(
+  p_pa2
+)
+
+p1_chk <- node_labels_equal_scale(
+  p_pa2[[2]]
+)
+
+expect_equal(
+  p1_chk$plotOptions$label.scale.equal,
+  p1[[2]]$plotOptions$label.scale.equal
+)
+
+p1 <- set_node_labels_equal_scale(
+  p_pa2
+)
+
+p1_chk <- set_node_labels_equal_scale(
+  p_pa2[[2]]
+)
+
+expect_equal(
+  p1_chk$plotOptions$label.scale.equal,
+  p1[[2]]$plotOptions$label.scale.equal
+)
+
+
 })
