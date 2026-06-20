@@ -844,4 +844,34 @@ expect_equal(
   p1[[2]]$plotOptions$mar
 )
 
+
+# ==== rescale_layout ====
+
+p1 <- rescale_layout(
+  p_pa2,
+  x_max = 2,
+  y_min = -2
+)
+
+p1_chk <- rescale_layout(
+  p_pa2[[2]],
+  x_max = 2,
+  y_min = -2
+)
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$layout,
+  p1[[2]]$layout
+)
+
 })

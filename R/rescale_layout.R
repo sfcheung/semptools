@@ -86,19 +86,55 @@ rescale_layout <- function(semPaths_plot,
                            x_max =  1,
                            y_min = -1,
                            y_max =  1) {
+
     if (missing(semPaths_plot)) {
-        stop("semPaths_plot not specified.")
-      } else {
-        if (!inherits(semPaths_plot, "qgraph")) {
-            stop("semPaths_plot is not a qgraph object.")
-          }
+      stop("semPaths_plot not specified.")
+    }
+
+    if (missing(semPaths_plot)) {
+      stop("semPaths_plot not specified.")
+    } else {
+      plot_type <- qgraph_type(semPaths_plot)
+      if (is.na(plot_type)) {
+        stop("semPaths is neither a qgraph or a list of qgraphs.")
       }
+    }
+
+    if (plot_type == "qgraph_list") {
+
+      # ==== For a list of qgraphs =====
+
+      out <- lapply(
+          semPaths_plot,
+          rescale_layout,
+          x_min = x_min,
+          x_max = x_max,
+          y_min = y_min,
+          y_max = y_max
+        )
+
+    }
+
+    if (plot_type == "qgraph") {
+
     semPaths_plot$layout <- rescale_layout_matrix(semPaths_plot$layout,
                                                   x_min = x_min,
                                                   x_max = x_max,
                                                   y_min = y_min,
                                                   y_max = y_max)
-    semPaths_plot
+    return(semPaths_plot)
+
+    }
+
+    # ==== Return a list of qgraphs ====
+
+    out <- copy_class_and_attributes(
+      out,
+      semPaths_plot
+    )
+
+    return(out)
+
   }
 
 
