@@ -777,13 +777,11 @@ expect_equal(
 # ==== set_node_labels_equal_scale ====
 
 p1 <- set_node_labels_equal_scale(
-  p_pa2,
-  equal_scale = TRUE
+  p_pa2
 )
 
 p1_chk <- set_node_labels_equal_scale(
-  p_pa2[[2]],
-  equal_scale = TRUE
+  p_pa2[[2]]
 )
 
 expect_identical(
