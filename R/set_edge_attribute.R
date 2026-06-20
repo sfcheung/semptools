@@ -388,7 +388,7 @@ copy_class_and_attributes <- function(
 
   attr_to_copy <- setdiff(
     names(attributes(old_object)),
-    NULL
+    attr_to_exclude
   )
 
   for (x in attr_to_copy) {
