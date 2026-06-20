@@ -774,4 +774,76 @@ expect_equal(
 )
 
 
+# ==== set_node_labels_equal_scale ====
+
+p1 <- set_node_labels_equal_scale(
+  p_pa2,
+  equal_scale = TRUE
+)
+
+p1_chk <- set_node_labels_equal_scale(
+  p_pa2[[2]],
+  equal_scale = TRUE
+)
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$plotOptions$label.scale.equal,
+  p1[[2]]$plotOptions$label.scale.equal
+)
+
+
+# ==== set_graph_margins ====
+
+p1 <- set_graph_margins(
+  p_pa2,
+  top = 2
+)
+
+p1_chk <- set_graph_margins(
+  p_pa2[[2]],
+  top = 2
+)
+
+expect_identical(
+  class(p1),
+  class(p_pa2)
+)
+
+expect_setequal(
+  names(attributes(p1)),
+  names(attributes(p_pa2))
+)
+
+expect_equal(
+  p1_chk$plotOptions$mar,
+  p1[[2]]$plotOptions$mar
+)
+
+p1 <- set_graph_margins(
+  p_pa2,
+  top = 10,
+  how = "value"
+)
+
+p1_chk <- set_graph_margins(
+  p_pa2[[2]],
+  top = 10,
+  how = "value"
+)
+
+expect_equal(
+  p1_chk$plotOptions$mar,
+  p1[[2]]$plotOptions$mar
+)
+
 })
