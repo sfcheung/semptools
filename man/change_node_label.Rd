@@ -54,6 +54,10 @@ option in the \code{semPaths_plot} will not be changed.}
 \value{
 A \link[qgraph:qgraph]{qgraph::qgraph} based on the original one, with node
 attributes of selected nodes modified.
+If \code{semPaths_plot} is a list of
+\link[qgraph:qgraph]{qgraph::qgraph} objects, then a
+list of processed \link[qgraph:qgraph]{qgraph::qgraph} objects
+will be returned.
 }
 \description{
 Change the labels of selected nodes.

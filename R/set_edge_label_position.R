@@ -92,6 +92,10 @@
 #  the original one, with edge
 #' label positions for selected edges
 #' changed.
+#' If `semPaths_plot` is a list of
+#' [qgraph::qgraph] objects, then a
+#' list of processed [qgraph::qgraph] objects
+#' will be returned.
 #'
 #' @inheritParams set_edge_attribute
 #'
