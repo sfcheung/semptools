@@ -1,6 +1,6 @@
 # Changelog
 
-## semptools 0.3.3.15
+## semptools 0.3.3.16
 
 ### Improvement
 
@@ -106,6 +106,43 @@
   and
   [`set_node_labels_equal_scale()`](https://sfcheung.github.io/semptools/reference/set_graph_attributes.md).
   (0.3.3.15)
+
+- Updated these functions to support a list of `qgraph` objects:
+  [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md),
+  [`set_node_attribute()`](https://sfcheung.github.io/semptools/reference/set_node_attribute.md),
+  [`rotate_resid()`](https://sfcheung.github.io/semptools/reference/rotate_resid.md),
+  [`set_curve()`](https://sfcheung.github.io/semptools/reference/set_curve.md),
+  [`set_edge_color()`](https://sfcheung.github.io/semptools/reference/set_edge_color.md),
+  [`set_edge_label()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md),
+  [`set_edge_label_bg()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md),
+  [`set_edge_label_position()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md),
+  [`set_edge_label_size()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md),
+  [`set_edge_line_type()`](https://sfcheung.github.io/semptools/reference/set_edge_line_type.md),
+  [`set_edge_line_width()`](https://sfcheung.github.io/semptools/reference/set_edge_line_width.md),
+  [`set_node_border_color()`](https://sfcheung.github.io/semptools/reference/set_node_border.md),
+  [`set_node_border_width()`](https://sfcheung.github.io/semptools/reference/set_node_border.md),
+  [`set_node_color()`](https://sfcheung.github.io/semptools/reference/set_node_color.md),
+  [`set_node_height()`](https://sfcheung.github.io/semptools/reference/set_node_size.md),
+  [`set_node_label_color()`](https://sfcheung.github.io/semptools/reference/set_node_label.md),
+  [`set_node_label_size()`](https://sfcheung.github.io/semptools/reference/set_node_label.md),
+  [`set_node_shape()`](https://sfcheung.github.io/semptools/reference/set_node_size.md),
+  [`set_node_size()`](https://sfcheung.github.io/semptools/reference/set_node_size.md),
+  [`set_node_width()`](https://sfcheung.github.io/semptools/reference/set_node_size.md),
+  [`move_node()`](https://sfcheung.github.io/semptools/reference/move_node.md),
+  [`node_labels_equal_scale()`](https://sfcheung.github.io/semptools/reference/set_graph_attributes.md),
+  [`rescale_layout()`](https://sfcheung.github.io/semptools/reference/rescale_layout.md),
+  [`set_graph_margins()`](https://sfcheung.github.io/semptools/reference/set_graph_attributes.md),
+  [`set_node_labels_equal_scale()`](https://sfcheung.github.io/semptools/reference/set_graph_attributes.md),
+  and
+  [`change_node_label()`](https://sfcheung.github.io/semptools/reference/change_node_label.md).
+  (0.3.3.16)
+
+- Updated
+  [`get_node_attribute()`](https://sfcheung.github.io/semptools/reference/get_node_attribute.md)
+  and
+  [`get_edge_attribute()`](https://sfcheung.github.io/semptools/reference/get_edge_attribute.md)
+  to work with a list of `qgraph` objects, though they will only get the
+  attribute values from the first object. (0.3.3.16)
 
 ### Miscellaneous
 

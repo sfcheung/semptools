@@ -74,7 +74,12 @@ change_node_label(
 ## Value
 
 A [qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) based on
-the original one, with node attributes of selected nodes modified.
+the original one, with node attributes of selected nodes modified. If
+`semPaths_plot` is a list of
+[qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) objects,
+then a list of processed
+[qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) objects
+will be returned.
 
 ## Details
 

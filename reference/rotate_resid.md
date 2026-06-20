@@ -17,7 +17,11 @@ rotate_resid(semPaths_plot, rotate_resid_list = NULL, check_nodes = TRUE)
   [semPlot::semPaths](https://rdrr.io/pkg/semPlot/man/semPaths.html), or
   a similar qgraph object modified by other
   [semptools](https://sfcheung.github.io/semptools/reference/semptools-package.md)
-  functions.
+  functions. It can also be a list of
+  [qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) objects,
+  probably though not necessarily from a multigroup model. If it is a
+  list of [qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html)
+  objects, then the function will be applied to all the objects.
 
 - rotate_resid_list:
 
@@ -43,7 +47,11 @@ rotate_resid(semPaths_plot, rotate_resid_list = NULL, check_nodes = TRUE)
 
 A [qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) object
 based on the original one, with `loopRotation` attributes of selected
-nodes modified.
+nodes modified. If `semPaths_plot` is a list of
+[qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) objects,
+then a list of processed
+[qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) objects
+will be returned.
 
 ## Details
 

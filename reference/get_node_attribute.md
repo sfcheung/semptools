@@ -22,7 +22,15 @@ get_node_attribute(
   [semPlot::semPaths](https://rdrr.io/pkg/semPlot/man/semPaths.html), or
   a similar qgraph object modified by other
   [semptools](https://sfcheung.github.io/semptools/reference/semptools-package.md)
-  functions.
+  functions. Unlike some other functions, this function does *not*
+  support a list of
+  [qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) objects.
+  If `semPaths_plot` is a list of
+  [qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) objects,
+  only the first object will be processed. Use functions such as
+  [`lapply()`](https://rdrr.io/r/base/lapply.html) manually to get the
+  attribute values from a list of
+  [qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) objects.
 
 - nodes:
 

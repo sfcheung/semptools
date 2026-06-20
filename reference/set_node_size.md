@@ -38,7 +38,11 @@ set_node_shape(semPaths_plot, values = NULL, check_nodes = TRUE)
   [semPlot::semPaths](https://rdrr.io/pkg/semPlot/man/semPaths.html), or
   a similar qgraph object modified by other
   [semptools](https://sfcheung.github.io/semptools/reference/semptools-package.md)
-  functions.
+  functions. It can also be a list of
+  [qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) objects,
+  probably though not necessarily from a multigroup model. If it is a
+  list of [qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html)
+  objects, then the function will be applied to all the objects.
 
 - values:
 
@@ -59,7 +63,12 @@ set_node_shape(semPaths_plot, values = NULL, check_nodes = TRUE)
 ## Value
 
 A [qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) based on
-the original one, with the sizes of selected nodes changed.
+the original one, with the sizes of selected nodes changed. If
+`semPaths_plot` is a list of
+[qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) objects,
+then a list of processed
+[qgraph::qgraph](https://rdrr.io/pkg/qgraph/man/qgraph.html) objects
+will be returned.
 
 ## Details
 
