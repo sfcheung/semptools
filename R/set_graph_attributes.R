@@ -248,10 +248,6 @@ node_labels_equal_scale <- function(
 
   if (missing(semPaths_plot)) {
     stop("semPaths_plot not specified.")
-  }
-
-  if (missing(semPaths_plot)) {
-    stop("semPaths_plot not specified.")
   } else {
     plot_type <- qgraph_type(semPaths_plot)
     if (is.na(plot_type)) {
