@@ -126,5 +126,4 @@ get_edge_attribute(
    edges = c("x2 ~~ x1", "x4 ~ x1"),
    attribute_name = "color")
 
-
 }
