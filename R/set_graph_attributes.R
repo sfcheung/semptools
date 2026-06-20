@@ -94,6 +94,49 @@ set_graph_margins <- function(
     stop("semPaths_plot not specified.")
   }
 
+  if (missing(semPaths_plot)) {
+    stop("semPaths_plot not specified.")
+  } else {
+    plot_type <- qgraph_type(semPaths_plot)
+    if (is.na(plot_type)) {
+      stop("semPaths is neither a qgraph or a list of qgraphs.")
+    }
+  }
+
+
+  if (plot_type == "qgraph_list") {
+
+    # ==== For a list of qgraphs =====
+
+    # Need to use this approach because
+    # bottom, left, top, and right may be missing
+
+    my_call <- match.call()
+    my_args <- as.list(my_call)[-1]
+    my_args$semPaths_plot <- NULL
+    for (i in seq_along(my_args)) {
+      my_args[[i]] <- eval(
+                        my_args[[i]],
+                        envir = parent.frame(),
+                        enclos = parent.frame()
+                      )
+    }
+    out <- lapply(
+      semPaths_plot,
+      function(x) {
+        args <- my_args
+        args$semPaths_plot <- x
+        do.call(
+          set_graph_margins,
+          args
+        )
+      }
+    )
+
+  }
+
+  if (plot_type == "qgraph") {
+
   mar_old <- semPaths_plot$plotOptions$mar
 
   if (missing(bottom)) {
@@ -134,7 +177,18 @@ set_graph_margins <- function(
 
   out <- semPaths_plot
   out$plotOptions$mar <- mar_new
-  out
+  return(out)
+
+  }
+
+  # ==== Return a list of qgraphs ====
+
+  out <- copy_class_and_attributes(
+    out,
+    semPaths_plot
+  )
+
+  return(out)
 
 }
 
@@ -194,7 +248,45 @@ node_labels_equal_scale <- function(
 
   if (missing(semPaths_plot)) {
     stop("semPaths_plot not specified.")
+  } else {
+    plot_type <- qgraph_type(semPaths_plot)
+    if (is.na(plot_type)) {
+      stop("semPaths is neither a qgraph or a list of qgraphs.")
+    }
   }
+
+  if (plot_type == "qgraph_list") {
+
+    # ==== For a list of qgraphs =====
+
+    # Need to use this approach because
+    # equal_scale may be missing
+
+    my_call <- match.call()
+    my_args <- as.list(my_call)[-1]
+    my_args$semPaths_plot <- NULL
+    for (i in seq_along(my_args)) {
+      my_args[[i]] <- eval(
+                        my_args[[i]],
+                        envir = parent.frame(),
+                        enclos = parent.frame()
+                      )
+    }
+    out <- lapply(
+      semPaths_plot,
+      function(x) {
+        args <- my_args
+        args$semPaths_plot <- x
+        do.call(
+          node_labels_equal_scale,
+          args
+        )
+      }
+    )
+
+  }
+
+  if (plot_type == "qgraph") {
 
   value_old <- semPaths_plot$plotOptions$label.scale.equal
 
@@ -210,7 +302,18 @@ node_labels_equal_scale <- function(
 
   out <- semPaths_plot
   out$plotOptions$label.scale.equal <- equal_scale
-  out
+  return(out)
+
+  }
+
+  # ==== Return a list of qgraphs ====
+
+  out <- copy_class_and_attributes(
+    out,
+    semPaths_plot
+  )
+
+  return(out)
 
 }
 

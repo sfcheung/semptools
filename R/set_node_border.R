@@ -68,6 +68,10 @@
 #' the original one, with the corresponding
 #' attribute of
 #' of selected nodes changed.
+#' If `semPaths_plot` is a list of
+#' [qgraph::qgraph] objects, then a
+#' list of processed [qgraph::qgraph] objects
+#' will be returned.
 #'
 #' @inheritParams set_node_attribute
 #'

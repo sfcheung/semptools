@@ -9,6 +9,10 @@
 #'
 #'@return A [qgraph::qgraph] object based on the original one, with
 #' `loopRotation` attributes of selected nodes modified.
+#' If `semPaths_plot` is a list of
+#' [qgraph::qgraph] objects, then a
+#' list of processed [qgraph::qgraph] objects
+#' will be returned.
 #'
 #'
 #' @inheritParams set_node_attribute
