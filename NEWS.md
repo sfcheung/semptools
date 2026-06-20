@@ -1,4 +1,4 @@
-# semptools 0.3.3.15
+# semptools 0.3.3.16
 
 ## Improvement
 
@@ -102,6 +102,44 @@
   `node_labels_equal_scale()`,
   and `set_node_labels_equal_scale()`.
   (0.3.3.15)
+
+- Updated these functions to support
+  a list of `qgraph` objects:
+  `set_edge_attribute()`,
+  `set_node_attribute()`,
+  `rotate_resid()`,
+  `set_curve()`,
+  `set_edge_color()`,
+  `set_edge_label()`,
+  `set_edge_label_bg()`,
+  `set_edge_label_position()`,
+  `set_edge_label_size()`,
+  `set_edge_line_type()`,
+  `set_edge_line_width()`,
+  `set_node_border_color()`,
+  `set_node_border_width()`,
+  `set_node_color()`,
+  `set_node_height()`,
+  `set_node_label_color()`,
+  `set_node_label_size()`,
+  `set_node_shape()`,
+  `set_node_size()`,
+  `set_node_width()`,
+  `move_node()`,
+  `node_labels_equal_scale()`,
+  `rescale_layout()`,
+  `set_graph_margins()`,
+  `set_node_labels_equal_scale()`,
+  and
+  `change_node_label()`.
+  (0.3.3.16)
+
+- Updated `get_node_attribute()`
+  and `get_edge_attribute()` to work
+  with a list of `qgraph` objects, though
+  they will only get the attribute values
+  from the first object.
+  (0.3.3.16)
 
 ## Miscellaneous
 
