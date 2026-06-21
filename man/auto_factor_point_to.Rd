@@ -8,7 +8,9 @@
 auto_factor_point_to(factor_layout, ...)
 }
 \arguments{
-\item{factor_layout}{Argument description.}
+\item{factor_layout}{A layout matrix
+to be used in the \code{layout} argument,
+such as one created by \code{\link[=layout_matrix]{layout_matrix()}}.}
 
 \item{...}{Additional arguments. If
 the first argument is not named, then
