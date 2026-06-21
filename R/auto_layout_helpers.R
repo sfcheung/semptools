@@ -620,3 +620,58 @@ check_graph_pass_thru <- function(object) {
   chk <- chk[!is.na(chk)]
   all(chk != 0)
 }
+
+
+# Same betas
+mg_same_betas <- function(
+  object
+) {
+  if (inherits(object, "lavaan")) {
+    ngroups <- lavaan::lavTech(
+      object,
+      "ngroups"
+    )
+    if (ngroups == 1) {
+      return(TRUE)
+    }
+    mm <- lavaan::lavInspect(
+      object,
+      what = "free",
+      drop.list.single.group = FALSE,
+      list.by.group = TRUE
+    )
+    betas <- lapply(
+      mm,
+      function(x) x$beta
+    )
+    if (all(sapply(betas, is.null))) {
+      return(NA)
+    }
+  } else {
+    betas <- object
+  }
+  beta_colnames <- lapply(
+    betas,
+    colnames
+  )
+  beta_rownames <- lapply(
+    betas,
+    rownames
+  )
+  if (all(sapply(beta_colnames, is.null))) {
+    return(NA)
+  }
+  chk1 <- sapply(
+    beta_colnames[-1],
+    function(x) {
+      isTRUE(identical(x, beta_colnames[[1]]))
+    }
+  )
+  chk2 <- sapply(
+    beta_rownames[-1],
+    function(x) {
+      isTRUE(identical(x, beta_rownames[[1]]))
+    }
+  )
+  return(all(chk1) && all(chk2))
+}
