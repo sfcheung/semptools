@@ -1,4 +1,4 @@
-# semptools 0.3.3.18
+# semptools 0.3.3.19
 
 ## Improvement
 
@@ -165,6 +165,8 @@
   the `pkgdown` site.
   (0.3.3.18)
 
+- Fixed a multigroup bug in `mark_sig()`.
+  (0.3.3.19)
 
 # semptools 0.3.3
 
