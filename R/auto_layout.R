@@ -35,6 +35,14 @@
 #'   visible and not blocked by any
 #'   mediator.
 #'
+#' ## Multigroup Models or a List of Plots
+#'
+#' The function supports a multigroup
+#' model and a list of plots. However,
+#' the structural parts of all groups
+#' or plots must be identical: same
+#' variables, and same paths.
+#'
 #' @return
 #'
 #' If `object` is a `lavaan`-class
@@ -51,6 +59,12 @@
 #' returns a `qgraph` object with the
 #' the modified layout.
 #'
+#' If `object` is a list of
+#' [qgraph::qgraph] objects and
+#' `update_plot` is `TRUE`, then it returns
+#' a
+#' list of processed [qgraph::qgraph] objects.
+#'
 #' @param object It can be the output of
 #' [lavaan::sem()] or
 #' [lavaan::lavaan()], or a
@@ -61,6 +75,14 @@
 #' [semPlot::semPaths()]. A `beta``
 #' matrix will be reconstructed from the
 #' graph.
+#' It can also
+#' be a list of [qgraph::qgraph] objects,
+#' probably though not necessarily from
+#' a multigroup model. If it is a list
+#' of [qgraph::qgraph] objects and
+#' `update_plot` is `TRUE`, then
+#' the function will be applied to all
+#' the objects.
 #'
 #' @param x The variables that will be
 #' treated as (pure) `x` variables:
@@ -225,36 +247,83 @@ auto_layout_mediation <- function(
   output <- match.arg(output)
 
   object_type <- NA
+  is_multigroup_lavaan <- FALSE
+
   if (inherits(object, "lavaan")) {
+
+    # ==== Process a lavaan input ====
+
     object_type <- "lavaan"
     if (lavaan::lavTech(object, "ngroups") != 1) {
-      stop("Multigroup models not supported.")
+
+      # ==== Multigroup lavaan ====
+
+      is_multigroup_lavaan <- TRUE
+      same_betas <- mg_same_betas(object)
+      if (is.na(same_betas)) {
+        stop("The model has no structural paths. Is it a CFA model?")
+      }
+      if (!same_betas) {
+        stop("For multigroup models, the structural part must be the same across groups.")
+      }
+      # stop("Multigroup models not supported.")
     }
+
+    # ==== Work for both multigroup and single-group models ====
+
     beta0 <- lavaan::lavInspect(
                 object,
-                what = "free"
-              )$beta
+                what = "free",
+                drop.list.single.group = FALSE
+              )[[1]]$beta
     if (is.null(beta0)) {
       stop("The model has no structural paths. Is it a CFA model?")
     }
-  } else if (inherits(object, "qgraph")) {
-    object_type <- "qgraph"
-    if (has_intercept(object)) {
+  } else if (is.list(object)) {
+    if (inherits(object, "qgraph")) {
+      object_type <- "qgraph"
+      object <- list(object)
+    } else if (is_multigroup_qgraph(object)) {
+      object_type <- "qgraph_list"
+    } else {
+      stop("object is not a supported type.")
+    }
+
+    # Always process a list of qgraphs first.
+
+    # ==== Process a qgraph input ====
+
+    chk_intercept <- sapply(
+      object,
+      has_intercept
+    )
+
+    if (any(chk_intercept)) {
       stop("Does not support a plot with intercept(s).")
     }
-    if (is_multigroup_qgraph(object)) {
-      stop("Does not support multigroup plot.")
-    }
+    # if (is_multigroup_qgraph(object)) {
+    #   stop("Does not support multigroup plot.")
+    # }
     # Cannot check for factor loading
     # paths because there is no way to
     # differentiate a path from a latent
     # factor to an observed outcome
     # variable from a factor loading
     # path.
-    beta0 <- qgraph_to_beta(object)
+    beta0 <- lapply(
+      object,
+      qgraph_to_beta
+    )
+    same_betas <- mg_same_betas(beta0)
+    if (!same_betas) {
+      stop("For multigroup models, the structural part must be the same across groups.")
+    }
+    # Work only on the first plot
+    beta0 <- beta0[[1]]
   } else {
     stop("object is not a supported type.")
   }
+
   beta1 <- fixed_beta(
               beta0,
               x = x,
@@ -271,14 +340,26 @@ auto_layout_mediation <- function(
             beta = beta1,
             v_preference = v_preference
           )
-  if ((object_type == "qgraph") &&
+  if ((object_type %in% c("qgraph", "qgraph_list")) &&
       update_plot) {
-    object_layout <- qgraph_to_layoutxy(object)
-    m2 <- m1[rownames(object_layout), ]
-    m2 <- rescale_layout_matrix(m2)
-    out <- object
-    out$layout <- m2
-    out <- make_straight(out)
+    f <- function(x) {
+      object_layout <- qgraph_to_layoutxy(x)
+      m2 <- m1[rownames(object_layout), ]
+      m2 <- rescale_layout_matrix(m2)
+      out <- x
+      out$layout <- m2
+      out <- make_straight(out)
+      out
+    }
+    out <- lapply(
+      object,
+      f
+    )
+    out <- switch(
+      object_type,
+      qgraph = out[[1]],
+      qgraph_list = copy_class_and_attributes(out, object)
+    )
   } else {
     out <- switch(output,
                 matrix = layout_matrix_from_mxy(m1),
