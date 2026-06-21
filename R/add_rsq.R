@@ -107,34 +107,95 @@ add_rsq <- function(semPaths_plot,
                     digits = 2L,
                     rsq_string = "R2=",
                     ests = NULL) {
-  if (is.null(object)) {
-    object <- attr(semPaths_plot, "semptools_fit_object")
-  }
-  if (is.null(ests)) {
-    if (is.null(object)) {
-      stop("Both object and ests not supplied, and objet not stored in semPaths_plot.")
-    }
-    ests <- lavaan::parameterEstimates(object, se = FALSE, ci = FALSE,
-                                       zstat = FALSE, pvalue = FALSE,
-                                       rsquare = TRUE)
-  }
-  ests <- ests[ests$op == "r2", ]
-  if (nrow(ests) == 0) {
-    # No R-square
-    return(semPaths_plot)
-  }
-  if (inherits(semPaths_plot, "list")) {
-    if (length(semPaths_plot) != length(unique(ests$group))) {
-      rlang::abort(paste("length of qgraph list does not match",
-                         "number of groups in model fit object."))
-    }
-    ests_list <- split(ests, ests$group)
-    out <- mapply(add_rsq, semPaths_plot, ests = ests_list, SIMPLIFY = FALSE)
+
+  if (missing(semPaths_plot)) {
+      stop("semPaths_plot not specified.")
   } else {
-    if (!is.null(object) && lavaan::lavInspect(object, "ngroups") > 1) {
-      rlang::abort(paste("length of qgraph list does not match",
-                         "number of groups in model fit object."))
+    plot_type <- qgraph_type(semPaths_plot)
+    if (is.na(plot_type)) {
+      stop("semPaths is neither a qgraph or a list of qgraphs.")
     }
+  }
+
+  if (plot_type == "qgraph_list") {
+
+    # ==== Process a list of graphs ====
+
+    # If a list of graphs
+    # - Case 1: Each plot has its own object
+    # - Case 2: One object for all plots
+
+    one_for_all <- NA
+
+    if (is.null(object)) {
+      object <- attr(semPaths_plot, "semptools_fit_object")
+    }
+    if (!is.null(object)) {
+      # One object for all plots
+      one_for_all <- TRUE
+    } else {
+      object_in_all <- sapply(
+        semPaths_plot,
+        function(x) !is.null(attr(x, "semptools_fit_object"))
+      )
+      if (all(object_in_all)) {
+        # Each plot has its own object
+        one_for_all <- FALSE
+      }
+    }
+
+    if (is.null(ests)) {
+      if (is.na(one_for_all)) {
+        stop("Both object and ests not supplied, and object not stored in semPaths_plot.")
+      }
+    }
+    if (one_for_all) {
+      # - Case 1 (one_for_all): Generate list of ests
+      ests <- lavaan::parameterEstimates(object, se = FALSE, ci = FALSE,
+                                        zstat = FALSE, pvalue = FALSE,
+                                        rsquare = TRUE)
+      if (length(semPaths_plot) != length(unique(ests$group))) {
+        rlang::abort(paste("length of qgraph list does not match",
+                          "number of groups in model fit object."))
+      }
+      ests_list <- split(ests, ests$group)
+      out <- mapply(add_rsq, semPaths_plot, ests = ests_list, SIMPLIFY = FALSE)
+    }
+    if (!one_for_all) {
+      # - Case 2 (each has one): Just call add_rsq
+      out <- mapply(add_rsq, semPaths_plot, SIMPLIFY = FALSE)
+    }
+  }
+
+  if (plot_type == "qgraph") {
+
+    # ==== Process one graph ====
+
+    # object will be available only if one_for_all
+
+    if (is.null(object)) {
+      object <- attr(semPaths_plot, "semptools_fit_object")
+    }
+    if (is.null(ests)) {
+      if (is.null(object)) {
+        stop("Both object and ests not supplied, and object not stored in semPaths_plot.")
+      }
+      ests <- lavaan::parameterEstimates(object, se = FALSE, ci = FALSE,
+                                        zstat = FALSE, pvalue = FALSE,
+                                        rsquare = TRUE)
+    }
+
+    ests <- ests[ests$op == "r2", ]
+
+    if (nrow(ests) == 0) {
+      # No R-square
+      out <- add_object(
+        semPaths_plot,
+        object
+      )
+      return(out)
+    }
+
     Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
     if (!is.null(names(Nodes_names))) {
       Nodes_names <- names(Nodes_names)
@@ -184,13 +245,27 @@ add_rsq <- function(semPaths_plot,
                                                      format = "f"))
     edge_to_add <- edge_to_add[order(edge_to_add$id), ]
     semPaths_plot$graphAttributes$Edges$labels <- edge_to_add$labels
-    out <- semPaths_plot
+
+    out <- add_object(
+      semPaths_plot,
+      object
+    )
+    return(out)
+
   }
+
   # ==== Update the fit object ====
   # NULL remains NULL. Can run even if object is NULL
+
+  out <- copy_class_and_attributes(
+    out,
+    semPaths_plot
+  )
+
   out <- add_object(
     out,
     object
   )
+
   out
 }
