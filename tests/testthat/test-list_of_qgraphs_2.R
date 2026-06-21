@@ -1,7 +1,9 @@
 library(lavaan)
 library(semPlot)
 
-test_that("list of qgraphs", {
+test_that("list of qgraphs: set_sem_layout", {
+
+# ===== set_sem_layout ====
 
 set.seed(234)
 sem_example$gp <- sample(
@@ -35,8 +37,6 @@ p <- semPaths(
   DoNotPlot = TRUE
 )
 
-# ===== set_sem_layout ====
-
 indicator_order  <- c("x04", "x05", "x01", "x02", "x03",
                       "x11", "x12", "x13", "x14", "x08", "x09", "x10")
 indicator_factor <- c("x04", "x05", "f1",  "f1",  "f1",
@@ -68,6 +68,113 @@ p1_chk <- set_sem_layout(p[[2]],
   indicator_push = indicator_push,
   indicator_spread = indicator_spread,
   loading_position = loading_position
+)
+
+expect_identical(
+  p1[[2]]$layout,
+  p1_chk$layout
+)
+
+
+p1 <- set_sem_layout(
+  p,
+  indicator_order = indicator_order,
+  indicator_factor = indicator_factor,
+  factor_layout = factor_layout,
+  factor_point_to = factor_point_to,
+  indicator_push = indicator_push,
+  indicator_spread = indicator_spread,
+  loading_position = loading_position
+)
+
+p1_chk <- set_sem_layout(p[[2]],
+  indicator_order = indicator_order,
+  indicator_factor = indicator_factor,
+  factor_layout = factor_layout,
+  factor_point_to = factor_point_to,
+  indicator_push = indicator_push,
+  indicator_spread = indicator_spread,
+  loading_position = loading_position
+)
+
+expect_identical(
+  p1[[2]]$layout,
+  p1_chk$layout
+)
+
+
+})
+
+test_that("list of qgraphs: set_cfa_layout", {
+
+# ===== set_cfa_layout ====
+
+set.seed(234)
+cfa_example$gp <- sample(
+  c("gp1", "gp2", "gp3"),
+  nrow(cfa_example),
+  replace = TRUE
+)
+mod <-
+  'f1 =~ x01 + x02 + x03
+   f2 =~ x04 + x05 + x06 + x07
+   f3 =~ x08 + x09 + x10
+   f4 =~ x11 + x12 + x13 + x14
+  '
+fit_cfa <- lavaan::cfa(
+  mod,
+  cfa_example,
+  group = "gp",
+  meanstructure = FALSE
+)
+p <- semPaths(
+  fit_cfa,
+  whatLabels="est",
+  sizeMan = 2.5,
+  nCharNodes = 0,
+  nCharEdges = 0,
+  edge.width = 0.8,
+  node.width = 0.7,
+  edge.label.cex = 0.6,
+  style = "ram",
+  mar = c(10, 10, 10, 10),
+  DoNotPlot = TRUE
+)
+indicator_order  <- c("x04", "x05", "x06", "x07", "x01", "x02", "x03", "x11",
+                       "x12", "x13", "x14", "x08", "x09", "x10")
+indicator_factor <- c( "f2",  "f2",  "f2",  "f2",  "f1",  "f1",  "f1",  "f4",
+                       "f4",  "f4",  "f4",  "f3",  "f3",  "f3")
+p1 <- set_cfa_layout(
+  p,
+  indicator_order,
+  indicator_factor,
+  fcov_curve = 1.5,
+  loading_position = .8
+)
+
+p1_chk <- set_cfa_layout(
+  p[[2]],
+  indicator_order,
+  indicator_factor,
+  fcov_curve = 1.5,
+  loading_position = .8
+)
+
+expect_identical(
+  p1[[2]]$layout,
+  p1_chk$layout
+)
+
+p1 <- set_cfa_layout(
+  p,
+  fcov_curve = 1.5,
+  loading_position = .8
+)
+
+p1_chk <- set_cfa_layout(
+  p[[2]],
+  fcov_curve = 1.5,
+  loading_position = .8
 )
 
 expect_identical(
