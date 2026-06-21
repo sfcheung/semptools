@@ -197,7 +197,7 @@ mark_sig <- function(semPaths_plot,
     if (has_rsq_pvalue) {
       ests_r2_list <- split(ests_r2, ests$group)
     } else {
-      ests_r2_list <- lapply(ests$group,
+      ests_r2_list <- lapply(unique(ests$group),
                              \(x) NULL)
     }
     out <- mapply(mark_sig,
@@ -325,4 +325,188 @@ mark_sig <- function(semPaths_plot,
     )
   }
   out
+}
+
+#' @noRd
+mark_sig_old <- function(semPaths_plot, object,
+                     alphas = c("*" = .05, "**" = .01, "***" = .001),
+                     ests = NULL,
+                     std_type = FALSE,
+                     ests_r2 = NULL,
+                     r2_prefix = "R2=") {
+  if ("triangle" %in% semPaths_plot$graphAttributes$Nodes$shape) {
+    rlang::inform(paste("The semPaths plot seems to have one or",
+                        "more intercepts. Support for models with",
+                        "are only experimental. If failed,",
+                        "consider setting",
+                        "'intercepts = FALSE' in semPaths."))
+  }
+
+  alphas_sorted <- sort(alphas, decreasing = FALSE)
+  if (is.null(ests)) {
+    if (isFALSE(std_type)) {
+      ests <- lavaan::parameterEstimates(object, se = TRUE, ci = FALSE,
+                                         zstat = TRUE, pvalue = TRUE)
+    } else {
+      if (isTRUE(std_type)) std_type <- "std.all"
+      ests <- lavaan::standardizedSolution(object, type = std_type,
+                                           se = TRUE, ci = FALSE,
+                                           zstat = TRUE, pvalue = TRUE)
+    }
+  }
+
+  # ==== Extract r2, if exists ====
+
+  has_rsq <- isTRUE("r2" %in% ests$op) ||
+              !is.null(ests_r2)
+  has_rsq_pvalue <- FALSE
+  if (has_rsq) {
+    if (is.null(ests_r2)) {
+      i <- ests$op == "r2"
+      ests_r2 <- ests[i, , drop = FALSE]
+      rownames(ests_r2) <- ests_r2$lhs
+      ests <- ests[!i, ]
+      has_rsq_pvalue <- all(!is.na(ests_r2$pvalue))
+    } else {
+      # User ests_r2 overrides ests
+      i <- ests$op == "r2"
+      if (any(i)) {
+        ests <- ests[!i, ]
+      }
+      rownames(ests_r2) <- ests_r2$lhs
+      has_rsq_pvalue <- all(!is.na(ests_r2$pvalue))
+    }
+  } else {
+    ests_r2 <- NULL
+    has_rsq_pvalue <- FALSE
+  }
+
+  if (inherits(semPaths_plot, "list")) {
+    if (length(semPaths_plot) != length(unique(ests$group))) {
+      rlang::abort(paste("length of qgraph list does not match",
+                         "number of groups in model fit object."))
+    }
+    ests_list <- split(ests, ests$group)
+    if (has_rsq_pvalue) {
+      ests_r2_list <- split(ests_r2, ests$group)
+    } else {
+      ests_r2_list <- lapply(ests$group,
+                             \(x) NULL)
+    }
+    mapply(mark_sig,
+           semPaths_plot,
+           ests = ests_list,
+           ests_r2 = ests_r2_list,
+           MoreArgs = list(alphas = alphas,
+                           std_type = std_type,
+                           r2_prefix = r2_prefix),
+           SIMPLIFY = FALSE)
+  } else {
+    if (!missing(object) && lavaan::lavInspect(object, "ngroups") > 1) {
+      rlang::abort(paste("length of qgraph list does not match",
+                         "number of groups in model fit object."))
+    }
+    Nodes_names <- semPaths_plot$graphAttributes$Nodes$names
+    if (!is.null(names(Nodes_names))) {
+      Nodes_names <- names(Nodes_names)
+    }
+    ests$rhs <- ifelse(ests$op == "~1", yes = "1", no = ests$rhs)
+    if (!all(Nodes_names %in% union(ests$lhs, ests$rhs))) {
+      abort_nomatch(Nodes_names, union(ests$lhs, ests$rhs))
+    }
+    Edgelist <- data.frame(
+      from_names = Nodes_names[semPaths_plot$Edgelist$from],
+      to_names   = Nodes_names[semPaths_plot$Edgelist$to],
+      semPaths_plot$Edgelist, stringsAsFactors = FALSE)
+    graphAttributes_Edges <- data.frame(
+      from_names = Nodes_names[semPaths_plot$Edgelist$from],
+      to_names   = Nodes_names[semPaths_plot$Edgelist$to],
+      semPaths_plot$graphAttributes$Edges, stringsAsFactors = FALSE)
+    graphAttributes_Edges$id <- as.numeric(rownames(graphAttributes_Edges))
+    edge_labels <- graphAttributes_Edges[, c("id",
+                                             "from_names",
+                                             "to_names",
+                                             "labels")]
+
+    # Remove thresholds. Not used
+    to_keep <- ests$op != "|"
+    # Remove ~*~. Not used.
+    to_keep <- to_keep & (ests$op != "~*~")
+
+    ests_pvalues <- ests[to_keep, c("lhs",
+                             "op",
+                             "rhs",
+                             "pvalue")]
+    colnames(ests_pvalues) <- gsub("\\<lhs\\>",
+                                   "from_names",
+                                   colnames(ests_pvalues))
+    colnames(ests_pvalues) <- gsub("\\<rhs\\>",
+                                   "to_names",
+                                   colnames(ests_pvalues))
+    ests_pvalues_rev <- ests[to_keep, c("lhs",
+                                 "rhs",
+                                 "pvalue")]
+    colnames(ests_pvalues_rev) <- gsub("\\<pvalue\\>",
+                                   "pvalue_rev",
+                                   colnames(ests_pvalues_rev))
+    colnames(ests_pvalues_rev) <- gsub("\\<rhs\\>",
+                                   "from_names",
+                                   colnames(ests_pvalues_rev))
+    colnames(ests_pvalues_rev) <- gsub("\\<lhs\\>",
+                                   "to_names",
+                                   colnames(ests_pvalues_rev))
+    edge_pvalues <- merge(x = edge_labels,
+                          y = ests_pvalues,
+                          by = c("from_names",
+                                 "to_names"),
+                          all.x = TRUE,
+                          all.y = FALSE,
+                          sort = FALSE)
+    edge_pvalues <- merge(x = edge_pvalues,
+                          y = ests_pvalues_rev,
+                          by = c("from_names",
+                                 "to_names"),
+                          all.x = TRUE,
+                          all.y = FALSE,
+                          sort = FALSE)
+    all_na <- apply(edge_pvalues[, c("pvalue", "pvalue_rev")],
+                    MARGIN = 1,
+                    FUN = function(x) all(is.na(x)))
+    edge_pvalues$pvalue <- suppressWarnings(
+                              apply(edge_pvalues[, c("pvalue", "pvalue_rev")],
+                                    MARGIN = 1,
+                                    FUN = max,
+                                    na.rm = TRUE))
+    edge_pvalues$pvalue[all_na] <- NA
+    edge_pvalues <- edge_pvalues[order(edge_pvalues$id), ]
+
+    i <- grepl(r2_prefix, edge_pvalues$labels)
+    plot_has_rsq <- any(i)
+    if (plot_has_rsq) {
+
+      # ==== Import Rsq p-values, if available ====
+
+      if (has_rsq_pvalue) {
+        tmp <- edge_pvalues$from_names[i]
+        tmp2 <- ests_r2[tmp, "pvalue"]
+        edge_pvalues[i, "pvalue"] <- tmp2
+      } else {
+        edge_pvalues[i, "pvalue"] <- NA
+      }
+    }
+
+    sig_symbols <- sapply(edge_pvalues$pvalue, function(x) {
+                      ind <- which(x < alphas_sorted)[1]
+                      ifelse(is.na(ind), "", names(ind[1]))
+                    })
+    labels_old <- semPaths_plot$graphAttributes$Edges$labels
+    labels_new <- paste0(labels_old, sig_symbols)
+
+    # # Identify probable R-squares and do not mark them, for now
+    # tmp <- is.na(suppressWarnings(as.numeric(labels_old)))
+    # labels_new[tmp] <- labels_old[tmp]
+
+    semPaths_plot$graphAttributes$Edges$labels <- labels_new
+    semPaths_plot
+  }
 }
