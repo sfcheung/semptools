@@ -148,22 +148,22 @@ add_rsq <- function(semPaths_plot,
       if (is.na(one_for_all)) {
         stop("Both object and ests not supplied, and object not stored in semPaths_plot.")
       }
-      if (one_for_all) {
-        # - Case 1 (one_for_all): Generate list of ests
-        ests <- lavaan::parameterEstimates(object, se = FALSE, ci = FALSE,
-                                          zstat = FALSE, pvalue = FALSE,
-                                          rsquare = TRUE)
-        if (length(semPaths_plot) != length(unique(ests$group))) {
-          rlang::abort(paste("length of qgraph list does not match",
-                            "number of groups in model fit object."))
-        }
-        ests_list <- split(ests, ests$group)
-        out <- mapply(add_rsq, semPaths_plot, ests = ests_list, SIMPLIFY = FALSE)
+    }
+    if (one_for_all) {
+      # - Case 1 (one_for_all): Generate list of ests
+      ests <- lavaan::parameterEstimates(object, se = FALSE, ci = FALSE,
+                                        zstat = FALSE, pvalue = FALSE,
+                                        rsquare = TRUE)
+      if (length(semPaths_plot) != length(unique(ests$group))) {
+        rlang::abort(paste("length of qgraph list does not match",
+                          "number of groups in model fit object."))
       }
-      if (!one_for_all) {
-        # - Case 2 (each has one): Just call add_rsq
-        out <- mapply(add_rsq, semPaths_plot, SIMPLIFY = FALSE)
-      }
+      ests_list <- split(ests, ests$group)
+      out <- mapply(add_rsq, semPaths_plot, ests = ests_list, SIMPLIFY = FALSE)
+    }
+    if (!one_for_all) {
+      # - Case 2 (each has one): Just call add_rsq
+      out <- mapply(add_rsq, semPaths_plot, SIMPLIFY = FALSE)
     }
   }
 
