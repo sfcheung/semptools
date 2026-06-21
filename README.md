@@ -9,7 +9,7 @@
 [![R-CMD-check](https://github.com/sfcheung/semptools/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/sfcheung/semptools/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-(Version 0.3.3.17, updated on 2026-06-21, [release history](https://sfcheung.github.io/semptools/news/index.html))
+(Version 0.3.3.18, updated on 2026-06-21, [release history](https://sfcheung.github.io/semptools/news/index.html))
 
 # semptools <img src="man/figures/logo.png" align="right" height="150" />
 
@@ -35,7 +35,7 @@ To read the guides (vignettes) on how to use the functions, you can build the vi
 remotes::install_github("sfcheung/semptools", build_vignettes = TRUE)
 ```
 
-You can also find the guides under *Articles* of the [Github page](https://sfcheung.github.io/semptools/) of this package.
+You can also find the guides under [*Articles*](https://sfcheung.github.io/semptools/articles/) of the [Github page](https://sfcheung.github.io/semptools/) of this package.
 
 # Background
 
@@ -43,29 +43,35 @@ You can also find the guides under *Articles* of the [Github page](https://sfche
 
 # Philosophy
 
-We think about the tasks we usually want to do with an `semPlot::semPaths()` graph, and write one function for each task. We write the functions such that all of them work by postprocessing a `semPlot::semPaths()` graph: receive an `semPlot::semPaths()` graph, modify it, and return a modified `semPlot::semPaths()` graph. This also allows users to use the `%>%` (pipe) operator from the `magrittr` package or
-the native pipe operator `|>` available since R 4.1.x to chain together modifications. For example:
+We though about the tasks we usually want to do with a `semPlot::semPaths()` graph, and wrote one function for each task. We wrote the functions such that all of them work by postprocessing a `semPlot::semPaths()` graph: receive a `semPlot::semPaths()` graph, modify it, and return a modified `semPlot::semPaths()` graph. This also allows users to use the
+the R pipe operator `|>` available since R 4.1.x (or the `%>%` operator from the `magrittr` package) to chain together modifications. For example:
 
 ```r
-modified_graph <- original_graph %>%
-                    task_1() %>%
-                    task_2(other_arguments) %>%
+modified_graph <- original_graph |>
+                    task_1() |>
+                    task_2(other_arguments) |>
                     task_3()
 ```
 
-In psychology, two typical models are confirmatory factor analysis model and structural models with latent factors. Therefore, we also wrote two functions, one for each model, that can combine several common tasks together, such as specifying the positions of the latent factors and adjusting the positions of the indicators.
+In psychology, two typical models are confirmatory factor analysis model and structural models with latent factors. Therefore, we also wrote two functions, `set_cfa_layout()` and `set_sem_layout()`, that can combine several common tasks together, such as specifying the positions of the latent factors and adjusting the positions of the indicators.
 
-We also write the functions in a way that users do not need to know the technical detail (e.g., the position of the path in the list of all paths). For example, if a user wants to move the path coefficient of the path from `x` to `y` closer to `y`, the user only needs to tell the function that it is the path from `x` to `y`. The function will find which path it is in the `qgraph` object.
+We also wrote the functions in a way that users do not need to know the technical detail (e.g., the position of the path in the list of all paths). For example, if a user wants to move the path coefficient of the path from `x` to `y` closer to `y`, the user only needs to tell the function that it is the path from `x` to `y`. The function will find which path it is in the `qgraph` object.
 
 # What we have so far
 
-These are some of the functions included so far
+These are some functions included so far:
+
+## Add elements based on parameter estimates
 
 - `mark_se()`: Add the standard errors to parameter estimates.
+
+- `mark_ci()`: Add the confidence intervals to parameter estimates.
 
 - `mark_sig()`: Add asterisks ("\*", "\*\*", "\*\*\*") based on $p$-values of parameter estimates.
 
 - `add_rsq()`: Add R-squares (and remove the error variances) to endogenous variables.
+
+## Edit lines ("edges", such as paths, covariances, and error variances)
 
 - `rotate_resid()`: Rotate the residuals of selected variables.
 
@@ -73,23 +79,71 @@ These are some of the functions included so far
 
 - `set_edge_color()`: Change the colors of selected paths.
 
-- `set_edge_attribute()`: Change the named attributes of selected paths.
+- `set_edge_line_type()`, `set_edge_line_width()`: Change the line types
+ (e.g., solid, dashed, dotted) and line widths of selected paths.
+
+- `set_edge_label()`, `set_edge_label_bg()`, `set_edge_label_size()`:
+  Change the labels of selected paths directly.
 
 - `set_edge_label_position()`: Move the parameter labels of selected paths along the paths.
 
+- `safe_edge_label_position()`: Try to move edge labels (e.g., regression coefficients) to prevent overlapping of labels.
+
+- `safe_resid_position()`: Try to rotate residuals of nodes to prevent overlapping.
+
+- `set_edge_attribute()`: A generic function to change
+ any named attributes of selected paths.
+
+## Edit variables ("nodes", the "squares" and "circles")
+
 - `change_node_label()`: Change the labels of nodes.
 
-- `set_node_attribute()`: Change the named attributes of selected nodes.
+- `set_node_label_color()`, `set_node_label_size()`: Change
+ the colors and sizes of the labels of selected nodes.
+
+- `set_node_color()`, `set_node_height()`, `set_node_shape()`,
+  `set_node_size()`, `set_node_width()`: Change the aesthetic
+  aspects of selected nodes.
+
+- `set_node_border_color()`, `set_node_border_width()`: Change
+ the colors and widths of the borders of nodes (e.g., the
+ color and width of the line of a square).
 
 - `drop_nodes()` and `keep_nodes()`: Drop or keeps nodes (e.g., drop all control variables).
+
+- `move_node()`: "Move" (change the positions of) selected nodes.
+
+- `node_labels_equal_scale()`: Make all labels of nodes have the same font size.
+
+- `set_node_attribute()`: A generic function to change
+  any named attributes of selected nodes.
+
+## Common layouts
 
 - `set_cfa_layout()`: A function for typical confirmatory factor analysis models. It can be used for specifying the orders of the indicators and factors, specifying the positions of the factors, setting the curvatures of the interfactor covariances, set the position of all loadings, and setting the orientation of the model (down, left, up, or right).
 
 - `set_sem_layout()`: A function for typical SEM models. It can be used for specifying the orders of the indicators and factors, specifying the positions of the factors using a grid, specifying the orientation of each factor's indicators (down, left, up, right), fine tuning the positions of indicators of selected factor, setting the curvatures of selected paths, and specifying the position of all or selected loadings.
 
+- `quick_simple_mediation()`, `quick_serial_mediation()`, and
+`quick_parallel_mediation()`: Functions for common mediation models.
+They will try to set the positions of nodes automatically. The positions
+of nodes can be adjusted by `move_node()` to achieve the desired layout.
+
+## Miscellaneous helpers
+
+- `layout_matrix()`: A helper to specify how to place the nodes.
+
+- `set_graph_margins()`: Change the margins of a plot.
+
 - `rescale_layout()`: Rescale a plot to fit the plot area.
 
 See the [Get Started](https://sfcheung.github.io/semptools/articles/semptools.html) to learn more about these and other functions.
+
+## Multigroup models and list of models
+
+Since version 0.3.3.17, most functions support figures of
+multigroup models, which are stored as a list of `qgraph`
+plots.
 
 # Status
 
