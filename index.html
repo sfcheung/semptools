@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3.17</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3.18</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,7 +74,7 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9">
-<p>(Version 0.3.3.17, updated on 2026-06-21, <a href="https://sfcheung.github.io/semptools/news/index.html">release history</a>)</p>
+<p>(Version 0.3.3.18, updated on 2026-06-21, <a href="https://sfcheung.github.io/semptools/news/index.html">release history</a>)</p>
 <div class="section level1">
 <div class="page-header">
 <img src="logo.png" class="logo" alt=""><h1 id="semptools-">semptools <a class="anchor" aria-label="anchor" href="#semptools-"></a>
@@ -94,7 +94,7 @@
 <p>To read the guides (vignettes) on how to use the functions, you can build the vignettes locally when installing the package:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"sfcheung/semptools"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>You can also find the guides under <em>Articles</em> of the <a href="https://sfcheung.github.io/semptools/">Github page</a> of this package.</p>
+<p>You can also find the guides under <a href="https://sfcheung.github.io/semptools/articles/"><em>Articles</em></a> of the <a href="https://sfcheung.github.io/semptools/">Github page</a> of this package.</p>
 </div>
 <div class="section level1">
 <h1 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
@@ -104,36 +104,82 @@
 <div class="section level1">
 <h1 id="philosophy">Philosophy<a class="anchor" aria-label="anchor" href="#philosophy"></a>
 </h1>
-<p>We think about the tasks we usually want to do with an <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph, and write one function for each task. We write the functions such that all of them work by postprocessing a <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph: receive an <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph, modify it, and return a modified <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph. This also allows users to use the <code>%&gt;%</code> (pipe) operator from the <code>magrittr</code> package or the native pipe operator <code>|&gt;</code> available since R 4.1.x to chain together modifications. For example:</p>
+<p>We though about the tasks we usually want to do with a <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph, and wrote one function for each task. We wrote the functions such that all of them work by postprocessing a <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph: receive a <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph, modify it, and return a modified <code><a href="https://rdrr.io/pkg/semPlot/man/semPaths.html" class="external-link">semPlot::semPaths()</a></code> graph. This also allows users to use the the R pipe operator <code>|&gt;</code> available since R 4.1.x (or the <code>%&gt;%</code> operator from the <code>magrittr</code> package) to chain together modifications. For example:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">modified_graph</span> <span class="op">&lt;-</span> <span class="va">original_graph</span> <span class="op">%&gt;%</span></span>
-<span>                    <span class="fu">task_1</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>                    <span class="fu">task_2</span><span class="op">(</span><span class="va">other_arguments</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">modified_graph</span> <span class="op">&lt;-</span> <span class="va">original_graph</span> <span class="op">|&gt;</span></span>
+<span>                    <span class="fu">task_1</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                    <span class="fu">task_2</span><span class="op">(</span><span class="va">other_arguments</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>                    <span class="fu">task_3</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>In psychology, two typical models are confirmatory factor analysis model and structural models with latent factors. Therefore, we also wrote two functions, one for each model, that can combine several common tasks together, such as specifying the positions of the latent factors and adjusting the positions of the indicators.</p>
-<p>We also write the functions in a way that users do not need to know the technical detail (e.g., the position of the path in the list of all paths). For example, if a user wants to move the path coefficient of the path from <code>x</code> to <code>y</code> closer to <code>y</code>, the user only needs to tell the function that it is the path from <code>x</code> to <code>y</code>. The function will find which path it is in the <code>qgraph</code> object.</p>
+<p>In psychology, two typical models are confirmatory factor analysis model and structural models with latent factors. Therefore, we also wrote two functions, <code><a href="reference/set_cfa_layout.html">set_cfa_layout()</a></code> and <code><a href="reference/set_sem_layout.html">set_sem_layout()</a></code>, that can combine several common tasks together, such as specifying the positions of the latent factors and adjusting the positions of the indicators.</p>
+<p>We also wrote the functions in a way that users do not need to know the technical detail (e.g., the position of the path in the list of all paths). For example, if a user wants to move the path coefficient of the path from <code>x</code> to <code>y</code> closer to <code>y</code>, the user only needs to tell the function that it is the path from <code>x</code> to <code>y</code>. The function will find which path it is in the <code>qgraph</code> object.</p>
 </div>
 <div class="section level1">
 <h1 id="what-we-have-so-far">What we have so far<a class="anchor" aria-label="anchor" href="#what-we-have-so-far"></a>
 </h1>
-<p>These are some of the functions included so far</p>
+<p>These are some functions included so far:</p>
+<div class="section level2">
+<h2 id="add-elements-based-on-parameter-estimates">Add elements based on parameter estimates<a class="anchor" aria-label="anchor" href="#add-elements-based-on-parameter-estimates"></a>
+</h2>
 <ul>
 <li><p><code><a href="reference/mark_se.html">mark_se()</a></code>: Add the standard errors to parameter estimates.</p></li>
+<li><p><code><a href="reference/mark_se.html">mark_ci()</a></code>: Add the confidence intervals to parameter estimates.</p></li>
 <li><p><code><a href="reference/mark_sig.html">mark_sig()</a></code>: Add asterisks (“*”, “**”, “***”) based on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-values of parameter estimates.</p></li>
 <li><p><code><a href="reference/add_rsq.html">add_rsq()</a></code>: Add R-squares (and remove the error variances) to endogenous variables.</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="edit-lines-edges-such-as-paths-covariances-and-error-variances">Edit lines (“edges”, such as paths, covariances, and error variances)<a class="anchor" aria-label="anchor" href="#edit-lines-edges-such-as-paths-covariances-and-error-variances"></a>
+</h2>
+<ul>
 <li><p><code><a href="reference/rotate_resid.html">rotate_resid()</a></code>: Rotate the residuals of selected variables.</p></li>
 <li><p><code><a href="reference/set_curve.html">set_curve()</a></code>: Change the curvature of selected paths.</p></li>
 <li><p><code><a href="reference/set_edge_color.html">set_edge_color()</a></code>: Change the colors of selected paths.</p></li>
-<li><p><code><a href="reference/set_edge_attribute.html">set_edge_attribute()</a></code>: Change the named attributes of selected paths.</p></li>
+<li><p><code><a href="reference/set_edge_line_type.html">set_edge_line_type()</a></code>, <code><a href="reference/set_edge_line_width.html">set_edge_line_width()</a></code>: Change the line types (e.g., solid, dashed, dotted) and line widths of selected paths.</p></li>
+<li><p><code><a href="reference/set_edge_label_attributes.html">set_edge_label()</a></code>, <code><a href="reference/set_edge_label_attributes.html">set_edge_label_bg()</a></code>, <code><a href="reference/set_edge_label_attributes.html">set_edge_label_size()</a></code>: Change the labels of selected paths directly.</p></li>
 <li><p><code><a href="reference/set_edge_label_attributes.html">set_edge_label_position()</a></code>: Move the parameter labels of selected paths along the paths.</p></li>
+<li><p><code><a href="reference/safe_edge_label_position.html">safe_edge_label_position()</a></code>: Try to move edge labels (e.g., regression coefficients) to prevent overlapping of labels.</p></li>
+<li><p><code><a href="reference/safe_resid_position.html">safe_resid_position()</a></code>: Try to rotate residuals of nodes to prevent overlapping.</p></li>
+<li><p><code><a href="reference/set_edge_attribute.html">set_edge_attribute()</a></code>: A generic function to change any named attributes of selected paths.</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="edit-variables-nodes-the-squares-and-circles">Edit variables (“nodes”, the “squares” and “circles”)<a class="anchor" aria-label="anchor" href="#edit-variables-nodes-the-squares-and-circles"></a>
+</h2>
+<ul>
 <li><p><code><a href="reference/change_node_label.html">change_node_label()</a></code>: Change the labels of nodes.</p></li>
-<li><p><code><a href="reference/set_node_attribute.html">set_node_attribute()</a></code>: Change the named attributes of selected nodes.</p></li>
+<li><p><code><a href="reference/set_node_label.html">set_node_label_color()</a></code>, <code><a href="reference/set_node_label.html">set_node_label_size()</a></code>: Change the colors and sizes of the labels of selected nodes.</p></li>
+<li><p><code><a href="reference/set_node_color.html">set_node_color()</a></code>, <code><a href="reference/set_node_size.html">set_node_height()</a></code>, <code><a href="reference/set_node_size.html">set_node_shape()</a></code>, <code><a href="reference/set_node_size.html">set_node_size()</a></code>, <code><a href="reference/set_node_size.html">set_node_width()</a></code>: Change the aesthetic aspects of selected nodes.</p></li>
+<li><p><code><a href="reference/set_node_border.html">set_node_border_color()</a></code>, <code><a href="reference/set_node_border.html">set_node_border_width()</a></code>: Change the colors and widths of the borders of nodes (e.g., the color and width of the line of a square).</p></li>
 <li><p><code><a href="reference/keep_drop_nodes.html">drop_nodes()</a></code> and <code><a href="reference/keep_drop_nodes.html">keep_nodes()</a></code>: Drop or keeps nodes (e.g., drop all control variables).</p></li>
+<li><p><code><a href="reference/move_node.html">move_node()</a></code>: “Move” (change the positions of) selected nodes.</p></li>
+<li><p><code><a href="reference/set_graph_attributes.html">node_labels_equal_scale()</a></code>: Make all labels of nodes have the same font size.</p></li>
+<li><p><code><a href="reference/set_node_attribute.html">set_node_attribute()</a></code>: A generic function to change any named attributes of selected nodes.</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="common-layouts">Common layouts<a class="anchor" aria-label="anchor" href="#common-layouts"></a>
+</h2>
+<ul>
 <li><p><code><a href="reference/set_cfa_layout.html">set_cfa_layout()</a></code>: A function for typical confirmatory factor analysis models. It can be used for specifying the orders of the indicators and factors, specifying the positions of the factors, setting the curvatures of the interfactor covariances, set the position of all loadings, and setting the orientation of the model (down, left, up, or right).</p></li>
 <li><p><code><a href="reference/set_sem_layout.html">set_sem_layout()</a></code>: A function for typical SEM models. It can be used for specifying the orders of the indicators and factors, specifying the positions of the factors using a grid, specifying the orientation of each factor’s indicators (down, left, up, right), fine tuning the positions of indicators of selected factor, setting the curvatures of selected paths, and specifying the position of all or selected loadings.</p></li>
+<li><p><code><a href="reference/quick_sem_plot.html">quick_simple_mediation()</a></code>, <code><a href="reference/quick_sem_plot.html">quick_serial_mediation()</a></code>, and <code><a href="reference/quick_sem_plot.html">quick_parallel_mediation()</a></code>: Functions for common mediation models. They will try to set the positions of nodes automatically. The positions of nodes can be adjusted by <code><a href="reference/move_node.html">move_node()</a></code> to achieve the desired layout.</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="miscellaneous-helpers">Miscellaneous helpers<a class="anchor" aria-label="anchor" href="#miscellaneous-helpers"></a>
+</h2>
+<ul>
+<li><p><code><a href="reference/layout_matrix.html">layout_matrix()</a></code>: A helper to specify how to place the nodes.</p></li>
+<li><p><code><a href="reference/set_graph_attributes.html">set_graph_margins()</a></code>: Change the margins of a plot.</p></li>
 <li><p><code><a href="reference/rescale_layout.html">rescale_layout()</a></code>: Rescale a plot to fit the plot area.</p></li>
 </ul>
 <p>See the <a href="https://sfcheung.github.io/semptools/articles/semptools.html">Get Started</a> to learn more about these and other functions.</p>
+</div>
+<div class="section level2">
+<h2 id="multigroup-models-and-list-of-models">Multigroup models and list of models<a class="anchor" aria-label="anchor" href="#multigroup-models-and-list-of-models"></a>
+</h2>
+<p>Since version 0.3.3.17, most functions support figures of multigroup models, which are stored as a list of <code>qgraph</code> plots.</p>
+</div>
 </div>
 <div class="section level1">
 <h1 id="status">Status<a class="anchor" aria-label="anchor" href="#status"></a>

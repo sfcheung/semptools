@@ -1,6 +1,6 @@
 # Changelog
 
-## semptools 0.3.3.17
+## semptools 0.3.3.18
 
 ### Improvement
 
@@ -164,6 +164,8 @@
   to use
   [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md)
   internally. (0.3.3.2)
+
+- Updated some pages in the `pkgdown` site. (0.3.3.18)
 
 ## semptools 0.3.3
 
