@@ -62,8 +62,9 @@
 
 add_object <- function(semPaths_plot,
                        object) {
-    if (!inherits(semPaths_plot, "qgraph")) {
-        stop("'semPaths_plot' not a qgraph object.")
+    if (!inherits(semPaths_plot, "qgraph") &&
+        !is_multigroup_qgraph(semPaths_plot)) {
+        stop("'semPaths_plot' not a qgraph object or a list of qgraph objects.")
       }
     attr(semPaths_plot, "semptools_fit_object") <- object
     semPaths_plot

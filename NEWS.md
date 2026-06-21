@@ -1,4 +1,4 @@
-# semptools 0.3.3.16
+# semptools 0.3.3.19
 
 ## Improvement
 
@@ -141,6 +141,16 @@
   from the first object.
   (0.3.3.16)
 
+- Updated these functions to support
+  a list of `qgraph` objects:
+  `add_rsq()`,
+  `auto_layout_mediation()`,
+  `safe_edge_label_position()`,
+  `safe_resid_position()`,
+  `set_cfa_layout()`,
+  `set_sem_layout()`.
+  (0.3.3.17)
+
 ## Miscellaneous
 
 - Updated to `roxygen2` 8.0.0.
@@ -151,6 +161,12 @@
   to use `set_edge_attribute()` internally.
   (0.3.3.2)
 
+- Updated some pages in
+  the `pkgdown` site.
+  (0.3.3.18)
+
+- Fixed a multigroup bug in `mark_sig()`.
+  (0.3.3.19)
 
 # semptools 0.3.3
 
