@@ -13,7 +13,9 @@ auto_factor_point_to(factor_layout, ...)
 
 - factor_layout:
 
-  Argument description.
+  A layout matrix to be used in the `layout` argument, such as one
+  created by
+  [`layout_matrix()`](https://sfcheung.github.io/semptools/reference/layout_matrix.md).
 
 - ...:
 

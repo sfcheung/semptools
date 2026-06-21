@@ -1,6 +1,6 @@
 # Changelog
 
-## semptools 0.3.3.16
+## semptools 0.3.3.17
 
 ### Improvement
 
@@ -143,6 +143,15 @@
   [`get_edge_attribute()`](https://sfcheung.github.io/semptools/reference/get_edge_attribute.md)
   to work with a list of `qgraph` objects, though they will only get the
   attribute values from the first object. (0.3.3.16)
+
+- Updated these functions to support a list of `qgraph` objects:
+  [`add_rsq()`](https://sfcheung.github.io/semptools/reference/add_rsq.md),
+  [`auto_layout_mediation()`](https://sfcheung.github.io/semptools/reference/auto_layout_mediation.md),
+  [`safe_edge_label_position()`](https://sfcheung.github.io/semptools/reference/safe_edge_label_position.md),
+  [`safe_resid_position()`](https://sfcheung.github.io/semptools/reference/safe_resid_position.md),
+  [`set_cfa_layout()`](https://sfcheung.github.io/semptools/reference/set_cfa_layout.md),
+  [`set_sem_layout()`](https://sfcheung.github.io/semptools/reference/set_sem_layout.md).
+  (0.3.3.17)
 
 ### Miscellaneous
 
