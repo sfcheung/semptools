@@ -1,6 +1,6 @@
 # Changelog
 
-## semptools 0.3.3.18
+## semptools 0.3.3.19
 
 ### Improvement
 
@@ -166,6 +166,10 @@
   internally. (0.3.3.2)
 
 - Updated some pages in the `pkgdown` site. (0.3.3.18)
+
+- Fixed a multigroup bug in
+  [`mark_sig()`](https://sfcheung.github.io/semptools/reference/mark_sig.md).
+  (0.3.3.19)
 
 ## semptools 0.3.3
 

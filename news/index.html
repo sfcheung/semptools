@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3.18</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3.19</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,9 +48,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.3.3.18" id="semptools-03318">semptools 0.3.3.18<a class="anchor" aria-label="anchor" href="#semptools-03318"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.3.3.19" id="semptools-03319">semptools 0.3.3.19<a class="anchor" aria-label="anchor" href="#semptools-03319"></a></h2>
 <div class="section level3">
-<h3 id="improvement-0-3-3-18">Improvement<a class="anchor" aria-label="anchor" href="#improvement-0-3-3-18"></a></h3>
+<h3 id="improvement-0-3-3-19">Improvement<a class="anchor" aria-label="anchor" href="#improvement-0-3-3-19"></a></h3>
 <ul><li><p>Updated <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> to skip edges not in a plot, without throwing an error. (0.3.3.2)</p></li>
 <li><p>Added the argument <code>check_direction</code> to <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> and related functions. If set to <code>FALSE</code>, then the direction of an edge will be ignored. That is, both <code>y ~ x</code> and <code>y ~~ x</code> will denote edges <code>y &lt;- x</code>, <code>y -&gt; x</code>, and <code>y &lt;-&gt; x</code>. (0.3.3.3)</p></li>
 <li><p>Updated <code><a href="../reference/add_rsq.html">add_rsq()</a></code>, <code><a href="../reference/mark_se.html">mark_se()</a></code>, <code><a href="../reference/mark_se.html">mark_ci()</a></code>, and <code><a href="../reference/mark_sig.html">mark_sig()</a></code> to store the fit object in the plot. When <code>object</code> is not set but has been stored in a plot, these functions will retrieve the stored fit object. This makes it not necessary to supply the same fit object in all calls to these functions. (0.3.3.4)</p></li>
@@ -75,10 +75,11 @@
 <li><p>Updated these functions to support a list of <code>qgraph</code> objects: <code><a href="../reference/add_rsq.html">add_rsq()</a></code>, <code><a href="../reference/auto_layout_mediation.html">auto_layout_mediation()</a></code>, <code><a href="../reference/safe_edge_label_position.html">safe_edge_label_position()</a></code>, <code><a href="../reference/safe_resid_position.html">safe_resid_position()</a></code>, <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code>, <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code>. (0.3.3.17)</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="miscellaneous-0-3-3-18">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-3-3-18"></a></h3>
+<h3 id="miscellaneous-0-3-3-19">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-3-3-19"></a></h3>
 <ul><li><p>Updated to <code>roxygen2</code> 8.0.0. (0.3.3.1)</p></li>
 <li><p>Updated <code><a href="../reference/set_curve.html">set_curve()</a></code> and <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_position()</a></code>, to use <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> internally. (0.3.3.2)</p></li>
 <li><p>Updated some pages in the <code>pkgdown</code> site. (0.3.3.18)</p></li>
+<li><p>Fixed a multigroup bug in <code><a href="../reference/mark_sig.html">mark_sig()</a></code>. (0.3.3.19)</p></li>
 </ul></div>
 </div>
     <div class="section level2">
