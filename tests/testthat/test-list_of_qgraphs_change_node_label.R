@@ -1,7 +1,7 @@
 library(lavaan)
 library(semPlot)
 
-test_that("list of igraphs: change_node_label", {
+test_that("list of qgraphs: change_node_label", {
 
 dat <- pa_example
 set.seed(234)
