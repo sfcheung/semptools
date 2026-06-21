@@ -1,7 +1,7 @@
 library(lavaan)
 library(semPlot)
 
-test_that("list of igraphs", {
+test_that("list of qgraphs", {
 
 dat <- pa_example
 set.seed(234)
