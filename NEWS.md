@@ -1,4 +1,4 @@
-# semptools 0.3.3.16
+# semptools 0.3.3.17
 
 ## Improvement
 
@@ -140,6 +140,17 @@
   they will only get the attribute values
   from the first object.
   (0.3.3.16)
+
+- Updated these functions to support
+  a list of `qgraph` objects:
+  `add_rsq()`,
+  `auto_layout_mediation()`,
+  `safe_edge_label_position()`,
+  `safe_resid_position()`,
+  `set_cfa_layout()`,
+  `set_sem_layout()`.
+  (0.3.3.17)
+
 
 ## Miscellaneous
 
