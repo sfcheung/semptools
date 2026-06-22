@@ -37,6 +37,7 @@ adjust_margin <- function(
   semPaths_plot,
   adjust = .50
 ) {
+  # Adjust the margin when the aspect is different from 1
   noPar <- semPaths_plot$plotOptions$noPar
   mar <- semPaths_plot$plotOptions$mar
   if (!noPar) {
@@ -61,13 +62,13 @@ adjust_margin <- function(
   pin_aspect <- pin_height / pin_width
   mar_new <- mar
   if (pin_aspect < p_aspect) {
-    # a == pin_aspect
+    # a == pin_aspect if p_aspect == 1
     a <- (pin_height * p_width / pin_width) / p_height
-    mar_new[c(1, 3)] <- mar_new[c(1, 3)] * 1 / a * adjust
+    mar_new[c(1, 3)] <- mar_new[c(1, 3)] * (1 / a) * adjust
   } else if (pin_aspect > p_aspect) {
-    # a == 1 / pin_aspect
+    # a == 1 / pin_aspect if p_aspect == 1
     a <- (pin_width * p_height / pin_height) / p_width
-    mar_new[c(2, 4)] <- mar_new[c(2, 4)] * 1 / a * adjust
+    mar_new[c(2, 4)] <- mar_new[c(2, 4)] * (1 / a) * adjust
   } else {
     # placeholder
   }
