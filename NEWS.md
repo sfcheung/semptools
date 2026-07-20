@@ -1,107 +1,34 @@
-# semptools 0.3.3.19
+# semptools 0.4.0
 
-## Improvement
-
-- Updated `set_edge_attribute()` to
-  skip edges not in a plot, without
-  throwing an error.
-  (0.3.3.2)
-
-- Added the argument `check_direction`
-  to `set_edge_attribute()` and related
-  functions. If set to `FALSE`, then
-  the direction of an edge will be ignored.
-  That is, both `y ~ x` and `y ~~ x` will
-  denote edges
-  `y <- x`, `y -> x`, and `y <-> x`.
-  (0.3.3.3)
-
-- Updated `add_rsq()`, `mark_se()`,
-  `mark_ci()`, and `mark_sig()` to store
-  the fit object in the plot. When `object`
-  is not set but has been stored in a plot,
-  these functions will retrieve the stored
-  fit object. This makes it not necessary
-  to supply the same fit object in all
-  calls to these functions.
-  (0.3.3.4)
-
-- Updated `layout_matrix()` to ensure
-  that the output always has at least
-  three columns.
-  (0.3.3.5)
-
-- Updated `set_node_attribute()` to
-  set the attributes of all nodes using
-  one value.
-  (0.3.3.6)
-
-- Updated `set_edge_attribute()` to
-  set the attributes of all nodes using
-  one value.
-  (0.3.3.7)
+## New Features
 
 - Added `set_node_color()`, `set_node_height()`,
   `set_node_label_color()`, `set_node_label_size()`,
   `set_node_shape()`, `set_node_sizes()`,
-  `set_node_width()`.
-  (0.3.3.8)
-
-- Removed `nChar = 0` in some tests to
-  allow testing functions with abbreviated
-  names. Also revised some functions to
-  make them work for both the original
-  names of nodes and their display
-  names, which may be abbreviated.
-  (0.3.3.9)
-
-- Updated `set_node_attribute()` to use
-  new helpers, so that it is easier to
-  work with original node names,
-  processed (e.g., abbreviated) node
-  names, and labels (converted to string,
-  if necessary).
-  (0.3.3.10)
-
-- Updated node functions to use
-  `set_node_attribute()` as applicable.
-  (0.3.3.11)
-
-- Added `get_node_attribute()`.
-  (0.3.3.12)
-
-- Added `get_edge_attribute()`.
-  (0.3.3.13)
-
-- Added `set_edge_label()` and
-  `set_edge_label_bg()`.
-  (0.3.3.14)
-
-- Added `set_edge_line_type()`.
-  (0.3.3.14)
-
-- Added the `how` argument to
-  `set_edge_attribute()`,
-  `set_node_attribute()`,
-  and friends (if applicable).
-  The default mode is `how = "ratio"`
-  if applicable.
-  (0.3.3.14)
-
-- Added `set_edge_line_width()`.
-  (0.3.3.14)
-
-- Added `set_edge_label_size()`.
-  (0.3.3.14)
-
-- Added `set_node_border_width()`,
+  `set_node_width()`,
+  `set_node_border_width()`,
   and `set_node_border_color()`.
+  (0.3.3.8, 0.3.3.14)
+
+- Added `set_edge_label()`,
+  `set_edge_label_bg()`,
+  `set_edge_line_type()`,
+  `set_edge_line_width()`, and
+  `set_edge_label_size()`.
   (0.3.3.14)
+
+- Added `get_node_attribute()` and
+  `get_edge_attribute()`.
+  (0.3.3.12, 0.3.3.13)
 
 - Added `set_graph_margins()`,
   `node_labels_equal_scale()`,
   and `set_node_labels_equal_scale()`.
   (0.3.3.15)
+
+## Improvement
+
+### Support for a List of `qgraph` Objects
 
 - Updated these functions to support
   a list of `qgraph` objects:
@@ -151,7 +78,78 @@
   `set_sem_layout()`.
   (0.3.3.17)
 
+### Updates to `set_edge_attribute()` and `set_edge_attribute()`
+
+- Updated `set_edge_attribute()` to
+  skip edges not in a plot, without
+  throwing an error.
+  (0.3.3.2)
+
+- Added the argument `check_direction`
+  to `set_edge_attribute()` and related
+  functions. If set to `FALSE`, then
+  the direction of an edge will be ignored.
+  That is, both `y ~ x` and `y ~~ x` will
+  denote edges
+  `y <- x`, `y -> x`, and `y <-> x`.
+  (0.3.3.3)
+
+- Updated `set_edge_attribute()` to
+  set the attributes of all nodes using
+  one value.
+  (0.3.3.7)
+
+- Updated `set_node_attribute()` to
+  set the attributes of all nodes using
+  one value.
+  (0.3.3.6)
+
+- Updated `set_node_attribute()` to use
+  new helpers, so that it is easier to
+  work with original node names,
+  processed (e.g., abbreviated) node
+  names, and labels (converted to string,
+  if necessary).
+  (0.3.3.10)
+
+- Added the `how` argument to
+  `set_edge_attribute()`,
+  `set_node_attribute()`,
+  and friends (if applicable).
+  The default mode is `how = "ratio"`
+  if applicable.
+  (0.3.3.14)
+
+### Others
+
+- Updated node functions to use
+  `set_node_attribute()` as applicable.
+  (0.3.3.11)
+
+- Updated `add_rsq()`, `mark_se()`,
+  `mark_ci()`, and `mark_sig()` to store
+  the fit object in the plot. When `object`
+  is not set but has been stored in a plot,
+  these functions will retrieve the stored
+  fit object. This makes it not necessary
+  to supply the same fit object in all
+  calls to these functions.
+  (0.3.3.4)
+
+- Updated `layout_matrix()` to ensure
+  that the output always has at least
+  three columns.
+  (0.3.3.5)
+
 ## Miscellaneous
+
+- Removed `nChar = 0` in some tests to
+  allow testing functions with abbreviated
+  names. Also revised some functions to
+  make them work for both the original
+  names of nodes and their display
+  names, which may be abbreviated.
+  (0.3.3.9)
 
 - Updated to `roxygen2` 8.0.0.
   (0.3.3.1)
@@ -167,6 +165,11 @@
 
 - Fixed a multigroup bug in `mark_sig()`.
   (0.3.3.19)
+
+- Updated some tests to work if the
+  `lavaan` option
+  `auto.cov.x` is set to `TRUE`.
+  (0.3.3.20)
 
 # semptools 0.3.3
 
