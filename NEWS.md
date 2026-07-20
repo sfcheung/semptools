@@ -1,4 +1,4 @@
-# semptools 0.3.3.19
+# semptools 0.3.3.20
 
 ## Improvement
 
@@ -167,6 +167,11 @@
 
 - Fixed a multigroup bug in `mark_sig()`.
   (0.3.3.19)
+
+- Updated some tests to work if the
+  `lavaan` option
+  `auto.cov.x` is set to `TRUE`.
+  (0.3.3.20)
 
 # semptools 0.3.3
 
