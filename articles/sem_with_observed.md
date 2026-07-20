@@ -29,7 +29,7 @@ provided in the package `semptools`. It is fitted by
 
 library(semptools)
 library(lavaan)
-#> This is lavaan 0.6-21
+#> This is lavaan 0.7-2
 #> lavaan is FREE software! Please report any bugs.
 mod <-
   'f1 =~ x01 + x02 + x03

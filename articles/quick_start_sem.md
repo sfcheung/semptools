@@ -59,7 +59,7 @@ Fitting the model using
 ``` r
 
 library(lavaan)
-#> This is lavaan 0.6-21
+#> This is lavaan 0.7-2
 #> lavaan is FREE software! Please report any bugs.
 fit <- lavaan::sem(mod, cfa_example)
 ```

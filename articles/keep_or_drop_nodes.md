@@ -37,7 +37,7 @@ This is the analysis in `lavaan`:
 ``` r
 
 library(lavaan)
-#> This is lavaan 0.6-21
+#> This is lavaan 0.7-2
 #> lavaan is FREE software! Please report any bugs.
 mod <-
   'x3 ~  x1 + x2 + cov1 + cov2 + cov3

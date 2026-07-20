@@ -1,41 +1,8 @@
 # Changelog
 
-## semptools 0.3.3.19
+## semptools 0.4.0
 
-### Improvement
-
-- Updated
-  [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md)
-  to skip edges not in a plot, without throwing an error. (0.3.3.2)
-
-- Added the argument `check_direction` to
-  [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md)
-  and related functions. If set to `FALSE`, then the direction of an
-  edge will be ignored. That is, both `y ~ x` and `y ~~ x` will denote
-  edges `y <- x`, `y -> x`, and `y <-> x`. (0.3.3.3)
-
-- Updated
-  [`add_rsq()`](https://sfcheung.github.io/semptools/reference/add_rsq.md),
-  [`mark_se()`](https://sfcheung.github.io/semptools/reference/mark_se.md),
-  [`mark_ci()`](https://sfcheung.github.io/semptools/reference/mark_se.md),
-  and
-  [`mark_sig()`](https://sfcheung.github.io/semptools/reference/mark_sig.md)
-  to store the fit object in the plot. When `object` is not set but has
-  been stored in a plot, these functions will retrieve the stored fit
-  object. This makes it not necessary to supply the same fit object in
-  all calls to these functions. (0.3.3.4)
-
-- Updated
-  [`layout_matrix()`](https://sfcheung.github.io/semptools/reference/layout_matrix.md)
-  to ensure that the output always has at least three columns. (0.3.3.5)
-
-- Updated
-  [`set_node_attribute()`](https://sfcheung.github.io/semptools/reference/set_node_attribute.md)
-  to set the attributes of all nodes using one value. (0.3.3.6)
-
-- Updated
-  [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md)
-  to set the attributes of all nodes using one value. (0.3.3.7)
+### New Features
 
 - Added
   [`set_node_color()`](https://sfcheung.github.io/semptools/reference/set_node_color.md),
@@ -44,61 +11,26 @@
   [`set_node_label_size()`](https://sfcheung.github.io/semptools/reference/set_node_label.md),
   [`set_node_shape()`](https://sfcheung.github.io/semptools/reference/set_node_size.md),
   `set_node_sizes()`,
-  [`set_node_width()`](https://sfcheung.github.io/semptools/reference/set_node_size.md).
-  (0.3.3.8)
-
-- Removed `nChar = 0` in some tests to allow testing functions with
-  abbreviated names. Also revised some functions to make them work for
-  both the original names of nodes and their display names, which may be
-  abbreviated. (0.3.3.9)
-
-- Updated
-  [`set_node_attribute()`](https://sfcheung.github.io/semptools/reference/set_node_attribute.md)
-  to use new helpers, so that it is easier to work with original node
-  names, processed (e.g., abbreviated) node names, and labels (converted
-  to string, if necessary). (0.3.3.10)
-
-- Updated node functions to use
-  [`set_node_attribute()`](https://sfcheung.github.io/semptools/reference/set_node_attribute.md)
-  as applicable. (0.3.3.11)
-
-- Added
-  [`get_node_attribute()`](https://sfcheung.github.io/semptools/reference/get_node_attribute.md).
-  (0.3.3.12)
-
-- Added
-  [`get_edge_attribute()`](https://sfcheung.github.io/semptools/reference/get_edge_attribute.md).
-  (0.3.3.13)
-
-- Added
-  [`set_edge_label()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md)
+  [`set_node_width()`](https://sfcheung.github.io/semptools/reference/set_node_size.md),
+  [`set_node_border_width()`](https://sfcheung.github.io/semptools/reference/set_node_border.md),
   and
-  [`set_edge_label_bg()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md).
-  (0.3.3.14)
+  [`set_node_border_color()`](https://sfcheung.github.io/semptools/reference/set_node_border.md).
+  (0.3.3.8, 0.3.3.14)
 
 - Added
-  [`set_edge_line_type()`](https://sfcheung.github.io/semptools/reference/set_edge_line_type.md).
-  (0.3.3.14)
-
-- Added the `how` argument to
-  [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md),
-  [`set_node_attribute()`](https://sfcheung.github.io/semptools/reference/set_node_attribute.md),
-  and friends (if applicable). The default mode is `how = "ratio"` if
-  applicable. (0.3.3.14)
-
-- Added
-  [`set_edge_line_width()`](https://sfcheung.github.io/semptools/reference/set_edge_line_width.md).
-  (0.3.3.14)
-
-- Added
+  [`set_edge_label()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md),
+  [`set_edge_label_bg()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md),
+  [`set_edge_line_type()`](https://sfcheung.github.io/semptools/reference/set_edge_line_type.md),
+  [`set_edge_line_width()`](https://sfcheung.github.io/semptools/reference/set_edge_line_width.md),
+  and
   [`set_edge_label_size()`](https://sfcheung.github.io/semptools/reference/set_edge_label_attributes.md).
   (0.3.3.14)
 
 - Added
-  [`set_node_border_width()`](https://sfcheung.github.io/semptools/reference/set_node_border.md),
+  [`get_node_attribute()`](https://sfcheung.github.io/semptools/reference/get_node_attribute.md)
   and
-  [`set_node_border_color()`](https://sfcheung.github.io/semptools/reference/set_node_border.md).
-  (0.3.3.14)
+  [`get_edge_attribute()`](https://sfcheung.github.io/semptools/reference/get_edge_attribute.md).
+  (0.3.3.12, 0.3.3.13)
 
 - Added
   [`set_graph_margins()`](https://sfcheung.github.io/semptools/reference/set_graph_attributes.md),
@@ -106,6 +38,10 @@
   and
   [`set_node_labels_equal_scale()`](https://sfcheung.github.io/semptools/reference/set_graph_attributes.md).
   (0.3.3.15)
+
+### Improvement
+
+#### Support for a List of `qgraph` Objects
 
 - Updated these functions to support a list of `qgraph` objects:
   [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md),
@@ -153,7 +89,65 @@
   [`set_sem_layout()`](https://sfcheung.github.io/semptools/reference/set_sem_layout.md).
   (0.3.3.17)
 
+#### Updates to `set_edge_attribute()` and `set_edge_attribute()`
+
+- Updated
+  [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md)
+  to skip edges not in a plot, without throwing an error. (0.3.3.2)
+
+- Added the argument `check_direction` to
+  [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md)
+  and related functions. If set to `FALSE`, then the direction of an
+  edge will be ignored. That is, both `y ~ x` and `y ~~ x` will denote
+  edges `y <- x`, `y -> x`, and `y <-> x`. (0.3.3.3)
+
+- Updated
+  [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md)
+  to set the attributes of all nodes using one value. (0.3.3.7)
+
+- Updated
+  [`set_node_attribute()`](https://sfcheung.github.io/semptools/reference/set_node_attribute.md)
+  to set the attributes of all nodes using one value. (0.3.3.6)
+
+- Updated
+  [`set_node_attribute()`](https://sfcheung.github.io/semptools/reference/set_node_attribute.md)
+  to use new helpers, so that it is easier to work with original node
+  names, processed (e.g., abbreviated) node names, and labels (converted
+  to string, if necessary). (0.3.3.10)
+
+- Added the `how` argument to
+  [`set_edge_attribute()`](https://sfcheung.github.io/semptools/reference/set_edge_attribute.md),
+  [`set_node_attribute()`](https://sfcheung.github.io/semptools/reference/set_node_attribute.md),
+  and friends (if applicable). The default mode is `how = "ratio"` if
+  applicable. (0.3.3.14)
+
+#### Others
+
+- Updated node functions to use
+  [`set_node_attribute()`](https://sfcheung.github.io/semptools/reference/set_node_attribute.md)
+  as applicable. (0.3.3.11)
+
+- Updated
+  [`add_rsq()`](https://sfcheung.github.io/semptools/reference/add_rsq.md),
+  [`mark_se()`](https://sfcheung.github.io/semptools/reference/mark_se.md),
+  [`mark_ci()`](https://sfcheung.github.io/semptools/reference/mark_se.md),
+  and
+  [`mark_sig()`](https://sfcheung.github.io/semptools/reference/mark_sig.md)
+  to store the fit object in the plot. When `object` is not set but has
+  been stored in a plot, these functions will retrieve the stored fit
+  object. This makes it not necessary to supply the same fit object in
+  all calls to these functions. (0.3.3.4)
+
+- Updated
+  [`layout_matrix()`](https://sfcheung.github.io/semptools/reference/layout_matrix.md)
+  to ensure that the output always has at least three columns. (0.3.3.5)
+
 ### Miscellaneous
+
+- Removed `nChar = 0` in some tests to allow testing functions with
+  abbreviated names. Also revised some functions to make them work for
+  both the original names of nodes and their display names, which may be
+  abbreviated. (0.3.3.9)
 
 - Updated to `roxygen2` 8.0.0. (0.3.3.1)
 
@@ -170,6 +164,9 @@
 - Fixed a multigroup bug in
   [`mark_sig()`](https://sfcheung.github.io/semptools/reference/mark_sig.md).
   (0.3.3.19)
+
+- Updated some tests to work if the `lavaan` option `auto.cov.x` is set
+  to `TRUE`. (0.3.3.20)
 
 ## semptools 0.3.3
 

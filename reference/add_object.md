@@ -57,7 +57,7 @@ to create a diagram.
 ``` r
 
 library(lavaan)
-#> This is lavaan 0.6-21
+#> This is lavaan 0.7-2
 #> lavaan is FREE software! Please report any bugs.
 library(semPlot)
 
@@ -77,7 +77,7 @@ p <- semPaths(fit,
               DoNotPlot = TRUE)
 p <- add_object(p, fit)
 attr(p, "semptools_fit_object")
-#> lavaan 0.6-21 ended normally after 41 iterations
+#> lavaan 0.7-2 ended normally after 41 iterations
 #> 
 #>   Estimator                                         ML
 #>   Optimization method                           NLMINB

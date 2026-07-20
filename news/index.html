@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">semptools</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3.19</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,38 +48,47 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.3.3.19" id="semptools-03319">semptools 0.3.3.19<a class="anchor" aria-label="anchor" href="#semptools-03319"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.4.0" id="semptools-040">semptools 0.4.0<a class="anchor" aria-label="anchor" href="#semptools-040"></a></h2>
 <div class="section level3">
-<h3 id="improvement-0-3-3-19">Improvement<a class="anchor" aria-label="anchor" href="#improvement-0-3-3-19"></a></h3>
-<ul><li><p>Updated <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> to skip edges not in a plot, without throwing an error. (0.3.3.2)</p></li>
-<li><p>Added the argument <code>check_direction</code> to <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> and related functions. If set to <code>FALSE</code>, then the direction of an edge will be ignored. That is, both <code>y ~ x</code> and <code>y ~~ x</code> will denote edges <code>y &lt;- x</code>, <code>y -&gt; x</code>, and <code>y &lt;-&gt; x</code>. (0.3.3.3)</p></li>
-<li><p>Updated <code><a href="../reference/add_rsq.html">add_rsq()</a></code>, <code><a href="../reference/mark_se.html">mark_se()</a></code>, <code><a href="../reference/mark_se.html">mark_ci()</a></code>, and <code><a href="../reference/mark_sig.html">mark_sig()</a></code> to store the fit object in the plot. When <code>object</code> is not set but has been stored in a plot, these functions will retrieve the stored fit object. This makes it not necessary to supply the same fit object in all calls to these functions. (0.3.3.4)</p></li>
-<li><p>Updated <code><a href="../reference/layout_matrix.html">layout_matrix()</a></code> to ensure that the output always has at least three columns. (0.3.3.5)</p></li>
-<li><p>Updated <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code> to set the attributes of all nodes using one value. (0.3.3.6)</p></li>
-<li><p>Updated <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> to set the attributes of all nodes using one value. (0.3.3.7)</p></li>
-<li><p>Added <code><a href="../reference/set_node_color.html">set_node_color()</a></code>, <code><a href="../reference/set_node_size.html">set_node_height()</a></code>, <code><a href="../reference/set_node_label.html">set_node_label_color()</a></code>, <code><a href="../reference/set_node_label.html">set_node_label_size()</a></code>, <code><a href="../reference/set_node_size.html">set_node_shape()</a></code>, <code>set_node_sizes()</code>, <code><a href="../reference/set_node_size.html">set_node_width()</a></code>. (0.3.3.8)</p></li>
-<li><p>Removed <code>nChar = 0</code> in some tests to allow testing functions with abbreviated names. Also revised some functions to make them work for both the original names of nodes and their display names, which may be abbreviated. (0.3.3.9)</p></li>
-<li><p>Updated <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code> to use new helpers, so that it is easier to work with original node names, processed (e.g., abbreviated) node names, and labels (converted to string, if necessary). (0.3.3.10)</p></li>
-<li><p>Updated node functions to use <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code> as applicable. (0.3.3.11)</p></li>
-<li><p>Added <code><a href="../reference/get_node_attribute.html">get_node_attribute()</a></code>. (0.3.3.12)</p></li>
-<li><p>Added <code><a href="../reference/get_edge_attribute.html">get_edge_attribute()</a></code>. (0.3.3.13)</p></li>
-<li><p>Added <code><a href="../reference/set_edge_label_attributes.html">set_edge_label()</a></code> and <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_bg()</a></code>. (0.3.3.14)</p></li>
-<li><p>Added <code><a href="../reference/set_edge_line_type.html">set_edge_line_type()</a></code>. (0.3.3.14)</p></li>
-<li><p>Added the <code>how</code> argument to <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code>, <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code>, and friends (if applicable). The default mode is <code>how = "ratio"</code> if applicable. (0.3.3.14)</p></li>
-<li><p>Added <code><a href="../reference/set_edge_line_width.html">set_edge_line_width()</a></code>. (0.3.3.14)</p></li>
-<li><p>Added <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_size()</a></code>. (0.3.3.14)</p></li>
-<li><p>Added <code><a href="../reference/set_node_border.html">set_node_border_width()</a></code>, and <code><a href="../reference/set_node_border.html">set_node_border_color()</a></code>. (0.3.3.14)</p></li>
+<h3 id="new-features-0-4-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-4-0"></a></h3>
+<ul><li><p>Added <code><a href="../reference/set_node_color.html">set_node_color()</a></code>, <code><a href="../reference/set_node_size.html">set_node_height()</a></code>, <code><a href="../reference/set_node_label.html">set_node_label_color()</a></code>, <code><a href="../reference/set_node_label.html">set_node_label_size()</a></code>, <code><a href="../reference/set_node_size.html">set_node_shape()</a></code>, <code>set_node_sizes()</code>, <code><a href="../reference/set_node_size.html">set_node_width()</a></code>, <code><a href="../reference/set_node_border.html">set_node_border_width()</a></code>, and <code><a href="../reference/set_node_border.html">set_node_border_color()</a></code>. (0.3.3.8, 0.3.3.14)</p></li>
+<li><p>Added <code><a href="../reference/set_edge_label_attributes.html">set_edge_label()</a></code>, <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_bg()</a></code>, <code><a href="../reference/set_edge_line_type.html">set_edge_line_type()</a></code>, <code><a href="../reference/set_edge_line_width.html">set_edge_line_width()</a></code>, and <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_size()</a></code>. (0.3.3.14)</p></li>
+<li><p>Added <code><a href="../reference/get_node_attribute.html">get_node_attribute()</a></code> and <code><a href="../reference/get_edge_attribute.html">get_edge_attribute()</a></code>. (0.3.3.12, 0.3.3.13)</p></li>
 <li><p>Added <code><a href="../reference/set_graph_attributes.html">set_graph_margins()</a></code>, <code><a href="../reference/set_graph_attributes.html">node_labels_equal_scale()</a></code>, and <code><a href="../reference/set_graph_attributes.html">set_node_labels_equal_scale()</a></code>. (0.3.3.15)</p></li>
-<li><p>Updated these functions to support a list of <code>qgraph</code> objects: <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code>, <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code>, <code><a href="../reference/rotate_resid.html">rotate_resid()</a></code>, <code><a href="../reference/set_curve.html">set_curve()</a></code>, <code><a href="../reference/set_edge_color.html">set_edge_color()</a></code>, <code><a href="../reference/set_edge_label_attributes.html">set_edge_label()</a></code>, <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_bg()</a></code>, <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_position()</a></code>, <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_size()</a></code>, <code><a href="../reference/set_edge_line_type.html">set_edge_line_type()</a></code>, <code><a href="../reference/set_edge_line_width.html">set_edge_line_width()</a></code>, <code><a href="../reference/set_node_border.html">set_node_border_color()</a></code>, <code><a href="../reference/set_node_border.html">set_node_border_width()</a></code>, <code><a href="../reference/set_node_color.html">set_node_color()</a></code>, <code><a href="../reference/set_node_size.html">set_node_height()</a></code>, <code><a href="../reference/set_node_label.html">set_node_label_color()</a></code>, <code><a href="../reference/set_node_label.html">set_node_label_size()</a></code>, <code><a href="../reference/set_node_size.html">set_node_shape()</a></code>, <code><a href="../reference/set_node_size.html">set_node_size()</a></code>, <code><a href="../reference/set_node_size.html">set_node_width()</a></code>, <code><a href="../reference/move_node.html">move_node()</a></code>, <code><a href="../reference/set_graph_attributes.html">node_labels_equal_scale()</a></code>, <code><a href="../reference/rescale_layout.html">rescale_layout()</a></code>, <code><a href="../reference/set_graph_attributes.html">set_graph_margins()</a></code>, <code><a href="../reference/set_graph_attributes.html">set_node_labels_equal_scale()</a></code>, and <code><a href="../reference/change_node_label.html">change_node_label()</a></code>. (0.3.3.16)</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="improvement-0-4-0">Improvement<a class="anchor" aria-label="anchor" href="#improvement-0-4-0"></a></h3>
+<div class="section level4">
+<h4 id="support-for-a-list-of-qgraph-objects-0-4-0">Support for a List of <code>qgraph</code> Objects<a class="anchor" aria-label="anchor" href="#support-for-a-list-of-qgraph-objects-0-4-0"></a></h4>
+<ul><li><p>Updated these functions to support a list of <code>qgraph</code> objects: <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code>, <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code>, <code><a href="../reference/rotate_resid.html">rotate_resid()</a></code>, <code><a href="../reference/set_curve.html">set_curve()</a></code>, <code><a href="../reference/set_edge_color.html">set_edge_color()</a></code>, <code><a href="../reference/set_edge_label_attributes.html">set_edge_label()</a></code>, <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_bg()</a></code>, <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_position()</a></code>, <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_size()</a></code>, <code><a href="../reference/set_edge_line_type.html">set_edge_line_type()</a></code>, <code><a href="../reference/set_edge_line_width.html">set_edge_line_width()</a></code>, <code><a href="../reference/set_node_border.html">set_node_border_color()</a></code>, <code><a href="../reference/set_node_border.html">set_node_border_width()</a></code>, <code><a href="../reference/set_node_color.html">set_node_color()</a></code>, <code><a href="../reference/set_node_size.html">set_node_height()</a></code>, <code><a href="../reference/set_node_label.html">set_node_label_color()</a></code>, <code><a href="../reference/set_node_label.html">set_node_label_size()</a></code>, <code><a href="../reference/set_node_size.html">set_node_shape()</a></code>, <code><a href="../reference/set_node_size.html">set_node_size()</a></code>, <code><a href="../reference/set_node_size.html">set_node_width()</a></code>, <code><a href="../reference/move_node.html">move_node()</a></code>, <code><a href="../reference/set_graph_attributes.html">node_labels_equal_scale()</a></code>, <code><a href="../reference/rescale_layout.html">rescale_layout()</a></code>, <code><a href="../reference/set_graph_attributes.html">set_graph_margins()</a></code>, <code><a href="../reference/set_graph_attributes.html">set_node_labels_equal_scale()</a></code>, and <code><a href="../reference/change_node_label.html">change_node_label()</a></code>. (0.3.3.16)</p></li>
 <li><p>Updated <code><a href="../reference/get_node_attribute.html">get_node_attribute()</a></code> and <code><a href="../reference/get_edge_attribute.html">get_edge_attribute()</a></code> to work with a list of <code>qgraph</code> objects, though they will only get the attribute values from the first object. (0.3.3.16)</p></li>
 <li><p>Updated these functions to support a list of <code>qgraph</code> objects: <code><a href="../reference/add_rsq.html">add_rsq()</a></code>, <code><a href="../reference/auto_layout_mediation.html">auto_layout_mediation()</a></code>, <code><a href="../reference/safe_edge_label_position.html">safe_edge_label_position()</a></code>, <code><a href="../reference/safe_resid_position.html">safe_resid_position()</a></code>, <code><a href="../reference/set_cfa_layout.html">set_cfa_layout()</a></code>, <code><a href="../reference/set_sem_layout.html">set_sem_layout()</a></code>. (0.3.3.17)</p></li>
 </ul></div>
+<div class="section level4">
+<h4 id="updates-to-set_edge_attribute-and-set_edge_attribute-0-4-0">Updates to <code>set_edge_attribute()</code> and <code>set_edge_attribute()</code>
+<a class="anchor" aria-label="anchor" href="#updates-to-set_edge_attribute-and-set_edge_attribute-0-4-0"></a></h4>
+<ul><li><p>Updated <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> to skip edges not in a plot, without throwing an error. (0.3.3.2)</p></li>
+<li><p>Added the argument <code>check_direction</code> to <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> and related functions. If set to <code>FALSE</code>, then the direction of an edge will be ignored. That is, both <code>y ~ x</code> and <code>y ~~ x</code> will denote edges <code>y &lt;- x</code>, <code>y -&gt; x</code>, and <code>y &lt;-&gt; x</code>. (0.3.3.3)</p></li>
+<li><p>Updated <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> to set the attributes of all nodes using one value. (0.3.3.7)</p></li>
+<li><p>Updated <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code> to set the attributes of all nodes using one value. (0.3.3.6)</p></li>
+<li><p>Updated <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code> to use new helpers, so that it is easier to work with original node names, processed (e.g., abbreviated) node names, and labels (converted to string, if necessary). (0.3.3.10)</p></li>
+<li><p>Added the <code>how</code> argument to <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code>, <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code>, and friends (if applicable). The default mode is <code>how = "ratio"</code> if applicable. (0.3.3.14)</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="others-0-4-0">Others<a class="anchor" aria-label="anchor" href="#others-0-4-0"></a></h4>
+<ul><li><p>Updated node functions to use <code><a href="../reference/set_node_attribute.html">set_node_attribute()</a></code> as applicable. (0.3.3.11)</p></li>
+<li><p>Updated <code><a href="../reference/add_rsq.html">add_rsq()</a></code>, <code><a href="../reference/mark_se.html">mark_se()</a></code>, <code><a href="../reference/mark_se.html">mark_ci()</a></code>, and <code><a href="../reference/mark_sig.html">mark_sig()</a></code> to store the fit object in the plot. When <code>object</code> is not set but has been stored in a plot, these functions will retrieve the stored fit object. This makes it not necessary to supply the same fit object in all calls to these functions. (0.3.3.4)</p></li>
+<li><p>Updated <code><a href="../reference/layout_matrix.html">layout_matrix()</a></code> to ensure that the output always has at least three columns. (0.3.3.5)</p></li>
+</ul></div>
+</div>
 <div class="section level3">
-<h3 id="miscellaneous-0-3-3-19">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-3-3-19"></a></h3>
-<ul><li><p>Updated to <code>roxygen2</code> 8.0.0. (0.3.3.1)</p></li>
+<h3 id="miscellaneous-0-4-0">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-4-0"></a></h3>
+<ul><li><p>Removed <code>nChar = 0</code> in some tests to allow testing functions with abbreviated names. Also revised some functions to make them work for both the original names of nodes and their display names, which may be abbreviated. (0.3.3.9)</p></li>
+<li><p>Updated to <code>roxygen2</code> 8.0.0. (0.3.3.1)</p></li>
 <li><p>Updated <code><a href="../reference/set_curve.html">set_curve()</a></code> and <code><a href="../reference/set_edge_label_attributes.html">set_edge_label_position()</a></code>, to use <code><a href="../reference/set_edge_attribute.html">set_edge_attribute()</a></code> internally. (0.3.3.2)</p></li>
 <li><p>Updated some pages in the <code>pkgdown</code> site. (0.3.3.18)</p></li>
 <li><p>Fixed a multigroup bug in <code><a href="../reference/mark_sig.html">mark_sig()</a></code>. (0.3.3.19)</p></li>
+<li><p>Updated some tests to work if the <code>lavaan</code> option <code>auto.cov.x</code> is set to <code>TRUE</code>. (0.3.3.20)</p></li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -274,7 +283,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>
